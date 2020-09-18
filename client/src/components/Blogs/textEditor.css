@@ -1,0 +1,13 @@
+@import '~quill/dist/quill.core.css';
+/* Because CSS files were not getting imported */
+
+.ql-editor {
+  font-size: 20px;
+  font-family: "muli", "sans-serif"
+}
+
+@media only screen and (max-width: 770px) {
+  .ql-editor {
+    font-size: 100%;
+  }
+}

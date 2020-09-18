@@ -1,0 +1,46 @@
+html {
+  font-size: 100%;
+  /* background-color: #f8fafc !important; */
+}
+
+body {
+  font-family: muli, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  margin: 0;
+  /* Margin 0 is important otherwise the elements start behaving by adding margin */
+}
+
+.MuiAccordionSummary-root {
+  padding: "0px 8px"
+}
+
+/*Test */
+.MuiCardContent-root:last-child {
+  padding-bottom: 24px;
+  padding: 24px;
+}
+
+/* .subjectGrid:hover {} */
+
+.slick-slide iframe {
+  margin: auto;
+}
+
+.active {
+  padding: 16px;
+  border-bottom: 6px solid #0F7DC2;
+  pointer-events: none;
+}
+
+.freebirdFormviewerViewCenteredContent {
+  width: 90% !important;
+}
+
+@media only screen and (max-width: 950px) {
+  .active {
+    font-weight: bold !important;
+    color: #0F7DC2 !important;
+    border-bottom: 0px;
+  }
+}

@@ -1,0 +1,378 @@
+import React, { useState } from "react";
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import CounsellingImageNew from "../../compressed/counsellingNew.svg";
+import CounsellingImageNewPhone from "../../compressed/counsellingNewPhone.svg";
+import PhoneInTalkIcon from "@material-ui/icons/PhoneInTalk";
+import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
+import MessageIcon from "@material-ui/icons/Message";
+// import Tick from "../../compressed/tick.svg";
+// import mentoringStroke from "../../compressed/mentoringStroke.svg";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles({
+  counselling: {
+    marginTop: "20px",
+    "@media only screen and (max-width: 770px)": {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      fontSize: "1rem !important"
+    }
+  },
+  blueImage: {
+    width: "380px",
+    cursor: "pointer",
+    zIndex: "-1",
+    "@media only screen and (max-width: 982px)": {
+      width: "280px"
+    },
+    "@media only screen and (max-width: 770px)": {
+      width: "380px",
+      position: "initial",
+      marginTop: "-10px"
+    }
+  },
+  paper: {
+    backgroundColor: "transparent",
+    maxWidth: "753px"
+  },
+  heading: {
+    letterSpacing: "1px",
+    fontSize: "1.1rem",
+    marginTop: "-77px",
+    cursor: "pointer",
+    "@media only screen and (max-width: 1100px)": {
+      marginLeft: "25px"
+    },
+    "@media only screen and (max-width: 982px)": {
+      marginTop: "-70px",
+      marginLeft: "0px"
+    },
+    "@media only screen and (max-width: 770px)": {
+      width: "auto",
+      marginTop: "-20.5%",
+      marginLeft: "0px"
+    }
+  },
+  getFree: {
+    marginTop: "0px",
+    marginBottom: "0px",
+    "@media only screen and (max-width: 770px)": {
+      fontSize: "90%",
+      marginTop: "0px",
+      marginBottom: "initial"
+    },
+    "@media only screen and (max-width: 670px)": {
+      fontSize: "115%"
+    }
+  },
+  mentroingSession: {
+    marginBottom: "20px",
+    marginTop: "12px",
+    "@media only screen and (max-width: 770px)": {
+      fontSize: "90%"
+    },
+    "@media only screen and (max-width: 670px)": {
+      marginBottom: "10px",
+      fontSize: "115%"
+    }
+  },
+  section: {
+    position: "absolute",
+    top: "14%",
+    left: "12%",
+    right: "40%",
+    bottom: "10%",
+    textAlign: "center",
+    "@media only screen and (max-width: 770px)": {
+      top: "20%"
+    },
+    "@media only screen and (max-width: 670px)": {
+      top: "10%",
+      fontSize: "8px !important",
+      left: "10%"
+    }
+  },
+  imageWeb: {
+    visibility: "initial",
+    "@media only screen and (max-width: 670px)": {
+      display: "none",
+      height: "300px"
+    }
+  },
+  image: {
+    visibility: "initial",
+    display: "none",
+    "@media only screen and (max-width: 670px)": {
+      height: "300px",
+      display: "initial"
+    }
+  },
+  // image: {
+  //   visibility: "initial",
+  //   "@media only screen and (min-width: 770px)": {
+  //     height: "300px",
+  //     display: "none"
+  //   }
+  // },
+  subSection: {
+    position: "relative",
+    height: "30px",
+    width: "280px",
+    marginLeft: "auto",
+    marginRight: "auto",
+    display: "flex",
+    alignItems: "center",
+    border: "1px solid",
+    borderRadius: "8px",
+    "@media only screen and (max-width: 770px)": {
+      width: "auto",
+      height: "auto"
+    }
+  },
+  icons: {
+    marginLeft: "5%"
+  },
+  inputPhone: {
+    paddingLeft: "65px",
+    borderTopStyle: "hidden",
+    borderRightStyle: "hidden",
+    borderLeftStyle: "hidden",
+    borderBottomStyle: "hidden",
+    "@media only screen and (max-width: 670px)": {
+      fontSize: "10px",
+      width: "110px",
+      paddingLeft: "6%"
+    }
+  },
+  messages: {
+    marginLeft: "30px",
+    marginTop: "25px",
+    "@media only screen and (max-width: 670px)": {
+      marginLeft: "0px",
+      marginTop: "0px",
+      fontSize: "10px",
+      paddingTop: "9%",
+      width: "160%"
+    }
+  },
+  message: {
+    display: "flex",
+    alignItems: "center",
+    marginBottom: "10px"
+  },
+  tickImage: {
+    "@media only screen and (max-width: 770px)": {
+      width: "13px"
+    }
+  },
+  button: {
+    marginTop: "15px",
+    "@media only screen and (max-width: 770px)": {
+      marginTop: "0px"
+    }
+  }
+});
+
+function Counselling() {
+  const classes = useStyles();
+  const [open, setOpen] = useState(false);
+  const [parentname, setParent] = useState("");
+  const [phone, setPhone] = useState("");
+  const [otp, setOtp] = useState("");
+  const [status, setStatus] = useState("");
+  const [valid, setValid] = useState("");
+
+  const SendOtp = () => {
+    fetch(`/sendotp?phonenumber=+91${phone}&channel=sms`, {
+      method: "get"
+    })
+      .then((res) => res.json())
+      .then((message) => {
+        // console.log(message);
+        setStatus(message.status);
+        if (message.error) {
+          console.log(message.error);
+        }
+      });
+  };
+  const VerifyOtp = () => {
+    fetch(`/verify?phonenumber=+91${phone}&code=${otp}`, {
+      method: "get"
+    })
+      .then((res) => res.json())
+      .then((message) => {
+        setValid(message.valid);
+        // console.log(message.valid);
+        setStatus(message.status);
+        if (message.valid === true) {
+          SendDetails();
+        }
+        if (message.error) {
+          console.log(message.error);
+        }
+      });
+  };
+
+  const SendDetails = () => {
+    fetch("/send-mail", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        parentname,
+        phone
+      })
+    })
+      .then((res) => res.json())
+      .then((message) => {
+        console.log(message);
+        if (message.error) {
+          console.log(message.error);
+        } else {
+          console.log(message.message);
+        }
+      });
+  };
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  return (
+    <div className={classes.counselling}>
+      <span onClick={handleClickOpen}>
+        <img src="https://res.cloudinary.com/rweb1/image/upload/v1600243284/Assets/images/mentoringStroke_doj1ve.svg" alt="Stroke" className={classes.blueImage} />
+        <h1 className={classes.heading}>Book a Free Mentoring Session</h1>
+      </span>
+
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        maxWidth="md"
+        style={{ backgroundColor: "rgba(0, 0, 0, 0.7)" }}
+        classes={{
+          paper: classes.paper
+        }}
+      >
+        {/* <img alt="Counselling" src="https://res.cloudinary.com/rweb1/image/upload/v1600243280/Assets/images/counsellingNew_vrn64m.svg" className={classes.image} /> */}
+        <img alt="Counselling" src={CounsellingImageNew} className={classes.imageWeb} />
+        <img alt="Counselling" src={CounsellingImageNewPhone} className={classes.image} />
+        <div className={classes.section}>
+          <h2 className={classes.getFree}>Get a Free Demo</h2>
+          <h2 className={classes.mentroingSession}>Cum Mentoring Session</h2>
+          {status === "" && (
+            <div>
+              <div className={classes.subSection}>
+                <PersonOutlineIcon color="secondary" className={classes.icons} />
+                <input
+                  type="text"
+                  name="parentname"
+                  id="parentname"
+                  className={`form-control ${classes.inputPhone}`}
+                  placeholder="Parent's Name"
+                  autoComplete="off"
+                  maxLength="15"
+                  required="required"
+                  value={parentname}
+                  onChange={(e) => setParent(e.target.value)}
+                />
+              </div>
+              <div className={classes.subSection} style={{ marginTop: "10px" }}>
+                <PhoneInTalkIcon color="secondary" className={classes.icons} />
+                <input
+                  type="tel"
+                  name="number"
+                  id="mobileNumber"
+                  className={`form-control ${classes.inputPhone}`}
+                  placeholder="Enter Mobile number"
+                  autoComplete="off"
+                  maxLength="10"
+                  required="required"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                />
+              </div>
+              <div className={classes.messages}>
+                {["Identify strengths & weaknesses", "Recommends a study plan", "One to One home/online tuition", "Mastering a weak topic"].map((message, index) => (
+                  <div className={classes.message} key={index}>
+                    <img src="https://res.cloudinary.com/rweb1/image/upload/v1600243272/Assets/images/tick_nz85rm.svg" alt="tick" className={classes.tickImage} />
+                    <h4 style={{ margin: "auto", marginLeft: "10px" }}>{message}</h4>
+                  </div>
+                ))}
+              </div>
+              <Button variant="contained" color="secondary" disableElevation className={classes.button} size="small" onClick={() => SendOtp()}>
+                Proceed
+              </Button>
+            </div>
+          )}
+
+          {status === "pending" && (
+            <div>
+              <div className={classes.messages} style={{ width: "95%", marginLeft: "0px" }}>
+                <div className={classes.message}>
+                  <h2 style={{ margin: "auto", marginTop: "20px", color: "#0F7DC2" }}>Login with OTP</h2>
+                </div>
+                <div className={classes.message}>
+                  <h3 style={{ margin: "auto", marginLeft: "10px", color: "gray" }}>We have sent an SMS with OTP to +91-{phone}</h3>
+                </div>
+              </div>
+              <div className={classes.subSection} style={{ marginTop: "15px", marginBottom: "10px" }}>
+                <MessageIcon color="secondary" className={classes.icons} />
+                <input
+                  type="tel"
+                  name="otp"
+                  id="verifyotp"
+                  className={`form-control ${classes.inputPhone}`}
+                  placeholder="Enter OTP"
+                  autoComplete="off"
+                  maxLength="6"
+                  required="required"
+                  value={otp}
+                  onChange={(e) => setOtp(e.target.value)}
+                />
+              </div>
+              {valid === false && <h4 style={{ margin: "auto", marginLeft: "10px", color: "red", marginBottom: "10px" }}>The OTP entered is incorrect, Try again</h4>}
+              <div style={{ display: "flex", margin: "auto", justifyContent: "center" }}>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="secondary"
+                  disableElevation
+                  className={classes.button}
+                  style={{ marginRight: "10px", height: "10%" }}
+                  size="small"
+                  onClick={() => VerifyOtp()}
+                >
+                  Verify
+                </Button>
+                {valid === false && (
+                  <Button type="submit" variant="contained" color="secondary" disableElevation className={classes.button} style={{ height: "10%" }} size="small" onClick={() => SendOtp()}>
+                    Resend OTP
+                  </Button>
+                )}
+              </div>
+            </div>
+          )}
+
+          {status === "approved" && (
+            <div style={{ marginTop: "60px" }}>
+              <h2 style={{ color: "#0F7DC2" }}>Your request has been successfully submitted.</h2>
+              <h3 style={{ color: "gray" }}>Team Resillience will contact you soon!</h3>
+            </div>
+          )}
+        </div>
+      </Dialog>
+    </div>
+  );
+}
+
+export default Counselling;

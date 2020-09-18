@@ -1,0 +1,177 @@
+[{
+    "examName": "JEE MAINS",
+    "testType": []
+  },
+  {
+    "examName": "JEE ADVANCED",
+    "testType": [{
+      "typeName": "ChapterWise",
+      "subjects": [{
+          "name": "Physics",
+          "chapters": [{
+            "chapterName": "Electric Charges and Fields.",
+            "testName": [{
+              "name": "Electric Charges Test 1",
+              "totalNoOfQues": 3,
+              "questionPaper": [{
+                "q1": "STRING",
+                "q2": "STRING",
+                "q3": "STRING"
+              }]
+            }, {
+              "name": "Electric Charges Test 2"
+            }, {
+              "name": "Electric Charges Test 3"
+            }]
+          }, {
+            "chapterName": "Electrostatic Potential and Capacitance.",
+            "testName": [{
+              "name": "Electrostatic Potential and Capacitance. Test 1"
+            }, {
+              "name": "Electrostatic Potential and Capacitance. Test 2"
+            }, {
+              "name": "Electrostatic Potential and Capacitance. Test 3"
+            }]
+          }, {
+            "chapterName": "Current Electricity..",
+            "testName": [{
+              "name": "Current Electricity.. Test 1"
+            }, {
+              "name": "Current Electricity.. Test 2"
+            }, {
+              "name": "Current Electricity.. Test 3"
+            }]
+          }, {
+            "chapterName": "Moving Charges and Magnetism."
+          }, {
+            "chapterName": "Magnetism and Matter."
+          }]
+        },
+        {
+          "name": "Chemistry",
+          "chapters": [{
+            "chapterName": "Electric Charges and Fields."
+          }, {
+            "chapterName": "Electrostatic Potential and Capacitance."
+          }, {
+            "chapterName": "Current Electricity.."
+          }, {
+            "chapterName": "Moving Charges and Magnetism."
+          }, {
+            "chapterName": "Magnetism and Matter."
+          }]
+        }, {
+          "name": "Maths",
+          "chapters": [{
+            "chapterName": "Electric Charges and Fields."
+          }, {
+            "chapterName": "Electrostatic Potential and Capacitance."
+          }, {
+            "chapterName": "Current Electricity.."
+          }, {
+            "chapterName": "Moving Charges and Magnetism."
+          }, {
+            "chapterName": "Magnetism and Matter."
+          }]
+        }
+      ]
+
+    }, {
+      "typeName": "Full Test",
+      "fullTest": [{
+        "name": "JEE MAINS 1"
+      }, {
+        "name": "JEE MAINS 2"
+      }, {
+        "name": "JEE MAINS 3"
+      }, {
+        "name": "JEE MAINS 4"
+      }]
+    }, {
+      "typeName": "Part Test"
+    }]
+  },
+  {
+    "examName": "NEET",
+    "testType": [{
+      "typeName": "ChapterWise",
+      "subjects": [{
+          "name": "Physics",
+          "chapters": [{
+            "chapterName": "Electric Charges and Fields.",
+            "testName": [{
+              "name": "Electric Charges Test 1"
+            }, {
+              "name": "Electric Charges Test 2"
+            }, {
+              "name": "Electric Charges Test 3"
+            }]
+          }, {
+            "chapterName": "Electrostatic Potential and Capacitance.",
+            "testName": [{
+              "name": "Electrostatic Potential and Capacitance. Test 1"
+            }, {
+              "name": "Electrostatic Potential and Capacitance. Test 2"
+            }, {
+              "name": "Electrostatic Potential and Capacitance. Test 3"
+            }]
+          }, {
+            "chapterName": "Current Electricity..",
+            "testName": [{
+              "name": "Current Electricity.. Test 1"
+            }, {
+              "name": "Current Electricity.. Test 2"
+            }, {
+              "name": "Current Electricity.. Test 3"
+            }]
+          }, {
+            "chapterName": "Moving Charges and Magnetism."
+          }, {
+            "chapterName": "Magnetism and Matter."
+          }]
+        },
+        {
+          "name": "Chemistry",
+          "chapters": [{
+            "chapterName": "Electric Charges and Fields."
+          }, {
+            "chapterName": "Electrostatic Potential and Capacitance."
+          }, {
+            "chapterName": "Current Electricity.."
+          }, {
+            "chapterName": "Moving Charges and Magnetism."
+          }, {
+            "chapterName": "Magnetism and Matter."
+          }]
+        }, {
+          "name": "Maths",
+          "chapters": [{
+            "chapterName": "Electric Charges and Fields."
+          }, {
+            "chapterName": "Electrostatic Potential and Capacitance."
+          }, {
+            "chapterName": "Current Electricity.."
+          }, {
+            "chapterName": "Moving Charges and Magnetism."
+          }, {
+            "chapterName": "Magnetism and Matter."
+          }]
+        }
+      ]
+
+    }, {
+      "typeName": "Full Test",
+      "fullTest": [{
+        "name": "JEE MAINS 1"
+      }, {
+        "name": "JEE MAINS 2"
+      }, {
+        "name": "JEE MAINS 3"
+      }, {
+        "name": "JEE MAINS 4"
+      }]
+    }, {
+      "typeName": "Part Test"
+    }]
+  }
+]

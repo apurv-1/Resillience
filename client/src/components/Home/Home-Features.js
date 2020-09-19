@@ -63,10 +63,7 @@ const styles = () => ({
     }
   },
   fHeading: {
-    padding: "0 7% 7% 7%",
-    "&:hover": {
-      color: "#6b6b6b"
-    }
+    padding: "0 7% 7% 7%"
   },
   readMore: {
     paddingBottom: "5%",
@@ -105,7 +102,7 @@ function HomeFeatures(props) {
               <Typography variant="h6" color="primary" className={classes.fHeading}>
                 1-on-1 Live Online Tuition anywhere
               </Typography>
-              <Link to="/tuitions/one-on-one-live-tuitions" style={{ textDecoration: "none" }}>
+              <Link to="/tuitions/one-on-one-online-tuitions" style={{ textDecoration: "none" }}>
                 <Typography variant="body1" color="primary" className={classes.readMore}>
                   READ MORE -
                 </Typography>

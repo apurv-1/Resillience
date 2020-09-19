@@ -17,7 +17,8 @@ const useStyles = makeStyles({
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      fontSize: "1rem !important"
+      fontSize: "1rem !important",
+      marginLeft: "-2%"
     }
   },
   designedText: {
@@ -42,9 +43,10 @@ const useStyles = makeStyles({
       width: "250px"
     },
     "@media only screen and (max-width: 880px)": {
-      width: "200px"
+      width: "225px"
     },
     "@media only screen and (max-width: 770px)": {
+      width: "350px",
       position: "initial",
       marginTop: "-10px"
     }
@@ -66,40 +68,47 @@ const useStyles = makeStyles({
     },
     "@media only screen and (max-width: 950px)": {
       fontSize: "1.25rem",
-      marginTop: "20px",
+      marginTop: "18px",
       marginLeft: "35px"
     },
     "@media only screen and (max-width: 880px)": {
-      fontSize: "1rem",
+      fontSize: "1.05rem",
       marginLeft: "28px"
     },
     "@media only screen and (max-width: 770px)": {
       width: "auto",
-      marginTop: "-21.5%",
+      marginTop: "-20.5%",
       marginLeft: "0px"
     }
   },
   getFree: {
     marginTop: "0px",
     marginBottom: "0px",
-    "@media only screen and (max-width: 770px)": {
-      fontSize: "90%",
+    "@media only screen and (max-width: 670px)": {
+      fontSize: "160%",
       marginTop: "0px",
       marginBottom: "initial"
     },
-    "@media only screen and (max-width: 670px)": {
-      fontSize: "115%"
+    "@media only screen and (max-width: 470px)": {
+      fontSize: "150%"
+    },
+    "@media only screen and (max-width: 330px)": {
+      fontSize: "80%"
     }
   },
   mentroingSession: {
     marginBottom: "20px",
     marginTop: "12px",
-    "@media only screen and (max-width: 770px)": {
-      fontSize: "90%"
-    },
     "@media only screen and (max-width: 670px)": {
-      marginBottom: "10px",
-      fontSize: "115%"
+      fontSize: "160%",
+      marginTop: "6px"
+    },
+    "@media only screen and (max-width: 470px)": {
+      marginBottom: "5px",
+      fontSize: "150%"
+    },
+    "@media only screen and (max-width: 330px)": {
+      fontSize: "80%"
     }
   },
   section: {
@@ -116,6 +125,9 @@ const useStyles = makeStyles({
       top: "10%",
       fontSize: "8px !important",
       left: "10%"
+    },
+    "@media only screen and (max-width: 330px)": {
+      top: "15%"
     }
   },
   imageWeb: {
@@ -178,7 +190,10 @@ const useStyles = makeStyles({
   message: {
     display: "flex",
     alignItems: "center",
-    marginBottom: "10px"
+    marginBottom: "10px",
+    "@media only screen and (max-width: 330px)": {
+      fontSize: "80%"
+    }
   },
   tickImage: {
     "@media only screen and (max-width: 770px)": {
@@ -189,6 +204,12 @@ const useStyles = makeStyles({
     marginTop: "15px",
     "@media only screen and (max-width: 770px)": {
       marginTop: "0px"
+    }
+  },
+  bookAFree: {
+    display: "none",
+    "@media only screen and (max-width: 770px)": {
+      display: "initial"
     }
   }
 });
@@ -270,14 +291,16 @@ function Counselling() {
   useEffect(() => {
     setTimeout(() => {
       setOpen(true);
-    }, 30000);
+    }, 25000);
   }, []);
 
   return (
     <div className={classes.counselling}>
       <span onClick={handleClickOpen} className={classes.designedText}>
         <img src="https://res.cloudinary.com/rweb1/image/upload/v1600243284/Assets/images/mentoringStroke_doj1ve.svg" alt="Stroke" className={classes.blueImage} />
-        <h1 className={classes.heading}>Mentoring Session</h1>
+        <h1 className={classes.heading}>
+          <span className={classes.bookAFree}>Book a FREE </span>Mentoring Session
+        </h1>
       </span>
       <Dialog
         open={open}
@@ -296,7 +319,6 @@ function Counselling() {
         <div className={classes.section}>
           <h2 className={classes.getFree}>Get a Free Demo</h2>
           <h2 className={classes.mentroingSession}>Cum Mentoring Session</h2>
-
           {status === "" && (
             <div>
               <div className={classes.subSection}>

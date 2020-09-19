@@ -55,6 +55,8 @@ const styles = () => ({
     paddingLeft: "8%",
     paddingRight: "3%",
     "@media only screen and (max-width: 770px)": {
+      marginTop: "40px",
+      marginBottom: "40px",
       paddingLeft: "0%",
       paddingRight: "0%"
     }
@@ -95,7 +97,10 @@ const styles = () => ({
   },
   areaMap: {
     width: "90vw",
-    height: "400px"
+    height: "400px",
+    "@media only screen and (max-width: 770px)": {
+      marginTop: "40px"
+    }
   }
 });
 

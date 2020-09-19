@@ -90,6 +90,9 @@ const styles = () => ({
     display: "flex",
     alignItems: "center",
     cursor: "pointer",
+    "&:hover": {
+      color: "#232127"
+    },
     "@media only screen and (max-width: 1050px)": {
       fontSize: "90%"
     },

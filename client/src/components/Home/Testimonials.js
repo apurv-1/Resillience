@@ -2,6 +2,7 @@ import React from "react";
 import Slider from "react-slick";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
+// import SakshamVideoIcon from "../../compressed/sakshamVideoIcon.svg";
 // import sakshamPhoto from "../../compressed/sakshamPhoto.png";
 
 import list from "./testimonialList";
@@ -63,8 +64,8 @@ function Testimonials(props) {
     dots: true,
     autoplay: true,
     infinite: true,
-    speed: 4000,
-    autoplaySpeed: 8000,
+    speed: 3000,
+    autoplaySpeed: 10000,
     slidesToShow: 3,
     slidesToScroll: 3,
     responsive: [
@@ -73,6 +74,7 @@ function Testimonials(props) {
         settings: {
           autoplay: true,
           slidesToShow: 2,
+          autoplaySpeed: 5000,
           slidesToScroll: 2,
           infinite: true,
           dots: true
@@ -83,6 +85,7 @@ function Testimonials(props) {
         settings: {
           autoplay: true,
           slidesToShow: 1,
+          autoplaySpeed: 2000,
           slidesToScroll: 1,
           initialSlide: 1
         }

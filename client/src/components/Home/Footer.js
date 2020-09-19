@@ -184,7 +184,7 @@ function Footer(props) {
             </p>
             <p className={classes.clickableIcon} onClick={() => (window.location.href = "/termsofservice")}>
               {" "}
-              &nbsp; Terms of service
+              &nbsp; Terms and Conditions
             </p>
           </span>
           <p>Resillience &copy; Copyright 2020.All rights reserved</p>

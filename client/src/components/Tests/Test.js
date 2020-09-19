@@ -69,7 +69,7 @@ function Tests(props) {
               <Grid className="subjectGrid" item xs={6} sm={3}>
                 <Paper className={classes.subjects} elevation={2}>
                   <img src="https://res.cloudinary.com/rweb1/image/upload/v1600243278/Assets/images/calculator_bx1b29.svg" className={classes.subjectImages} alt="Mathematics" />
-                  <Typography variant="body-2" className={classes.subjectName}>
+                  <Typography variant="body2" className={classes.subjectName}>
                     Mathematics
                   </Typography>
                 </Paper>
@@ -78,7 +78,7 @@ function Tests(props) {
               <Grid className="subjectGrid" item xs={6} sm={3}>
                 <Paper className={classes.subjects} elevation={2}>
                   <img src="https://res.cloudinary.com/rweb1/image/upload/v1600243284/Assets/images/magnet_sn2lhb.svg" className={classes.subjectImages} alt="Physics" />
-                  <Typography variant="body-2" className={classes.subjectName}>
+                  <Typography variant="body2" className={classes.subjectName}>
                     Physics
                   </Typography>
                 </Paper>
@@ -87,7 +87,7 @@ function Tests(props) {
               <Grid className="subjectGrid" item xs={6} sm={3}>
                 <Paper className={classes.subjects} elevation={2}>
                   <img src="https://res.cloudinary.com/rweb1/image/upload/v1600243282/Assets/images/lab_mbzxcr.svg" className={classes.subjectImages} alt="Chemsitry" />
-                  <Typography variant="body-2" className={classes.subjectName}>
+                  <Typography variant="body2" className={classes.subjectName}>
                     Chemistry
                   </Typography>
                 </Paper>
@@ -96,7 +96,7 @@ function Tests(props) {
               <Grid className="subjectGrid" item xs={6} sm={3}>
                 <Paper className={classes.subjects} elevation={2}>
                   <img src="https://res.cloudinary.com/rweb1/image/upload/v1600243276/Assets/images/blackboard_radrjv.svg" className={classes.subjectImages} alt="Foundation Classes" />
-                  <Typography variant="body-2" className={classes.subjectName}>
+                  <Typography variant="body2" className={classes.subjectName}>
                     Foundation Classes
                   </Typography>
                 </Paper>

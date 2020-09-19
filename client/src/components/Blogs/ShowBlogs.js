@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "react-quill/dist/quill.snow.css"; // ES6
 import "./textEditor.css";
-// import Image from "../../compressed/blogImage.svg";
+import Image from "../../compressed/blogImage.svg";
 
 //Material Ui
 import Card from "@material-ui/core/Card";
@@ -66,7 +66,7 @@ class Blog extends Component {
     const { classes } = this.props;
     return (
       <div className={classes.section}>
-        <img alt="BlogsBold" src="https://res.cloudinary.com/rweb1/image/upload/v1600243277/Assets/images/blogImage_h5fiap.svg" className={classes.image}></img>
+        <img alt="BlogsBold" src={Image} className={classes.image}></img>
         <div className={classes.grid}>
           {this.state.blogArray.map((eachBlog, index) => (
             <Card className={classes.root} key={index}>
@@ -77,7 +77,7 @@ class Blog extends Component {
                   height="250"
                   className={classes.media}
                   image="https://res.cloudinary.com/rweb1/image/upload/v1600321493/Assets/images/abhinav-blog-cover_dabuit.png"
-                  title="Contemplative Reptile"
+                  title="Resillience Home Tuition Image"
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h4" component="h2">

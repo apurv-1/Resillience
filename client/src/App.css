@@ -44,3 +44,10 @@ body {
     border-bottom: 0px;
   }
 }
+
+@media only screen and (max-width: 950px) {
+  .activeDropdown {
+    font-weight: bold !important;
+    color: #0F7DC2 !important;
+  }
+}

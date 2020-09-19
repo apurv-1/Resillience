@@ -4,6 +4,7 @@ import MuiAccordion from "@material-ui/core/Accordion";
 import MuiAccordionSummary from "@material-ui/core/AccordionSummary";
 import MuiAccordionDetails from "@material-ui/core/AccordionDetails";
 import Typography from "@material-ui/core/Typography";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 const Accordion = withStyles({
   root: {
@@ -47,7 +48,7 @@ const AccordionDetails = withStyles((theme) => ({
 }))(MuiAccordionDetails);
 
 export default function PrivacyPolicy() {
-  const [expanded, setExpanded] = React.useState("panel1");
+  const [expanded, setExpanded] = React.useState("");
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
@@ -57,7 +58,7 @@ export default function PrivacyPolicy() {
     <div style={{ margin: "5%", marginBottom: "-8%" }}>
       <h1>Privacy Policy</h1>
       <Accordion square expanded={expanded === "panel1"} onChange={handleChange("panel1")}>
-        <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
+        <AccordionSummary aria-controls="panel1d-content" id="panel1d-header" expandIcon={<ExpandMoreIcon />}>
           <Typography>Privacy Policy</Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -72,7 +73,7 @@ export default function PrivacyPolicy() {
       </Accordion>
       <h2>Interpretation and Definitions</h2>
       <Accordion square expanded={expanded === "panel2"} onChange={handleChange("panel2")}>
-        <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
+        <AccordionSummary aria-controls="panel2d-content" id="panel2d-header" expandIcon={<ExpandMoreIcon />}>
           <Typography>Interpretation</Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -83,7 +84,7 @@ export default function PrivacyPolicy() {
         </AccordionDetails>
       </Accordion>
       <Accordion square expanded={expanded === "panel3"} onChange={handleChange("panel3")}>
-        <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
+        <AccordionSummary aria-controls="panel3d-content" id="panel3d-header" expandIcon={<ExpandMoreIcon />}>
           <Typography>Definitions</Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -122,7 +123,7 @@ export default function PrivacyPolicy() {
       <h2>Collecting and Using Your Personal Data</h2>
       <h3>Types of Data Collected</h3>
       <Accordion square expanded={expanded === "panel4"} onChange={handleChange("panel4")}>
-        <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
+        <AccordionSummary aria-controls="panel2d-content" id="panel2d-header" expandIcon={<ExpandMoreIcon />}>
           <Typography>Personal Data</Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -143,7 +144,7 @@ export default function PrivacyPolicy() {
         </AccordionDetails>
       </Accordion>
       <Accordion square expanded={expanded === "panel5"} onChange={handleChange("panel5")}>
-        <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
+        <AccordionSummary aria-controls="panel3d-content" id="panel3d-header" expandIcon={<ExpandMoreIcon />}>
           <Typography>Usage Data</Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -162,7 +163,7 @@ export default function PrivacyPolicy() {
       </Accordion>
       <h2>Collecting and Using Your Personal Data</h2>
       <Accordion square expanded={expanded === "panel6"} onChange={handleChange("panel6")}>
-        <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
+        <AccordionSummary aria-controls="panel3d-content" id="panel3d-header" expandIcon={<ExpandMoreIcon />}>
           <Typography>Usage Data</Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -180,7 +181,7 @@ export default function PrivacyPolicy() {
         </AccordionDetails>
       </Accordion>
       <Accordion square expanded={expanded === "panel7"} onChange={handleChange("panel7")}>
-        <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
+        <AccordionSummary aria-controls="panel3d-content" id="panel3d-header" expandIcon={<ExpandMoreIcon />}>
           <Typography>Tracking Technologies and Cookies</Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -227,7 +228,7 @@ export default function PrivacyPolicy() {
       </Accordion>
       <h2>Use of Your Personal Data</h2>
       <Accordion square expanded={expanded === "panel8"} onChange={handleChange("panel8")}>
-        <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
+        <AccordionSummary aria-controls="panel3d-content" id="panel3d-header" expandIcon={<ExpandMoreIcon />}>
           <Typography>Use of Your Personal Data</Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -271,7 +272,7 @@ export default function PrivacyPolicy() {
         </AccordionDetails>
       </Accordion>
       <Accordion square expanded={expanded === "panel9"} onChange={handleChange("panel9")}>
-        <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
+        <AccordionSummary aria-controls="panel3d-content" id="panel3d-header" expandIcon={<ExpandMoreIcon />}>
           <Typography>Retention of Your Personal Data</Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -286,7 +287,7 @@ export default function PrivacyPolicy() {
         </AccordionDetails>
       </Accordion>
       <Accordion square expanded={expanded === "panel10"} onChange={handleChange("panel10")}>
-        <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
+        <AccordionSummary aria-controls="panel3d-content" id="panel3d-header" expandIcon={<ExpandMoreIcon />}>
           <Typography>Transfer of Your Personal Data</Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -304,7 +305,7 @@ export default function PrivacyPolicy() {
       </Accordion>
       <h2>Disclosure of Your Personal Data</h2>
       <Accordion square expanded={expanded === "panel11"} onChange={handleChange("panel11")}>
-        <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
+        <AccordionSummary aria-controls="panel3d-content" id="panel3d-header" expandIcon={<ExpandMoreIcon />}>
           <Typography>Business Transactions</Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -315,7 +316,7 @@ export default function PrivacyPolicy() {
         </AccordionDetails>
       </Accordion>
       <Accordion square expanded={expanded === "panel12"} onChange={handleChange("panel12")}>
-        <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
+        <AccordionSummary aria-controls="panel3d-content" id="panel3d-header" expandIcon={<ExpandMoreIcon />}>
           <Typography>Law enforcement</Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -326,7 +327,7 @@ export default function PrivacyPolicy() {
         </AccordionDetails>
       </Accordion>
       <Accordion square expanded={expanded === "panel13"} onChange={handleChange("panel13")}>
-        <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
+        <AccordionSummary aria-controls="panel3d-content" id="panel3d-header" expandIcon={<ExpandMoreIcon />}>
           <Typography>Other legal requirements</Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -340,7 +341,7 @@ export default function PrivacyPolicy() {
         </AccordionDetails>
       </Accordion>
       <Accordion square expanded={expanded === "panel14"} onChange={handleChange("panel14")}>
-        <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
+        <AccordionSummary aria-controls="panel3d-content" id="panel3d-header" expandIcon={<ExpandMoreIcon />}>
           <Typography>Security of Your Personal Data</Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -352,7 +353,7 @@ export default function PrivacyPolicy() {
       </Accordion>
       <h2>Changes to this Privacy Policy</h2>
       <Accordion square expanded={expanded === "panel17"} onChange={handleChange("panel17")}>
-        <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
+        <AccordionSummary aria-controls="panel3d-content" id="panel3d-header" expandIcon={<ExpandMoreIcon />}>
           <Typography>Privacy Policy Update</Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -366,7 +367,7 @@ export default function PrivacyPolicy() {
         </AccordionDetails>
       </Accordion>
       <Accordion square expanded={expanded === "panel18"} onChange={handleChange("panel18")}>
-        <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
+        <AccordionSummary aria-controls="panel3d-content" id="panel3d-header" expandIcon={<ExpandMoreIcon />}>
           <Typography>Contact Us</Typography>
         </AccordionSummary>
         <AccordionDetails>

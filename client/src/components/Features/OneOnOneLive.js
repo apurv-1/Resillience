@@ -232,10 +232,6 @@ function OneOnOneLive(props) {
           <Typography variant="h4" color="secondary" className={classes.descHeading}>
             Benefits of 1-on-1 Live Online Tuition
           </Typography>
-          <Typography variant="h5" color="primary" className={classes.subHeading}>
-            Book your mentoring session today
-          </Typography>
-
           <div className={classes.contentVideo}>
             {["Save your travelling time", "Intensive practice sessions", "Instant doubt support", "Regular personalized test", "Training on exam strategy"].map((vision, index) => (
               <span className={classes.eachVision} key={index}>
@@ -275,9 +271,11 @@ function OneOnOneLive(props) {
           </Typography>
           <div className={classes.content}>
             <Typography variant="inherit" className={classes.text} color="primary">
-              None of your doubts will go unanswered, even if they are extremely difficult.
+              None of your doubts will go unanswered.
               <br />
-              We will instantly reply and resolve your doubts.
+              Clearing each and every doubt related to preperation is key to good result.
+              <br />
+              We will instantly reply and resolve all your doubts.
               <br />
               Don’t worry, we are ready to help until you’ve completely understood them.
             </Typography>

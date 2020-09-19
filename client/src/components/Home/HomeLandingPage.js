@@ -181,6 +181,11 @@ const styles = () => ({
       alignItems: "center",
       justifyContent: "center"
     }
+  },
+  bookAFreeText: {
+    "@media only screen and (max-width: 770px)": {
+      display: "none"
+    }
   }
 });
 
@@ -214,7 +219,8 @@ function LandingPage(props) {
 
         <div className={classes.firstLine}>
           <Typography variant="inherit" className={classes.spanText}>
-            Book a FREE <Counselling />
+            <span className={classes.bookAFreeText}>Book a FREE</span>
+            <Counselling />
             {/* Book a FREE */}
           </Typography>
         </div>

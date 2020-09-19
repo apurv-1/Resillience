@@ -58,24 +58,31 @@ const useStyles = makeStyles({
   getFree: {
     marginTop: "0px",
     marginBottom: "0px",
-    "@media only screen and (max-width: 770px)": {
-      fontSize: "90%",
+    "@media only screen and (max-width: 670px)": {
+      fontSize: "160%",
       marginTop: "0px",
       marginBottom: "initial"
     },
-    "@media only screen and (max-width: 670px)": {
-      fontSize: "115%"
+    "@media only screen and (max-width: 470px)": {
+      fontSize: "150%"
+    },
+    "@media only screen and (max-width: 330px)": {
+      fontSize: "80%"
     }
   },
   mentroingSession: {
     marginBottom: "20px",
     marginTop: "12px",
-    "@media only screen and (max-width: 770px)": {
-      fontSize: "90%"
-    },
     "@media only screen and (max-width: 670px)": {
-      marginBottom: "10px",
-      fontSize: "115%"
+      fontSize: "160%",
+      marginTop: "6px"
+    },
+    "@media only screen and (max-width: 470px)": {
+      marginBottom: "5px",
+      fontSize: "150%"
+    },
+    "@media only screen and (max-width: 330px)": {
+      fontSize: "80%"
     }
   },
   section: {
@@ -92,6 +99,9 @@ const useStyles = makeStyles({
       top: "10%",
       fontSize: "8px !important",
       left: "10%"
+    },
+    "@media only screen and (max-width: 330px)": {
+      top: "15%"
     }
   },
   imageWeb: {
@@ -109,13 +119,6 @@ const useStyles = makeStyles({
       display: "initial"
     }
   },
-  // image: {
-  //   visibility: "initial",
-  //   "@media only screen and (min-width: 770px)": {
-  //     height: "300px",
-  //     display: "none"
-  //   }
-  // },
   subSection: {
     position: "relative",
     height: "30px",
@@ -160,7 +163,10 @@ const useStyles = makeStyles({
   message: {
     display: "flex",
     alignItems: "center",
-    marginBottom: "10px"
+    marginBottom: "10px",
+    "@media only screen and (max-width: 330px)": {
+      fontSize: "80%"
+    }
   },
   tickImage: {
     "@media only screen and (max-width: 770px)": {

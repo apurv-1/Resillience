@@ -28,9 +28,6 @@ const styles = () => ({
   },
   clickableIcon: {
     marginRight: "5%",
-    // "&:hover": {
-    //   color: "white"
-    // },
     cursor: "pointer"
   }
 });

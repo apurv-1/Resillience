@@ -4,7 +4,7 @@ import { Switch, Route, withRouter } from "react-router-dom";
 import ScrollToTop from "./ScrollToTop";
 import "./App.css";
 // import jwtDecode from "jwt-decode";
-// import axios from "axios";
+import axios from "axios";
 
 //MUI
 import LinearProgress from "@material-ui/core/LinearProgress";
@@ -35,8 +35,7 @@ const ParticularBlog = lazy(() => import("./components/Blogs/ParticularBlog/Part
 const ContactUs = lazy(() => import("./components/ContactUs/ContactUs"));
 const Career = lazy(() => import("./components/Career/Career"));
 const PrivacyPolicy = lazy(() => import("./components/Miscellaneous/PrivacyPolicy"));
-
-// const TermsOfService = lazy(() => import("./components/Miscellaneous/TermsOfService"));
+const TermsOfService = lazy(() => import("./components/Miscellaneous/TermsOfService"));
 // const Sitemap = lazy(() => import("./components/Miscellaneous/Sitemap"));
 
 // const Room = lazy(() => import("./components/Room"));
@@ -44,8 +43,8 @@ const PrivacyPolicy = lazy(() => import("./components/Miscellaneous/PrivacyPolic
 const theme = createMuiTheme(themeObject);
 
 //Proxy only works in developmemt so need to tell this
-// axios.defaults.baseURL =
-//   "https://us-central1-social-media-app-132cc.cloudfunctions.net/api";
+axios.defaults.baseURL =
+  "https://resillience-test.herokuapp.com/";
 
 // withTitle function
 const withTitle = ({ component: Component, title }) => {
@@ -76,7 +75,7 @@ const ShowBlogsComponent = withTitle({ component: ShowBlogs, title: "Blogs | RES
 const ParticularBlogComponent = withTitle({ component: ParticularBlog, title: "Blogs | RESILLIENCE" });
 // const StudentProfileComponent = withTitle({ component: StudentProfile, title: "Dashboard | RESILLIENCE" });
 const PrivacyPolicyComponent = withTitle({ component: PrivacyPolicy, title: "Privacy Policy | RESILLIENCE" });
-// const TermsOfServiceComponent = withTitle({ component: TermsOfService, title: "Terms of service | RESILLIENCE" });
+const TermsOfServiceComponent = withTitle({ component: TermsOfService, title: "Terms of service | RESILLIENCE" });
 // const SitemapComponent = withTitle({ component: Sitemap, title: "Sitemap | RESILLIENCE" });
 
 const ErrorComponent = withTitle({ component: Error, title: "Not Found | RESILLIENCE" });
@@ -123,7 +122,7 @@ class App extends Component {
                   <Route exact path="/" component={HomeComponent} />
                   <Route path="/aboutus" component={AboutUsComponent} />
                   <Route path="/tuitions/one-on-one-home-tuitions" component={OneOnOneHomeComponent} />
-                  <Route path="/tuitions/one-on-one-live-tuitions" component={OneOnOneLiveComponent} />
+                  <Route path="/tuitions/one-on-one-online-tuitions" component={OneOnOneLiveComponent} />
                   <Route path="/tuitions/mastering-a-week-topic" component={MasteringAChapterComponent} />
                   <Route path="/test" component={TestComponent} />
                   <Route path="/faqs" component={FaqsComponent} />
@@ -134,8 +133,8 @@ class App extends Component {
                   <Route exact path="/blogs/:id" component={ParticularBlogComponent} />
                   {/* <Route path="/dashboard" component={StudentProfileComponent} /> */}
                   <Route path="/privacypolicy" component={PrivacyPolicyComponent} />
-                  {/* <Route path="/termsofservice" component={TermsOfService} />
-                  <Route path="/sitemap" component={SitemapComponent} /> */}
+                  <Route path="/termsofservice" component={TermsOfServiceComponent} />
+                  {/* <Route path="/sitemap" component={SitemapComponent} /> */}
                   <Route component={ErrorComponent} />
                   {/* <Route path="/room" component={RoomComponent} /> */}
                 </Switch>

@@ -2,7 +2,7 @@ import React from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Typography from "@material-ui/core/Typography";
 
-import BetterLearningChanges from "../../compressed/BetterLeaningImage.svg";
+import BetterLearningChanges from "../../compressed/BetterLearningImage.svg";
 // import BetterLearningImagePhone from "../../compressed/BetterLearningImagePhone.svg";
 
 const styles = () => ({
@@ -170,7 +170,7 @@ function BetterLearning(props) {
       </div>
       <div className={classes.LearningBody}>
         <div className={classes.DescriptionItemR}>
-          <div className={classes.Title}>Training on exam strategy and smart ties</div>
+          <div className={classes.Title}>Training on exam strategy and smart tips</div>
           <div className={classes.Content}>Under personal guidance, students learn how to attempt any paper with smart approach to maximize the score under any condition.</div>
         </div>
       </div>

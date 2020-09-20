@@ -122,7 +122,7 @@ class Navbar extends React.Component {
           </h1>
           {this.state.open === true ? <CloseIcon onClick={this.handleChange} className={classes.hamburgerMenu} /> : <MenuIcon onClick={this.handleChange} className={classes.hamburgerMenu} />}
         </div>
-
+ 
         <div className={this.state.open === true ? classes.navLinks : classes.vanish}>
           {[
             { route: "/", name: "Home" },

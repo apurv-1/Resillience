@@ -1,5 +1,6 @@
 import React from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import MenuIcon from "@material-ui/icons/Menu";
 import CloseIcon from "@material-ui/icons/Close";
 // import Typography from "@material-ui/core/Typography";
@@ -112,40 +113,46 @@ class Navbar extends React.Component {
   handleChange = () => {
     this.setState({ open: !this.state.open });
   };
+
+  handleClickAway = () => {
+    this.setState({ open: false });
+  };
   render() {
     const { classes } = this.props;
     return (
-      <AppBar className={classes.navbar}>
-        <div className={classes.smallNavbar}>
-          <h1 className={classes.resillience} onClick={() => (window.location.href = "/")}>
-            RESILLIENCE
-          </h1>
-          {this.state.open === true ? <CloseIcon onClick={this.handleChange} className={classes.hamburgerMenu} /> : <MenuIcon onClick={this.handleChange} className={classes.hamburgerMenu} />}
-        </div>
- 
-        <div className={this.state.open === true ? classes.navLinks : classes.vanish}>
-          {[
-            { route: "/", name: "Home" },
-            { route: "/aboutus", name: "About Us" }
-          ].map((eachNav, index) => (
-            <NavLink key={index} exact className={classes.navIcons} activeClassName="active" to={eachNav.route} onClick={this.handleChange}>
-              {eachNav.name}
-            </NavLink>
-          ))}
-          {/* <Typography variant="inherit" className={classes.navIcons}>
+      <ClickAwayListener onClickAway={this.handleClickAway}>
+        <AppBar className={classes.navbar}>
+          <div className={classes.smallNavbar}>
+            <h1 className={classes.resillience} onClick={() => (window.location.href = "/")}>
+              RESILLIENCE
+            </h1>
+            {this.state.open === true ? <CloseIcon onClick={this.handleChange} className={classes.hamburgerMenu} /> : <MenuIcon onClick={this.handleChange} className={classes.hamburgerMenu} />}
+          </div>
+
+          <div className={this.state.open === true ? classes.navLinks : classes.vanish}>
+            {[
+              { route: "/", name: "Home" },
+              { route: "/aboutus", name: "About Us" }
+            ].map((eachNav, index) => (
+              <NavLink key={index} exact className={classes.navIcons} activeClassName="active" to={eachNav.route} onClick={this.handleChange}>
+                {eachNav.name}
+              </NavLink>
+            ))}
+            {/* <Typography variant="inherit" className={classes.navIcons}>
             Tuitions
           </Typography> */}
-          <TuitionDropdown />
-          {/* TODO: Have to change here */}
-          <NavLink exact className={classes.navIcons} activeClassName="active" to="/test" onClick={this.handleChange}>
-            Test
-          </NavLink>
-          <NavLink exact className={classes.navIcons} activeClassName="active" to="/faqs" onClick={this.handleChange}>
-            FAQ'S
-          </NavLink>
-          <SignIn />
-        </div>
-      </AppBar>
+            <TuitionDropdown />
+            {/* TODO: Have to change here */}
+            <NavLink exact className={classes.navIcons} activeClassName="active" to="/test" onClick={this.handleChange}>
+              Test
+            </NavLink>
+            <NavLink exact className={classes.navIcons} activeClassName="active" to="/faqs" onClick={this.handleChange}>
+              FAQ'S
+            </NavLink>
+            <SignIn />
+          </div>
+        </AppBar>
+      </ClickAwayListener>
     );
   }
 }

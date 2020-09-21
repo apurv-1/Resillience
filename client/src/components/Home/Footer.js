@@ -132,7 +132,7 @@ function Footer(props) {
                 text: "Career"
               },
               {
-                to: "/aboutus/#ourstory",
+                to: "/aboutus/",
                 text: "Our Story"
               },
               {

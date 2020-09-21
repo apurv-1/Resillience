@@ -3,7 +3,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import CheckRoundedIcon from "@material-ui/icons/CheckRounded";
-import Counselling from "./Counselling";
+import Counselling from "./CounsellingOneOnOneLive";
 
 //Images
 // import onlineOneToOne from "../../compressed/onlineOneToOne.svg";

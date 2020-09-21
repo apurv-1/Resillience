@@ -1,5 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -100,38 +101,44 @@ export default function Tuitions() {
     setOpen(!open);
   };
 
+  const handleClickAway = () => {
+    setOpen(false);
+  };
+
   return (
-    <div className={classes.root1}>
-      <List onClick={handleClick} className={classes.idk}>
-        <Typography className={classes.navtext}>Tuitions {open ? <ExpandLess /> : <ExpandMore />}</Typography>
-      </List>
-      <Collapse in={open} timeout="auto" unmountOnExit className={classes.collapseMenu}>
-        <List component="div">
-          <ListItem className={classes.nested}>
-            <ListItemText>
-              <NavLink to="/tuitions/one-on-one-home-tuitions" className={classes.text} onClick={handleClick} activeClassName="activeDropdown">
-                1-On-1 Home Tuition
-              </NavLink>
-            </ListItemText>
-            <Divider variant="middle" />
-          </ListItem>
-          <ListItem className={classes.nested}>
-            <ListItemText>
-              <NavLink to="/tuitions/one-on-one-online-tuitions" className={classes.text} onClick={handleClick} activeClassName="activeDropdown">
-                1-on-1 Online Tuition
-              </NavLink>
-            </ListItemText>
-            <Divider variant="middle" />
-          </ListItem>
-          <ListItem className={classes.nested}>
-            <ListItemText>
-              <NavLink to="/tuitions/mastering-a-week-topic" className={classes.text} onClick={handleClick} activeClassName="activeDropdown">
-                Mastering a week topic
-              </NavLink>
-            </ListItemText>
-          </ListItem>
+    <ClickAwayListener onClickAway={handleClickAway}>
+      <div className={classes.root1}>
+        <List onClick={handleClick} className={classes.idk}>
+          <Typography className={classes.navtext}>Tuitions {open ? <ExpandLess /> : <ExpandMore />}</Typography>
         </List>
-      </Collapse>
-    </div>
+        <Collapse in={open} timeout="auto" unmountOnExit className={classes.collapseMenu}>
+          <List component="div">
+            <ListItem className={classes.nested}>
+              <ListItemText>
+                <NavLink to="/tuitions/one-on-one-home-tuitions" className={classes.text} onClick={handleClick} activeClassName="activeDropdown">
+                  1-On-1 Home Tuition
+                </NavLink>
+              </ListItemText>
+              <Divider variant="middle" />
+            </ListItem>
+            <ListItem className={classes.nested}>
+              <ListItemText>
+                <NavLink to="/tuitions/one-on-one-online-tuitions" className={classes.text} onClick={handleClick} activeClassName="activeDropdown">
+                  1-on-1 Online Tuition
+                </NavLink>
+              </ListItemText>
+              <Divider variant="middle" />
+            </ListItem>
+            <ListItem className={classes.nested}>
+              <ListItemText>
+                <NavLink to="/tuitions/mastering-a-week-topic" className={classes.text} onClick={handleClick} activeClassName="activeDropdown">
+                  Mastering a week topic
+                </NavLink>
+              </ListItemText>
+            </ListItem>
+          </List>
+        </Collapse>
+      </div>
+    </ClickAwayListener>
   );
 }

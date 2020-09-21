@@ -1,20 +1,14 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import Button from "@material-ui/core/Button";
-import Alert from "@material-ui/lab/Alert";
 
 const styles = () => ({
-  email: {
+  text: {
     marginTop: "5%",
-    marginBottom: "5%",
-    "@media only screen and (max-width: 770px)": {
-      marginTop: "10%",
-      marginBottom: "10%"
-    }
+    marginBottom: "5%"
   },
   formButtons: {
     display: "flex",
@@ -45,7 +39,6 @@ const styles = () => ({
 
 function Email(props) {
   const { classes } = props;
-  const history = useHistory();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -53,40 +46,16 @@ function Email(props) {
 
   const SendMessage = () => {
     if (name === "") {
-      return (
-        <div className={classes.alert}>
-          <Alert variant="outlined" severity="error">
-            Please add a name
-          </Alert>
-        </div>
-      );
+      alert("Please add Name to your Message");
     }
     if (email === "") {
-      return (
-        <div className={classes.alert}>
-          <Alert variant="outlined" severity="error">
-            Please add a email
-          </Alert>
-        </div>
-      );
+      alert("Please add an Email Address in your Message");
     }
     if (phone === "") {
-      return (
-        <div className={classes.alert}>
-          <Alert variant="outlined" severity="error">
-            Please add a phone number
-          </Alert>
-        </div>
-      );
+      alert("Please add a Phone Number in your Message");
     }
     if (text === "") {
-      return (
-        <div className={classes.alert}>
-          <Alert variant="outlined" severity="error">
-            Message cannot be empty!
-          </Alert>
-        </div>
-      );
+      alert("Please add Message");
     }
 
     fetch("/send-message", {
@@ -104,11 +73,13 @@ function Email(props) {
       .then((res) => res.json())
       .then((message) => {
         console.log(message);
-        if (message.error) {
-          console.log(message.error);
-        } else {
-          console.log(message.message);
-          history.push("/");
+        if (message.message === "Team Resillience will contact you soon!") {
+          // console.log(message.message);
+          alert("Thanks for contacting us, We will reach out to you soon!");
+          setName("");
+          setEmail("");
+          setPhone("");
+          setText("");
         }
       });
   };

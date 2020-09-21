@@ -1,5 +1,6 @@
 import React from "react";
 import Slider from "react-slick";
+
 import withStyles from "@material-ui/core/styles/withStyles";
 
 const styles = () => ({
@@ -67,7 +68,7 @@ class VideoSub extends React.Component {
               allowFullScreen
               webkitallowfullscreen="true"
               mozallowfullscreen="true"
-              srcDoc={`<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href=https://www.youtube.com/embed/${value}/?autoplay=1><img src=https://img.youtube.com/vi/${value}/hqdefault.jpg alt='Video The Dark Knight Rises: What Went Wrong? – Wisecrack Edition'><span>▶</span></a>`}
+              srcDoc={`<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href=https://www.youtube.com/embed/${value}/?autoplay=1><img src=https://img.youtube.com/vi/${value}/hqdefault.jpg alt='Resillience Teacher Videos'><span>▶</span></a>`}
             ></iframe>
           </div>
         ))}

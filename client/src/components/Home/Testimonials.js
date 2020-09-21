@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
 // import SakshamVideoIcon from "../../compressed/sakshamVideoIcon.svg";
-// import sakshamPhoto from "../../compressed/sakshamPhoto.png";
+import sakshamPhoto from "../../compressed/sakshamPhoto.png";
 
 import list from "./testimonialList";
 
@@ -24,6 +24,23 @@ const styles = () => ({
     marginBottom: "7.5%",
     "@media only screen and (max-width: 1000px)": {
       flexDirection: "column"
+    }
+  },
+  sakshamPhoto770: {
+    display: "none",
+    "@media only screen and (max-width: 1000px)": {
+      cursor: "pointer",
+      display: "initial",
+      width: "50%"
+    },
+    "@media only screen and (max-width: 770px)": {
+      width: "75%"
+    }
+  },
+  sakshamPhoto: {
+    display: "initial",
+    "@media only screen and (max-width: 1000px)": {
+      display: "none"
     }
   },
   tEach: {
@@ -94,6 +111,7 @@ function Testimonials(props) {
         breakpoint: 480,
         settings: {
           autoplay: true,
+          autoplaySpeed: 2000,
           slidesToShow: 1,
           slidesToScroll: 1
         }
@@ -108,7 +126,29 @@ function Testimonials(props) {
       </Typography>
       <div className={classes.tSaksham}>
         <div className={classes.tImage}>
-          <img src="https://res.cloudinary.com/rweb1/image/upload/v1600243275/Assets/images/sakshamPhoto_fatfdp.png" style={{ display: "initial", width: "75%" }} alt="Saksham Student" />
+          {/* <img
+            src="https://res.cloudinary.com/rweb1/image/upload/v1600243275/Assets/images/sakshamPhoto_fatfdp.png"
+            style={{ display: "initial", width: "75%" }}
+            alt="Saksham Student"
+          /> */}
+          <img
+            src={sakshamPhoto}
+            useMap="#image-map"
+            alt="Saksham Student"
+            onClick={() => window.open("https://www.youtube.com/watch?v=EN8mugXYzyY&t=62s&ab_channel=RESILLIENCE")}
+            className={classes.sakshamPhoto770}
+          />
+          <img src={sakshamPhoto} useMap="#image-map" alt="Saksham Student" className={classes.sakshamPhoto} />
+          <map name="image-map">
+            <area
+              onClick={() => window.open("https://www.youtube.com/watch?v=EN8mugXYzyY&t=62s&ab_channel=RESILLIENCE")}
+              alt="Saksham Student"
+              title="Saksham Video"
+              coords="157,226,157,298,213,263"
+              shape="poly"
+              style={{ cursor: "pointer" }}
+            />
+          </map>
         </div>
         <div className={classes.tDesc}>
           <Typography variant="inherit" className={classes.sakshamMessage}>

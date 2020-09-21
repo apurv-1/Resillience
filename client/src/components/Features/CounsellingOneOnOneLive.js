@@ -14,7 +14,6 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles({
   counselling: {
     marginTop: "20px",
-    margin: "auto",
     "@media only screen and (max-width: 770px)": {
       display: "flex",
       alignItems: "center",
@@ -26,7 +25,11 @@ const useStyles = makeStyles({
     width: "380px",
     cursor: "pointer",
     zIndex: "-1",
+    "@media only screen and (max-width: 982px)": {
+      width: "280px"
+    },
     "@media only screen and (max-width: 770px)": {
+      width: "380px",
       position: "initial",
       marginTop: "-10px"
     }
@@ -37,14 +40,20 @@ const useStyles = makeStyles({
   },
   heading: {
     letterSpacing: "1px",
-    fontSize: "1.2rem",
+    fontSize: "1.1rem",
     marginTop: "-77px",
-    marginLeft: "55px",
     cursor: "pointer",
+    "@media only screen and (max-width: 1100px)": {
+      marginLeft: "25px"
+    },
+    "@media only screen and (max-width: 982px)": {
+      marginTop: "-70px",
+      marginLeft: "0px"
+    },
     "@media only screen and (max-width: 770px)": {
       width: "auto",
       marginTop: "-20.5%",
-      marginLeft: "50px"
+      marginLeft: "0px"
     }
   },
   getFree: {
@@ -185,7 +194,7 @@ const useStyles = makeStyles({
 
 function Counselling() {
   const classes = useStyles();
-  const tuition = "Mastering Weak Topic as per need";
+  const tuition = "1-on-1 Live Online Tuition";
   const [open, setOpen] = useState(false);
   const [parentname, setParent] = useState("");
   const [phone, setPhone] = useState("");
@@ -270,7 +279,7 @@ function Counselling() {
     <div className={classes.counselling}>
       <span onClick={handleClickOpen}>
         <img src="https://res.cloudinary.com/rweb1/image/upload/v1600243284/Assets/images/mentoringStroke_doj1ve.svg" alt="Stroke" className={classes.blueImage} />
-        <h1 className={classes.heading}>Book a Mentoring Session</h1>
+        <h1 className={classes.heading}>Book a Free Mentoring Session</h1>
       </span>
 
       <Dialog

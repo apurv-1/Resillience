@@ -43,7 +43,7 @@ function Story(props) {
   const { classes } = props;
 
   return (
-    <div className={classes.vision} id="ourstory">
+    <div className={classes.vision}>
       <Typography variant="h4" color="secondary" className={classes.text} style={{ textAlign: "center", marginBottom: "8px", fontStyle: "normal" }}>
         Our Story:
       </Typography>

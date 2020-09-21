@@ -1,10 +1,10 @@
-import React, { Component, Suspense, lazy, useEffect, createContext, useReducer, useContext } from "react";
+import React, { Component, Suspense, lazy } from "react";
 
-import { Switch, Route, withRouter, useHistory } from "react-router-dom";
+import { Switch, Route, withRouter } from "react-router-dom";
 import ScrollToTop from "./ScrollToTop";
 import "./App.css";
 // import jwtDecode from "jwt-decode";
-import axios from "axios";
+// import axios from "axios";
 
 //MUI
 import LinearProgress from "@material-ui/core/LinearProgress";
@@ -16,10 +16,6 @@ import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { TitleComponent } from "./components/Title/TitleComponent";
 
 import "./ReactTransitions.css";
-//reducers
-import { reducer, initialState } from "../src/reducers/studentReducer";
-// import Alert from "@material-ui/lab/Alert";
-// import { Message } from "twilio/lib/twiml/MessagingResponse";
 
 //Components
 const Navbar = lazy(() => import("./components/NavBar/NavBar"));
@@ -35,66 +31,20 @@ const Error = lazy(() => import("./components/Error"));
 const PostBlog = lazy(() => import("./components/Blogs/Admin/PostBlogs"));
 const ShowBlogs = lazy(() => import("./components/Blogs/ShowBlogs"));
 const ParticularBlog = lazy(() => import("./components/Blogs/ParticularBlog/ParticularBlog"));
-const StudentProfile = lazy(() => import("./components/Student/StudentProfile"));
+// const StudentProfile = lazy(() => import("./components/Student/StudentProfile"));
 const ContactUs = lazy(() => import("./components/ContactUs/ContactUs"));
 const Career = lazy(() => import("./components/Career/Career"));
 const PrivacyPolicy = lazy(() => import("./components/Miscellaneous/PrivacyPolicy"));
 const TermsOfService = lazy(() => import("./components/Miscellaneous/TermsOfService"));
-const SignIn = lazy(() => import("./components/NavBar/SignIn"));
 // const Sitemap = lazy(() => import("./components/Miscellaneous/Sitemap"));
-
-//context api
-export const StudentContext = createContext()
-
-
-const Routing = ()=>{
-
-  const history = useHistory();
-  const { state, dispatch } = useContext(StudentContext);
-
-  useEffect(()=>{
-    const student = JSON.parse(localStorage.getItem("student"))
-    if(student){
-      dispatch({type:"STUDENT", payload:student})
-      history.push("/")
-    }
-    // else{
-    //   invalid password
-    // }
-  },[])
-
-  return(
-    <Switch>
-      <Route exact path="/" component={HomeComponent} />
-      <Route path="/aboutus" component={AboutUsComponent} />
-      <Route path="/tuitions/one-on-one-home-tuitions" component={OneOnOneHomeComponent} />
-      <Route path="/tuitions/one-on-one-online-tuitions" component={OneOnOneLiveComponent} />
-      <Route path="/tuitions/mastering-a-week-topic" component={MasteringAChapterComponent} />
-      <Route path="/test" component={TestComponent} />
-      <Route path="/faqs" component={FaqsComponent} />
-      <Route path="/contact-us" component={ContactUsComponent} />
-      <Route path="/career" component={CareerComponent} />
-      <Route path="/admin/createblogs" component={PostBlogComponent} />
-      <Route exact path="/blogs" component={ShowBlogsComponent} />
-      <Route exact path="/blogs/:id" component={ParticularBlogComponent} />
-      <Route path="/studentdashboard" component={StudentProfileComponent} />
-      <Route path="/privacypolicy" component={PrivacyPolicyComponent} />
-      <Route path="/termsofservice" component={TermsOfServiceComponent} />
-      <Route path="/signin" component={SignInComponent} />
-      {/* <Route path="/sitemap" component={SitemapComponent} /> */}
-      <Route component={ErrorComponent} />
-      {/* <Route path="/room" component={RoomComponent} /> */}
-    </Switch>
-  )
-}
 
 // const Room = lazy(() => import("./components/Room"));
 
 const theme = createMuiTheme(themeObject);
 
 //Proxy only works in developmemt so need to tell this
-axios.defaults.baseURL =
-  "https://resillience-test.herokuapp.com/";
+// axios.defaults.baseURL =
+//   "https://us-central1-social-media-app-132cc.cloudfunctions.net/api";
 
 // withTitle function
 const withTitle = ({ component: Component, title }) => {
@@ -123,63 +73,79 @@ const CareerComponent = withTitle({ component: Career, title: "Career | RESILLIE
 const PostBlogComponent = withTitle({ component: PostBlog, title: "Post Blog | RESILLIENCE" });
 const ShowBlogsComponent = withTitle({ component: ShowBlogs, title: "Blogs | RESILLIENCE" });
 const ParticularBlogComponent = withTitle({ component: ParticularBlog, title: "Blogs | RESILLIENCE" });
-const StudentProfileComponent = withTitle({ component: StudentProfile, title: "Dashboard | RESILLIENCE" });
+// const StudentProfileComponent = withTitle({ component: StudentProfile, title: "Dashboard | RESILLIENCE" });
 const PrivacyPolicyComponent = withTitle({ component: PrivacyPolicy, title: "Privacy Policy | RESILLIENCE" });
 const TermsOfServiceComponent = withTitle({ component: TermsOfService, title: "Terms of service | RESILLIENCE" });
-const SignInComponent = withTitle({ component: SignIn, title: "Sign In | RESILLIENCE" });
 // const SitemapComponent = withTitle({ component: Sitemap, title: "Sitemap | RESILLIENCE" });
 
 const ErrorComponent = withTitle({ component: Error, title: "Not Found | RESILLIENCE" });
 
-const App = (props)=> {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     prevDepth: this.getPathDepth(this.props.location),
-  //   };
-  // }
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      prevDepth: this.getPathDepth(this.props.location)
+    };
+  }
 
-  // UNSAFE_componentWillReceiveProps() {
-  //   this.setState({ prevDepth: this.getPathDepth(this.props.location) });
-  // }
+  UNSAFE_componentWillReceiveProps() {
+    this.setState({ prevDepth: this.getPathDepth(this.props.location) });
+  }
 
-  // getPathDepth(location) {
-  //   let pathArr = location.pathname.split("/");
-  //   pathArr = pathArr.filter((n) => n !== "");
-  //   return pathArr.length;
-  // }
+  getPathDepth(location) {
+    let pathArr = location.pathname.split("/");
+    pathArr = pathArr.filter((n) => n !== "");
+    return pathArr.length;
+  }
 
+  render() {
+    const { location } = this.props;
 
-
-    // const { location } = this.props;
-    const [state, dispatch] = useReducer(reducer, initialState);
-    // const currentKey = location.pathname.split("/")[1] || "/";
+    const currentKey = location.pathname.split("/")[1] || "/";
     const timeout = { enter: 800, exit: 800 };
 
     return (
       <MuiThemeProvider theme={theme}>
         <Suspense fallback={<LinearProgress color="secondary" style={{ paddingTop: "0.2%" }} />}>
           <TransitionGroup component="div" className="App">
-            {/* <CSSTransition key={currentKey} timeout={timeout} classNames="pageSlider" mountOnEnter={false} unmountOnExit={true}> */}
-              <StudentContext.Provider value={{state,dispatch}}>
+            <CSSTransition key={currentKey} timeout={timeout} classNames="pageSlider" mountOnEnter={false} unmountOnExit={true}>
               <div
-                // className={
-                //   this.getPathDepth(location) - this.state.prevDepth >= 0
-                //     ? "left" //left means right to left
-                //     : "right" //right means towards right
-                // }
+                className={
+                  this.getPathDepth(location) - this.state.prevDepth >= 0
+                    ? "left" //left means right to left
+                    : "right" //right means towards right
+                }
               >
                 <Navbar />
                 <ScrollToTop />
-                <Routing />
+                <Switch location={location}>
+                  <Route exact path="/" component={HomeComponent} />
+                  <Route path="/aboutus" component={AboutUsComponent} />
+                  <Route path="/tuitions/one-on-one-home-tuitions" component={OneOnOneHomeComponent} />
+                  <Route path="/tuitions/one-on-one-online-tuitions" component={OneOnOneLiveComponent} />
+                  <Route path="/tuitions/mastering-a-week-topic" component={MasteringAChapterComponent} />
+                  <Route path="/test" component={TestComponent} />
+                  <Route path="/faqs" component={FaqsComponent} />
+                  <Route path="/contact-us" component={ContactUsComponent} />
+                  <Route path="/career" component={CareerComponent} />
+                  <Route path="/admin/createblogs" component={PostBlogComponent} />
+                  <Route exact path="/blogs" component={ShowBlogsComponent} />
+                  <Route exact path="/blogs/:id" component={ParticularBlogComponent} />
+                  {/* <Route path="/dashboard" component={StudentProfileComponent} /> */}
+                  <Route path="/privacypolicy" component={PrivacyPolicyComponent} />
+                  <Route path="/termsofservice" component={TermsOfServiceComponent} />
+                  {/* <Route path="/sitemap" component={SitemapComponent} /> */}
+                  <Route component={ErrorComponent} />
+                  {/* <Route path="/room" component={RoomComponent} /> */}
+                </Switch>
                 <Footer />
               </div>
-              </StudentContext.Provider>
-            {/* </CSSTransition> */}
+            </CSSTransition>
           </TransitionGroup>
         </Suspense>
       </MuiThemeProvider>
     );
   }
+}
 
 export default withRouter(App);

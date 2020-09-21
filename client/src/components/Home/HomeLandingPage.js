@@ -1,6 +1,6 @@
 import React from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
-// import logo from "../../compressed/Resillience-Logo.png";
+import ResillienceLogo from "../../compressed/Resillience-Logo.png";
 // import HomePageWeb from "../../compressed/homeLandingImageWeb.svg";
 // import HomePagePhone from "../../compressed/homeLandingImagePhone.svg";
 // import rectangleStroke from "../../compressed/rectangleStroke.svg";
@@ -54,7 +54,7 @@ const styles = () => ({
     flexDirection: "column",
     marginTop: "12.3%",
     "@media only screen and (max-width: 770px)": {
-      marginTop: "0",
+      marginTop: "-5px",
       textAlign: "center"
     }
   },
@@ -134,33 +134,33 @@ const styles = () => ({
     }
   },
 
-  rectangleStroke: {
-    zIndex: "-1",
-    marginTop: "38px",
-    marginLeft: "4px",
-    position: "absolute",
+  // rectangleStroke: {
+  //   zIndex: "-1",
+  //   marginTop: "38px",
+  //   marginLeft: "4px",
+  //   position: "absolute",
 
-    "@media only screen and (max-width: 1150px)": {
-      width: "15%",
-      marginLeft: "5px"
-    },
-    "@media only screen and (max-width: 1000px)": {
-      display: "none"
-    },
-    "@media only screen and (max-width: 770px)": {
-      display: "initial",
-      marginTop: "19px",
-      marginLeft: "-8px",
-      width: "125px",
-      height: "12px"
-    },
-    "@media only screen and (max-width: 373px)": {
-      marginTop: "55px",
-      marginLeft: "-180px",
-      width: "125px",
-      height: "12px"
-    }
-  },
+  //   "@media only screen and (max-width: 1150px)": {
+  //     width: "15%",
+  //     marginLeft: "5px"
+  //   },
+  //   "@media only screen and (max-width: 1000px)": {
+  //     display: "none"
+  //   },
+  //   "@media only screen and (max-width: 770px)": {
+  //     display: "initial",
+  //     marginTop: "19px",
+  //     marginLeft: "-8px",
+  //     width: "125px",
+  //     height: "12px"
+  //   },
+  //   "@media only screen and (max-width: 373px)": {
+  //     marginTop: "55px",
+  //     marginLeft: "-180px",
+  //     width: "125px",
+  //     height: "12px"
+  //   }
+  // },
 
   firstLine: {
     fontSize: "1.55rem",
@@ -201,7 +201,7 @@ function LandingPage(props) {
       />
       <img className={classes.homeImagePhone} src="https://res.cloudinary.com/rweb1/image/upload/v1600243281/Assets/images/homeLandingImagePhone_djom9l.svg" alt="Home Page Main" />
       <div className={classes.content}>
-        <img src="https://res.cloudinary.com/rweb1/image/upload/v1600243273/Assets/images/Resillience-Logo_ynm1d8.png" className={classes.logoImage} alt="Logo" />
+        <img src={ResillienceLogo} className={classes.logoImage} alt="Logo" />
 
         <Typography variant="h1" className={classes.personalized}>
           Personalized
@@ -209,14 +209,12 @@ function LandingPage(props) {
         <h2 className={classes.learning}>
           Learning with{" "}
           <span>
-            <img alt="Bg Design" src="https://res.cloudinary.com/rweb1/image/upload/v1600243273/Assets/images/rectangleStroke_lejmjd.svg" className={classes.rectangleStroke} />
+            {/* <img alt="Bg Design" src="https://res.cloudinary.com/rweb1/image/upload/v1600243273/Assets/images/rectangleStroke_lejmjd.svg" className={classes.rectangleStroke} /> */}
             IITians
           </span>
         </h2>
-
         <h1 className={classes.iitians}>IIT JEE&nbsp;(Mains + Advanced) &nbsp; NEET </h1>
         <h1 className={classes.iitians}> Foundation&nbsp;(8th - 10th) </h1>
-
         <div className={classes.firstLine}>
           <Typography variant="inherit" className={classes.spanText}>
             <span className={classes.bookAFreeText}>Book a FREE</span>

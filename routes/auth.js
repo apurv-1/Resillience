@@ -35,34 +35,38 @@ const transporter = nodemailer.createTransport({
     }
 }) 
 
-router.post('/send-mail', (req,res)=>{
-  const { parentname, phone } = req.body;
+router.post("/send-mail", (req, res) => {
+  const { parentname, phone, tuition } = req.body;
   if (!parentname) {
     return res.status(422).json({ parentname: "Please enter name" });
   }
   if (!phone) {
     return res.status(422).json({ phone: "Please enter phone number" });
   }
+  if (!tuition) {
+    return res.status(422).json({ tuition: "Please enter tuition" });
+  }
   const counselling = new Counselling({
     parentname,
-    phone
-  })
+    phone,
+    tuition
+  });
   counselling
     .save()
-    .then((mail)=>{
+    .then((mail) => {
       transporter.sendMail({
-          to:'resillience.in@gmail.com',
-          from: EMAIL,
-          subject:"New Counselling alert!",
-          html:`Hey! ${parentname} asked for free counselling, <br /> with Mobile no. ${phone}`
-      })
+        to: "resillience.in@gmail.com",
+        from: EMAIL,
+        subject: "New Counselling alert!",
+        html: `Hey! ${parentname} asked for free counselling of ${tuition}, <br /> with Mobile no. ${phone}`
+      });
       res.json({ message: "Team Resillience will contact you soon!" });
     })
     .catch((err) => {
       console.log(err);
       res.status(500).json({ error: err });
     });
-})
+});
 
 router.post('/send-message', (req,res)=>{
   const { name, email, phone, text } = req.body;

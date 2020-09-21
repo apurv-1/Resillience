@@ -18,8 +18,8 @@ import { TitleComponent } from "./components/Title/TitleComponent";
 import "./ReactTransitions.css";
 //reducers
 import { reducer, initialState } from "../src/reducers/studentReducer";
-import Alert from "@material-ui/lab/Alert";
-import { Message } from "twilio/lib/twiml/MessagingResponse";
+// import Alert from "@material-ui/lab/Alert";
+// import { Message } from "twilio/lib/twiml/MessagingResponse";
 
 //Components
 const Navbar = lazy(() => import("./components/NavBar/NavBar"));
@@ -131,42 +131,43 @@ const SignInComponent = withTitle({ component: SignIn, title: "Sign In | RESILLI
 
 const ErrorComponent = withTitle({ component: Error, title: "Not Found | RESILLIENCE" });
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      prevDepth: this.getPathDepth(this.props.location)
-    };
-  }
+const App = (props)=> {
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     prevDepth: this.getPathDepth(this.props.location),
+  //   };
+  // }
 
-  UNSAFE_componentWillReceiveProps() {
-    this.setState({ prevDepth: this.getPathDepth(this.props.location) });
-  }
+  // UNSAFE_componentWillReceiveProps() {
+  //   this.setState({ prevDepth: this.getPathDepth(this.props.location) });
+  // }
 
-  getPathDepth(location) {
-    let pathArr = location.pathname.split("/");
-    pathArr = pathArr.filter((n) => n !== "");
-    return pathArr.length;
-  }
+  // getPathDepth(location) {
+  //   let pathArr = location.pathname.split("/");
+  //   pathArr = pathArr.filter((n) => n !== "");
+  //   return pathArr.length;
+  // }
 
-  render() {
-    const { location } = this.props;
+
+
+    // const { location } = this.props;
     const [state, dispatch] = useReducer(reducer, initialState);
-    const currentKey = location.pathname.split("/")[1] || "/";
+    // const currentKey = location.pathname.split("/")[1] || "/";
     const timeout = { enter: 800, exit: 800 };
 
     return (
       <MuiThemeProvider theme={theme}>
         <Suspense fallback={<LinearProgress color="secondary" style={{ paddingTop: "0.2%" }} />}>
           <TransitionGroup component="div" className="App">
-            <CSSTransition key={currentKey} timeout={timeout} classNames="pageSlider" mountOnEnter={false} unmountOnExit={true}>
+            {/* <CSSTransition key={currentKey} timeout={timeout} classNames="pageSlider" mountOnEnter={false} unmountOnExit={true}> */}
               <StudentContext.Provider value={{state,dispatch}}>
               <div
-                className={
-                  this.getPathDepth(location) - this.state.prevDepth >= 0
-                    ? "left" //left means right to left
-                    : "right" //right means towards right
-                }
+                // className={
+                //   this.getPathDepth(location) - this.state.prevDepth >= 0
+                //     ? "left" //left means right to left
+                //     : "right" //right means towards right
+                // }
               >
                 <Navbar />
                 <ScrollToTop />
@@ -174,12 +175,11 @@ class App extends Component {
                 <Footer />
               </div>
               </StudentContext.Provider>
-            </CSSTransition>
+            {/* </CSSTransition> */}
           </TransitionGroup>
         </Suspense>
       </MuiThemeProvider>
     );
   }
-}
 
 export default withRouter(App);

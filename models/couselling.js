@@ -8,6 +8,10 @@ const counsellingSchema = new mongoose.Schema({
     phone:{
         type: String,
         required: true
+    },
+    tuition: {
+        type: String,
+        required: true
     }
 })
 

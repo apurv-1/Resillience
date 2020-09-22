@@ -9,6 +9,7 @@ const Admin = mongoose.model("Admin");
 const User = mongoose.model("User");
 const Student = mongoose.model("Student");
 const Message = mongoose.model("Message");
+const Test = mongoose.model("Test");
 const Counselling = mongoose.model("Counselling");
 
 //jwt

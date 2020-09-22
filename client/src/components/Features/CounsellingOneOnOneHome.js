@@ -6,7 +6,7 @@ import CounsellingImageNewPhone from "../../compressed/counsellingNewPhone.svg";
 import PhoneInTalkIcon from "@material-ui/icons/PhoneInTalk";
 import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
 import MessageIcon from "@material-ui/icons/Message";
-import CircularProgress from "@material-ui/core/CircularProgress";
+// import CircularProgress from "@material-ui/core/CircularProgress";
 // import Tick from "../../compressed/tick.svg";
 // import mentoringStroke from "../../compressed/mentoringStroke.svg";
 import { makeStyles } from "@material-ui/core/styles";
@@ -14,6 +14,7 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles({
   counselling: {
     marginTop: "20px",
+    margin: "auto",
     "@media only screen and (max-width: 770px)": {
       display: "flex",
       alignItems: "center",
@@ -25,11 +26,7 @@ const useStyles = makeStyles({
     width: "380px",
     cursor: "pointer",
     zIndex: "-1",
-    "@media only screen and (max-width: 982px)": {
-      width: "280px"
-    },
     "@media only screen and (max-width: 770px)": {
-      width: "380px",
       position: "initial",
       marginTop: "-10px"
     }
@@ -40,20 +37,14 @@ const useStyles = makeStyles({
   },
   heading: {
     letterSpacing: "1px",
-    fontSize: "1.1rem",
+    fontSize: "1.2rem",
     marginTop: "-77px",
+    marginLeft: "5px",
     cursor: "pointer",
-    "@media only screen and (max-width: 1100px)": {
-      marginLeft: "25px"
-    },
-    "@media only screen and (max-width: 982px)": {
-      marginTop: "-70px",
-      marginLeft: "0px"
-    },
     "@media only screen and (max-width: 770px)": {
       width: "auto",
       marginTop: "-20.5%",
-      marginLeft: "0px"
+      marginLeft: "50px"
     }
   },
   getFree: {
@@ -200,49 +191,49 @@ function Counselling() {
   const [phone, setPhone] = useState("");
   const [otp, setOtp] = useState("");
   const [status, setStatus] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [valid, setValid] = useState("");
+  // const [loading, setLoading] = useState(false);
+  // const [valid, setValid] = useState("");
 
-  const SendOtp = () => {
-    if (parentname !== "" && phone.length === 10 && /^\d+$/.test(phone) === true) {
-      setLoading(true);
-      fetch(`/sendotp?phonenumber=+91${phone}&channel=sms`, {
-        method: "get"
-      })
-        .then((res) => res.json())
-        .then((message) => {
-          console.log(message);
-          setStatus(message.status);
-          if (message.status === "pending") {
-            setLoading(false);
-          }
-          if (message.error) {
-            console.log(message.error);
-          } else {
-            console.log(message.message);
-          }
-        });
-    }
-  };
-  const VerifyOtp = () => {
-    fetch(`/verify?phonenumber=+91${phone}&code=${otp}`, {
-      method: "get"
-    })
-      .then((res) => res.json())
-      .then((message) => {
-        setValid(message.valid);
-        // console.log(message.valid);
-        setStatus(message.status);
-        if (message.valid === true) {
-          SendDetails();
-        }
-        if (message.error) {
-          console.log(message.error);
-        } else {
-          console.log(message.message);
-        }
-      });
-  };
+  // const SendOtp = () => {
+  //   if (parentname !== "" && phone.length === 10 && /^\d+$/.test(phone) === true) {
+  //     setLoading(true);
+  //     fetch(`/sendotp?phonenumber=+91${phone}&channel=sms`, {
+  //       method: "get"
+  //     })
+  //       .then((res) => res.json())
+  //       .then((message) => {
+  //         console.log(message);
+  //         setStatus(message.status);
+  //         if (message.status === "pending") {
+  //           setLoading(false);
+  //         }
+  //         if (message.error) {
+  //           console.log(message.error);
+  //         } else {
+  //           console.log(message.message);
+  //         }
+  //       });
+  //   }
+  // };
+  // const VerifyOtp = () => {
+  //   fetch(`/verify?phonenumber=+91${phone}&code=${otp}`, {
+  //     method: "get"
+  //   })
+  //     .then((res) => res.json())
+  //     .then((message) => {
+  //       setValid(message.valid);
+  //       // console.log(message.valid);
+  //       setStatus(message.status);
+  //       if (message.valid === true) {
+  //         SendDetails();
+  //       }
+  //       if (message.error) {
+  //         console.log(message.error);
+  //       } else {
+  //         console.log(message.message);
+  //       }
+  //     });
+  // };
 
   const SendDetails = () => {
     fetch("/send-mail", {
@@ -259,6 +250,7 @@ function Counselling() {
       .then((res) => res.json())
       .then((message) => {
         // console.log(message);
+        setStatus("approved");
         if (message.error) {
           console.log(message.error);
         } else {
@@ -279,7 +271,7 @@ function Counselling() {
     <div className={classes.counselling}>
       <span onClick={handleClickOpen}>
         <img src="https://res.cloudinary.com/rweb1/image/upload/v1600243284/Assets/images/mentoringStroke_doj1ve.svg" alt="Stroke" className={classes.blueImage} />
-        <h1 className={classes.heading}>Book a Free Mentoring Session</h1>
+        <h1 className={classes.heading}>Book a Mentoring Session</h1>
       </span>
 
       <Dialog
@@ -299,8 +291,8 @@ function Counselling() {
         <div className={classes.section}>
           <h2 className={classes.getFree}>Get a Free Demo</h2>
           <h2 className={classes.mentroingSession}>Cum Mentoring Session</h2>
-          {loading === true && <CircularProgress color="secondary" className={classes.circularProgress} thickness={2.4} />}
-          {status === "" && loading === false && (
+          {/* {loading === true && <CircularProgress color="secondary" className={classes.circularProgress} thickness={2.4} />} */}
+          {status === "" && /*loading === false &&*/ (
             <div>
               <div className={classes.subSection}>
                 <PersonOutlineIcon color="secondary" className={classes.icons} />
@@ -340,7 +332,7 @@ function Counselling() {
                   </div>
                 ))}
               </div>
-              <Button variant="contained" color="secondary" disableElevation className={classes.button} size="small" onClick={() => SendOtp()}>
+              <Button variant="contained" color="secondary" disableElevation className={classes.button} size="small" onClick={() => SendDetails()} >
                 Proceed
               </Button>
             </div>
@@ -371,7 +363,7 @@ function Counselling() {
                   onChange={(e) => setOtp(e.target.value)}
                 />
               </div>
-              {valid === false && <h4 style={{ margin: "auto", marginLeft: "10px", color: "red", marginBottom: "10px" }}>The OTP entered is incorrect, Try again</h4>}
+              {/*valid === false && */<h4 style={{ margin: "auto", marginLeft: "10px", color: "red", marginBottom: "10px" }}>The OTP entered is incorrect, Try again</h4>}
               <div style={{ display: "flex", margin: "auto", justifyContent: "center" }}>
                 <Button
                   type="submit"
@@ -381,15 +373,15 @@ function Counselling() {
                   className={classes.button}
                   style={{ marginRight: "10px", height: "10%" }}
                   size="small"
-                  onClick={() => VerifyOtp()}
+                  // onClick={() => VerifyOtp()}
                 >
                   Verify
                 </Button>
-                {valid === false && (
+                {/* {valid === false && (
                   <Button type="submit" variant="contained" color="secondary" disableElevation className={classes.button} style={{ height: "10%" }} size="small" onClick={() => SendOtp()}>
                     Resend OTP
                   </Button>
-                )}
+                )} */}
               </div>
             </div>
           )}

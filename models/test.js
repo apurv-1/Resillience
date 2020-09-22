@@ -10,7 +10,7 @@ const testSchema = new mongoose.Schema({
         questionImage:{
             type: String,
             required: true
-        },
+        }, 
         correctOption:{
             type: Number,
             required: true
@@ -20,7 +20,7 @@ const testSchema = new mongoose.Schema({
             required: true
         }    
     }],    
-},{timestamps:true})
+},{timestamps:true}) 
 
 
 mongoose.model("Test",testSchema);

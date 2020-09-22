@@ -1,6 +1,4 @@
 const mongoose = require('mongoose');
-const Question = require("./questions");
-// const {questionImage} = mongoose.Schema.Types;
 
 const testSchema = new mongoose.Schema({
     testId:{
@@ -8,16 +6,20 @@ const testSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
-    numberOfQ:{
-        type: Number,
-        required: true
-    },
-    ques:[{
-        questionText:Question.questionImage,
-        correctOption:Question.correctOption,
-        questionType:Question.questionType        
-    }],
-
+    question:[{
+        questionImage:{
+            type: String,
+            required: true
+        },
+        correctOption:{
+            type: Number,
+            required: true
+        },
+        questionType:{
+            type: String,
+            required: true
+        }    
+    }],    
 },{timestamps:true})
 
 

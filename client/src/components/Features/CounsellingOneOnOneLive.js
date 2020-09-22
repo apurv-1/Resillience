@@ -245,27 +245,29 @@ function Counselling() {
   // };
 
   const SendDetails = () => {
-    fetch("/send-mail", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        parentname,
-        phone,
-        tuition
+    if (parentname !== "" && phone.length === 10 && /^\d+$/.test(phone) === true){
+      fetch("/send-mail", {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          parentname,
+          phone,
+          tuition
+        })
       })
-    })
-      .then((res) => res.json())
-      .then((message) => {
-        // console.log(message);
-        setStatus("approved");
-        if (message.error) {
-          console.log(message.error);
-        } else {
-          console.log(message.message);
-        }
-      });
+        .then((res) => res.json())
+        .then((message) => {
+          // console.log(message);
+          setStatus("approved");
+          if (message.error) {
+            console.log(message.error);
+          } else {
+            console.log(message.message);
+          }
+        });
+    }
   };
 
   const handleClickOpen = () => {
@@ -280,7 +282,7 @@ function Counselling() {
     <div className={classes.counselling}>
       <span onClick={handleClickOpen}>
         <img src="https://res.cloudinary.com/rweb1/image/upload/v1600243284/Assets/images/mentoringStroke_doj1ve.svg" alt="Stroke" className={classes.blueImage} />
-        <h1 className={classes.heading}>Book a Mentoring Session</h1>
+        <h1 className={classes.heading}>Book a Free Mentoring Session</h1>
       </span>
 
       <Dialog

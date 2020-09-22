@@ -236,27 +236,29 @@ function Counselling() {
   // };
 
   const SendDetails = () => {
-    fetch("/send-mail", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        parentname,
-        phone,
-        tuition
+    if (parentname !== "" && phone.length === 10 && /^\d+$/.test(phone) === true){
+      fetch("/send-mail", {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          parentname,
+          phone,
+          tuition
+        })
       })
-    })
-      .then((res) => res.json())
-      .then((message) => {
-        // console.log(message);
-        setStatus("approved");
-        if (message.error) {
-          console.log(message.error);
-        } else {
-          console.log(message.message);
-        }
-      });
+        .then((res) => res.json())
+        .then((message) => {
+          // console.log(message);
+          setStatus("approved");
+          if (message.error) {
+            console.log(message.error);
+          } else {
+            console.log(message.message);
+          }
+        });
+    }
   };
 
   const handleClickOpen = () => {

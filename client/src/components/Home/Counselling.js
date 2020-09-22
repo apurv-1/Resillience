@@ -5,7 +5,7 @@ import CounsellingImageNew from "../../compressed/counsellingNew.svg";
 import CounsellingImageNewPhone from "../../compressed/counsellingNewPhone.svg";
 import PhoneInTalkIcon from "@material-ui/icons/PhoneInTalk";
 import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
-import MessageIcon from "@material-ui/icons/Message";
+// import MessageIcon from "@material-ui/icons/Message";
 // import CircularProgress from "@material-ui/core/CircularProgress";
 // import Tick from "../../compressed/tick.svg";
 // import mentoringStroke from "../../compressed/mentoringStroke.svg";
@@ -50,6 +50,9 @@ const useStyles = makeStyles({
       width: "350px",
       position: "initial",
       marginTop: "-10px"
+    },
+    "@media only screen and (max-width: 770px)": {
+      width: "320px"
     }
   },
   paper: {
@@ -212,17 +215,17 @@ const useStyles = makeStyles({
     "@media only screen and (max-width: 770px)": {
       display: "initial"
     }
-  },
-  circularProgress: {
-    marginTop: "40px",
-    height: "6rem",
-    width: "6rem",
-    "@media only screen and (max-width: 770px)": {
-      marginTop: "50px",
-      height: "4rem",
-      width: "4rem"
-    }
   }
+  // circularProgress: {
+  //   marginTop: "40px",
+  //   height: "6rem",
+  //   width: "6rem",
+  //   "@media only screen and (max-width: 770px)": {
+  //     marginTop: "50px",
+  //     height: "4rem",
+  //     width: "4rem"
+  //   }
+  // }
 });
 
 function Counselling() {
@@ -231,7 +234,7 @@ function Counselling() {
   const [open, setOpen] = useState(false);
   const [parentname, setParent] = useState("");
   const [phone, setPhone] = useState("");
-  const [otp, setOtp] = useState("");
+  // const [otp, setOtp] = useState("");
   const [status, setStatus] = useState("");
   // const [loading, setLoading] = useState(false);
   // const [valid, setValid] = useState("");
@@ -279,27 +282,29 @@ function Counselling() {
   // };
 
   const SendDetails = () => {
-    fetch("/send-mail", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        parentname,
-        phone,
-        tuition
+    if (parentname !== "" && phone.length === 10 && /^\d+$/.test(phone) === true) {
+      fetch("/send-mail", {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          parentname,
+          phone,
+          tuition
+        })
       })
-    })
-      .then((res) => res.json())
-      .then((message) => {
-        // console.log(message);
-        setStatus("approved");
-        if (message.error) {
-          console.log(message.error);
-        } else {
-          console.log(message.message);
-        }
-      });
+        .then((res) => res.json())
+        .then((message) => {
+          setStatus("approved");
+          // console.log(message);
+          if (message.error) {
+            console.log(message.error);
+          } else {
+            console.log(message.message);
+          }
+        });
+    }
   };
 
   const handleClickOpen = () => {
@@ -345,54 +350,54 @@ function Counselling() {
         <div className={classes.section}>
           <h2 className={classes.getFree}>Get a Free Demo</h2>
           <h2 className={classes.mentroingSession}>Cum Mentoring Session</h2>
-          {/* {loading === true && <CircularProgress color="secondary" className={classes.circularProgress} thickness={2.4} />} */}
-          {status === "" /*&& loading === false*/ && (
-            <div>
-              <div className={classes.subSection}>
-                <PersonOutlineIcon color="secondary" className={classes.icons} />
-                <input
-                  type="text"
-                  name="parentname"
-                  id="parentname"
-                  className={`form-control ${classes.inputPhone}`}
-                  placeholder="Parent's Name"
-                  autoComplete="off"
-                  maxLength="15"
-                  required={true}
-                  value={parentname}
-                  onChange={(e) => setParent(e.target.value)}
-                />
-              </div>
-              <div className={classes.subSection} style={{ marginTop: "10px" }}>
-                <PhoneInTalkIcon color="secondary" className={classes.icons} />
-                <input
-                  type="tel"
-                  name="number"
-                  id="mobileNumber"
-                  className={`form-control ${classes.inputPhone}`}
-                  placeholder="Enter Mobile number"
-                  autoComplete="off"
-                  maxLength="10"
-                  required={true}
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                />
-              </div>
-              <div className={classes.messages}>
-                {["Identify strengths & weaknesses", "Recommends a study plan", "One to One home/online tuition", "Mastering a weak topic"].map((message, index) => (
-                  <div className={classes.message} key={index}>
-                    <img src="https://res.cloudinary.com/rweb1/image/upload/v1600243272/Assets/images/tick_nz85rm.svg" alt="tick" className={classes.tickImage} />
-                    <h4 style={{ margin: "auto", marginLeft: "10px" }}>{message}</h4>
-                  </div>
-                ))}
-              </div>
-              <Button variant="contained" color="secondary" disableElevation className={classes.button} size="small" onClick={() => SendDetails()} >
-                Proceed
-              </Button>
+          {/* {loading === true && <CircularProgress color="secondary" className={classes.circularProgress} thickness={2.4} />}
+          {status === "" && loading === false && ( */}
+          <div>
+            <div className={classes.subSection}>
+              <PersonOutlineIcon color="secondary" className={classes.icons} />
+              <input
+                type="text"
+                name="parentname"
+                id="parentname"
+                className={`form-control ${classes.inputPhone}`}
+                placeholder="Parent's Name"
+                autoComplete="off"
+                maxLength="15"
+                required={true}
+                value={parentname}
+                onChange={(e) => setParent(e.target.value)}
+              />
             </div>
-          )}
+            <div className={classes.subSection} style={{ marginTop: "10px" }}>
+              <PhoneInTalkIcon color="secondary" className={classes.icons} />
+              <input
+                type="tel"
+                name="number"
+                id="mobileNumber"
+                className={`form-control ${classes.inputPhone}`}
+                placeholder="Enter Mobile number"
+                autoComplete="off"
+                maxLength="10"
+                required={true}
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+              />
+            </div>
+            <div className={classes.messages}>
+              {["Identify strengths & weaknesses", "Recommends a study plan", "One to One home/online tuition", "Mastering a weak topic"].map((message, index) => (
+                <div className={classes.message} key={index}>
+                  <img src="https://res.cloudinary.com/rweb1/image/upload/v1600243272/Assets/images/tick_nz85rm.svg" alt="tick" className={classes.tickImage} />
+                  <h4 style={{ margin: "auto", marginLeft: "10px" }}>{message}</h4>
+                </div>
+              ))}
+            </div>
+            <Button variant="contained" color="secondary" disableElevation className={classes.button} size="small" onClick={() => SendDetails()}>
+              Proceed
+            </Button>
+          </div>
+          {/* )} */}
 
-          {status === "pending" && (
+          {/* {status === "pending" && (
             <div>
               <div className={classes.messages} style={{ width: "95%", marginLeft: "0px" }}>
                 <div className={classes.message}>
@@ -417,7 +422,7 @@ function Counselling() {
                   onChange={(e) => setOtp(e.target.value)}
                 />
               </div>
-              {/*valid === false  &&*/ <h4 style={{ margin: "auto", marginLeft: "10px", color: "red", marginBottom: "10px" }}>The OTP entered is incorrect, Try again</h4>}
+              {valid === false && <h4 style={{ margin: "auto", marginLeft: "10px", color: "red", marginBottom: "10px" }}>The OTP entered is incorrect, Try again</h4>}
               <div style={{ display: "flex", margin: "auto", justifyContent: "center" }}>
                 <Button
                   type="submit"
@@ -427,18 +432,18 @@ function Counselling() {
                   className={classes.button}
                   style={{ marginRight: "10px", height: "10%" }}
                   size="small"
-                  // onClick={() => VerifyOtp()}
+                  onClick={() => VerifyOtp()}
                 >
                   Verify
                 </Button>
-                {/* {valid === false && (
+                {valid === false && (
                   <Button type="submit" variant="contained" color="secondary" disableElevation className={classes.button} style={{ height: "10%" }} size="small" onClick={() => SendOtp()}>
                     Resend OTP
                   </Button>
-                )} */}
+                )}
               </div>
             </div>
-          )}
+          )} */}
 
           {status === "approved" && (
             <div style={{ marginTop: "60px" }}>

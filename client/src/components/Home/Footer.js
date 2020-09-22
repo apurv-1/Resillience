@@ -90,6 +90,12 @@ const styles = () => ({
     "@media only screen and (max-width: 770px)": {
       margin: "auto",
       lineHeight: 0
+    },
+    "@media only screen and (max-width: 390px)": {
+      fontSize: "90%"
+    },
+    "@media only screen and (max-width: 770px)": {
+      fontSize: "80%"
     }
   }
 });

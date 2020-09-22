@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
 // import SakshamVideoIcon from "../../compressed/sakshamVideoIcon.svg";
-import sakshamPhoto from "../../compressed/sakshamPhoto.png";
+// import sakshamPhoto from "../../compressed/sakshamPhoto.png";
 
 import list from "./testimonialList";
 
@@ -132,13 +132,13 @@ function Testimonials(props) {
             alt="Saksham Student"
           /> */}
           <img
-            src={sakshamPhoto}
+            src="https://res.cloudinary.com/rweb1/image/upload/v1600789119/Assets/images/sakshamPhoto_nxbhfi.png"
             useMap="#image-map"
             alt="Saksham Student"
             onClick={() => window.open("https://www.youtube.com/watch?v=EN8mugXYzyY&t=62s&ab_channel=RESILLIENCE")}
             className={classes.sakshamPhoto770}
           />
-          <img src={sakshamPhoto} useMap="#image-map" alt="Saksham Student" className={classes.sakshamPhoto} />
+          <img src="https://res.cloudinary.com/rweb1/image/upload/v1600789119/Assets/images/sakshamPhoto_nxbhfi.png" useMap="#image-map" alt="Saksham Student" className={classes.sakshamPhoto} />
           <map name="image-map">
             <area
               onClick={() => window.open("https://www.youtube.com/watch?v=EN8mugXYzyY&t=62s&ab_channel=RESILLIENCE")}

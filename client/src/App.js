@@ -4,7 +4,7 @@ import { Switch, Route, withRouter } from "react-router-dom";
 import ScrollToTop from "./ScrollToTop";
 import "./App.css";
 // import jwtDecode from "jwt-decode";
-// import axios from "axios";
+import axios from "axios";
 
 //MUI
 import LinearProgress from "@material-ui/core/LinearProgress";
@@ -43,8 +43,7 @@ const TermsOfService = lazy(() => import("./components/Miscellaneous/TermsOfServ
 const theme = createMuiTheme(themeObject);
 
 //Proxy only works in developmemt so need to tell this
-// axios.defaults.baseURL =
-//   "https://us-central1-social-media-app-132cc.cloudfunctions.net/api";
+axios.defaults.baseURL = "https://resillience-test.herokuapp.com/";
 
 // withTitle function
 const withTitle = ({ component: Component, title }) => {

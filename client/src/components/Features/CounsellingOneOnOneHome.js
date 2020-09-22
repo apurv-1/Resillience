@@ -14,7 +14,6 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles({
   counselling: {
     marginTop: "20px",
-    margin: "auto",
     "@media only screen and (max-width: 770px)": {
       display: "flex",
       alignItems: "center",
@@ -26,7 +25,11 @@ const useStyles = makeStyles({
     width: "380px",
     cursor: "pointer",
     zIndex: "-1",
+    "@media only screen and (max-width: 982px)": {
+      width: "280px"
+    },
     "@media only screen and (max-width: 770px)": {
+      width: "380px",
       position: "initial",
       marginTop: "-10px"
     }
@@ -37,14 +40,20 @@ const useStyles = makeStyles({
   },
   heading: {
     letterSpacing: "1px",
-    fontSize: "1.2rem",
+    fontSize: "1.1rem",
     marginTop: "-77px",
-    marginLeft: "5px",
     cursor: "pointer",
+    "@media only screen and (max-width: 1100px)": {
+      marginLeft: "25px"
+    },
+    "@media only screen and (max-width: 982px)": {
+      marginTop: "-70px",
+      marginLeft: "0px"
+    },
     "@media only screen and (max-width: 770px)": {
       width: "auto",
       marginTop: "-20.5%",
-      marginLeft: "50px"
+      marginLeft: "0px"
     }
   },
   getFree: {

@@ -15,6 +15,54 @@ router.get('/alltests',(req,res)=>{
     })
 })
 
+router.post('/addtest',(req,res)=>{
+    const { testId, testName, questions } = req.body
+    const test = new Test({
+        testId,
+        testName,
+        questions
+    })
+    test
+      .save()
+      .then((result)=>{
+          res.json({test:result})
+      })
+      .catch((err)=>{
+          console.log(err)
+      })
+})
+
+router.put('/add-question',(req,res)=>{
+    const question ={
+        questionImage:req.body.questionImage,
+        correctOption:req.body.correctOption,
+        questionType:req.body.questionType
+    }
+    Test.findByIdAndUpdate(req.body.testId,{
+        $push:{questions:question}
+    },{ 
+        new:true 
+    })
+    .exec((err,result)=>{
+        if(err){
+            return res.status(422).json({error:err});
+        }
+        else{
+            res.json(result)
+        }
+    })
+})
+
+
+router.get('/showtest',(req,res)=>{
+    Test.findOne(req.body.testId)
+    .then(test=>{
+        res.json({test})
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+})
 // router.post('/addquestion',(req,res)=>{
 //     const { questionId, questionImage, correctOption, questionType} = req.body
 //     if(!questionId){

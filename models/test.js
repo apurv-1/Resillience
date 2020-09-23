@@ -6,7 +6,11 @@ const testSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
-    question:[{
+    testName:{
+        type: String,
+        required: true
+    }, 
+    questions:[{
         questionImage:{
             type: String,
             required: true
@@ -21,6 +25,6 @@ const testSchema = new mongoose.Schema({
         }    
     }],    
 },{timestamps:true}) 
-
+ 
 
 mongoose.model("Test",testSchema);

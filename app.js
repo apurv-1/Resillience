@@ -33,7 +33,8 @@ app.use(require("./routes/verification"));
 mongoose.connect(MONGOURL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useCreateIndex: true
+  useCreateIndex: true,
+  useFindAndModify: true
 });
 
 mongoose.connection.on("connected", () => {

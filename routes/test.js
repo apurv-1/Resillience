@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const Test = mongoose.model("Test");
 const requireUser = require("../middleware/requireUser");
 
+
 router.get('/alltests',(req,res)=>{
     Test.find()
     .sort('-createdAt')
@@ -19,8 +20,7 @@ router.post('/addtest',(req,res)=>{
     const { testId, testName, questions } = req.body
     const test = new Test({
         testId,
-        testName,
-        questions
+        testName
     })
     test
       .save()
@@ -38,7 +38,7 @@ router.put('/add-question',(req,res)=>{
         correctOption:req.body.correctOption,
         questionType:req.body.questionType
     }
-    Test.findByIdAndUpdate(req.body.testId,{
+    Test.findOneAndUpdate(req.body.testId,{
         $push:{questions:question}
     },{ 
         new:true 

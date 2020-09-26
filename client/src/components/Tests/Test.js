@@ -16,7 +16,7 @@ import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
 
 
-import CreateTest from "./CreateTest";
+// import CreateTest from "./CreateTest";
 
 const styles = () => ({
   root: {
@@ -115,7 +115,6 @@ function Tests(props) {
         </Typography>
         <Typography variant="h5" color="secondary" style={{ textAlign: "center", marginTop: "10px" }}>
           Check it back soon
-          <CreateTest />
         </Typography>
       </Paper>
     </div>

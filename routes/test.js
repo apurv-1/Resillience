@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require("mongoose");
-// mongoose.set('useFindAndModify', false);
 const Test = mongoose.model("Test");
 const requireUser = require("../middleware/requireUser");
 
@@ -34,12 +33,14 @@ router.post('/addtest',(req,res)=>{
 })
 
 router.put('/add-question',(req,res)=>{
-    const question ={
+    const testId = req.body.testId ;
+    const question = {
         questionImage:req.body.questionImage,
         correctOption:req.body.correctOption,
         questionType:req.body.questionType
-    }
-    Test.findOneAndUpdate(req.body.testId,{
+    };
+    // console.log(req.query)
+    Test.findOneAndUpdate(testId,{
         $push:{questions:question}
     },{ 
         new:true 

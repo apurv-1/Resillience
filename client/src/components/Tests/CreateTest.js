@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "2%",
     margin:"auto",
     height: "50%",
-    width: "15%"
+    width: "16%"
   },
   formControl: {
     minWidth: "15%",
@@ -80,6 +80,7 @@ export default function CreateTest() {
           "Content-Type":"application/json"
         },
         body: JSON.stringify({
+          testId:testId,
           questionImage:questionUrl,
           correctOption:correct,
           questionType:subject

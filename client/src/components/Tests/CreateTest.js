@@ -92,8 +92,8 @@ export default function CreateTest() {
          }
          else{
           console.log("question saved")
-          setTestID("")
           setCorrect("")
+          setSubject("")
           setQuestionImg("")
           setQuestionUrl("")
          }
@@ -102,7 +102,7 @@ export default function CreateTest() {
          console.log(err)
        })
     }
-  },[questionUrl,correct,subject])
+  },[questionUrl])
 
   const addQusetion = ()=>{
     console.log(questionImg)

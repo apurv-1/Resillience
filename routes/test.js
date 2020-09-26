@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require("mongoose");
+// mongoose.set('useFindAndModify', false);
 const Test = mongoose.model("Test");
 const requireUser = require("../middleware/requireUser");
 

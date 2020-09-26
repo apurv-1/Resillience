@@ -29,12 +29,12 @@ app.use(require("./routes/blogs"));
 //twilio
 app.use(require("./routes/verification"));
 
-//ilSRqlpJkJKuorJa
+
 mongoose.connect(MONGOURL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useCreateIndex: true,
-  useFindAndModify: true
+  useFindAndModify: false,
+  useCreateIndex: true
 });
 
 mongoose.connection.on("connected", () => {

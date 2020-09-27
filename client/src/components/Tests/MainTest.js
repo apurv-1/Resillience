@@ -1,23 +1,46 @@
-import React, { Component, Fragment } from "react";
+import React, { Fragment } from "react";
 import { Helmet } from "react-helmet";
-import withStyles from "@material-ui/core/styles/withStyles";
+import { makeStyles } from "@material-ui/core/styles";
 import Button from '@material-ui/core/Button';
-import AccessTimeIcon from '@material-ui/icons/AccessTime';
+// import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import Paper from "@material-ui/core/Paper";
 
-const styles = (theme) => ({
-    paper: {
-        marginLeft: "2%",
-        textAlign: "center",
-        color: theme.palette.text.secondary
+const useStyles = makeStyles(() => ({
+    root:{
+        // margin: "4%",
+        // marginTop: "5%",
+        // maxWidth:"70%",
+        // maxHeight:"100%",
+        padding:"20px",
     },
-    timerComponent: {
-        marginTop:"9%"
+    paper1: {
+        margin: "1%",
+        marginTop: "4%",
+        paddingTop:"20px",
+        maxWidth:"70%",
+        maxHeight:"100%",
+        textAlign: "center",
+        // color: "#f8f8f8"
+    },
+    paper2: {
+        margin: "1%",
+        marginTop: "2%",
+        paddingTop:"0px",
+        maxWidth:"70%",
+        maxHeight:"100%",
+        textAlign: "center",
+        marginBottom:"-10%"
+    },
+    top:{
+
+    },
+    box: {
+        padding:"10px",
     },
     question: {
         height: "100%",
         width:"100%",
-        marginTop:"10%",
+        marginTop:"2%",
         alignItems: "center"
     },   
     optionContainer :{
@@ -25,28 +48,34 @@ const styles = (theme) => ({
     },
     option :{
         width: "100%"
+    },
+    buttonContainer:{
+        padding:"20px"
+    },
+    Button:{
+        paddingLeft:"5px",
+        paddingRight:"5px",
+        
     }
-  });
+}));
 
-class Test extends Component {
-    constructor (props) {
-        super(props);
-    }
-
-    render() {
-        const { classes } = this.props;
+export default function MainTest() {
+    
+        const  classes = useStyles();
         return(
             <Fragment>
-                <Paper elevation={5}>
-                    <Helmet><title>Test</title></Helmet>
-                    <div className={classes.timerComponent}>
-                        <p>
-                            <span>1 of 20 questions</span>
-                            <span><AccessTimeIcon />10:15:19</span>
+                <Helmet><title>Test</title></Helmet>
+                <div className={classes.root}>
+                <Paper elevation={5} className={classes.paper1}>
+                    <div className={classes.box}>
+                        <p className={classes.top}>
+                            <span style={{float:"left"}}>1 of 20 questions</span>
+                            <span><h4>Sample Test 3</h4></span>
+                            {/* <span style={{float:"right"}}><AccessTimeIcon />1:15:19</span> */}
                         </p>
-                    </div>
-                    <div className={classes.question} >
-                        <h4>This is Question 1</h4>
+                        <div className={classes.question} >
+                            <img alt="question" src="https://res.cloudinary.com/rweb1/image/upload/v1601136030/iukekz1lf7truo7huhtw.png" />
+                        </div>
                         <div className={classes.optionContainer}>
                             <p className={classes.option} > Option A </p>
                             <p className={classes.option} > Option B </p>
@@ -55,7 +84,10 @@ class Test extends Component {
                             <p className={classes.option} > Option C </p>
                             <p className={classes.option} > Option D </p>
                         </div> 
-                        <div className={classes.buttonContainer}>
+                    </div>
+                </Paper>
+                <Paper elevation={5} className={classes.paper2}>
+                    <div className={classes.buttonContainer}>
                         <Button
                             variant="contained"
                             color="	#FF0000"
@@ -84,12 +116,10 @@ class Test extends Component {
                         >
                             Next Question
                         </Button>
-                        </div>
                     </div>
                 </Paper>
+                </div>
             </Fragment>
         );
-    }
+    
 }
-
-export default withStyles(styles)(Test);

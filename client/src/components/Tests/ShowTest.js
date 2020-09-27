@@ -10,7 +10,7 @@ import { makeStyles } from "@material-ui/core/styles";
 // import SaveIcon from '@material-ui/icons/Save';
 // import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
-import CreateTest from './CreateTest';
+import AddQuestion from './addQuestions';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -79,7 +79,7 @@ export default function ShowTest() {
       {/* <Paper elevation={5}>
             
       </Paper> */}
-      <CreateTest />
+      <AddQuestion />
     </div>
   );
 }

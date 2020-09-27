@@ -37,6 +37,7 @@ const Career = lazy(() => import("./components/Career/Career"));
 const PrivacyPolicy = lazy(() => import("./components/Miscellaneous/PrivacyPolicy"));
 const TermsOfService = lazy(() => import("./components/Miscellaneous/TermsOfService"));
 const ShowTest = lazy(() => import("./components/Tests/ShowTest"));
+const MainTest = lazy(() => import("./components/Tests/MainTest"));
 // const Sitemap = lazy(() => import("./components/Miscellaneous/Sitemap"));
 
 // const Room = lazy(() => import("./components/Room"));
@@ -78,6 +79,7 @@ const ParticularBlogComponent = withTitle({ component: ParticularBlog, title: "B
 const PrivacyPolicyComponent = withTitle({ component: PrivacyPolicy, title: "Privacy Policy | RESILLIENCE" });
 const TermsOfServiceComponent = withTitle({ component: TermsOfService, title: "Terms of service | RESILLIENCE" });
 const ShowTestComponent = withTitle({ component: ShowTest, title: "Test Section | RESILLIENCE" });
+const MainTestComponent = withTitle({ component: MainTest, title: "Test Section | RESILLIENCE" });
 // const SitemapComponent = withTitle({ component: Sitemap, title: "Sitemap | RESILLIENCE" });
 
 const ErrorComponent = withTitle({ component: Error, title: "Not Found | RESILLIENCE" });
@@ -128,6 +130,7 @@ class App extends Component {
                   <Route path="/tuitions/mastering-a-week-topic" component={MasteringAChapterComponent} />
                   <Route path="/test" component={TestComponent} />
                   <Route path="/showtest" component={ShowTestComponent} />
+                  <Route path="/maintest" component={MainTestComponent} />
                   <Route path="/faqs" component={FaqsComponent} />
                   <Route path="/contact-us" component={ContactUsComponent} />
                   <Route path="/career" component={CareerComponent} />

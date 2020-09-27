@@ -4,19 +4,22 @@ import { makeStyles } from "@material-ui/core/styles";
 import Button from '@material-ui/core/Button';
 // import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import Paper from "@material-ui/core/Paper";
+import Fab from '@material-ui/core/Fab';
 
 const useStyles = makeStyles(() => ({
     root:{
         // margin: "4%",
-        // marginTop: "5%",
+        marginTop: "5%",
         // maxWidth:"70%",
         // maxHeight:"100%",
-        padding:"20px",
+
+        paddingLeft:"60px",
+        paddingRight:"60px",
     },
     paper1: {
         margin: "1%",
         marginTop: "4%",
-        paddingTop:"20px",
+        paddingTop:"40px",
         maxWidth:"70%",
         maxHeight:"100%",
         textAlign: "center",
@@ -30,6 +33,16 @@ const useStyles = makeStyles(() => ({
         maxHeight:"100%",
         textAlign: "center",
         marginBottom:"-10%"
+    },
+    paper3: {
+        float:"right",
+        // margin: "1%",
+        // marginTop: "4%",
+        paddingTop:"20px",
+        maxWidth:"30%",
+        maxHeight:"100%",
+        // textAlign: "center",
+
     },
     top:{
 
@@ -56,6 +69,12 @@ const useStyles = makeStyles(() => ({
         paddingLeft:"5px",
         paddingRight:"5px",
         
+    },
+    fab: {
+        margin: "10px",
+    },
+    fabBox: {
+        padding: "20px",
     }
 }));
 
@@ -66,6 +85,36 @@ export default function MainTest() {
             <Fragment>
                 <Helmet><title>Test</title></Helmet>
                 <div className={classes.root}>
+                <Paper elevation={5} className={classes.paper3}>
+                    <div className={classes.fabBox}>
+                        <div>
+                            <Fab size="medium" color="secondary" className={classes.fab}>1</Fab>
+                            <Fab size="medium" color="secondary" className={classes.fab}>2</Fab>
+                            <Fab size="medium" color="secondary" className={classes.fab}>3</Fab>
+                            <Fab size="medium" color="secondary" className={classes.fab}>4</Fab>
+                            
+                        </div>
+                        <div>
+                            <Fab size="medium" color="secondary" className={classes.fab}>5</Fab>
+                            <Fab size="medium" color="secondary" className={classes.fab}>6</Fab>
+                            <Fab size="medium" color="secondary" className={classes.fab}>7</Fab>
+                            <Fab size="medium" color="secondary" className={classes.fab}>8</Fab>
+                            
+                        </div>
+                        <div>
+                            <Fab size="medium" color="secondary" className={classes.fab}>9</Fab>
+                            <Fab size="medium" color="secondary" className={classes.fab}>10</Fab>
+                            <Fab size="medium" color="secondary" className={classes.fab}>11</Fab>
+                            <Fab size="medium" color="secondary" className={classes.fab}>12</Fab>
+                            
+                        </div>
+                        <div>
+                            <Fab size="medium" color="secondary" className={classes.fab}>13</Fab>
+                            <Fab size="medium" color="secondary" className={classes.fab}>14</Fab>
+                            <Fab size="medium" color="secondary" className={classes.fab}>15</Fab>
+                        </div>
+                    </div>
+                </Paper>
                 <Paper elevation={5} className={classes.paper1}>
                     <div className={classes.box}>
                         <p className={classes.top}>
@@ -86,11 +135,12 @@ export default function MainTest() {
                         </div> 
                     </div>
                 </Paper>
+                
                 <Paper elevation={5} className={classes.paper2}>
                     <div className={classes.buttonContainer}>
                         <Button
                             variant="contained"
-                            color="	#FF0000"
+                            color="secondary"
                             className={classes.button}
                         >
                             End Test

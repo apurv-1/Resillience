@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { Helmet } from "react-helmet";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from '@material-ui/core/Button';
-// import AccessTimeIcon from '@material-ui/icons/AccessTime';
+import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import Paper from "@material-ui/core/Paper";
 import Fab from '@material-ui/core/Fab';
 
@@ -45,7 +45,7 @@ const useStyles = makeStyles(() => ({
 
     },
     top:{
-
+        marginTop:"-5%"
     },
     box: {
         padding:"10px",
@@ -60,21 +60,25 @@ const useStyles = makeStyles(() => ({
         width: "100%"
     },
     option :{
-        width: "100%"
+        marginLeft: "22%",
+        marginTop: "10px",
+        marginBottom: "10px"
     },
     buttonContainer:{
         padding:"20px"
     },
-    Button:{
-        paddingLeft:"5px",
-        paddingRight:"5px",
-        
+    button:{
+        marginLeft: "80px"
     },
     fab: {
         margin: "10px",
     },
     fabBox: {
         padding: "20px",
+    },
+    timer:{
+        textAlign:"center",
+        textSizeAdjust:"90%"
     }
 }));
 
@@ -86,7 +90,12 @@ export default function MainTest() {
                 <Helmet><title>Test</title></Helmet>
                 <div className={classes.root}>
                 <Paper elevation={5} className={classes.paper3}>
+                        <div className={classes.timer}>
+                            <b><AccessTimeIcon /> : 1:05:11 seconds</b>
+                        </div>
                     <div className={classes.fabBox}>
+                        <hr style={{height:"2px", backgroundColor:"gray solid"}} />
+                        {/* <b>Questions Overview: </b> */}
                         <div>
                             <Fab size="medium" color="secondary" className={classes.fab}>1</Fab>
                             <Fab size="medium" color="secondary" className={classes.fab}>2</Fab>
@@ -113,26 +122,59 @@ export default function MainTest() {
                             <Fab size="medium" color="secondary" className={classes.fab}>14</Fab>
                             <Fab size="medium" color="secondary" className={classes.fab}>15</Fab>
                         </div>
+                        <hr style={{height:"2px", backgroundColor:"gray solid"}} />
                     </div>
                 </Paper>
                 <Paper elevation={5} className={classes.paper1}>
                     <div className={classes.box}>
                         <p className={classes.top}>
-                            <span style={{float:"left"}}>1 of 20 questions</span>
-                            <span><h4>Sample Test 3</h4></span>
-                            {/* <span style={{float:"right"}}><AccessTimeIcon />1:15:19</span> */}
+                            <span><h2>Sample Test 3</h2></span>
+                            <span>1 of 20 questions</span>
                         </p>
+                        <hr style={{height:"2px", backgroundColor:"gray solid"}} />
                         <div className={classes.question} >
                             <img alt="question" src="https://res.cloudinary.com/rweb1/image/upload/v1601136030/iukekz1lf7truo7huhtw.png" />
+                            <hr style={{height:"2px", backgroundColor:"gray solid"}} />
                         </div>
-                        <div className={classes.optionContainer}>
-                            <p className={classes.option} > Option A </p>
-                            <p className={classes.option} > Option B </p>
-                        </div> 
-                        <div className={classes.optionContainer}>
-                            <p className={classes.option} > Option C </p>
-                            <p className={classes.option} > Option D </p>
-                        </div> 
+                        <div>
+                            <div style={{marginLeft:"-30%"}}>
+                                <Fab
+                                variant="extended"
+                                size="medium"
+                                color="primary"
+                                className={classes.option}
+                                >
+                                Option A
+                                </Fab>
+                                <Fab
+                                variant="extended"
+                                size="medium"
+                                color="primary"
+                                className={classes.option}
+                                >
+                                Option B
+                                </Fab>
+                            </div>
+                            <div style={{marginLeft:"-30%"}}>
+                                <Fab
+                                variant="extended"
+                                size="medium"
+                                color="primary"
+                                className={classes.option}
+                                >
+                                Option C
+                                </Fab>
+                                <Fab
+                                variant="extended"
+                                size="medium"
+                                color="primary"
+                                className={classes.option}
+                                >
+                                Option D
+                                </Fab>
+                            </div>
+                            <hr style={{height:"1px", backgroundColor:"gray solid"}} />
+                        </div>
                     </div>
                 </Paper>
                 
@@ -142,6 +184,7 @@ export default function MainTest() {
                             variant="contained"
                             color="secondary"
                             className={classes.button}
+                            style={{marginLeft:"-10px"}}
                         >
                             End Test
                         </Button>

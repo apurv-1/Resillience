@@ -57,12 +57,32 @@ router.put('/add-question',(req,res)=>{
 
 
 router.get('/showtest',(req,res)=>{
-    Test.findOne(req.body.testId)
-    .then(test=>{
-        res.json({test})
+    const testId = req.body.testId ;
+    // console.log(testId)
+    Test.findOne({test:testId})
+    // .populate("testId","testName questions[]")
+    // .then(test=>{
+    //     Test.find()
+        // .populate("test","testId testName questions")
+    // .exec((err,questions)=>{
+    //         if(err){
+    //             return res.status(422).json({error:err})
+    //         }
+    //         res.json({test,questions})
+        // })
+    // })
+    // .populate("questions._id","questionImage correctOption questionType")
+    .then(tests=>{
+        Test.findOne()
+        .exec((err,test)=>{
+            if(err){
+                return res.status(422).json({error:err})
+            }
+            res.json({test})
+        })
     })
     .catch(err=>{
-        console.log(err)
+        return res.status(404).json({error:"Test not found"})
     })
 })
 // router.post('/addquestion',(req,res)=>{

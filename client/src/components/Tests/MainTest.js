@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from '@material-ui/core/Button';
@@ -82,12 +82,30 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-export default function MainTest() {
+const MainTest = () => {
+
+        // const [test,setTest] = useState([]);
+        // const [testId,setTestId] = useState('');
+        // useEffect(()=>{
+        //     fetch('/showtest',{
+        //         method:"get",
+        //         headers:{
+        //             "Content-Type":"application/json"
+        //         },
+        //         body:JSON.stringify({
+        //             testId
+        //         })
+        //     })
+        //      .then((res)=>res.json())
+        //      .then((result)=>{
+        //          setTest(result.tests)
+        //      })
+        // })
     
         const  classes = useStyles();
         return(
-            <Fragment>
-                <Helmet><title>Test</title></Helmet>
+            // <Fragment>
+            //     <Helmet><title>Test</title></Helmet>
                 <div className={classes.root}>
                 <Paper elevation={5} className={classes.paper3}>
                         <div className={classes.timer}>
@@ -212,7 +230,9 @@ export default function MainTest() {
                     </div>
                 </Paper>
                 </div>
-            </Fragment>
+            // </Fragment>
         );
     
 }
+
+export default MainTest;

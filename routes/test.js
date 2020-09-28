@@ -73,7 +73,7 @@ router.get('/showtest',(req,res)=>{
     // })
     // .populate("questions._id","questionImage correctOption questionType")
     .then(tests=>{
-        Test.findOne()
+        Test.findOne({testId})
         .exec((err,test)=>{
             if(err){
                 return res.status(422).json({error:err})

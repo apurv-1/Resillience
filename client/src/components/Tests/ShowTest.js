@@ -1,15 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
-// import Button from '@material-ui/core/Button';
-// import InputLabel from '@material-ui/core/InputLabel';
-// import MenuItem from '@material-ui/core/MenuItem';
-// import FormControl from '@material-ui/core/FormControl';
-// import Select from '@material-ui/core/Select';
-// import TextField from '@material-ui/core/TextField';
-// import SaveIcon from '@material-ui/icons/Save';
-// import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-
+//components
 import AddQuestion from './addQuestions';
 
 const useStyles = makeStyles(() => ({
@@ -30,14 +22,6 @@ const useStyles = makeStyles(() => ({
 
 export default function ShowTest() {
   const classes = useStyles();
-//   const [openSubject, setOpenSubject] = useState(false);
-//   const [openCorrect, setOpenCorrect] = useState(false);
-//   const [subject, setSubject] = useState('');
-//   const [correct, setCorrect] = useState('');
-//   const [testId, setTestID] = useState('');
-//   const [questionImg, setQuestionImg] = useState('');
-//   const [questionUrl, setQuestionUrl] = useState('');
-  // const [noofques, setNoOfQues] = useState('10');
 
   return (
     <div className={classes.root}>

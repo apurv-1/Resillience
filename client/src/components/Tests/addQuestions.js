@@ -61,15 +61,29 @@ const useStyles = makeStyles((theme) => ({
     height: "50%",
     width: "15%"
   },
+  cropContainer12:{
+    height: "300px"
+  },
+  cropContainer: {
+    width:"100%",
+    height: "120px",
+    display:"flex",
+    justifyContent:"space-around"
+  
+    // border:"2px solid",
+    // background: "transparent",
+  },
   showImage: {
-    alignItems: "center",
-    maxWidth: "50%",
-    maxHeight: "50%"
+    // alignItems: "center",
+    // float: "left",
+    maxWidth: "500px",
+    // border:"2px solid",
+    maxHeight: "500px"
   },
   croppedQuestion: {
-    maxWidth: "50%",
-    maxHeight: "50%",
-    float: "right"
+    minWidth: "500px",
+    minHeight: "500px",
+    // float: "right"
   }
 }));
 
@@ -123,8 +137,8 @@ const CreateTest = () => {
     }
   },[questionUrl])
 
-  const addQusetion = ()=>{
-    console.log(questionImg)
+  const addQuestion = ()=>{
+    // console.log(questionImg)
        const data = new FormData()
        data.append("file",questionImg)
        data.append("upload_preset","question")
@@ -240,7 +254,7 @@ const CreateTest = () => {
                   color="primary"
                   className={classes.button}
                   startIcon={<SaveIcon />}
-                  onClick={()=>addQusetion()}
+                  onClick={()=>addQuestion()}
                 >
                   Save Question
                 </Button>
@@ -248,26 +262,30 @@ const CreateTest = () => {
               } */}
             </div>
       </Paper>
-      <div>
-        { questionSrc && (
-          <div className={classes.showImage}>
-            <ReactCrop src={questionSrc} onImageLoaded={setQuestionImg} crop={crop} onChange={setCrop} />
-            <Button
-              variant="contained"
-              color="secondary"
-              className={classes.button}
-              startIcon={<CropIcon />}
-              onClick={getCroppedImg}
-            >
-              Crop 
-            </Button>
-          </div>
-        )}
+        <div className={classes.cropContainer}>
+        <div className={classes.showImage}>
+          { questionSrc && (
+            <div >
+              <ReactCrop src={questionSrc} onImageLoaded={setQuestionImg} crop={crop} onChange={setCrop} />
+              <Button
+                variant="contained"
+                color="secondary"
+                className={classes.button}
+                startIcon={<CropIcon />}
+                onClick={getCroppedImg}
+              >
+                Crop 
+              </Button>
+            </div>
+          )}
+        </div>
+        <div className={classes.croppedQuestion}>
         { finalQuestion && (
-          <div className={classes.croppedQuestion}>
+          <div>
           <img src={finalQuestion} alt="cropped question" />
           </div>
         )}
+        </div>  
       </div>
     </div>
   );

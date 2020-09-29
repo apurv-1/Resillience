@@ -33,14 +33,13 @@ router.post('/addtest',(req,res)=>{
 })
 
 router.put('/add-question',(req,res)=>{
-    const testId = req.body.testId ;
+    const testId = req.body.testId 
     const question = {
         questionImage:req.body.questionImage,
         correctOption:req.body.correctOption,
         questionType:req.body.questionType
-    };
-    // console.log(req.query)
-    Test.findOneAndUpdate(testId,{
+    }
+    Test.findOneAndUpdate({testId:testId},{
         $push:{questions:question}
     },{ 
         new:true 

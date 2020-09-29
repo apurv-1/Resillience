@@ -9,6 +9,9 @@ import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import SaveIcon from '@material-ui/icons/Save';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import ReactCrop from 'react-image-crop';
+import CropIcon from '@material-ui/icons/Crop';
+import 'react-image-crop/dist/ReactCrop.css';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -58,10 +61,20 @@ const useStyles = makeStyles((theme) => ({
     height: "50%",
     width: "15%"
   },
+  showImage: {
+    alignItems: "center",
+    maxWidth: "50%",
+    maxHeight: "50%"
+  },
+  croppedQuestion: {
+    maxWidth: "50%",
+    maxHeight: "50%",
+    float: "right"
+  }
 }));
 
 
-export default function CreateTest() {
+const CreateTest = () => {
   const classes = useStyles();
   const [openSubject, setOpenSubject] = useState(false);
   const [openCorrect, setOpenCorrect] = useState(false);
@@ -69,7 +82,10 @@ export default function CreateTest() {
   const [correct, setCorrect] = useState('');
   const [testId, setTestID] = useState('');
   const [questionImg, setQuestionImg] = useState('');
+  const [questionSrc, setQuestionSrc] = useState('');
   const [questionUrl, setQuestionUrl] = useState('');
+  const [finalQuestion, setFinalQuestion] = useState('');
+  const [crop, setCrop] = useState({});
   // const [noofques, setNoOfQues] = useState('10');
 
   useEffect(()=>{
@@ -93,10 +109,12 @@ export default function CreateTest() {
          }
          else{
           console.log("question saved")
-          setCorrect("")
-          setSubject("")
-          setQuestionImg("")
-          setQuestionUrl("")
+          setCorrect("");
+          setSubject("");
+          setQuestionImg("");
+          setQuestionUrl("");
+          setQuestionSrc("");
+          setFinalQuestion("");
          }
        })
        .catch((err)=>{
@@ -124,6 +142,35 @@ export default function CreateTest() {
        })
   }
 
+  const handleImageChange = (e) => {
+    setQuestionSrc(URL.createObjectURL(e.target.files[0]))
+  }
+
+  function getCroppedImg() {
+    const canvas = document.createElement('canvas');
+    const scaleX = questionImg.naturalWidth / questionImg.width;
+    const scaleY = questionImg.naturalHeight / questionImg.height;
+    canvas.width = crop.width;
+    canvas.height = crop.height;
+    const ctx = canvas.getContext('2d');
+   
+    ctx.drawImage(
+      questionImg,
+      crop.x * scaleX,
+      crop.y * scaleY,
+      crop.width * scaleX,
+      crop.height * scaleY,
+      0,
+      0,
+      crop.width,
+      crop.height,
+    );
+    
+    const base64Image = canvas.toDataURL('image/jpeg');
+    setFinalQuestion(base64Image);
+    setQuestionImg(base64Image);
+  }
+  
   return (
     <div className={classes.card}>
       <Paper elevation={5}>
@@ -159,7 +206,7 @@ export default function CreateTest() {
                     id="contained-button-file"
                     multiple
                     type="file"
-                    onChange={(e)=>setQuestionImg(e.target.files[0])} 
+                    onChange={handleImageChange} 
                 />
                 <label htmlFor="contained-button-file">
                     <Button 
@@ -201,6 +248,29 @@ export default function CreateTest() {
               } */}
             </div>
       </Paper>
+      <div>
+        { questionSrc && (
+          <div className={classes.showImage}>
+            <ReactCrop src={questionSrc} onImageLoaded={setQuestionImg} crop={crop} onChange={setCrop} />
+            <Button
+              variant="contained"
+              color="secondary"
+              className={classes.button}
+              startIcon={<CropIcon />}
+              onClick={getCroppedImg}
+            >
+              Crop 
+            </Button>
+          </div>
+        )}
+        { finalQuestion && (
+          <div className={classes.croppedQuestion}>
+          <img src={finalQuestion} alt="cropped question" />
+          </div>
+        )}
+      </div>
     </div>
   );
 }
+
+export default CreateTest;

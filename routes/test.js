@@ -56,8 +56,8 @@ router.put('/add-question',(req,res)=>{
 
 
 router.get('/showtest',(req,res)=>{
-    const testId = req.body.testId ;
-    // console.log(testId)
+    const testId = req.query.testid ;
+    // console.log(req.query)
     Test.findOne({testId})
     .then(tests=>{
         res.json({tests})

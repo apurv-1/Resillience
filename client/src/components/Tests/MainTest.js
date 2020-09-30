@@ -63,14 +63,14 @@ const MainTest = () => {
     
     const [testId, setTestId] = useState('');
     const FetchTest = () => {
-        fetch('/showtest',{
+        fetch(`/showtest?testid=${testId}`,{
             method:"get",
             headers:{
                 "Content-Type":"application/json"
             },
-            // body:JSON.stringify({
+            // body:{
             //     testId:testId
-            // })
+            // }
         })
         .then((res)=>res.json())
         .then((test)=>{

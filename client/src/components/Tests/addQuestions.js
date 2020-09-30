@@ -74,16 +74,12 @@ const useStyles = makeStyles((theme) => ({
     // background: "transparent",
   },
   showImage: {
-    // alignItems: "center",
-    // float: "left",
     maxWidth: "500px",
-    // border:"2px solid",
     maxHeight: "500px"
   },
   croppedQuestion: {
     minWidth: "500px",
     minHeight: "500px",
-    // float: "right"
   }
 }));
 
@@ -100,7 +96,6 @@ const CreateTest = () => {
   const [questionUrl, setQuestionUrl] = useState('');
   const [finalQuestion, setFinalQuestion] = useState('');
   const [crop, setCrop] = useState({});
-  // const [noofques, setNoOfQues] = useState('10');
 
   useEffect(()=>{
     if(questionUrl){

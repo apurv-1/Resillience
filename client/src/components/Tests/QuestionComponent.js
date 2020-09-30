@@ -53,10 +53,10 @@ const QuestionComponent = () => {
     return(
         <div>
             <div className={classes.box}>
-            <p className={classes.top}>
-                <span><h2>Sample Test 3</h2></span>
-                <span>1 of 20 questions</span>
-            </p>
+                <div className={classes.top}>
+                    <span><h2>Sample Test 3</h2></span>
+                    <span>1 of 20 questions</span>
+                </div>
             <hr style={{height:"2px", backgroundColor:"gray solid"}} />
             <div className={classes.question} >
                 <img alt="question" src="https://res.cloudinary.com/rweb1/image/upload/v1601136030/iukekz1lf7truo7huhtw.png" />

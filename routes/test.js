@@ -59,8 +59,8 @@ router.get('/showtest',(req,res)=>{
     const testId = req.query.testid ;
     // console.log(req.query)
     Test.findOne({testId})
-    .then(tests=>{
-        res.json({tests})
+    .then(test=>{
+        res.json({test})
     })
     .catch(err=>{
         return res.status(404).json({error:"Test not found"})

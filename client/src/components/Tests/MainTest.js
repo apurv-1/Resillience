@@ -61,6 +61,7 @@ const useStyles = makeStyles(() => ({
 
 const MainTest = () => {
     
+    const [check, setCheck] = useState(false);
     const [testId, setTestId] = useState('');
     const FetchTest = () => {
         fetch(`/showtest?testid=${testId}`,{
@@ -68,48 +69,26 @@ const MainTest = () => {
             headers:{
                 "Content-Type":"application/json"
             },
-            // body:{
-            //     testId:testId
-            // }
         })
         .then((res)=>res.json())
         .then((test)=>{
-            console.log(test)
-            // localStorage.setItem("questions",)
+                console.log(test)
+                localStorage.setItem("test", JSON.stringify(test))
+                // localStorage.setItem("questions",test.questions)
+                setCheck(true)
         })
         .catch((err) => {
             console.log(err);
         });
     }
-    
+
         const  classes = useStyles();
         return(
             // <Fragment>
             //     <Helmet><title>Test</title></Helmet>
                 <div className={classes.root}>
-                    <div className={classes.startbox}>
-                    <Paper elevation={5} className={classes.paper4}>
-                        <div>
-                            <TextField 
-                                id="outlined-basic" 
-                                label="Enter Test ID" 
-                                variant="outlined"
-                                value={testId}
-                                onChange={(e)=>setTestId(e.target.value)} 
-                                />
-                        </div>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            className={classes.button}
-                            style={{width:"100%"}}
-                            onClick={()=>FetchTest()}
-                        >
-                            Begin Test
-                        </Button>
-                    </Paper>
-                    </div>    
-                { testId && 
+                        
+                { check ? 
                     <div>
                         <Paper elevation={5} className={classes.paper3}>
                             <QuestionKeysComponent />
@@ -150,8 +129,33 @@ const MainTest = () => {
                                 </Button>
                             </div>
                         </Paper>
+                    </div> 
+                : 
+                    <div className={classes.startbox}>
+                    <Paper elevation={5} className={classes.paper4}>
+                       
+                            <div>
+                                <TextField 
+                                    id="outlined-basic" 
+                                    label="Enter Test ID" 
+                                    variant="outlined"
+                                    value={testId}
+                                    onChange={(e)=>setTestId(e.target.value)} 
+                                    />
+                            </div>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                className={classes.button}
+                                style={{width:"100%"}}
+                                onClick={()=>FetchTest()}
+                            >
+                                Begin Test
+                            </Button>
+                        
+                    </Paper>
                     </div>
-                    }
+                }
                 </div>
             // </Fragment>
         );

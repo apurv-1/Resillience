@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Button from '@material-ui/core/Button';
 import Paper from "@material-ui/core/Paper";
 import TextField from '@material-ui/core/TextField';
+// import Typography from "@material-ui/core/Typography";
 //Components
 import QuestionComponent from './QuestionComponent';
 import QuestionKeysComponent from './QuestionKeysComponent';
@@ -57,12 +58,23 @@ const useStyles = makeStyles(() => ({
         textAlign: "center",
         // color: "#f8f8f8"
     },
+    buttonContainer:{
+        padding: "1%"
+    },
+    button:{
+        margin:"2.5%"
+    },
+    text:{
+        border: "2px",
+        padding:"2%"
+    }
 }));
 
 const MainTest = () => {
     
     const [check, setCheck] = useState(false);
     const [testId, setTestId] = useState('');
+
     const FetchTest = () => {
         fetch(`/showtest?testid=${testId}`,{
             method:"get",
@@ -72,8 +84,7 @@ const MainTest = () => {
         })
         .then((res)=>res.json())
         .then((test)=>{
-                console.log(test)
-                localStorage.setItem("test", JSON.stringify(test))
+                localStorage.setItem("tests",JSON.stringify(test.test))
                 // localStorage.setItem("questions",test.questions)
                 setCheck(true)
         })
@@ -127,6 +138,13 @@ const MainTest = () => {
                                 >
                                     Next Question
                                 </Button>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    className={classes.button}
+                                >
+                                    Submit Test
+                                </Button>
                             </div>
                         </Paper>
                     </div> 
@@ -135,19 +153,21 @@ const MainTest = () => {
                     <Paper elevation={5} className={classes.paper4}>
                        
                             <div>
+                    
                                 <TextField 
                                     id="outlined-basic" 
                                     label="Enter Test ID" 
                                     variant="outlined"
                                     value={testId}
-                                    onChange={(e)=>setTestId(e.target.value)} 
+                                    onChange={(e)=>setTestId(e.target.value)}
+                                    fullWidth 
                                     />
                             </div>
                             <Button
                                 variant="contained"
                                 color="primary"
-                                className={classes.button}
-                                style={{width:"100%"}}
+                                // className={classes.button}
+                                style={{width:"100%", marginTop:"3%"}}
                                 onClick={()=>FetchTest()}
                             >
                                 Begin Test

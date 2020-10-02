@@ -98,6 +98,7 @@ const CreateTest = () => {
   const [crop, setCrop] = useState({});
 
   useEffect(()=>{
+    console.log("correct option :",correct)
     if(questionUrl){
       fetch("/add-question",{
         method:"put",
@@ -133,7 +134,7 @@ const CreateTest = () => {
   },[questionUrl])
 
   const addQuestion = ()=>{
-    // console.log(questionImg)
+    console.log(questionImg)
        const data = new FormData()
        data.append("file",questionImg)
        data.append("upload_preset","question")

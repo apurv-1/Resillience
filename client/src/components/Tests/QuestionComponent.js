@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from "@material-ui/core/styles";
 // import Button from '@material-ui/core/Button';
 import Fab from '@material-ui/core/Fab';
@@ -49,14 +49,44 @@ const useStyles = makeStyles(() => ({
 
 const QuestionComponent = () => {
     const  classes = useStyles();
+    const [questions, SetQuestions] = useState([]);
+    const [testName, SetTestName] = useState('');
+    const [currentQuestion, setCurrentQuestion] = useState({});
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [nextQuestion, setNextQuestion] = useState({});
+    const [previousQuestion, setPreviousQuestion] = useState({});
+
+    useEffect(()=>{
+        const test = JSON.parse(localStorage.getItem("tests")) ;
+        // debugger;
+        console.log(test.questions)
+        SetTestName(test.testName)
+        SetQuestions(test.questions)
+    },[])
+
+    const displayQuestion = (questions, currentQuestion, nextQuestion, previousQuestion) => {
+        const { currentQuestionIndex } = currentQuestionIndex ;
+        
+            currentQuestion = questions[currentQuestionIndex]
+            nextQuestion = questions[currentQuestionIndex + 1]
+            previousQuestion = questions[currentQuestionIndex - 1]
+            // const answer = currentQuestion.correctOption ;
+            setCurrentQuestion(currentQuestion)
+            setNextQuestion(nextQuestion)
+            setPreviousQuestion(previousQuestion)
+    
+    }
+
+    // const { currentQuestion, nextQuestion, previousQuestion } = displayQuestion();
 
     return(
         <div>
             <div className={classes.box}>
                 <div className={classes.top}>
-                    <span><h2>Sample Test 3</h2></span>
-                    <span>1 of 20 questions</span>
+                    <span><h2>{testName}</h2></span>
+                    <span>1 of {questions.length}</span>
                 </div>
+
             <hr style={{height:"2px", backgroundColor:"gray solid"}} />
             <div className={classes.question} >
                 <img alt="question" src="https://res.cloudinary.com/rweb1/image/upload/v1601136030/iukekz1lf7truo7huhtw.png" />

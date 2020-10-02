@@ -129,7 +129,7 @@ const CreateTest = () => {
        })
        .catch((err)=>{
          console.log(err)
-       })
+       }) 
     }
   },[questionUrl])
 

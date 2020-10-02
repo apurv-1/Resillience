@@ -74,6 +74,8 @@ const MainTest = () => {
     
     const [check, setCheck] = useState(false);
     const [testId, setTestId] = useState('');
+    const [test, setTest] = useState([]);
+    const [currentIndex,setCurrentIndex] = useState(0);
 
     const FetchTest = () => {
         fetch(`/showtest?testid=${testId}`,{
@@ -84,9 +86,11 @@ const MainTest = () => {
         })
         .then((res)=>res.json())
         .then((test)=>{
-                localStorage.setItem("tests",JSON.stringify(test.test))
-                // localStorage.setItem("questions",test.questions)
-                setCheck(true)
+            setTest(test.test);
+            setCheck(true);
+                // localStorage.setItem("tests",JSON.stringify(test.test))
+                // localStorage.setItem("index","0")
+                // localStorage.setItem("questions",test.questions)    
         })
         .catch((err) => {
             console.log(err);
@@ -95,17 +99,15 @@ const MainTest = () => {
 
         const  classes = useStyles();
         return(
-            // <Fragment>
-            //     <Helmet><title>Test</title></Helmet>
                 <div className={classes.root}>
                         
-                { check ? 
+                { check && (test.questions.length > 0) ? 
                     <div>
                         <Paper elevation={5} className={classes.paper3}>
                             <QuestionKeysComponent />
                         </Paper>
                         <Paper elevation={5} className={classes.paper1}>
-                        <QuestionComponent /> 
+                            <QuestionComponent test = {test} currentQuestion = {test.questions[currentIndex]} /> 
                         </Paper>
                         <Paper elevation={5} className={classes.paper2}>
                             <div className={classes.buttonContainer}>
@@ -121,6 +123,7 @@ const MainTest = () => {
                                     variant="contained"
                                     color="primary"
                                     className={classes.button}
+                                    onClick={()=>setCurrentIndex(currentIndex - 1)}
                                 >
                                     Previous Question
                                 </Button>
@@ -135,6 +138,7 @@ const MainTest = () => {
                                     variant="contained"
                                     color="primary"
                                     className={classes.button}
+                                    onClick={()=>setCurrentIndex(currentIndex + 1)}
                                 >
                                     Next Question
                                 </Button>
@@ -177,7 +181,6 @@ const MainTest = () => {
                     </div>
                 }
                 </div>
-            // </Fragment>
         );
     
 }

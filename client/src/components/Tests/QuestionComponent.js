@@ -47,7 +47,7 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-const QuestionComponent = ({test, currentQuestion}) => {
+const QuestionComponent = ({test, currentQuestion, currentQuestionIndex}) => {
     const  classes = useStyles();
     const [questions, SetQuestions] = useState([]);
     const [testName, SetTestName] = useState('');
@@ -69,7 +69,7 @@ const QuestionComponent = ({test, currentQuestion}) => {
             <div className={classes.box}>
                 <div className={classes.top}>
                     <span><h2>{testName}</h2></span>
-                    <span>1 of {questions.length}</span>
+                    <span>{currentQuestionIndex} of {questions.length}</span>
                 </div>
 
             <hr style={{height:"2px", backgroundColor:"gray solid"}} />

@@ -75,7 +75,8 @@ const MainTest = () => {
     const [check, setCheck] = useState(false);
     const [testId, setTestId] = useState('');
     const [test, setTest] = useState([]);
-    const [currentIndex,setCurrentIndex] = useState(0);
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [questionLength, setQuestionLength] = useState(0);
 
     const FetchTest = () => {
         fetch(`/showtest?testid=${testId}`,{
@@ -88,6 +89,7 @@ const MainTest = () => {
         .then((test)=>{
             setTest(test.test);
             setCheck(true);
+            setQuestionLength(test.test.questions.length)
                 // localStorage.setItem("tests",JSON.stringify(test.test))
                 // localStorage.setItem("index","0")
                 // localStorage.setItem("questions",test.questions)    
@@ -104,10 +106,17 @@ const MainTest = () => {
                 { check && (test.questions.length > 0) ? 
                     <div>
                         <Paper elevation={5} className={classes.paper3}>
-                            <QuestionKeysComponent />
+                            <QuestionKeysComponent 
+                                questionsLength = {questionLength}
+                                currentQuestionIndex = {1 + currentIndex} 
+                            />
                         </Paper>
                         <Paper elevation={5} className={classes.paper1}>
-                            <QuestionComponent test = {test} currentQuestion = {test.questions[currentIndex]} /> 
+                            <QuestionComponent 
+                                test = {test} 
+                                currentQuestion = {test.questions[currentIndex]} 
+                                currentQuestionIndex = {1 + currentIndex} 
+                            /> 
                         </Paper>
                         <Paper elevation={5} className={classes.paper2}>
                             <div className={classes.buttonContainer}>

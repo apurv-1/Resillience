@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from "@material-ui/core/styles";
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 // import Button from '@material-ui/core/Button';
@@ -22,7 +22,7 @@ const useStyles = makeStyles(() => ({
     },
     question: {
         height: "100%",
-        width:"100%",
+        width:"200px",
         marginTop:"2%",
         alignItems: "center"
     },   
@@ -45,6 +45,7 @@ const useStyles = makeStyles(() => ({
     },
     fabBox: {
         padding: "20px",
+        maxWidth:"300px"
     },
     timer:{
         textAlign:"center",
@@ -52,8 +53,17 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-const QuestionKeysComponent = () => {
+const QuestionKeysComponent = ({questionsLength ,currentQuestionIndex}) => {
     const  classes = useStyles();
+    // const [length, setLength] = useState([]);
+    // const question = questionsLength.length
+    // useEffect(()=>{
+    //     setLength
+    // },[])
+    // const length = map
+    // const [length, setLength]
+     
+
 
     return(
         <div>
@@ -64,30 +74,14 @@ const QuestionKeysComponent = () => {
                 <hr style={{height:"2px", backgroundColor:"gray solid"}} />
                 {/* <b>Questions Overview: </b> */}
                 <div>
-                    <Fab size="medium" color="secondary" className={classes.fab}>1</Fab>
-                    <Fab size="medium" color="secondary" className={classes.fab}>2</Fab>
-                    <Fab size="medium" color="secondary" className={classes.fab}>3</Fab>
-                    <Fab size="medium" color="secondary" className={classes.fab}>4</Fab>
-                    
-                </div>
-                <div>
-                    <Fab size="medium" color="secondary" className={classes.fab}>5</Fab>
-                    <Fab size="medium" color="secondary" className={classes.fab}>6</Fab>
-                    <Fab size="medium" color="secondary" className={classes.fab}>7</Fab>
-                    <Fab size="medium" color="secondary" className={classes.fab}>8</Fab>
-                    
-                </div>
-                <div>
-                    <Fab size="medium" color="secondary" className={classes.fab}>9</Fab>
-                    <Fab size="medium" color="secondary" className={classes.fab}>10</Fab>
-                    <Fab size="medium" color="secondary" className={classes.fab}>11</Fab>
-                    <Fab size="medium" color="secondary" className={classes.fab}>12</Fab>
-                    
-                </div>
-                <div>
-                    <Fab size="medium" color="secondary" className={classes.fab}>13</Fab>
-                    <Fab size="medium" color="secondary" className={classes.fab}>14</Fab>
-                    <Fab size="medium" color="secondary" className={classes.fab}>15</Fab>
+                    {
+                        // questionsLength.map( item =>{
+                        //     return(
+                        //         <Fab size="medium" color="secondary" className={classes.fab}>{currentQuestionIndex}</Fab> 
+                        //     );
+                        // })
+                    }
+
                 </div>
                 <hr style={{height:"2px", backgroundColor:"gray solid"}} />
             </div>

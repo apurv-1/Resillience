@@ -53,7 +53,7 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-const QuestionKeysComponent = ({questionsLength ,currentQuestionIndex}) => {
+const QuestionKeysComponent = ({ timeRemaining }) => {
     const  classes = useStyles();
     // const [length, setLength] = useState([]);
     // const question = questionsLength.length
@@ -61,14 +61,13 @@ const QuestionKeysComponent = ({questionsLength ,currentQuestionIndex}) => {
     //     setLength
     // },[])
     // const length = map
-    // const [length, setLength]
-     
-
+    // const [length, setLength] 
+    console.log(timeRemaining)
 
     return(
         <div>
             <div className={classes.timer}>
-                <b><AccessTimeIcon /> : 1:05:11 seconds</b>
+                <b><AccessTimeIcon /> : {timeRemaining.minutes}:{timeRemaining.seconds}</b>
             </div>
             <div className={classes.fabBox}>
                 <hr style={{height:"2px", backgroundColor:"gray solid"}} />

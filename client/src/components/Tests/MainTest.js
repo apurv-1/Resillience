@@ -77,6 +77,8 @@ const MainTest = () => {
     const [test, setTest] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [questionLength, setQuestionLength] = useState(0);
+    const [time, setTime] = useState({});
+    const interval = null
 
     const FetchTest = () => {
         fetch(`/showtest?testid=${testId}`,{
@@ -90,6 +92,7 @@ const MainTest = () => {
             setTest(test.test);
             setCheck(true);
             setQuestionLength(test.test.questions.length)
+            startTimer()
                 // localStorage.setItem("tests",JSON.stringify(test.test))
                 // localStorage.setItem("index","0")
                 // localStorage.setItem("questions",test.questions)    
@@ -99,6 +102,34 @@ const MainTest = () => {
         });
     }
 
+        const startTimer = () => {
+            const countDownTime = Date.now + 1000000;
+            // console.log(countDownTime)
+            interval = setInterval(() => {
+                const now = new Date();
+                const distance = countDownTime
+
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / (1000));
+
+                if(distance < 0){
+                    clearInterval(interval);
+                    setTime({
+                        minutes: 0,
+                        seconds: 0
+                    },() => {
+                        alert("Times up!!")
+                    });
+                } 
+                else{
+                    setTime({
+                        minutes:minutes,
+                        seconds:seconds
+                    });
+                }
+            }, 1000);
+        }
+
         const  classes = useStyles();
         return(
                 <div className={classes.root}>
@@ -107,8 +138,9 @@ const MainTest = () => {
                     <div>
                         <Paper elevation={5} className={classes.paper3}>
                             <QuestionKeysComponent 
-                                questionsLength = {questionLength}
-                                currentQuestionIndex = {1 + currentIndex} 
+                                // questionsLength = {questionLength}
+                                // currentQuestionIndex = {1 + currentIndex}
+                                timeRemaining = {time} 
                             />
                         </Paper>
                         <Paper elevation={5} className={classes.paper1}>

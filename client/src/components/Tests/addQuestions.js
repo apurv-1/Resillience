@@ -28,6 +28,13 @@ const useStyles = makeStyles((theme) => ({
   },
   textField:{
     height: "10px" ,
+    maxWidth: "50px",
+    marginTop:"-20%",
+    textAlign: "left",
+  },
+  questionNum:{
+    height: "10px" ,
+    maxWidth: "150px",
     marginTop:"-20%",
     textAlign: "left",
   },
@@ -62,20 +69,21 @@ const useStyles = makeStyles((theme) => ({
     width: "15%"
   },
   cropContainer12:{
-    height: "300px"
+    height: "100%"
   },
   cropContainer: {
     width:"100%",
-    height: "120px",
+    height: "100%",
     display:"flex",
-    justifyContent:"space-around"
-  
+    justifyContent:"space-around",
+    margin:"2px"
     // border:"2px solid",
     // background: "transparent",
   },
   showImage: {
-    maxWidth: "500px",
-    maxHeight: "500px"
+    maxWidth: "100%",
+    maxHeight: "100%"
+
   },
   croppedQuestion: {
     minWidth: "500px",
@@ -91,6 +99,8 @@ const CreateTest = () => {
   const [subject, setSubject] = useState('');
   const [correct, setCorrect] = useState('');
   const [testId, setTestID] = useState('');
+
+  const [questionNumber, setQuestionNumber] = useState('');
   const [questionImg, setQuestionImg] = useState('');
   const [questionSrc, setQuestionSrc] = useState('');
   const [questionUrl, setQuestionUrl] = useState('');
@@ -98,7 +108,6 @@ const CreateTest = () => {
   const [crop, setCrop] = useState({});
 
   useEffect(()=>{
-    console.log("correct option :",correct)
     if(questionUrl){
       fetch("/add-question",{
         method:"put",
@@ -107,6 +116,7 @@ const CreateTest = () => {
         },
         body: JSON.stringify({
           testId:testId,
+          questionNumber: questionNumber,
           questionImage:questionUrl,
           correctOption:correct,
           questionType:subject
@@ -194,6 +204,14 @@ const CreateTest = () => {
                   value={testId}
                   onChange={(e)=>setTestID(e.target.value)}
                 />
+                <TextField 
+                  id="question-number" 
+                  label="Question Number"
+                  // variant="outlined" 
+                  className={classes.questionNum}
+                  value={questionNumber}
+                  onChange={(e)=>setQuestionNumber(e.target.value)}
+                />
                 <FormControl className={classes.formControl}>
                     <InputLabel>Subject</InputLabel>
                     <Select
@@ -259,30 +277,30 @@ const CreateTest = () => {
             </div>
       </Paper>
         <div className={classes.cropContainer}>
-        <div className={classes.showImage}>
-          { questionSrc && (
-            <div >
-              <ReactCrop src={questionSrc} onImageLoaded={setQuestionImg} crop={crop} onChange={setCrop} />
-              <Button
-                variant="contained"
-                color="secondary"
-                className={classes.button}
-                startIcon={<CropIcon />}
-                onClick={getCroppedImg}
-              >
-                Crop 
-              </Button>
+          <div className={classes.showImage}>
+            { questionSrc && (
+              <div >
+                <ReactCrop src={questionSrc} onImageLoaded={setQuestionImg} crop={crop} onChange={setCrop} />
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  className={classes.button}
+                  startIcon={<CropIcon />}
+                  onClick={getCroppedImg}
+                >
+                  Crop 
+                </Button>
+              </div>
+            )}
+          </div>
+          <div className={classes.croppedQuestion}>
+          { finalQuestion && (
+            <div>
+            <img src={finalQuestion} alt="cropped question" />
             </div>
           )}
+          </div>  
         </div>
-        <div className={classes.croppedQuestion}>
-        { finalQuestion && (
-          <div>
-          <img src={finalQuestion} alt="cropped question" />
-          </div>
-        )}
-        </div>  
-      </div>
     </div>
   );
 }

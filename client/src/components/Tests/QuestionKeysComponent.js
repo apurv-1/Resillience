@@ -71,6 +71,20 @@ const QuestionKeysComponent = ({ timeRemaining }) => {
                 <hr style={{height:"2px", backgroundColor:"gray solid"}} />
                 {/* <b>Questions Overview: </b> */}
                 <div>
+                <Fab size="medium" color="secondary" className={classes.fab}>1</Fab>
+                <Fab size="medium" color="secondary" className={classes.fab}>1</Fab>
+                <Fab size="medium" color="secondary" className={classes.fab}>1</Fab>
+                <Fab size="medium" color="secondary" className={classes.fab}>1</Fab>
+                <Fab size="medium" color="secondary" className={classes.fab}>1</Fab>
+                <Fab size="medium" color="secondary" className={classes.fab}>1</Fab>
+                <Fab size="medium" color="secondary" className={classes.fab}>1</Fab>
+                <Fab size="medium" color="secondary" className={classes.fab}>1</Fab>
+                <Fab size="medium" color="secondary" className={classes.fab}>1</Fab>
+                <Fab size="medium" color="secondary" className={classes.fab}>1</Fab>
+                <Fab size="medium" color="secondary" className={classes.fab}>1</Fab>
+                <Fab size="medium" color="secondary" className={classes.fab}>1</Fab>
+                <Fab size="medium" color="secondary" className={classes.fab}>1</Fab>
+                <Fab size="medium" color="secondary" className={classes.fab}>1</Fab>
                     {
                         // questionsLength.map( item =>{
                         //     return(

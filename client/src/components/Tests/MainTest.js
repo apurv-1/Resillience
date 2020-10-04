@@ -79,7 +79,6 @@ const MainTest = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [questionLength, setQuestionLength] = useState(0);
     const [time, setTime] = useState({});
-    const interval = null
 
     const FetchTest = () => {
         fetch(`/showtest?testid=${testId}`,{
@@ -95,7 +94,7 @@ const MainTest = () => {
             setQuestionLength(test.test.questions.length)
                 // localStorage.setItem("tests",JSON.stringify(test.test))
                 // localStorage.setItem("index","0")
-                // localStorage.setItem("questions",test.questions)    
+                console.log("questions",test)    
         })
         .catch((err) => {
             console.log(err);

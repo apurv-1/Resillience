@@ -23,14 +23,15 @@ const TimerComponent = () => {
 
 
     const startTimer = () => {
-        const countDownTime = Date.now() + 30000 ;
-        console.log( "countdown",countDownTime)
+        const countDownTime = Date.now() + 300000 ;
+        // console.log( "countdown",countDownTime)
+        
         interval = setInterval(() => {
             const now = new Date() ;
-            console.log("now ",now)
+            // console.log("now ",now)
 
             const distance = countDownTime - now
-            console.log("distance ",distance)
+            // console.log("distance ",distance)
 
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / (1000));

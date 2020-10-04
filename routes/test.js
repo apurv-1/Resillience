@@ -35,6 +35,7 @@ router.post('/addtest',(req,res)=>{
 router.put('/add-question',(req,res)=>{
     const testId = req.body.testId 
     const question = {
+        questionNumber:req.body.questionNumber,
         questionImage:req.body.questionImage,
         correctOption:req.body.correctOption,
         questionType:req.body.questionType

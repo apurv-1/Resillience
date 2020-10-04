@@ -11,6 +11,11 @@ const testSchema = new mongoose.Schema({
         required: true
     }, 
     questions:[{
+        questionNumber:{
+            type: Number,
+            required: true,
+            unique: true
+        },
         questionImage:{
             type: String,
             required: true

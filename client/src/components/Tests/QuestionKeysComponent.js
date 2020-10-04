@@ -62,13 +62,11 @@ const QuestionKeysComponent = ({ timeRemaining }) => {
     // },[])
     // const length = map
     // const [length, setLength] 
-    console.log(timeRemaining)
+    // console.log(timeRemaining)
 
     return(
         <div>
-            <div className={classes.timer}>
-                <b><AccessTimeIcon /> : {timeRemaining.minutes}:{timeRemaining.seconds}</b>
-            </div>
+           
             <div className={classes.fabBox}>
                 <hr style={{height:"2px", backgroundColor:"gray solid"}} />
                 {/* <b>Questions Overview: </b> */}

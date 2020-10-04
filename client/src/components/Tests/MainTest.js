@@ -8,6 +8,7 @@ import TextField from '@material-ui/core/TextField';
 //Components
 import QuestionComponent from './QuestionComponent';
 import QuestionKeysComponent from './QuestionKeysComponent';
+import TimerComponent from './TimerComponent';
 
 const useStyles = makeStyles(() => ({
     root:{
@@ -92,7 +93,6 @@ const MainTest = () => {
             setTest(test.test);
             setCheck(true);
             setQuestionLength(test.test.questions.length)
-            startTimer()
                 // localStorage.setItem("tests",JSON.stringify(test.test))
                 // localStorage.setItem("index","0")
                 // localStorage.setItem("questions",test.questions)    
@@ -102,33 +102,6 @@ const MainTest = () => {
         });
     }
 
-        const startTimer = () => {
-            const countDownTime = Date.now + 1000000;
-            // console.log(countDownTime)
-            interval = setInterval(() => {
-                const now = new Date();
-                const distance = countDownTime
-
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / (1000));
-
-                if(distance < 0){
-                    clearInterval(interval);
-                    setTime({
-                        minutes: 0,
-                        seconds: 0
-                    },() => {
-                        alert("Times up!!")
-                    });
-                } 
-                else{
-                    setTime({
-                        minutes:minutes,
-                        seconds:seconds
-                    });
-                }
-            }, 1000);
-        }
 
         const  classes = useStyles();
         return(
@@ -137,6 +110,7 @@ const MainTest = () => {
                 { check && (test.questions.length > 0) ? 
                     <div>
                         <Paper elevation={5} className={classes.paper3}>
+                            <TimerComponent />
                             <QuestionKeysComponent 
                                 // questionsLength = {questionLength}
                                 // currentQuestionIndex = {1 + currentIndex}

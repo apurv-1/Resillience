@@ -17,10 +17,12 @@ router.get('/alltests',(req,res)=>{
 })
 
 router.post('/addtest',(req,res)=>{
-    const { testId, testName, questions } = req.body
+    const { testId, testName, testDuration, noOfQuestions } = req.body
     const test = new Test({
         testId,
-        testName
+        testName,
+        testDuration,
+        noOfQuestions
     })
     test
       .save()

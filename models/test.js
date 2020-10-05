@@ -9,7 +9,15 @@ const testSchema = new mongoose.Schema({
     testName:{
         type: String,
         required: true
+    },
+    testDuration:{
+        type: Number,
+        required: true
     }, 
+    noOfQuestions:{
+        type: Number,
+        required: true
+    },
     questions:[{
         questionNumber:{
             type: Number,

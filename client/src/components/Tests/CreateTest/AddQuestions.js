@@ -92,13 +92,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const CreateTest = () => {
+const AddQuestions = ({testID}) => {
   const classes = useStyles();
   const [openSubject, setOpenSubject] = useState(false);
   const [openCorrect, setOpenCorrect] = useState(false);
   const [subject, setSubject] = useState('');
   const [correct, setCorrect] = useState('');
-  const [testId, setTestID] = useState('');
 
   const [questionNumber, setQuestionNumber] = useState('');
   const [questionImg, setQuestionImg] = useState('');
@@ -115,7 +114,7 @@ const CreateTest = () => {
           "Content-Type":"application/json"
         },
         body: JSON.stringify({
-          testId:testId,
+          testId:testID,
           questionNumber: questionNumber,
           questionImage:questionUrl,
           correctOption:correct,
@@ -195,15 +194,8 @@ const CreateTest = () => {
     <div className={classes.card}>
       <Paper elevation={5}>
             <div className={classes.upload}>
-              {/* while ({noofques >= 0}) { */}
-                <TextField 
-                  id="test-id" 
-                  label="Test Id"
-                  // variant="outlined" 
-                  className={classes.textField}
-                  value={testId}
-                  onChange={(e)=>setTestID(e.target.value)}
-                />
+
+               
                 <TextField 
                   id="question-number" 
                   label="Question Number"
@@ -272,8 +264,6 @@ const CreateTest = () => {
                 >
                   Save Question
                 </Button>
-                {/* {--noofques}
-              } */}
             </div>
       </Paper>
         <div className={classes.cropContainer}>
@@ -305,4 +295,4 @@ const CreateTest = () => {
   );
 }
 
-export default CreateTest;
+export default AddQuestions;

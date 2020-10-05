@@ -9,19 +9,28 @@ import AddQuestions from "./AddQuestions";
 
 const useStyles = makeStyles(() => ({
     root:{
-        margin: "20px"
+        alignSelf: "center",
+        marginTop: "5%",
+        padding:"5%",
     },
-    questionsDiv:{
-        margin: "2px"
-    },
+    // questionsDiv:{
+    //     margin: "2px"
+    // },
     testDiv: {
-        margin: "20%"
+        display: "flex",
     },
     paper: {
-        marginLeft: "2%",
+        padding:"2%",
         textAlign: "center",
-        // color: theme.palette.text.secondary
-      },
+    },
+    testField: {
+        marginLeft:"20px",
+        height: "10px",
+    },
+    button: {
+        marginLeft : "20px",
+        height: "55px",
+    },
 }))
 
 const CreateTest = () => {
@@ -31,7 +40,7 @@ const CreateTest = () => {
     const [testName, setTestName] = useState('');
     const [testDuration, setTestDuration] = useState('');
     const [noOfQuestions, setNoOfQuestions] = useState('');
-    const [check, setCheck] = useState(false);
+    const [check, setCheck] = useState(true);
 
     const SaveTest = () => {
         fetch('/addtest',{
@@ -63,6 +72,7 @@ const CreateTest = () => {
 
     return(
         <div className={classes.root}>
+        
             {
                 check ?
                     <div className={classes.questionsDiv}>
@@ -70,11 +80,11 @@ const CreateTest = () => {
                     </div>
                 :
                     <div className={classes.testDiv}>
-                        <Paper elevation={5}>
+                        <Paper elevation={5} className={classes.paper}>
                             <TextField 
                                 id="test-id" 
                                 label="Test Id"
-                                // variant="outlined" 
+                                variant="outlined" 
                                 className={classes.textField}
                                 value={testId}
                                 onChange={(e)=>setTestId(e.target.value)}
@@ -82,15 +92,15 @@ const CreateTest = () => {
                             <TextField 
                                 id="test-name" 
                                 label="Test Name"
-                                // variant="outlined" 
+                                variant="outlined" 
                                 className={classes.testField}
                                 value={testName}
                                 onChange={(e)=>setTestName(e.target.value)}
                             />
                             <TextField 
-                                id="number-of-ques" 
+                                id="questions" 
                                 label="How many Questions"
-                                // variant="outlined" 
+                                variant="outlined" 
                                 className={classes.testField}
                                 value={noOfQuestions}
                                 onChange={(e)=>setNoOfQuestions(e.target.value)}
@@ -98,9 +108,9 @@ const CreateTest = () => {
                             <TextField 
                                 id="test-duration" 
                                 label="Test Duration (mins)"
-                                // variant="outlined" 
+                                variant="outlined" 
                                 className={classes.testField}
-                                value={(testDuration * 60000)}
+                                value={testDuration}
                                 onChange={(e)=>setTestDuration(e.target.value)}
                             />
                             <Button

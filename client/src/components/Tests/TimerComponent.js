@@ -14,16 +14,35 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-const TimerComponent = () => {
+const TimerComponent = ({test, timeRemaining}) => {
     
     // const history = useHistory();
+    const [testDuration, setTestDuration] = useState(60000);
     const [timeMins, setTimeMins] = useState('00');
     const [timeSeconds, setTimeSeconds] = useState('00');
     let interval = useRef();
+    // console.log(timeRemaining.time)
 
+    // const FetchTime = () => {
+    //     fetch(`/showtest?testid=${testId}`,{
+    //         method:"get",
+    //         headers:{
+    //             "Content-Type":"application/json"
+    //         },
+    //     })
+    //     .then((res)=>res.json())
+    //     .then((test)=>{
+    //         // setTime(test.test.testDuration) ;
+    //         debugger;
+    //         console.log(test);
+    //     })
+    //     .catch((err) => {
+    //         console.log(err);
+    //     });
+    // }
 
     const startTimer = () => {
-        const countDownTime = Date.now() + 300000 ;
+        const countDownTime = Date.now() + testDuration ;
         // console.log( "countdown",countDownTime)
         
         interval = setInterval(() => {
@@ -53,6 +72,8 @@ const TimerComponent = () => {
     }
 
     useEffect(()=>{
+        // FetchTime();
+        // setTestDuration(test.testDuration)
         startTimer();
         return ()=>{
             clearInterval(interval);

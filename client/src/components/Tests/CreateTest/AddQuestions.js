@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexWrap: "wrap",
     margin: "5%",
-    marginTop: "5%",
+    marginTop: "2%",
     marginBottom: "-10%",
     "& > *": {
       margin: "2%",
@@ -41,7 +41,6 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     marginLeft: "2%",
     textAlign: "center",
-    color: theme.palette.text.secondary
   },
   textbox: {
     marginLeft: "26%",
@@ -61,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "2%",
     margin:"auto",
     height: "50%",
-    width: "16%"
+    width: "20%"
   },
   formControl: {
     minWidth: "15%",
@@ -73,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
   },
   cropContainer: {
     width:"100%",
-    height: "100%",
+    // height: "100%",
     display:"flex",
     justifyContent:"space-around",
     margin:"2px"
@@ -194,8 +193,7 @@ const AddQuestions = ({testID}) => {
     <div className={classes.card}>
       <Paper elevation={5}>
             <div className={classes.upload}>
-
-               
+ 
                 <TextField 
                   id="question-number" 
                   label="Question Number"

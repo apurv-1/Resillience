@@ -2,7 +2,6 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 //components
-import AddQuestion from './addQuestions';
 
 const useStyles = makeStyles(() => ({
   root:{

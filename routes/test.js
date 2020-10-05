@@ -21,7 +21,7 @@ router.post('/addtest',(req,res)=>{
     const test = new Test({
         testId,
         testName,
-        testDuration,
+        testDuration:(60000 * testDuration),
         noOfQuestions
     })
     test

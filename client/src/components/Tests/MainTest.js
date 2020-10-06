@@ -77,8 +77,7 @@ const MainTest = () => {
     const [testId, setTestId] = useState('');
     const [test, setTest] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [questionLength, setQuestionLength] = useState({});
-    const [time, setTime] = useState({});
+    const [questionLength, setQuestionLength] = useState(0);
 
     const FetchTest = () => {
         fetch(`/showtest?testid=${testId}`,{
@@ -92,7 +91,7 @@ const MainTest = () => {
             setTest(test.test);
             setQuestionLength(test.test.questions.length);
             // setTime(test.test.testDuration)
-            console.log(test.test.testDuration)
+            // console.log(test.test.testDuration)
             setCheck(true);
             
                 // localStorage.setItem("tests",JSON.stringify(test.test))
@@ -112,11 +111,14 @@ const MainTest = () => {
                 { check && (test.questions.length > 0) ? 
                     <div>
                         <Paper elevation={5} className={classes.paper3}>
-                            <TimerComponent />
+                            <TimerComponent 
+                                timeRemaining = {test.testDuration} 
+                            />
                             <QuestionKeysComponent 
                                 // questionsLength = {questionLength}
                                 // currentQuestionIndex = {1 + currentIndex}
-                                timeRemaining = {test.testDuration} 
+                                test = {test}
+                                
                             />
                         </Paper>
                         <Paper elevation={5} className={classes.paper1}>

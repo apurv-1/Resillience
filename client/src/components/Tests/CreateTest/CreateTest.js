@@ -5,7 +5,8 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
 
-import AddQuestions from "./AddQuestions";
+import AddQuestions from "./AddQuestionsComponent";
+import ShowTest from './ShowTestComponent';
 
 const useStyles = makeStyles(() => ({
     root:{
@@ -77,7 +78,9 @@ const CreateTest = () => {
                 check ?
                     <div className={classes.questionsDiv}>
                         <AddQuestions testID={testId} />
+                        <ShowTest testId={testId} />
                     </div>
+                    
                 :
                     <div className={classes.testDiv}>
                         <Paper elevation={5} className={classes.paper}>

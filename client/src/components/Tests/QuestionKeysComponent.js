@@ -53,7 +53,7 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-const QuestionKeysComponent = ({ timeRemaining }) => {
+const QuestionKeysComponent = ({test, timeRemaining }) => {
     const  classes = useStyles();
     // const [length, setLength] = useState([]);
     // const question = questionsLength.length
@@ -62,6 +62,7 @@ const QuestionKeysComponent = ({ timeRemaining }) => {
     // },[])
     // const length = map
     // const [length, setLength] 
+    // console.log
     // console.log(timeRemaining)
 
     return(

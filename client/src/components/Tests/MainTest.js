@@ -153,14 +153,27 @@ const MainTest = () => {
                                 >
                                     Mark for Review
                                 </Button>
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    className={classes.button}
-                                    onClick={()=>setCurrentIndex(currentIndex + 1)}
-                                >
-                                    Next Question
-                                </Button>
+                                {
+                                    currentIndex === questionLength ?
+                                    <Button 
+                                        variant="contained" 
+                                        color="primary"
+                                        className={classes.button}
+                                        disabled
+                                    >
+                                        Next Question
+                                    </Button>
+                                :
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        className={classes.button}
+                                        onClick={()=>setCurrentIndex(currentIndex + 1)}
+                                    >
+                                        Next Question
+                                    </Button>
+                                }
+                                
                                 <Button
                                     variant="contained"
                                     color="primary"

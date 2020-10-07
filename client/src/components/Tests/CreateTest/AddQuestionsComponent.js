@@ -15,26 +15,17 @@ import 'react-image-crop/dist/ReactCrop.css';
 
 const useStyles = makeStyles((theme) => ({
   card: {
-    display: "flex",
-    flexWrap: "wrap",
-    margin: "5%",
-    marginTop: "2%",
+    // display: "flex",
+    // flexWrap: "wrap",
+    // margin: "5%",
+    height:"10%",
+    // marginTop: "1%",
     marginBottom: "-10%",
-    "& > *": {
-      margin: "2%",
-      width: "100%",
-      height: "80%"
-    }
+    padding: "5%"
   },
   textField:{
     height: "10px" ,
     maxWidth: "50px",
-    marginTop:"-20%",
-    textAlign: "left",
-  },
-  questionNum:{
-    height: "10px" ,
-    maxWidth: "150px",
     marginTop:"-20%",
     textAlign: "left",
   },
@@ -47,25 +38,25 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "5%"
   },
   upload: {
-    margin:"1%",
-    '& > *': {
-      margin: "1%",
-      height:"10px"
-    },
+    // margin:"1%",
+    padding:"3%",
+
   },
   input: {
     display: 'none',
+    marginLeft:"20px"
   },
   button: {
-    marginTop: "2%",
-    margin:"auto",
+    marginLeft: "2%",
+    margin:"1%",
     height: "50%",
     width: "20%"
   },
   formControl: {
     minWidth: "15%",
-    height: "50%",
-    width: "15%"
+    marginLeft:"3%",
+    height: "100%",
+    // width: "15%"
   },
   cropContainer12:{
     height: "100%"
@@ -85,8 +76,8 @@ const useStyles = makeStyles((theme) => ({
 
   },
   croppedQuestion: {
-    minWidth: "500px",
-    minHeight: "500px",
+    minWidth: "500%",
+    minHeight: "500%",
   }
 }));
 
@@ -191,14 +182,13 @@ const AddQuestions = ({testID}) => {
   
   return (
     <div className={classes.card}>
-      <Paper elevation={5}>
-            <div className={classes.upload}>
- 
+      <Paper elevation={5} className={classes.upload}>
+            <div>
                 <TextField 
                   id="question-number" 
                   label="Question Number"
                   // variant="outlined" 
-                  className={classes.questionNum}
+                  // className={classes.input}
                   value={questionNumber}
                   onChange={(e)=>setQuestionNumber(e.target.value)}
                 />

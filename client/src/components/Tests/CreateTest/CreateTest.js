@@ -10,15 +10,15 @@ import ShowTest from './ShowTestComponent';
 
 const useStyles = makeStyles(() => ({
     root:{
-        alignSelf: "center",
         marginTop: "5%",
-        padding:"5%",
+        margin: "2%",
+        padding:"6%",
     },
     // questionsDiv:{
     //     margin: "2px"
     // },
     testDiv: {
-        display: "flex",
+        // display: "flex",
     },
     paper: {
         padding:"2%",
@@ -32,6 +32,10 @@ const useStyles = makeStyles(() => ({
         marginLeft : "20px",
         height: "55px",
     },
+    showtest:{
+        marginTop:"5%",
+        marginBottom:"-10%"
+    }
 }))
 
 const CreateTest = () => {
@@ -78,7 +82,6 @@ const CreateTest = () => {
                 check ?
                     <div className={classes.questionsDiv}>
                         <AddQuestions testID={testId} />
-                        <ShowTest testId={testId} />
                     </div>
                     
                 :
@@ -126,8 +129,12 @@ const CreateTest = () => {
                                 Save Test
                             </Button>
                         </Paper>
+                        
                     </div>
             }
+            <div className={classes.showtest}>
+                <ShowTest testId={testId} />
+            </div>
         </div>
     );
 }

@@ -5,7 +5,9 @@ import Paper from "@material-ui/core/Paper";
 
 const useStyles = makeStyles(() => ({
   root:{
-    background:"#88888"
+    // background:"#88888",
+    marginTop:"2%"
+    // margin: "20%"
   },
   showquestion:{
     marginTop:"11%",

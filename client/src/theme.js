@@ -20,7 +20,7 @@ export default {
       main: "#0F7DC2",
       dark: "",
       contrastText: "#fff"
-    }
+    },
   },
   typography: {
     fontFamily: ["muli", "sans-serif"].join(","),

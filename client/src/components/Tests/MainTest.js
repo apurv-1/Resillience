@@ -78,6 +78,7 @@ const MainTest = () => {
     const [test, setTest] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [questionLength, setQuestionLength] = useState(0);
+    
 
     const FetchTest = () => {
         fetch(`/showtest?testid=${testId}`,{
@@ -102,6 +103,15 @@ const MainTest = () => {
             console.log(err);
         });
     }
+
+    // useEffect(()=>{
+    //     if(currentIndex === (questionLength-1)){
+    //         setDisable(true);
+    //     }
+    //     else{
+    //         setDisable(false)
+    //     }
+    // })
 
 
         const  classes = useStyles();
@@ -132,20 +142,33 @@ const MainTest = () => {
                             <div className={classes.buttonContainer}>
                                 <Button
                                     variant="contained"
-                                    color="secondary"
+                                    color="red"
                                     className={classes.button}
                                     style={{marginLeft:"-10px"}}
                                 >
                                     End Test
                                 </Button>
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    className={classes.button}
-                                    onClick={()=>setCurrentIndex(currentIndex - 1)}
-                                >
-                                    Previous Question
-                                </Button>
+                                {
+                                    currentIndex === 0 ?
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        className={classes.button}
+                                        disabled
+                                    >
+                                        Previous Question
+                                    </Button>
+                                :
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        className={classes.button}
+                                        onClick={()=>setCurrentIndex(currentIndex - 1)}
+                                    >
+                                        Previous Question
+                                    </Button>
+                                }
+                                
                                 <Button
                                     variant="contained"
                                     color="primary"
@@ -153,27 +176,27 @@ const MainTest = () => {
                                 >
                                     Mark for Review
                                 </Button>
+
                                 {
-                                    currentIndex === questionLength ?
-                                    <Button 
-                                        variant="contained" 
-                                        color="primary"
-                                        className={classes.button}
-                                        disabled
-                                    >
-                                        Next Question
-                                    </Button>
-                                :
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        className={classes.button}
-                                        onClick={()=>setCurrentIndex(currentIndex + 1)}
-                                    >
-                                        Next Question
-                                    </Button>
+                                    currentIndex === (questionLength-1) ?
+                                        <Button 
+                                            variant="contained" 
+                                            color="primary"
+                                            className={classes.button}
+                                            disabled
+                                        >
+                                            Next Question
+                                        </Button>
+                                    :
+                                        <Button
+                                            variant="contained"
+                                            color="primary"
+                                            className={classes.button}
+                                            onClick={()=>setCurrentIndex(currentIndex + 1)}
+                                        >
+                                            Next Question
+                                        </Button>
                                 }
-                                
                                 <Button
                                     variant="contained"
                                     color="primary"

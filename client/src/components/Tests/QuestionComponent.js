@@ -98,6 +98,12 @@ const QuestionComponent = ({test, currentQuestion, currentQuestionIndex}) => {
                     </Fab>
                 </div>
                 <div style={{marginLeft:"-30%"}}>
+                <View
+                    style={{
+                    borderLeftWidth: 1,
+                    borderLeftColor: 'white',
+                    }}
+                    />
                     <Fab
                         variant="extended"
                         size="medium"

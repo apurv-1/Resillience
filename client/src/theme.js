@@ -21,6 +21,17 @@ export default {
       dark: "",
       contrastText: "#fff"
     },
+    common:{
+      // button:{
+      //   light: "#FFFFFF",
+      //   main: "#6E6E6E",
+      //   dark: "#008394",
+      //   contrastText: "#fff"
+      // },
+      button: "#006095",
+      black: "#000000",
+      white: "#FFFFFF"
+    }
   },
   typography: {
     fontFamily: ["muli", "sans-serif"].join(","),

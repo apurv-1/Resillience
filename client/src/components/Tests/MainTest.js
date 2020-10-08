@@ -10,7 +10,7 @@ import QuestionComponent from './QuestionComponent';
 import QuestionKeysComponent from './QuestionKeysComponent';
 import TimerComponent from './TimerComponent';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
     root:{
         // margin: "4%",
         marginTop: "5%",
@@ -60,10 +60,13 @@ const useStyles = makeStyles(() => ({
         // color: "#f8f8f8"
     },
     buttonContainer:{
-        padding: "1%"
+        padding: "1%",
+        // backfaceVisibility: "hidden",
     },
     button:{
-        margin:"2.5%"
+        margin:"2.5%",
+        caretColor: "#0089FF"
+        // color: theme.palette.common.red
     },
     text:{
         border: "2px",

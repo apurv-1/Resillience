@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 // import Button from '@material-ui/core/Button';
 import Fab from '@material-ui/core/Fab';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
     root:{
         // margin: "4%",
         marginTop: "5%",
@@ -31,7 +31,8 @@ const useStyles = makeStyles(() => ({
     option :{
         marginLeft: "22%",
         marginTop: "10px",
-        marginBottom: "10px"
+        marginBottom: "10px",
+        background: theme.palette.common.button
     },
     buttonContainer:{
         padding:"20px"

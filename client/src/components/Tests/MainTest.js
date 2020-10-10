@@ -145,7 +145,7 @@ const MainTest = () => {
 						<QuestionKeysComponent
 							test={test}
 							// questionsLength = {questionLength}
-							currentQuestionIndex={1 + currentIndex}
+							// currentQuestionIndex={1 + currentIndex}
 							// question = {}
 						/>
 					</Paper>

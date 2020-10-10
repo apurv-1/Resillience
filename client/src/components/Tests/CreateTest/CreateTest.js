@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
@@ -45,7 +45,7 @@ const CreateTest = () => {
 	const [testName, setTestName] = useState("");
 	const [testDuration, setTestDuration] = useState("");
 	const [noOfQuestions, setNoOfQuestions] = useState("");
-	const [check, setCheck] = useState(true);
+	const [check, setCheck] = useState(false);
 
 	const SaveTest = () => {
 		fetch("/addtest", {
@@ -77,8 +77,13 @@ const CreateTest = () => {
 	return (
 		<div className={classes.root}>
 			{check ? (
-				<div className={classes.questionsDiv}>
-					<AddQuestions testID={testId} />
+				<div>
+					<div className={classes.questionsDiv}>
+						<AddQuestions testID={testId} />
+					</div>
+					<div className={classes.showtest}>
+						<ShowTest testId={testId} />
+					</div>
 				</div>
 			) : (
 				<div className={classes.testDiv}>
@@ -126,9 +131,6 @@ const CreateTest = () => {
 					</Paper>
 				</div>
 			)}
-			<div className={classes.showtest}>
-				<ShowTest testId={testId} />
-			</div>
 		</div>
 	);
 };

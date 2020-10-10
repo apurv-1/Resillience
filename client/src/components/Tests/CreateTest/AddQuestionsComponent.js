@@ -143,7 +143,8 @@ const AddQuestions = ({ testID }) => {
 	};
 
 	const handleImageChange = (e) => {
-		setQuestionSrc(URL.createObjectURL(e.target.files[0]));
+		setQuestionImg(e.target.files[0]);
+		// setQuestionSrc(URL.createObjectURL(e.target.files[0]));
 	};
 
 	function getCroppedImg() {

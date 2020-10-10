@@ -63,7 +63,13 @@ router.get('/showtest',(req,res)=>{
     // console.log(req.query)
     Test.findOne({testId})
     .then(test=>{
-        res.json({test})
+        // console.log(test)
+        if(test === null){
+            return res.status(422).json({error:"Please enter valid Test ID"})
+        }
+        else{
+            res.json({test})
+        }
     })
     .catch(err=>{
         return res.status(404).json({error:"Test not found"})

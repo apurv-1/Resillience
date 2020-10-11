@@ -53,11 +53,11 @@ const useStyles = makeStyles(() => ({
 	},
 }));
 
-const QuestionKeysComponent = ({ test, currentQuestionIndex }) => {
+const QuestionKeysComponent = ({ test, handleCurrentIndex }) => {
 	const classes = useStyles();
 	const [length, setLength] = useState(0);
 	const [questions, setQuestions] = useState([]);
-	// const [currentIndex, setCurrentIndex] = useState([]);
+	// const [currentIndex, setCurrentIndex] = useState(handleCurrentIndex);
 	// console.log(test.questions);
 
 	// const question = questionsLength.length
@@ -84,7 +84,7 @@ const QuestionKeysComponent = ({ test, currentQuestionIndex }) => {
 								color="secondary"
 								key={questionNumber}
 								className={classes.fab}
-								// onClick={questionNumber + currentQuestionIndex}
+								// onClick={handleCurrentIndex(questionNumber)}
 							>
 								{questionNumber}
 							</Fab>

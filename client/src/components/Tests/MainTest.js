@@ -116,6 +116,10 @@ const MainTest = () => {
 			});
 	};
 
+	// const handleCurrentIndex = (questionNo) => {
+	// 	setCurrentIndex(questionNo);
+	// };
+
 	// const AlertBox = () => {
 	// 	return(
 	// 		<div className={classes.toast}>
@@ -144,6 +148,7 @@ const MainTest = () => {
 						<TimerComponent timeRemaining={test.testDuration} />
 						<QuestionKeysComponent
 							test={test}
+							// handleCurrentIndex={handleCurrentIndex}
 							// questionsLength = {questionLength}
 							// currentQuestionIndex={1 + currentIndex}
 							// question = {}

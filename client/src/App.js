@@ -1,6 +1,6 @@
-import React, { Component, Suspense, lazy } from "react";
+import React, { Suspense, lazy, useEffect, createContext, useReducer, useContext } from "react";
 
-import { Switch, Route, withRouter } from "react-router-dom";
+import { Switch, Route, withRouter, useHistory } from "react-router-dom";
 import ScrollToTop from "./ScrollToTop";
 import "./App.css";
 // import jwtDecode from "jwt-decode";
@@ -15,6 +15,7 @@ import themeObject from "./theme";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { TitleComponent } from "./components/Title/TitleComponent";
 
+import { StudentReducer, TestReducer, InitialState } from "./components/Reducers/Reducer";
 import "./ReactTransitions.css";
 
 //Components
@@ -45,113 +46,175 @@ const MainTest = lazy(() => import("./components/Tests/MainTest"));
 const theme = createMuiTheme(themeObject);
 
 //Proxy only works in developmemt so need to tell this
-axios.defaults.baseURL =
-  "https://resillience-test.herokuapp.com/";
+axios.defaults.baseURL = "https://resillience-test.herokuapp.com/";
 
 // withTitle function
 const withTitle = ({ component: Component, title }) => {
-  return class Title extends React.Component {
-    render() {
-      return (
-        <React.Fragment>
-          <TitleComponent title={title} />
-          <Component {...this.props} />
-        </React.Fragment>
-      );
-    }
-  };
+	return class Title extends React.Component {
+		render() {
+			return (
+				<React.Fragment>
+					<TitleComponent title={title} />
+					<Component {...this.props} />
+				</React.Fragment>
+			);
+		}
+	};
 };
 
 // Adding title
-const HomeComponent = withTitle({ component: Home, title: "RESILLIENCE: Personalized Learning with IITians" });
-const AboutUsComponent = withTitle({ component: AboutUs, title: "About Us | RESILLIENCE" });
-const OneOnOneHomeComponent = withTitle({ component: OneOnOneHome, title: "One On One Home Tuition | RESILLIENCE" });
-const OneOnOneLiveComponent = withTitle({ component: OneOnOneLive, title: "One On One Live Tuition | RESILLIENCE" });
-const MasteringAChapterComponent = withTitle({ component: MasteringAChapter, title: "Mastering a week chapter | RESILLIENCE" });
-const TestComponent = withTitle({ component: Tests, title: "Test | RESILLIENCE" });
-const FaqsComponent = withTitle({ component: Faqs, title: "FAQ's | RESILLIENCE" });
-const ContactUsComponent = withTitle({ component: ContactUs, title: "Contact Us | RESILLIENCE" });
-const CareerComponent = withTitle({ component: Career, title: "Career | RESILLIENCE" });
-const PostBlogComponent = withTitle({ component: PostBlog, title: "Post Blog | RESILLIENCE" });
-const ShowBlogsComponent = withTitle({ component: ShowBlogs, title: "Blogs | RESILLIENCE" });
-const ParticularBlogComponent = withTitle({ component: ParticularBlog, title: "Blogs | RESILLIENCE" });
-const StudentProfileComponent = withTitle({ component: StudentProfile, title: "Dashboard | RESILLIENCE" });
-const PrivacyPolicyComponent = withTitle({ component: PrivacyPolicy, title: "Privacy Policy | RESILLIENCE" });
-const TermsOfServiceComponent = withTitle({ component: TermsOfService, title: "Terms of service | RESILLIENCE" });
-const CreateTestComponent = withTitle({ component: CreateTest, title: "Create Test | RESILLIENCE" });
-const MainTestComponent = withTitle({ component: MainTest, title: "Test Section | RESILLIENCE" });
+const HomeComponent = withTitle({
+	component: Home,
+	title: "RESILLIENCE: Personalized Learning with IITians",
+});
+const AboutUsComponent = withTitle({
+	component: AboutUs,
+	title: "About Us | RESILLIENCE",
+});
+const OneOnOneHomeComponent = withTitle({
+	component: OneOnOneHome,
+	title: "One On One Home Tuition | RESILLIENCE",
+});
+const OneOnOneLiveComponent = withTitle({
+	component: OneOnOneLive,
+	title: "One On One Live Tuition | RESILLIENCE",
+});
+const MasteringAChapterComponent = withTitle({
+	component: MasteringAChapter,
+	title: "Mastering a week chapter | RESILLIENCE",
+});
+const TestComponent = withTitle({
+	component: Tests,
+	title: "Test | RESILLIENCE",
+});
+const FaqsComponent = withTitle({
+	component: Faqs,
+	title: "FAQ's | RESILLIENCE",
+});
+const ContactUsComponent = withTitle({
+	component: ContactUs,
+	title: "Contact Us | RESILLIENCE",
+});
+const CareerComponent = withTitle({
+	component: Career,
+	title: "Career | RESILLIENCE",
+});
+const PostBlogComponent = withTitle({
+	component: PostBlog,
+	title: "Post Blog | RESILLIENCE",
+});
+const ShowBlogsComponent = withTitle({
+	component: ShowBlogs,
+	title: "Blogs | RESILLIENCE",
+});
+const ParticularBlogComponent = withTitle({
+	component: ParticularBlog,
+	title: "Blogs | RESILLIENCE",
+});
+const StudentProfileComponent = withTitle({
+	component: StudentProfile,
+	title: "Dashboard | RESILLIENCE",
+});
+const PrivacyPolicyComponent = withTitle({
+	component: PrivacyPolicy,
+	title: "Privacy Policy | RESILLIENCE",
+});
+const TermsOfServiceComponent = withTitle({
+	component: TermsOfService,
+	title: "Terms of service | RESILLIENCE",
+});
+const CreateTestComponent = withTitle({
+	component: CreateTest,
+	title: "Create Test | RESILLIENCE",
+});
+const MainTestComponent = withTitle({
+	component: MainTest,
+	title: "Test Section | RESILLIENCE",
+});
 // const SitemapComponent = withTitle({ component: Sitemap, title: "Sitemap | RESILLIENCE" });
 
-const ErrorComponent = withTitle({ component: Error, title: "Not Found | RESILLIENCE" });
+const ErrorComponent = withTitle({
+	component: Error,
+	title: "Not Found | RESILLIENCE",
+});
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      prevDepth: this.getPathDepth(this.props.location)
-    };
-  }
+//context api
+export const Context = createContext();
 
-  UNSAFE_componentWillReceiveProps() {
-    this.setState({ prevDepth: this.getPathDepth(this.props.location) });
-  }
+//routes
+const Routing = () => {
+	const history = useHistory();
+	return (
+		<Switch>
+			<Route exact path="/" component={HomeComponent} />
+			<Route path="/aboutus" component={AboutUsComponent} />
+			<Route path="/tuitions/one-on-one-home-tuitions" component={OneOnOneHomeComponent} />
+			<Route path="/tuitions/one-on-one-online-tuitions" component={OneOnOneLiveComponent} />
+			<Route path="/tuitions/mastering-a-week-topic" component={MasteringAChapterComponent} />
+			<Route path="/test" component={TestComponent} />
+			<Route path="/createtest" component={CreateTestComponent} />
+			<Route path="/maintest" component={MainTestComponent} />
+			<Route path="/faqs" component={FaqsComponent} />
+			<Route path="/contact-us" component={ContactUsComponent} />
+			<Route path="/career" component={CareerComponent} />
+			<Route path="/admin/createblogs" component={PostBlogComponent} />
+			<Route exact path="/blogs" component={ShowBlogsComponent} />
+			<Route exact path="/blogs/:id" component={ParticularBlogComponent} />
+			<Route path="/dashboard" component={StudentProfileComponent} />
+			<Route path="/privacypolicy" component={PrivacyPolicyComponent} />
+			<Route path="/termsofservice" component={TermsOfServiceComponent} />
+			{/* <Route path="/sitemap" component={SitemapComponent} /> */}
+			<Route component={ErrorComponent} />
+			{/* <Route path="/room" component={RoomComponent} /> */}
+		</Switch>
+	);
+};
 
-  getPathDepth(location) {
-    let pathArr = location.pathname.split("/");
-    pathArr = pathArr.filter((n) => n !== "");
-    return pathArr.length;
-  }
+const App = (props) => {
+	// constructor(props) {
+	//   super(props);
+	//   this.state = {
+	//     prevDepth: this.getPathDepth(this.props.location)
+	//   };
+	// }
 
-  render() {
-    const { location } = this.props;
+	// UNSAFE_componentWillReceiveProps() {
+	//   this.setState({ prevDepth: this.getPathDepth(this.props.location) });
+	// }
 
-    const currentKey = location.pathname.split("/")[1] || "/";
-    const timeout = { enter: 800, exit: 800 };
+	// getPathDepth(location) {
+	//   let pathArr = location.pathname.split("/");
+	//   pathArr = pathArr.filter((n) => n !== "");
+	//   return pathArr.length;
+	// }
 
-    return (
-      <MuiThemeProvider theme={theme}>
-        <Suspense fallback={<LinearProgress color="secondary" style={{ paddingTop: "0.2%" }} />}>
-          <TransitionGroup component="div" className="App">
-            <CSSTransition key={currentKey} timeout={timeout} classNames="pageSlider" mountOnEnter={false} unmountOnExit={true}>
-              <div
-                className={
-                  this.getPathDepth(location) - this.state.prevDepth >= 0
-                    ? "left" //left means right to left
-                    : "right" //right means towards right
-                }
-              >
-                <Navbar />
-                <ScrollToTop />
-                <Switch location={location}>
-                  <Route exact path="/" component={HomeComponent} />
-                  <Route path="/aboutus" component={AboutUsComponent} />
-                  <Route path="/tuitions/one-on-one-home-tuitions" component={OneOnOneHomeComponent} />
-                  <Route path="/tuitions/one-on-one-online-tuitions" component={OneOnOneLiveComponent} />
-                  <Route path="/tuitions/mastering-a-week-topic" component={MasteringAChapterComponent} />
-                  <Route path="/test" component={TestComponent} />
-                  <Route path="/createtest" component={CreateTestComponent} />
-                  <Route path="/maintest" component={MainTestComponent} />
-                  <Route path="/faqs" component={FaqsComponent} />
-                  <Route path="/contact-us" component={ContactUsComponent} />
-                  <Route path="/career" component={CareerComponent} />
-                  <Route path="/admin/createblogs" component={PostBlogComponent} />
-                  <Route exact path="/blogs" component={ShowBlogsComponent} />
-                  <Route exact path="/blogs/:id" component={ParticularBlogComponent} />
-                  <Route path="/dashboard" component={StudentProfileComponent} /> 
-                  <Route path="/privacypolicy" component={PrivacyPolicyComponent} />
-                  <Route path="/termsofservice" component={TermsOfServiceComponent} />
-                  {/* <Route path="/sitemap" component={SitemapComponent} /> */}
-                  <Route component={ErrorComponent} />
-                  {/* <Route path="/room" component={RoomComponent} /> */}
-                </Switch>
-                <Footer />
-              </div>
-            </CSSTransition>
-          </TransitionGroup>
-        </Suspense>
-      </MuiThemeProvider>
-    );
-  }
-}
+	// const { location } = this.props;
+	const [state, dispatch] = useReducer(StudentReducer, InitialState);
+	// const currentKey = location.pathname.split("/")[1] || "/";
+	const timeout = { enter: 800, exit: 800 };
+
+	return (
+		<MuiThemeProvider theme={theme}>
+			<Suspense fallback={<LinearProgress color="secondary" style={{ paddingTop: "0.2%" }} />}>
+				<TransitionGroup component="div" className="App">
+					<Context.Provider value={(state, dispatch)}>
+						<div
+						// className={
+						// 	this.getPathDepth(location) - this.state.prevDepth >= 0
+						// 		? "left" //left means right to left
+						// 		: "right" //right means towards right
+						// }
+						>
+							<Navbar />
+							<ScrollToTop />
+							<Routing />
+							<Footer />
+						</div>
+					</Context.Provider>
+				</TransitionGroup>
+			</Suspense>
+		</MuiThemeProvider>
+	);
+};
 
 export default withRouter(App);

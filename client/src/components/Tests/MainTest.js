@@ -117,7 +117,7 @@ const MainTest = () => {
 	};
 
 	// const handleCurrentIndex = (questionNo) => {
-	// 	setCurrentIndex(questionNo);
+	// 	setCurrentIndex(() => questionNo);
 	// };
 
 	// const AlertBox = () => {
@@ -148,7 +148,7 @@ const MainTest = () => {
 						<TimerComponent timeRemaining={test.testDuration} />
 						<QuestionKeysComponent
 							test={test}
-							// handleCurrentIndex={handleCurrentIndex}
+							handleCurrentIndex={(questionNo) => setCurrentIndex(questionNo)}
 							// questionsLength = {questionLength}
 							// currentQuestionIndex={1 + currentIndex}
 							// question = {}

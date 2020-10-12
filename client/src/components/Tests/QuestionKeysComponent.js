@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
 // import Button from '@material-ui/core/Button';
@@ -52,6 +52,9 @@ const useStyles = makeStyles(() => ({
 		textSizeAdjust: "90%",
 	},
 }));
+// const QuestionKeysComponent = useCallback(()=>{
+
+// })
 
 const QuestionKeysComponent = ({ test, handleCurrentIndex }) => {
 	const classes = useStyles();
@@ -79,13 +82,7 @@ const QuestionKeysComponent = ({ test, handleCurrentIndex }) => {
 				<div>
 					{length &&
 						questions.map(({ questionNumber }) => (
-							<Fab
-								size="medium"
-								color="secondary"
-								key={questionNumber}
-								className={classes.fab}
-								// onClick={handleCurrentIndex(questionNumber)}
-							>
+							<Fab size="medium" color="secondary" key={questionNumber} className={classes.fab} onClick={(e) => handleCurrentIndex(e.target.questionNumber)}>
 								{questionNumber}
 							</Fab>
 						))}

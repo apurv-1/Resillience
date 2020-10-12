@@ -52,6 +52,7 @@ const QuestionComponent = ({ test, currentQuestion, currentQuestionIndex }) => {
 	const classes = useStyles();
 	const [questions, SetQuestions] = useState([]);
 	const [testName, SetTestName] = useState("");
+	// const [selected, setSelected] = useState("#D10A0A");
 	// const [currentQuestion, setCurrentQuestion] = useState({});
 	// const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 	// const [nextQuestion, setNextQuestion] = useState({});
@@ -88,30 +89,20 @@ const QuestionComponent = ({ test, currentQuestion, currentQuestionIndex }) => {
 							variant="extended"
 							size="medium"
 							color="primary"
-							className={classes.option}>
+							className={classes.option}
+							// onMouseEnter={() => setSelected("#D10A0A")}
+						>
 							Option A
 						</Fab>
-						<Fab
-							variant="extended"
-							size="medium"
-							color="primary"
-							className={classes.option}>
+						<Fab variant="extended" size="medium" color="primary" className={classes.option}>
 							Option B
 						</Fab>
 					</div>
 					<div style={{ marginLeft: "-30%" }}>
-						<Fab
-							variant="extended"
-							size="medium"
-							color="primary"
-							className={classes.option}>
+						<Fab variant="extended" size="medium" color="primary" className={classes.option}>
 							Option C
 						</Fab>
-						<Fab
-							variant="extended"
-							size="medium"
-							color="primary"
-							className={classes.option}>
+						<Fab variant="extended" size="medium" color="primary" className={classes.option}>
 							Option D
 						</Fab>
 					</div>

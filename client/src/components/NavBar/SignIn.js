@@ -68,15 +68,21 @@ function SignIn(props) {
 			.then((res) => res.json())
 			.then((data) => {
 				console.log(data);
-				localStorage.setItem("jwt", data.token);
-				localStorage.setItem("student", JSON.stringify(data.student));
-				dispatch({ type: "STUDENT", payload: data.student });
-				setMessage(data.message);
-				// history.push('/studentdashboard')
+				if (data.error) {
+					const err = data.error;
+					setErrors(err.response.data);
+				} else {
+					localStorage.setItem("jwt", data.token);
+					localStorage.setItem("student", JSON.stringify(data.student));
+					dispatch({ type: "STUDENT", payload: data.student });
+					setMessage(data.message);
+					setOpen(false);
+					// history.push("/studentdashboard");
+				}
 			})
 			.catch((err) => {
 				console.log(err);
-				// setErrors(err.response.data);
+				setErrors(err.response.data);
 			});
 	};
 

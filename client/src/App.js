@@ -144,6 +144,14 @@ export const Context = createContext();
 //routes
 const Routing = () => {
 	const history = useHistory();
+	useEffect(() => {
+		const student = JSON.parse(localStorage.getItem("student"));
+		if (student) {
+			history.push("/student-dashboard");
+		} else {
+			console.log("Student Not Found!!");
+		}
+	}, []);
 	return (
 		<Switch>
 			<Route exact path="/" component={HomeComponent} />
@@ -160,7 +168,7 @@ const Routing = () => {
 			<Route path="/admin/createblogs" component={PostBlogComponent} />
 			<Route exact path="/blogs" component={ShowBlogsComponent} />
 			<Route exact path="/blogs/:id" component={ParticularBlogComponent} />
-			<Route path="/dashboard" component={StudentProfileComponent} />
+			<Route path="/student-dashboard" component={StudentProfileComponent} />
 			<Route path="/privacypolicy" component={PrivacyPolicyComponent} />
 			<Route path="/termsofservice" component={TermsOfServiceComponent} />
 			{/* <Route path="/sitemap" component={SitemapComponent} /> */}
@@ -194,10 +202,10 @@ const App = (props) => {
 	const timeout = { enter: 800, exit: 800 };
 
 	return (
-		<MuiThemeProvider theme={theme}>
-			<Suspense fallback={<LinearProgress color="secondary" style={{ paddingTop: "0.2%" }} />}>
-				<TransitionGroup component="div" className="App">
-					<Context.Provider value={(state, dispatch)}>
+		<Context.Provider value={{ state, dispatch }}>
+			<MuiThemeProvider theme={theme}>
+				<Suspense fallback={<LinearProgress color="secondary" style={{ paddingTop: "0.2%" }} />}>
+					<TransitionGroup component="div" className="App">
 						<div
 						// className={
 						// 	this.getPathDepth(location) - this.state.prevDepth >= 0
@@ -210,10 +218,10 @@ const App = (props) => {
 							<Routing />
 							<Footer />
 						</div>
-					</Context.Provider>
-				</TransitionGroup>
-			</Suspense>
-		</MuiThemeProvider>
+					</TransitionGroup>
+				</Suspense>
+			</MuiThemeProvider>
+		</Context.Provider>
 	);
 };
 

@@ -155,35 +155,19 @@ const MainTest = () => {
 						/>
 					</Paper>
 					<Paper elevation={5} className={classes.paper1}>
-						<QuestionComponent
-							test={test}
-							currentQuestion={test.questions[currentIndex]}
-							currentQuestionIndex={1 + currentIndex}
-						/>
+						<QuestionComponent test={test} currentQuestion={test.questions[currentIndex]} currentQuestionIndex={1 + currentIndex} />
 					</Paper>
 					<Paper elevation={5} className={classes.paper2}>
 						<div className={classes.buttonContainer}>
-							<Button
-								variant="contained"
-								color="red"
-								className={classes.button}
-								style={{ marginLeft: "-10px" }}>
+							<Button variant="contained" color="red" className={classes.button} style={{ marginLeft: "-10px" }}>
 								End Test
 							</Button>
 							{currentIndex === 0 ? (
-								<Button
-									variant="contained"
-									color="primary"
-									className={classes.button}
-									disabled>
+								<Button variant="contained" color="primary" className={classes.button} disabled>
 									Previous Question
 								</Button>
 							) : (
-								<Button
-									variant="contained"
-									color="primary"
-									className={classes.button}
-									onClick={() => setCurrentIndex(currentIndex - 1)}>
+								<Button variant="contained" color="primary" className={classes.button} onClick={() => setCurrentIndex(currentIndex - 1)}>
 									Previous Question
 								</Button>
 							)}
@@ -193,19 +177,11 @@ const MainTest = () => {
 							</Button>
 
 							{currentIndex === questionLength - 1 ? (
-								<Button
-									variant="contained"
-									color="primary"
-									className={classes.button}
-									disabled>
+								<Button variant="contained" color="primary" className={classes.button} disabled>
 									Next Question
 								</Button>
 							) : (
-								<Button
-									variant="contained"
-									color="primary"
-									className={classes.button}
-									onClick={() => setCurrentIndex(currentIndex + 1)}>
+								<Button variant="contained" color="primary" className={classes.button} onClick={() => setCurrentIndex(currentIndex + 1)}>
 									Next Question
 								</Button>
 							)}
@@ -219,14 +195,7 @@ const MainTest = () => {
 				<div className={classes.startbox}>
 					<Paper elevation={5} className={classes.paper4}>
 						<div>
-							<TextField
-								id="outlined-basic"
-								label="Enter Test ID"
-								variant="outlined"
-								value={testId}
-								onChange={(e) => setTestId(e.target.value)}
-								fullWidth
-							/>
+							<TextField id="outlined-basic" label="Enter Test ID" variant="outlined" value={testId} onChange={(e) => setTestId(e.target.value)} fullWidth />
 						</div>
 
 						<Button

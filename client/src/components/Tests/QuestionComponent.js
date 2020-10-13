@@ -29,10 +29,11 @@ const useStyles = makeStyles((theme) => ({
 		width: "100%",
 	},
 	option: {
+		// display: "none",
 		marginLeft: "22%",
 		marginTop: "10px",
 		marginBottom: "10px",
-		background: theme.palette.common.button,
+		// background: theme.palette.common.button,
 	},
 	buttonContainer: {
 		padding: "20px",
@@ -45,6 +46,41 @@ const useStyles = makeStyles((theme) => ({
 	},
 	fabBox: {
 		padding: "20px",
+	},
+	span: {
+		// display: "block",
+		cursor: "point",
+		border: "2px solid #ccc",
+		borderRadius: "5px",
+		padding: "5px 10px",
+		"&: hover": {
+			borderColor: "#55ae95",
+			backgroundColor: "#6decb9",
+		},
+	},
+	label: {
+		// display: "none",
+		borderColor: "black",
+		"& input": {
+			// display: "none",
+
+			"& checked": {
+				borderColor: "#55ae95",
+				backgroundColor: "#ffac8e",
+				fontWeight: "600",
+			},
+			"& span": {
+				display: "block",
+				cursor: "point",
+				border: "1px solid #ccc",
+				borderRadius: "5px",
+				padding: "2px 5px",
+				"&: hover": {
+					borderColor: "#55ae95",
+					backgroundColor: "#6decb9",
+				},
+			},
+		},
 	},
 }));
 
@@ -84,28 +120,28 @@ const QuestionComponent = ({ test, currentQuestion, currentQuestionIndex }) => {
 					<hr style={{ height: "2px", backgroundColor: "gray solid" }} />
 				</div>
 				<div>
-					<div style={{ marginLeft: "-30%" }}>
-						<Fab
-							variant="extended"
-							size="medium"
-							color="primary"
-							className={classes.option}
-							// onMouseEnter={() => setSelected("#D10A0A")}
-						>
-							Option A
-						</Fab>
-						<Fab variant="extended" size="medium" color="primary" className={classes.option}>
-							Option B
-						</Fab>
-					</div>
-					<div style={{ marginLeft: "-30%" }}>
-						<Fab variant="extended" size="medium" color="primary" className={classes.option}>
-							Option C
-						</Fab>
-						<Fab variant="extended" size="medium" color="primary" className={classes.option}>
-							Option D
-						</Fab>
-					</div>
+					<li>
+						<div style={{ marginLeft: "-30%" }}>
+							<label className={classes.label}>
+								<input type="radio" name="Option A" className={classes.option} value="0" />
+								<span className={classes.span}>Option A</span>
+							</label>
+							<label className={classes.label}>
+								<input type="radio" name="Option A" className={classes.option} value="1" />
+								<span className={classes.span}>Option B</span>
+							</label>
+						</div>
+						<div style={{ marginLeft: "-30%" }}>
+							<label className={classes.label}>
+								<input type="radio" name="Option A" className={classes.option} value="2" />
+								<span className={classes.span}>Option C</span>
+							</label>
+							<label className={classes.label}>
+								<input type="radio" name="Option A" className={classes.option} value="3" />
+								<span className={classes.span}>Option D</span>
+							</label>
+						</div>
+					</li>
 					<hr style={{ height: "1px", backgroundColor: "gray solid" }} />
 				</div>
 			</div>

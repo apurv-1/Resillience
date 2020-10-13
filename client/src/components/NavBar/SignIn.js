@@ -70,7 +70,7 @@ function SignIn(props) {
 				console.log(data);
 				if (data.error) {
 					const err = data.error;
-					setErrors(err.response.data);
+					setErrors(err);
 				} else {
 					localStorage.setItem("jwt", data.token);
 					localStorage.setItem("student", JSON.stringify(data.student));
@@ -82,7 +82,7 @@ function SignIn(props) {
 			})
 			.catch((err) => {
 				console.log(err);
-				setErrors(err.response.data);
+				setErrors(err);
 			});
 	};
 
@@ -96,12 +96,13 @@ function SignIn(props) {
 	const { classes } = props;
 	return (
 		<div style={{ fontStyle: "23px" }}>
-			{message !== "" ? (
+			{state ? (
 				<Button
 					variant="contained"
 					color="secondary"
 					onClick={() => {
 						localStorage.clear();
+						dispatch({ type: "CLEAR" });
 						setMessage("");
 					}}>
 					Sign Out
@@ -122,6 +123,7 @@ function SignIn(props) {
 				classes={{
 					paper: classes.paper,
 				}}>
+				app
 				<img
 					alt="loginBg"
 					src="https://res.cloudinary.com/rweb1/image/upload/v1600243283/Assets/images/loginBg_olbayb.svg"
@@ -129,7 +131,7 @@ function SignIn(props) {
 				/>
 				<div className={classes.login}>
 					<Typography variant="h4" color="primary" className={classes.signIn}>
-						User Log in
+						Student Log in
 					</Typography>
 					<Typography variant="inherit" color="primary" className={classes.signIn}>
 						(Only enrolled students can login, kindly contact the administrator)

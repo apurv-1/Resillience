@@ -146,11 +146,11 @@ const Routing = () => {
 	const history = useHistory();
 	useEffect(() => {
 		const student = JSON.parse(localStorage.getItem("student"));
-		if (student) {
-			history.push("/student-dashboard");
-		} else {
-			console.log("Student Not Found!!");
-		}
+		// if (student) {
+		// 	history.push("/student-dashboard");
+		// } else {
+		// 	console.log("Student Not Found!!");
+		// }
 	}, []);
 	return (
 		<Switch>
@@ -199,29 +199,29 @@ const App = (props) => {
 	// const { location } = this.props;
 	const [state, dispatch] = useReducer(StudentReducer, InitialState);
 	// const currentKey = location.pathname.split("/")[1] || "/";
-	const timeout = { enter: 800, exit: 800 };
+	const timeout = { enter: 1000, exit: 1000 };
 
 	return (
-		<Context.Provider value={{ state, dispatch }}>
-			<MuiThemeProvider theme={theme}>
-				<Suspense fallback={<LinearProgress color="secondary" style={{ paddingTop: "0.2%" }} />}>
-					<TransitionGroup component="div" className="App">
-						<div
-						// className={
-						// 	this.getPathDepth(location) - this.state.prevDepth >= 0
-						// 		? "left" //left means right to left
-						// 		: "right" //right means towards right
-						// }
-						>
+		<MuiThemeProvider theme={theme}>
+			<Suspense fallback={<LinearProgress color="secondary" style={{ paddingTop: "0.2%" }} />}>
+				<TransitionGroup component="div" className="App">
+					<div
+					// className={
+					// 	this.getPathDepth(location) - this.state.prevDepth >= 0
+					// 		? "left" //left means right to left
+					// 		: "right" //right means towards right
+					// }
+					>
+						<Context.Provider value={{ state, dispatch }}>
 							<Navbar />
 							<ScrollToTop />
 							<Routing />
 							<Footer />
-						</div>
-					</TransitionGroup>
-				</Suspense>
-			</MuiThemeProvider>
-		</Context.Provider>
+						</Context.Provider>
+					</div>
+				</TransitionGroup>
+			</Suspense>
+		</MuiThemeProvider>
 	);
 };
 

@@ -155,17 +155,7 @@ const AddQuestions = ({ testID }) => {
 		canvas.height = crop.height;
 		const ctx = canvas.getContext("2d");
 
-		ctx.drawImage(
-			questionImg,
-			crop.x * scaleX,
-			crop.y * scaleY,
-			crop.width * scaleX,
-			crop.height * scaleY,
-			0,
-			0,
-			crop.width,
-			crop.height
-		);
+		ctx.drawImage(questionImg, crop.x * scaleX, crop.y * scaleY, crop.width * scaleX, crop.height * scaleY, 0, 0, crop.width, crop.height);
 
 		const base64Image = canvas.toDataURL("image/jpeg");
 		setFinalQuestion(base64Image);
@@ -199,21 +189,9 @@ const AddQuestions = ({ testID }) => {
 							<MenuItem value={"Biology"}>Bio</MenuItem>
 						</Select>
 					</FormControl>
-					<input
-						accept="image/*"
-						className={classes.input}
-						id="contained-button-file"
-						multiple
-						type="file"
-						onChange={handleImageChange}
-					/>
+					<input accept="image/*" className={classes.input} id="contained-button-file" multiple type="file" onChange={handleImageChange} />
 					<label htmlFor="contained-button-file">
-						<Button
-							variant="contained"
-							color="primary"
-							component="span"
-							className={classes.button}
-							startIcon={<CloudUploadIcon />}>
+						<Button variant="contained" color="primary" component="span" className={classes.button} startIcon={<CloudUploadIcon />}>
 							Upload Question
 						</Button>
 					</label>
@@ -226,18 +204,13 @@ const AddQuestions = ({ testID }) => {
 							onOpen={() => setOpenCorrect(true)}
 							value={correct}
 							onChange={(e) => setCorrect(e.target.value)}>
-							<MenuItem value={"1"}>1</MenuItem>
-							<MenuItem value={"2"}>2</MenuItem>
-							<MenuItem value={"3"}>3</MenuItem>
-							<MenuItem value={"4"}>4</MenuItem>
+							<MenuItem value={"0"}>1</MenuItem>
+							<MenuItem value={"1"}>2</MenuItem>
+							<MenuItem value={"2"}>3</MenuItem>
+							<MenuItem value={"3"}>4</MenuItem>
 						</Select>
 					</FormControl>
-					<Button
-						variant="contained"
-						color="primary"
-						className={classes.button}
-						startIcon={<SaveIcon />}
-						onClick={() => addQuestion()}>
+					<Button variant="contained" color="primary" className={classes.button} startIcon={<SaveIcon />} onClick={() => addQuestion()}>
 						Save Question
 					</Button>
 				</div>
@@ -246,18 +219,8 @@ const AddQuestions = ({ testID }) => {
 				<div className={classes.showImage}>
 					{questionSrc && (
 						<div>
-							<ReactCrop
-								src={questionSrc}
-								onImageLoaded={setQuestionImg}
-								crop={crop}
-								onChange={setCrop}
-							/>
-							<Button
-								variant="contained"
-								color="secondary"
-								className={classes.button}
-								startIcon={<CropIcon />}
-								onClick={getCroppedImg}>
+							<ReactCrop src={questionSrc} onImageLoaded={setQuestionImg} crop={crop} onChange={setCrop} />
+							<Button variant="contained" color="secondary" className={classes.button} startIcon={<CropIcon />} onClick={getCroppedImg}>
 								Crop
 							</Button>
 						</div>

@@ -120,12 +120,7 @@ const CreateTest = () => {
 							value={testDuration}
 							onChange={(e) => setTestDuration(e.target.value)}
 						/>
-						<Button
-							variant="contained"
-							color="primary"
-							className={classes.button}
-							startIcon={<SaveIcon />}
-							onClick={() => SaveTest()}>
+						<Button variant="contained" color="primary" className={classes.button} startIcon={<SaveIcon />} onClick={() => SaveTest()}>
 							Save Test
 						</Button>
 					</Paper>

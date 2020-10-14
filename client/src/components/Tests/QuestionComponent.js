@@ -26,69 +26,62 @@ const useStyles = makeStyles((theme) => ({
 		alignItems: "center",
 	},
 	optionContainer: {
-		width: "100%",
+		padding: "20px",
+		gridRowStart: "2",
 	},
 	option: {
-		// display: "none",
-		marginLeft: "22%",
-		marginTop: "10px",
-		marginBottom: "10px",
-		// background: theme.palette.common.button,
+		display: "none",
 	},
-	buttonContainer: {
-		padding: "20px",
-	},
-	button: {
-		marginLeft: "80px",
-	},
-	fab: {
-		margin: "10px",
-	},
-	fabBox: {
-		padding: "20px",
-	},
+
 	span: {
-		// display: "block",
+		// display: "inline-block",
+		// position: "space-around",
 		cursor: "point",
-		border: "2px solid #ccc",
-		borderRadius: "5px",
-		padding: "5px 10px",
-		"&: hover": {
+		border: "3px solid gray",
+		borderRadius: "10px",
+		padding: "15px 20px",
+		"&:hover": {
 			borderColor: "#55ae95",
 			backgroundColor: "#6decb9",
 		},
-	},
-	label: {
-		// display: "none",
-		borderColor: "black",
-		"& input": {
-			// display: "none",
-
-			"& checked": {
-				borderColor: "#55ae95",
-				backgroundColor: "#ffac8e",
-				fontWeight: "600",
-			},
-			"& span": {
-				display: "block",
-				cursor: "point",
-				border: "1px solid #ccc",
-				borderRadius: "5px",
-				padding: "2px 5px",
-				"&: hover": {
-					borderColor: "#55ae95",
-					backgroundColor: "#6decb9",
-				},
-			},
+		"&:checked": {
+			borderColor: "#55ae95",
+			backgroundColor: "#ffac8e",
+			fontWeight: "600",
 		},
 	},
+	// label: {
+	// 	// display: "none",
+	// 	borderColor: "black",
+	// 	"& input": {
+	// 		// display: "none",
+
+	// 		"& checked": {
+	// 			borderColor: "#55ae95",
+	// 			backgroundColor: "#ffac8e",
+	// 			fontWeight: "600",
+	// 		},
+	// 		"& span": {
+	// 			display: "block",
+	// 			cursor: "point",
+	// 			border: "1px solid #ccc",
+	// 			borderRadius: "5px",
+	// 			padding: "2px 5px",
+	// 			"&: hover": {
+	// 				borderColor: "#55ae95",
+	// 				backgroundColor: "#6decb9",
+	// 			},
+	// 		},
+	// 	},
+	// },
 }));
 
-const QuestionComponent = ({ test, currentQuestion, currentQuestionIndex }) => {
+const QuestionComponent = ({ test, currentQuestion, currentQuestionIndex, selected }) => {
 	const classes = useStyles();
-	const [questions, SetQuestions] = useState([]);
-	const [testName, SetTestName] = useState("");
-	// const [selected, setSelected] = useState("#D10A0A");
+	const [questions, setQuestions] = useState([]);
+	const [testName, setTestName] = useState("");
+	const [option, setOption] = useState([]);
+
 	// const [currentQuestion, setCurrentQuestion] = useState({});
 	// const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 	// const [nextQuestion, setNextQuestion] = useState({});
@@ -96,9 +89,28 @@ const QuestionComponent = ({ test, currentQuestion, currentQuestionIndex }) => {
 	// console.log(currentQuestion)
 
 	useEffect(() => {
-		SetTestName(test.testName);
-		// SetQuestions(test.questions)
-		SetQuestions(test.questions);
+		setTestName(test.testName);
+		// setQuestions(test.questions)
+		setQuestions(test.questions);
+		setOption([
+			...option,
+			{
+				name: "Option A",
+				value: 0,
+			},
+			{
+				name: "Option B",
+				value: 1,
+			},
+			{
+				name: "Option C",
+				value: 2,
+			},
+			{
+				name: "Option D",
+				value: 3,
+			},
+		]);
 	}, []);
 
 	return (
@@ -120,28 +132,22 @@ const QuestionComponent = ({ test, currentQuestion, currentQuestionIndex }) => {
 					<hr style={{ height: "2px", backgroundColor: "gray solid" }} />
 				</div>
 				<div>
-					<li>
-						<div style={{ marginLeft: "-30%" }}>
+					{option.map(({ name, value }) => (
+						<ul className={classes.optionContainer} key={value}>
 							<label className={classes.label}>
-								<input type="radio" name="Option A" className={classes.option} value="0" />
-								<span className={classes.span}>Option A</span>
+								<input
+									type="radio"
+									name="option"
+									checked={value === currentQuestionIndex.correctOption}
+									className={classes.option}
+									value={value}
+									// onChange={selected}
+								/>
+								<span className={classes.span}>{name}</span>
 							</label>
-							<label className={classes.label}>
-								<input type="radio" name="Option A" className={classes.option} value="1" />
-								<span className={classes.span}>Option B</span>
-							</label>
-						</div>
-						<div style={{ marginLeft: "-30%" }}>
-							<label className={classes.label}>
-								<input type="radio" name="Option A" className={classes.option} value="2" />
-								<span className={classes.span}>Option C</span>
-							</label>
-							<label className={classes.label}>
-								<input type="radio" name="Option A" className={classes.option} value="3" />
-								<span className={classes.span}>Option D</span>
-							</label>
-						</div>
-					</li>
+						</ul>
+					))}
+
 					<hr style={{ height: "1px", backgroundColor: "gray solid" }} />
 				</div>
 			</div>
@@ -150,3 +156,23 @@ const QuestionComponent = ({ test, currentQuestion, currentQuestionIndex }) => {
 };
 
 export default QuestionComponent;
+// <div style={{ marginLeft: "-30%" }}>
+// 							<label className={classes.label}>
+// 								<input type="radio" name="Option A" className={classes.option} value="0" />
+// 								<span className={classes.span}>Option A</span>
+// 							</label>
+// 							<label className={classes.label}>
+// 								<input type="radio" name="Option A" className={classes.option} value="1" />
+// 								<span className={classes.span}>Option B</span>
+// 							</label>
+// 						</div>
+// 						<div style={{ marginLeft: "-30%" }}>
+// 							<label className={classes.label}>
+// 								<input type="radio" name="Option A" className={classes.option} value="2" />
+// 								<span className={classes.span}>Option C</span>
+// 							</label>
+// 							<label className={classes.label}>
+// 								<input type="radio" name="Option A" className={classes.option} value="3" />
+// 								<span className={classes.span}>Option D</span>
+// 							</label>
+// 						</div>

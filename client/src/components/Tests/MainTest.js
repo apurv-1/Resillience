@@ -85,6 +85,7 @@ const MainTest = () => {
 	const [check, setCheck] = useState(false);
 	const [testId, setTestId] = useState("");
 	const [test, setTest] = useState([]);
+	const [selected, setSelected] = useState({});
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const [questionLength, setQuestionLength] = useState(0);
 	const [questionNum, setQuestionNum] = useState(0);
@@ -116,6 +117,11 @@ const MainTest = () => {
 			});
 	};
 
+	// const SelectedAnswer = (e) => {
+	// 	const studentAnswer = [...selected.studentAnswer];
+	// 	studentAnswer[currentIndex] = e.target.value;
+	// 	setSelected({ studentAnswer });
+	// };
 	// const handleCurrentIndex = (questionNo) => {
 	// 	setCurrentIndex(() => questionNo);
 	// };
@@ -181,7 +187,14 @@ const MainTest = () => {
 									Next Question
 								</Button>
 							) : (
-								<Button variant="contained" color="primary" className={classes.button} onClick={() => setCurrentIndex(currentIndex + 1)}>
+								<Button
+									variant="contained"
+									color="primary"
+									className={classes.button}
+									onClick={() => {
+										setCurrentIndex(currentIndex + 1);
+										// SelectedAnswer();
+									}}>
 									Next Question
 								</Button>
 							)}

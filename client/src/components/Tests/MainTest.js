@@ -161,7 +161,7 @@ const MainTest = () => {
 						/>
 					</Paper>
 					<Paper elevation={5} className={classes.paper1}>
-						<QuestionComponent test={test} currentQuestion={test.questions[currentIndex]} currentQuestionIndex={1 + currentIndex} />
+						<QuestionComponent test={test} currentQuestion={test.questions[currentIndex]} currentQuestionIndex={currentIndex} selectedAnswer={selected} />
 					</Paper>
 					<Paper elevation={5} className={classes.paper2}>
 						<div className={classes.buttonContainer}>

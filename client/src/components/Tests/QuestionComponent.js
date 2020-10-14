@@ -36,15 +36,15 @@ const useStyles = makeStyles((theme) => ({
 	span: {
 		// display: "inline-block",
 		// position: "space-around",
-		cursor: "point",
+		cursor: "pointer",
 		border: "3px solid gray",
 		borderRadius: "10px",
 		padding: "15px 20px",
 		"&:hover": {
-			borderColor: "#55ae95",
-			backgroundColor: "#6decb9",
+			borderColor: "#232127",
+			backgroundColor: "#33c9dc",
 		},
-		"&:checked": {
+		"&: checked": {
 			borderColor: "#55ae95",
 			backgroundColor: "#ffac8e",
 			fontWeight: "600",
@@ -76,11 +76,12 @@ const useStyles = makeStyles((theme) => ({
 	// },
 }));
 
-const QuestionComponent = ({ test, currentQuestion, currentQuestionIndex, selected }) => {
+const QuestionComponent = ({ test, currentQuestion, currentQuestionIndex, selectedAnswer }) => {
 	const classes = useStyles();
 	const [questions, setQuestions] = useState([]);
 	const [testName, setTestName] = useState("");
 	const [option, setOption] = useState([]);
+	const [selected, setSelected] = useState([]);
 
 	// const [currentQuestion, setCurrentQuestion] = useState({});
 	// const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -138,10 +139,10 @@ const QuestionComponent = ({ test, currentQuestion, currentQuestionIndex, select
 								<input
 									type="radio"
 									name="option"
-									checked={value === currentQuestionIndex.correctOption}
+									checked={value === currentQuestion.correctOption}
 									className={classes.option}
-									value={value}
-									// onChange={selected}
+									value={selected}
+									onClick={selectedAnswer}
 								/>
 								<span className={classes.span}>{name}</span>
 							</label>

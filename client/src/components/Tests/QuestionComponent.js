@@ -26,54 +26,66 @@ const useStyles = makeStyles((theme) => ({
 		alignItems: "center",
 	},
 	optionContainer: {
-		padding: "20px",
+		// display: "none",
+		padding: "10px",
 		gridRowStart: "2",
 	},
-	option: {
-		display: "none",
-	},
+	// option: {
+	// 	display: "none",
+	// },
 
-	span: {
-		// display: "inline-block",
-		// position: "space-around",
+	// label: {
+	// 	// display: "flex",
+	// 	// position: "space-around",
+	// 	cursor: "pointer",
+	// 	border: "3px solid gray",
+	// 	borderRadius: "10px",
+	// 	padding: "8px 12px",
+	// 	"&:hover": {
+	// 		borderColor: "#232127",
+	// 		backgroundColor: "#33c9dc",
+	// 	},
+	// 	"&${checked}": {
+	// 		borderColor: "#55ae95",
+	// 		backgroundColor: "#ffac8e",
+	// 		fontWeight: "500",
+	// 	},
+	// },
+	// span:{
+
+	// }
+	label: {
+		// display: "none",
+		// /borderColor: "black",
 		cursor: "pointer",
 		border: "3px solid gray",
 		borderRadius: "10px",
-		padding: "15px 20px",
+		padding: "8px 12px",
 		"&:hover": {
 			borderColor: "#232127",
 			backgroundColor: "#33c9dc",
 		},
-		"&: checked": {
-			borderColor: "#55ae95",
-			backgroundColor: "#ffac8e",
-			fontWeight: "600",
+		$input: {
+			display: "none",
+
+			"&$checked": {
+				borderColor: "#55ae95",
+				backgroundColor: "#ffac8e",
+				fontWeight: "600",
+			},
+			span: {
+				display: "block",
+				cursor: "point",
+				border: "1px solid #ccc",
+				borderRadius: "5px",
+				padding: "2px 5px",
+				"&:hover": {
+					borderColor: "#55ae95",
+					backgroundColor: "#6decb9",
+				},
+			},
 		},
 	},
-	// label: {
-	// 	// display: "none",
-	// 	borderColor: "black",
-	// 	"& input": {
-	// 		// display: "none",
-
-	// 		"& checked": {
-	// 			borderColor: "#55ae95",
-	// 			backgroundColor: "#ffac8e",
-	// 			fontWeight: "600",
-	// 		},
-	// 		"& span": {
-	// 			display: "block",
-	// 			cursor: "point",
-	// 			border: "1px solid #ccc",
-	// 			borderRadius: "5px",
-	// 			padding: "2px 5px",
-	// 			"&: hover": {
-	// 				borderColor: "#55ae95",
-	// 				backgroundColor: "#6decb9",
-	// 			},
-	// 		},
-	// 	},
-	// },
 }));
 
 const QuestionComponent = ({ test, currentQuestion, currentQuestionIndex, selectedAnswer }) => {
@@ -139,10 +151,10 @@ const QuestionComponent = ({ test, currentQuestion, currentQuestionIndex, select
 								<input
 									type="radio"
 									name="option"
-									checked={value === currentQuestion.correctOption}
 									className={classes.option}
-									value={selected}
-									onClick={selectedAnswer}
+									// value={selected}
+									// checked={value === selectedAnswer[currentQuestionIndex]}
+									onChange={selectedAnswer}
 								/>
 								<span className={classes.span}>{name}</span>
 							</label>

@@ -85,7 +85,7 @@ const MainTest = () => {
 	const [check, setCheck] = useState(false);
 	const [testId, setTestId] = useState("");
 	const [test, setTest] = useState([]);
-	const [selected, setSelected] = useState({});
+	const [selected, setSelected] = useState([]);
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const [questionLength, setQuestionLength] = useState(0);
 	const [questionNum, setQuestionNum] = useState(0);
@@ -117,11 +117,14 @@ const MainTest = () => {
 			});
 	};
 
-	// const SelectedAnswer = (e) => {
-	// 	const studentAnswer = [...selected.studentAnswer];
-	// 	studentAnswer[currentIndex] = e.target.value;
-	// 	setSelected({ studentAnswer });
-	// };
+	const SelectedAnswer = (e) => {
+		// debugger;
+		console.log(e);
+		const studentAnswer = [selected];
+		studentAnswer[currentIndex] = e;
+		// console.log(studentAnswer);
+		setSelected([studentAnswer]);
+	};
 	// const handleCurrentIndex = (questionNo) => {
 	// 	setCurrentIndex(() => questionNo);
 	// };
@@ -161,7 +164,12 @@ const MainTest = () => {
 						/>
 					</Paper>
 					<Paper elevation={5} className={classes.paper1}>
-						<QuestionComponent test={test} currentQuestion={test.questions[currentIndex]} currentQuestionIndex={currentIndex} selectedAnswer={selected} />
+						<QuestionComponent
+							test={test}
+							currentQuestion={test.questions[currentIndex]}
+							currentQuestionIndex={currentIndex}
+							selectedAnswer={(e) => SelectedAnswer(e)}
+						/>
 					</Paper>
 					<Paper elevation={5} className={classes.paper2}>
 						<div className={classes.buttonContainer}>

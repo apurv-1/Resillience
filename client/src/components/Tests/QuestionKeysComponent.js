@@ -82,7 +82,13 @@ const QuestionKeysComponent = ({ test, handleCurrentIndex }) => {
 				<div>
 					{length &&
 						questions.map(({ questionNumber }) => (
-							<Fab size="medium" color="secondary" key={questionNumber} className={classes.fab} onClick={(e) => handleCurrentIndex(e.target.questionNumber)}>
+							<Fab
+								size="medium"
+								color="secondary"
+								key={questionNumber}
+								className={classes.fab}
+								// onClick={(e) => handleCurrentIndex(e.target.questionNumber)}
+							>
 								{questionNumber}
 							</Fab>
 						))}

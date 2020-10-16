@@ -152,6 +152,7 @@ const QuestionComponent = ({ test, currentQuestion, currentQuestionIndex, select
 									type="radio"
 									name="option"
 									className={classes.option}
+									onSelect={selected}
 									// value={selected}
 									// checked={value === selectedAnswer[currentQuestionIndex]}
 									onChange={selectedAnswer}

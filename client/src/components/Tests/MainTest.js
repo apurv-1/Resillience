@@ -117,14 +117,19 @@ const MainTest = () => {
 			});
 	};
 
-	const SelectedAnswer = (e) => {
-		// debugger;
-		console.log(e);
-		const studentAnswer = [selected];
-		studentAnswer[currentIndex] = e;
-		// console.log(studentAnswer);
-		setSelected([studentAnswer]);
-	};
+	// const handleSelect = e =>{
+	// 	setSelected({
+
+	// 	})
+	// }
+	// const SelectedAnswer = (e) => {
+	// 	// debugger;
+	// 	console.log(e);
+	// 	const studentAnswer = [selected];
+	// 	studentAnswer[currentIndex] = e;
+	// 	// console.log(studentAnswer);
+	// 	setSelected([studentAnswer]);
+	// };
 	// const handleCurrentIndex = (questionNo) => {
 	// 	setCurrentIndex(() => questionNo);
 	// };
@@ -168,7 +173,7 @@ const MainTest = () => {
 							test={test}
 							currentQuestion={test.questions[currentIndex]}
 							currentQuestionIndex={currentIndex}
-							selectedAnswer={(e) => SelectedAnswer(e)}
+							// selectedAnswer={(e) => SelectedAnswer(e)}
 						/>
 					</Paper>
 					<Paper elevation={5} className={classes.paper2}>

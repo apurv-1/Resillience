@@ -94,16 +94,16 @@ const MainTest = () => {
 	const [questionNum, setQuestionNum] = useState(0);
 	// const [openAlert, setOpenAlert] = useState(false);
 
-	const initialState = {
-		currentQuestion: 0,
-		currentOption: "",
-		correctOption: "",
-		showResult: false,
-	};
-	const [state, dispatch] = useReducer(quizReducer, initialState);
-	const { currentQuestion, currectOption, correctOption, showResult } = state;
+	// const initialState = {
+	// 	currentQuestion: 0,
+	// 	currentOption: "",
+	// 	correctOption: "",
+	// 	showResult: false,
+	// };
+	// const [state, dispatch] = useReducer(quizReducer, initialState);
+	// const { currentQuestion, currectOption, correctOption, showResult } = state;
 
-	const question = test.questions[currentQuestion];
+	// const question = test.questions[currentQuestion];
 
 	const FetchTest = () => {
 		fetch(`/showtest?testid=${testId}`, {

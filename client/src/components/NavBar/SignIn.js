@@ -8,6 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 import { Context } from "../../App";
+import SideDrawer from "./SideDrawer";
 // import axios from "axios";
 
 const styles = () => ({
@@ -108,17 +109,18 @@ function SignIn(props) {
 	return (
 		<div style={{ fontStyle: "23px" }}>
 			{state ? (
-				<Button
-					variant="contained"
-					color="secondary"
-					onClick={() => {
-						// localStorage.clear();
-						dispatch({ type: "CLEAR" });
-						setMessage("");
-					}}>
-					Sign Out
-				</Button>
+				<SideDrawer />
 			) : (
+				// <Button
+				// 	variant="contained"
+				// 	color="secondary"
+				// 	onClick={() => {
+				// 		// localStorage.clear();
+				// 		dispatch({ type: "CLEAR" });
+				// 		setMessage("");
+				// 	}}>
+				// 	Sign Out
+				// </Button>
 				<Button variant="contained" color="secondary" onClick={handleClickOpen}>
 					Sign In
 				</Button>
@@ -155,7 +157,7 @@ function SignIn(props) {
 						label="Email"
 						variant="outlined"
 						color="secondary"
-						helperText={errors.email} //error was defined in the backend
+						helperText={!email} //error was defined in the backend
 						error={errors.email ? true : false}
 						className={classes.textField}
 						value={email}

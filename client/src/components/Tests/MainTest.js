@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useReducer, useState } from "react";
 //  import { Helmet } from "react-helmet";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
@@ -10,6 +10,9 @@ import Alert from "@material-ui/lab/Alert";
 import QuestionComponent from "./QuestionComponent";
 import QuestionKeysComponent from "./QuestionKeysComponent";
 import TimerComponent from "./TimerComponent";
+//reducers
+import { SET_CURRENT_QUESTION, SET_CURRENT_ANSWER, SET_ANSWERS, SET_SHOW_RESULTS } from "../Reducers/types";
+import { quizReducer } from "../Reducers/Reducer";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -90,6 +93,17 @@ const MainTest = () => {
 	const [questionLength, setQuestionLength] = useState(0);
 	const [questionNum, setQuestionNum] = useState(0);
 	// const [openAlert, setOpenAlert] = useState(false);
+
+	const initialState = {
+		currentQuestion: 0,
+		currentOption: "",
+		correctOption: "",
+		showResult: false,
+	};
+	const [state, dispatch] = useReducer(quizReducer, initialState);
+	const { currentQuestion, currectOption, correctOption, showResult } = state;
+
+	const question = test.questions[currentQuestion];
 
 	const FetchTest = () => {
 		fetch(`/showtest?testid=${testId}`, {

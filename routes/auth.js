@@ -296,7 +296,7 @@ router.post("/user/signin", (req, res) => {
 	});
 });
 
-router.post("/student-signin", requireStudent, (req, res) => {
+router.post("/student-signin", (req, res) => {
 	const { email, password } = req.body;
 
 	if (email == "") {
@@ -313,10 +313,14 @@ router.post("/student-signin", requireStudent, (req, res) => {
 			.compare(password, savedStudent.password)
 			.then((doMatch) => {
 				if (doMatch) {
-					// res.json({message:"Signin Successful!"})
+					// res.json({ message: "Signin Successful!" });
 					const token = jwt.sign({ _id: savedStudent._id }, JWT_STUDENT);
 					const { _id, name, email, batch, contact, parentContact, fname, address, picture, phy, chem, math, bio } = savedStudent;
-					res.json({ token, student: { _id, name, email, batch, contact, parentContact, fname, address, picture, phy, chem, math, bio } });
+					res.json({
+						token,
+						student: { _id, name, email, batch, contact, parentContact, fname, address, picture, phy, chem, math, bio },
+						message: "Signin Successful!",
+					});
 				} else {
 					return res.status(422).json({ error: "Invalid email or password" });
 				}

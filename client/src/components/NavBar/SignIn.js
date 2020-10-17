@@ -55,35 +55,46 @@ function SignIn(props) {
 	}
 
 	const handleSubmit = () => {
-		fetch("/student-signin", {
-			method: "post",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				email,
-				password,
-			}),
-		})
-			.then((res) => res.json())
-			.then((data) => {
-				console.log(data);
-				if (data.error) {
-					const err = data.error;
-					setErrors(err);
-				} else {
-					localStorage.setItem("jwt", data.token);
-					localStorage.setItem("student", JSON.stringify(data.student));
-					dispatch({ type: "STUDENT", payload: data.student });
-					setMessage(data.message);
-					setOpen(false);
-					// history.push("/studentdashboard");
-				}
+		if (
+			!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+				email
+			)
+		) {
+			return setErrors("Invalid Email");
+		}
+		if (email && password) {
+			fetch("/student-signin", {
+				method: "post",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					email,
+					password,
+				}),
 			})
-			.catch((err) => {
-				console.log(err);
-				setErrors(err);
-			});
+				.then((res) => res.json())
+				.then((data) => {
+					console.log(data);
+					if (data.error) {
+						const err = data.error;
+						setErrors(err);
+					} else {
+						localStorage.setItem("jwt", data.token);
+						// localStorage.setItem("student", JSON.stringify(data.student));
+						dispatch({ type: "STUDENT", payload: data.student });
+						setMessage(data.message);
+						setOpen(false);
+						// history.push("/studentdashboard");
+					}
+				})
+				.catch((err) => {
+					console.log(err);
+					setErrors(err);
+				});
+		} else {
+			setErrors("Please valid Email & password!");
+		}
 	};
 
 	function handleClickOpen() {
@@ -101,7 +112,7 @@ function SignIn(props) {
 					variant="contained"
 					color="secondary"
 					onClick={() => {
-						localStorage.clear();
+						// localStorage.clear();
 						dispatch({ type: "CLEAR" });
 						setMessage("");
 					}}>

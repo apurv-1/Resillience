@@ -29,29 +29,28 @@ app.use(require("./routes/blogs"));
 //twilio
 app.use(require("./routes/verification"));
 
-
 mongoose.connect(MONGOURL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false,
-  useCreateIndex: true
+	useNewUrlParser: true,
+	useUnifiedTopology: true,
+	useFindAndModify: false,
+	useCreateIndex: true,
 });
 
 mongoose.connection.on("connected", () => {
-  console.log("MongoDB Connected");
+	console.log("MongoDB Connected");
 });
 mongoose.connection.on("error", (err) => {
-  console.log("Error Connecting", err);
+	console.log("Error Connecting", err);
 });
 
-if(process.env.NODE_ENV == "production"){
-  app.use(express.static('client/build'))
-  const path = require('path')
-  app.get("*",(req,res)=>{
-    res.sendFile(path.resolve(__dirname,'client','build','index.html'))
-  })
+if (process.env.NODE_ENV == "production") {
+	app.use(express.static("client/build"));
+	const path = require("path");
+	app.get("*", (req, res) => {
+		res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+	});
 }
 
 app.listen(PORT, () => {
-  console.log("Server is running on port ", PORT);
+	console.log("Server is running on port ", PORT);
 });

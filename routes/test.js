@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
+const Api = require("twilio/lib/rest/Api");
 const Test = mongoose.model("Test");
 const requireUser = require("../middleware/requireUser");
 
@@ -26,37 +27,112 @@ router.post("/addtest", (req, res) => {
 	test
 		.save()
 		.then((result) => {
-			res.json({ test: result });
+			res.json({ message: "Test Created!" });
 		})
 		.catch((err) => {
 			console.log(err);
 		});
 });
 
+// router.put("/add-question", (req, res) => {
+// 	const testId = req.body.testId;
+// 	// Test.findOne({testId})
+// 	const question = {
+// 		questionNumber: req.body.questionNumber,
+// 		questionImage: req.body.questionImage,
+// 		correctOption: req.body.correctOption,
+// 		questionType: req.body.questionType,
+// 	};
+// 	Test.findOneAndUpdate(
+// 		{ testId: testId },
+// 		{
+// 			$push: { questions: question },
+// 		},
+// 		{
+// 			new: true,
+// 		}
+// 	).exec((err, result) => {
+// 		if (err) {
+// 			return res.status(422).json({ error: err });
+// 		} else {
+// 			res.json(result);
+// 		}
+// 	});
+// });
+
 router.put("/add-question", (req, res) => {
-	const testId = req.body.testId;
-	// Test.findOne({testId})
-	const question = {
-		questionNumber: req.body.questionNumber,
-		questionImage: req.body.questionImage,
-		correctOption: req.body.correctOption,
-		questionType: req.body.questionType,
-	};
-	Test.findOneAndUpdate(
-		{ testId: testId },
-		{
-			$push: { questions: question },
-		},
-		{
-			new: true,
-		}
-	).exec((err, result) => {
-		if (err) {
-			return res.status(422).json({ error: err });
-		} else {
-			res.json(result);
-		}
-	});
+	const { testId, questionType } = req.body;
+	if (questionType == "SingleCorrect") {
+		const { questionNumber, questionImage, correctOption } = req.body;
+		const question = {
+			questionNumber: questionNumber,
+			questionImage: questionImage,
+			correctOption: correctOption,
+		};
+		Test.findByIdAndUpdate(
+			{ testId: testId },
+			{
+				$push: { questions: question },
+			},
+			{
+				new: true,
+			}
+		).exec((err, result) => {
+			if (err) {
+				return res.status(422).json({ error: err });
+			} else {
+				res.json(result);
+			}
+		});
+	} else if (questionType == "MultipleCorrect") {
+		const { questionNumber, questionImage, correctOptionOne, correctOptionTwo, correctOptionThree } = req.body;
+		const question = {
+			questionNumber: questionNumber,
+			questionImage: questionImage,
+			correctOptionOne: correctOptionOne,
+			correctOptionTwo: correctOptionTwo,
+			correctOptionThree: correctOptionThree,
+		};
+		Test.findByIdAndUpdate(
+			{ testId: testId },
+			{
+				$push: { questions: question },
+			},
+			{
+				new: true,
+			}
+		).exec((err, result) => {
+			if (err) {
+				return res.status(422).json({ error: err });
+			} else {
+				res.json(result);
+			}
+		});
+	} else if (questionType == "Numerical") {
+		const { questionNumber, questionImage, answer } = req.body;
+		const question = {
+			questionNumber: questionNumber,
+			questionImage: questionImage,
+			answer: answer,
+		};
+		Test.findByIdAndUpdate(
+			{ testId: testId },
+			{
+				$push: { questions: question },
+			},
+			{
+				new: true,
+			}
+		).exec((err, result) => {
+			if (err) {
+				return res.status(422).json({ error: err });
+			} else {
+				res.json(result);
+			}
+		});
+	} else {
+		res.status(404).json({ message: "Question Type not found!" });
+	}
 });
 
 router.get("/showtest", (req, res) => {

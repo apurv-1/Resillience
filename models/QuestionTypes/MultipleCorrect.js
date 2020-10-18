@@ -1,6 +1,11 @@
 const mongoose = require("mongoose");
 
 const multipleCorrectSchema = new mongoose.Schema({
+	questionNumber: {
+		type: Number,
+		required: true,
+		unique: true,
+	},
 	questionImage: {
 		type: String,
 		required: true,

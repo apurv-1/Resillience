@@ -26,6 +26,11 @@ const testSchema = new mongoose.Schema(
 		},
 		questions: [
 			{
+				questionNumber: {
+					type: Number,
+					required: true,
+					unique: true,
+				},
 				questionType: {
 					type: String,
 					required: true,

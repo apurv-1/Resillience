@@ -65,14 +65,13 @@ router.put("/add-question", (req, res) => {
 	if (questionType == "SingleCorrect") {
 		const { questionNumber, questionImage, correctOption } = req.body;
 		const question = {
-			questionNumber: questionNumber,
 			questionImage: questionImage,
 			correctOption: correctOption,
 		};
 		Test.findByIdAndUpdate(
 			{ testId: testId },
 			{
-				$push: { questions: question },
+				$push: { questionNumber: questionNumber, questions: question, questionType: questionType },
 			},
 			{
 				new: true,
@@ -87,7 +86,6 @@ router.put("/add-question", (req, res) => {
 	} else if (questionType == "MultipleCorrect") {
 		const { questionNumber, questionImage, correctOptionOne, correctOptionTwo, correctOptionThree } = req.body;
 		const question = {
-			questionNumber: questionNumber,
 			questionImage: questionImage,
 			correctOptionOne: correctOptionOne,
 			correctOptionTwo: correctOptionTwo,
@@ -96,7 +94,7 @@ router.put("/add-question", (req, res) => {
 		Test.findByIdAndUpdate(
 			{ testId: testId },
 			{
-				$push: { questions: question },
+				$push: { questionNumber: questionNumber, questions: question, questionType: questionType },
 			},
 			{
 				new: true,
@@ -111,14 +109,13 @@ router.put("/add-question", (req, res) => {
 	} else if (questionType == "Numerical") {
 		const { questionNumber, questionImage, answer } = req.body;
 		const question = {
-			questionNumber: questionNumber,
 			questionImage: questionImage,
 			answer: answer,
 		};
 		Test.findByIdAndUpdate(
 			{ testId: testId },
 			{
-				$push: { questions: question },
+				$push: { questionNumber: questionNumber, questions: question, questionType: questionType },
 			},
 			{
 				new: true,

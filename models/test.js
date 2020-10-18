@@ -27,7 +27,7 @@ const testSchema = new mongoose.Schema(
 		questions: [
 			{
 				questionType: {
-					type: Number,
+					type: String,
 					required: true,
 				},
 				question: {

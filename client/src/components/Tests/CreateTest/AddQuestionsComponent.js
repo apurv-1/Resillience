@@ -12,6 +12,7 @@ import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import ReactCrop from "react-image-crop";
 import CropIcon from "@material-ui/icons/Crop";
 import Typography from "@material-ui/core/Typography";
+import Divider from "@material-ui/core/Divider";
 import "react-image-crop/dist/ReactCrop.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -21,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 		maxWidth: "50px",
 	},
 	paper: {
-		display: "flex",
+		// display: "flex",
 		width: "35%",
 		flexDirection: "column",
 		padding: "2% 4% 4%",
@@ -34,7 +35,8 @@ const useStyles = makeStyles((theme) => ({
 		padding: "3% 3% 3%",
 		width: "80%",
 		height: "80%",
-		border: "1px solid",
+		// border: "1px solid",
+		marginLeft: "5%",
 	},
 	input: {
 		display: "none",
@@ -44,8 +46,8 @@ const useStyles = makeStyles((theme) => ({
 		padding: "2%",
 	},
 	formControl: {
-		width: "50%",
-
+		width: "45%",
+		margin: "2%",
 		height: "100%",
 		// width: "15%"
 	},
@@ -75,7 +77,10 @@ const AddQuestions = ({ testID }) => {
 	const classes = useStyles();
 	const [openSubject, setOpenSubject] = useState(false);
 	const [openCorrect, setOpenCorrect] = useState(false);
+	const [openQuesType, setOpenQuesType] = useState(false);
+
 	const [subject, setSubject] = useState("");
+	const [questionType, setQuestionType] = useState("");
 	const [correct, setCorrect] = useState("");
 
 	const [questionNumber, setQuestionNumber] = useState("");
@@ -176,6 +181,7 @@ const AddQuestions = ({ testID }) => {
 					<Typography variant="h4" color="primary">
 						Add Questions to test
 					</Typography>
+					<Divider />
 					<div className={classes.container}>
 						<TextField
 							id="question-number"
@@ -187,25 +193,25 @@ const AddQuestions = ({ testID }) => {
 							onChange={(e) => setQuestionNumber(e.target.value)}
 						/>
 					</div>
+					<Divider />
 					<div className={classes.container}>
 						<FormControl className={classes.formControl}>
-							<InputLabel>Subject</InputLabel>
+							<InputLabel>Select Question Type</InputLabel>
 							<Select
 								labelId="controlled-open-select-label"
-								open={openSubject}
-								onClose={() => setOpenSubject(false)}
-								onOpen={() => setOpenSubject(true)}
-								value={subject}
-								onChange={(e) => setSubject(e.target.value)}
-								// fullWidth
-							>
-								<MenuItem value={"Physics"}>Physics</MenuItem>
-								<MenuItem value={"Chemistry"}>Chemistry</MenuItem>
-								<MenuItem value={"Maths"}>Maths</MenuItem>
-								<MenuItem value={"Biology"}>Bio</MenuItem>
+								open={openQuesType}
+								onClose={() => setOpenQuesType(false)}
+								onOpen={() => setOpenQuesType(true)}
+								value={questionType}
+								onChange={(e) => setQuestionType(e.target.value)}
+								fullWidth>
+								<MenuItem value={"0"}>Single Correct</MenuItem>
+								<MenuItem value={"1"}>Multiple Correct</MenuItem>
+								<MenuItem value={"2"}>Numerical</MenuItem>
 							</Select>
 						</FormControl>
 					</div>
+					<Divider />
 					<div className={classes.container}>
 						<input
 							accept="image/*"
@@ -227,7 +233,26 @@ const AddQuestions = ({ testID }) => {
 							</Button>
 						</label>
 					</div>
+					<Divider />
+
 					<div className={classes.container}>
+						<FormControl className={classes.formControl}>
+							<InputLabel>Subject</InputLabel>
+							<Select
+								labelId="controlled-open-select-label"
+								open={openSubject}
+								onClose={() => setOpenSubject(false)}
+								onOpen={() => setOpenSubject(true)}
+								value={subject}
+								onChange={(e) => setSubject(e.target.value)}
+								// fullWidth
+							>
+								<MenuItem value={"Physics"}>Physics</MenuItem>
+								<MenuItem value={"Chemistry"}>Chemistry</MenuItem>
+								<MenuItem value={"Maths"}>Maths</MenuItem>
+								<MenuItem value={"Biology"}>Bio</MenuItem>
+							</Select>
+						</FormControl>
 						<FormControl className={classes.formControl}>
 							<InputLabel>Correct Option</InputLabel>
 							<Select
@@ -245,6 +270,7 @@ const AddQuestions = ({ testID }) => {
 							</Select>
 						</FormControl>
 					</div>
+					<Divider />
 					<div className={classes.container}>
 						<Button
 							variant="contained"

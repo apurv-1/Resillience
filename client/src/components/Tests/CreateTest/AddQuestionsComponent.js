@@ -16,7 +16,12 @@ import Divider from "@material-ui/core/Divider";
 import "react-image-crop/dist/ReactCrop.css";
 
 const useStyles = makeStyles((theme) => ({
-	card: {},
+	card: {
+		margin: "6%",
+		display: "absolute",
+		height: "50%",
+		width: "40%",
+	},
 	textField: {
 		height: "10px",
 		maxWidth: "50px",
@@ -41,6 +46,10 @@ const useStyles = makeStyles((theme) => ({
 	input: {
 		display: "none",
 		// marginLeft: "20px",
+	},
+	numerical: {
+		width: "50%",
+		// margin: "2.5% 2.5%",
 	},
 	button: {
 		padding: "2%",
@@ -80,8 +89,10 @@ const AddQuestions = ({ testID }) => {
 	const [openQuesType, setOpenQuesType] = useState(false);
 
 	const [subject, setSubject] = useState("");
-	const [questionType, setQuestionType] = useState("");
+	const [questionType, setQuestionType] = useState("singleCorrect");
+
 	const [correct, setCorrect] = useState("");
+	const [numerical, setNumerical] = useState("");
 
 	const [questionNumber, setQuestionNumber] = useState("");
 	const [questionImg, setQuestionImg] = useState("");
@@ -92,6 +103,9 @@ const AddQuestions = ({ testID }) => {
 
 	useEffect(() => {
 		if (questionUrl) {
+			// if(questionType === "singleCorrect"){
+
+			// }
 			fetch("/add-question", {
 				method: "put",
 				headers: {
@@ -205,9 +219,9 @@ const AddQuestions = ({ testID }) => {
 								value={questionType}
 								onChange={(e) => setQuestionType(e.target.value)}
 								fullWidth>
-								<MenuItem value={"0"}>Single Correct</MenuItem>
-								<MenuItem value={"1"}>Multiple Correct</MenuItem>
-								<MenuItem value={"2"}>Numerical</MenuItem>
+								<MenuItem value={"singleCorrect"}>Single Correct</MenuItem>
+								<MenuItem value={"multipleCorrect"}>Multiple Correct</MenuItem>
+								<MenuItem value={"numerical"}>Numerical</MenuItem>
 							</Select>
 						</FormControl>
 					</div>
@@ -234,8 +248,43 @@ const AddQuestions = ({ testID }) => {
 						</label>
 					</div>
 					<Divider />
-
-					<div className={classes.container}>
+					{questionType === "singleCorrect" ? (
+						<div className={classes.container}>
+							<FormControl className={classes.formControl}>
+								<InputLabel>Subject</InputLabel>
+								<Select
+									labelId="controlled-open-select-label"
+									open={openSubject}
+									onClose={() => setOpenSubject(false)}
+									onOpen={() => setOpenSubject(true)}
+									value={subject}
+									onChange={(e) => setSubject(e.target.value)}
+									// fullWidth
+								>
+									<MenuItem value={"Physics"}>Physics</MenuItem>
+									<MenuItem value={"Chemistry"}>Chemistry</MenuItem>
+									<MenuItem value={"Maths"}>Maths</MenuItem>
+									<MenuItem value={"Biology"}>Bio</MenuItem>
+								</Select>
+							</FormControl>
+							<FormControl className={classes.formControl}>
+								<InputLabel>Correct Option</InputLabel>
+								<Select
+									labelId="controlled-open-select-label"
+									open={openCorrect}
+									onClose={() => setOpenCorrect(false)}
+									onOpen={() => setOpenCorrect(true)}
+									value={correct}
+									onChange={(e) => setCorrect(e.target.value)}
+									fullWidth>
+									<MenuItem value={"0"}>1</MenuItem>
+									<MenuItem value={"1"}>2</MenuItem>
+									<MenuItem value={"2"}>3</MenuItem>
+									<MenuItem value={"3"}>4</MenuItem>
+								</Select>
+							</FormControl>
+						</div>
+					) : questionType === "multipleCorrect" ? (
 						<FormControl className={classes.formControl}>
 							<InputLabel>Subject</InputLabel>
 							<Select
@@ -253,23 +302,36 @@ const AddQuestions = ({ testID }) => {
 								<MenuItem value={"Biology"}>Bio</MenuItem>
 							</Select>
 						</FormControl>
-						<FormControl className={classes.formControl}>
-							<InputLabel>Correct Option</InputLabel>
-							<Select
-								labelId="controlled-open-select-label"
-								open={openCorrect}
-								onClose={() => setOpenCorrect(false)}
-								onOpen={() => setOpenCorrect(true)}
-								value={correct}
-								onChange={(e) => setCorrect(e.target.value)}
-								fullWidth>
-								<MenuItem value={"0"}>1</MenuItem>
-								<MenuItem value={"1"}>2</MenuItem>
-								<MenuItem value={"2"}>3</MenuItem>
-								<MenuItem value={"3"}>4</MenuItem>
-							</Select>
-						</FormControl>
-					</div>
+					) : (
+						<div className={classes.container}>
+							<FormControl className={classes.formControl}>
+								<InputLabel>Subject</InputLabel>
+								<Select
+									labelId="controlled-open-select-label"
+									open={openSubject}
+									onClose={() => setOpenSubject(false)}
+									onOpen={() => setOpenSubject(true)}
+									value={subject}
+									onChange={(e) => setSubject(e.target.value)}
+									// fullWidth
+								>
+									<MenuItem value={"Physics"}>Physics</MenuItem>
+									<MenuItem value={"Chemistry"}>Chemistry</MenuItem>
+									<MenuItem value={"Maths"}>Maths</MenuItem>
+									<MenuItem value={"Biology"}>Bio</MenuItem>
+								</Select>
+							</FormControl>
+							<TextField
+								id="question-number"
+								label="Numerical Answer"
+								variant="outlined"
+								className={classes.numerical}
+								value={numerical}
+								onChange={(e) => setNumerical(e.target.value)}
+							/>
+						</div>
+					)}
+
 					<Divider />
 					<div className={classes.container}>
 						<Button

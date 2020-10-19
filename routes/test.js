@@ -62,7 +62,7 @@ router.post("/addtest", (req, res) => {
 
 router.put("/add-question", (req, res) => {
 	const { testId, questionType } = req.body;
-	if (questionType == "SingleCorrect") {
+	if (questionType == "singleCorrect") {
 		const { questionNumber, questionImage, correctOption } = req.body;
 		const question = {
 			questionImage: questionImage,
@@ -83,8 +83,14 @@ router.put("/add-question", (req, res) => {
 				res.json(result);
 			}
 		});
-	} else if (questionType == "MultipleCorrect") {
-		const { questionNumber, questionImage, correctOptionOne, correctOptionTwo, correctOptionThree } = req.body;
+	} else if (questionType == "multipleCorrect") {
+		const {
+			questionNumber,
+			questionImage,
+			correctOptionOne,
+			correctOptionTwo,
+			correctOptionThree,
+		} = req.body;
 		const question = {
 			questionImage: questionImage,
 			correctOptionOne: correctOptionOne,
@@ -106,11 +112,11 @@ router.put("/add-question", (req, res) => {
 				res.json(result);
 			}
 		});
-	} else if (questionType == "Numerical") {
-		const { questionNumber, questionImage, answer } = req.body;
+	} else if (questionType == "numerical") {
+		const { questionNumber, questionImage, numerical } = req.body;
 		const question = {
 			questionImage: questionImage,
-			answer: answer,
+			numerical: numerical,
 		};
 		Test.findByIdAndUpdate(
 			{ testId: testId },

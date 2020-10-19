@@ -10,15 +10,18 @@ import ShowTest from "./ShowTestComponent";
 
 const useStyles = makeStyles(() => ({
 	root: {
-		marginTop: "5%",
-		margin: "2%",
-		padding: "6%",
+		// marginTop: "3%",
+		// margin: "2%",
+		// padding: "6%",
 	},
 	// questionsDiv:{
 	//     margin: "2px"
 	// },
 	testDiv: {
 		// display: "flex",
+		marginTop: "3%",
+		margin: "2%",
+		padding: "6%",
 	},
 	paper: {
 		padding: "2%",

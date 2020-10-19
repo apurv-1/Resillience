@@ -189,7 +189,14 @@ function SignIn(props) {
 							{errors.message}
 						</Typography>
 					)}
-					<Button type="submit" variant="contained" color="secondary" className={classes.button} size="large" fullWidth onClick={() => handleSubmit()}>
+					<Button
+						type="submit"
+						variant="contained"
+						color="secondary"
+						className={classes.button}
+						size="large"
+						fullWidth
+						onClick={() => handleSubmit()}>
 						Login
 					</Button>
 					<br />

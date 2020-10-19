@@ -55,7 +55,7 @@ const ShowTest = ({ testId }) => {
 					<h1>{testName}</h1>
 				</div>
 				<hr style={{ height: "2px", backgroundColor: "#000000" }} />
-				<div className={classes.queston}>
+				<div className={classes.question}>
 					{test.length && test.map(({ questions }) => <img src={questions} />)}
 				</div>
 			</Paper>

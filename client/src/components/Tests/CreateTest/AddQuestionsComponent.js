@@ -11,44 +11,41 @@ import SaveIcon from "@material-ui/icons/Save";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import ReactCrop from "react-image-crop";
 import CropIcon from "@material-ui/icons/Crop";
+import Typography from "@material-ui/core/Typography";
 import "react-image-crop/dist/ReactCrop.css";
 
 const useStyles = makeStyles((theme) => ({
-	card: {
-		height: "10%",
-		padding: "2%",
-	},
+	card: {},
 	textField: {
 		height: "10px",
 		maxWidth: "50px",
-		marginTop: "-20%",
-		textAlign: "left",
 	},
 	paper: {
-		marginLeft: "2%",
+		display: "flex",
+		width: "35%",
+		flexDirection: "column",
+		padding: "2% 4% 4%",
 		textAlign: "center",
+		position: "absolute",
+		justifyContent: "center",
 	},
-	textbox: {
-		marginLeft: "26%",
-		marginTop: "5%",
-	},
-	upload: {
-		// margin:"1%",
-		padding: "3%",
+	container: {
+		alignSelf: "stretch",
+		padding: "3% 3% 3%",
+		width: "80%",
+		height: "80%",
+		border: "1px solid",
 	},
 	input: {
 		display: "none",
-		marginLeft: "20px",
+		// marginLeft: "20px",
 	},
 	button: {
-		marginLeft: "2%",
-		margin: "1%",
-		height: "50%",
-		width: "20%",
+		padding: "2%",
 	},
 	formControl: {
-		minWidth: "15%",
-		marginLeft: "3%",
+		width: "50%",
+
 		height: "100%",
 		// width: "15%"
 	},
@@ -155,7 +152,17 @@ const AddQuestions = ({ testID }) => {
 		canvas.height = crop.height;
 		const ctx = canvas.getContext("2d");
 
-		ctx.drawImage(questionImg, crop.x * scaleX, crop.y * scaleY, crop.width * scaleX, crop.height * scaleY, 0, 0, crop.width, crop.height);
+		ctx.drawImage(
+			questionImg,
+			crop.x * scaleX,
+			crop.y * scaleY,
+			crop.width * scaleX,
+			crop.height * scaleY,
+			0,
+			0,
+			crop.width,
+			crop.height
+		);
 
 		const base64Image = canvas.toDataURL("image/jpeg");
 		setFinalQuestion(base64Image);
@@ -164,55 +171,91 @@ const AddQuestions = ({ testID }) => {
 
 	return (
 		<div className={classes.card}>
-			<Paper elevation={5} className={classes.upload}>
-				<div>
-					<TextField
-						id="question-number"
-						label="Question Number"
-						// variant="outlined"
-						// className={classes.input}
-						value={questionNumber}
-						onChange={(e) => setQuestionNumber(e.target.value)}
-					/>
-					<FormControl className={classes.formControl}>
-						<InputLabel>Subject</InputLabel>
-						<Select
-							labelId="controlled-open-select-label"
-							open={openSubject}
-							onClose={() => setOpenSubject(false)}
-							onOpen={() => setOpenSubject(true)}
-							value={subject}
-							onChange={(e) => setSubject(e.target.value)}>
-							<MenuItem value={"Physics"}>Physics</MenuItem>
-							<MenuItem value={"Chemistry"}>Chemistry</MenuItem>
-							<MenuItem value={"Maths"}>Maths</MenuItem>
-							<MenuItem value={"Biology"}>Bio</MenuItem>
-						</Select>
-					</FormControl>
-					<input accept="image/*" className={classes.input} id="contained-button-file" multiple type="file" onChange={handleImageChange} />
-					<label htmlFor="contained-button-file">
-						<Button variant="contained" color="primary" component="span" className={classes.button} startIcon={<CloudUploadIcon />}>
-							Upload Question
+			<Paper elevation={5} className={classes.paper}>
+				<div className={classes.form}>
+					<Typography variant="h4" color="primary">
+						Add Questions to test
+					</Typography>
+					<div className={classes.container}>
+						<TextField
+							id="question-number"
+							label="Question Number"
+							variant="outlined"
+							// className={classes.input}
+							value={questionNumber}
+							fullWidth
+							onChange={(e) => setQuestionNumber(e.target.value)}
+						/>
+					</div>
+					<div className={classes.container}>
+						<FormControl className={classes.formControl}>
+							<InputLabel>Subject</InputLabel>
+							<Select
+								labelId="controlled-open-select-label"
+								open={openSubject}
+								onClose={() => setOpenSubject(false)}
+								onOpen={() => setOpenSubject(true)}
+								value={subject}
+								onChange={(e) => setSubject(e.target.value)}
+								// fullWidth
+							>
+								<MenuItem value={"Physics"}>Physics</MenuItem>
+								<MenuItem value={"Chemistry"}>Chemistry</MenuItem>
+								<MenuItem value={"Maths"}>Maths</MenuItem>
+								<MenuItem value={"Biology"}>Bio</MenuItem>
+							</Select>
+						</FormControl>
+					</div>
+					<div className={classes.container}>
+						<input
+							accept="image/*"
+							className={classes.input}
+							id="contained-button-file"
+							multiple
+							type="file"
+							onChange={handleImageChange}
+						/>
+						<label htmlFor="contained-button-file">
+							<Button
+								variant="contained"
+								color="primary"
+								component="span"
+								className={classes.button}
+								startIcon={<CloudUploadIcon />}
+								fullWidth>
+								Upload Question
+							</Button>
+						</label>
+					</div>
+					<div className={classes.container}>
+						<FormControl className={classes.formControl}>
+							<InputLabel>Correct Option</InputLabel>
+							<Select
+								labelId="controlled-open-select-label"
+								open={openCorrect}
+								onClose={() => setOpenCorrect(false)}
+								onOpen={() => setOpenCorrect(true)}
+								value={correct}
+								onChange={(e) => setCorrect(e.target.value)}
+								fullWidth>
+								<MenuItem value={"0"}>1</MenuItem>
+								<MenuItem value={"1"}>2</MenuItem>
+								<MenuItem value={"2"}>3</MenuItem>
+								<MenuItem value={"3"}>4</MenuItem>
+							</Select>
+						</FormControl>
+					</div>
+					<div className={classes.container}>
+						<Button
+							variant="contained"
+							color="primary"
+							className={classes.button}
+							startIcon={<SaveIcon />}
+							onClick={() => addQuestion()}
+							fullWidth>
+							Save Question
 						</Button>
-					</label>
-					<FormControl className={classes.formControl}>
-						<InputLabel>Correct Option</InputLabel>
-						<Select
-							labelId="controlled-open-select-label"
-							open={openCorrect}
-							onClose={() => setOpenCorrect(false)}
-							onOpen={() => setOpenCorrect(true)}
-							value={correct}
-							onChange={(e) => setCorrect(e.target.value)}>
-							<MenuItem value={"0"}>1</MenuItem>
-							<MenuItem value={"1"}>2</MenuItem>
-							<MenuItem value={"2"}>3</MenuItem>
-							<MenuItem value={"3"}>4</MenuItem>
-						</Select>
-					</FormControl>
-					<Button variant="contained" color="primary" className={classes.button} startIcon={<SaveIcon />} onClick={() => addQuestion()}>
-						Save Question
-					</Button>
+					</div>
 				</div>
 			</Paper>
 			<div className={classes.cropContainer}>
@@ -220,7 +263,12 @@ const AddQuestions = ({ testID }) => {
 					{questionSrc && (
 						<div>
 							<ReactCrop src={questionSrc} onImageLoaded={setQuestionImg} crop={crop} onChange={setCrop} />
-							<Button variant="contained" color="secondary" className={classes.button} startIcon={<CropIcon />} onClick={getCroppedImg}>
+							<Button
+								variant="contained"
+								color="secondary"
+								className={classes.button}
+								startIcon={<CropIcon />}
+								onClick={getCroppedImg}>
 								Crop
 							</Button>
 						</div>

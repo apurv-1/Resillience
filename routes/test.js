@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const Api = require("twilio/lib/rest/Api");
 const Test = mongoose.model("Test");
+const SingleCorrect = mongoose.model("SingleCorrect");
 const requireUser = require("../middleware/requireUser");
 
 router.get("/alltests", (req, res) => {
@@ -62,27 +63,43 @@ router.post("/addtest", (req, res) => {
 
 router.put("/add-question", (req, res) => {
 	const { testId, questionType } = req.body;
+
 	if (questionType == "singleCorrect") {
 		const { questionNumber, questionImage, correctOption } = req.body;
-		const question = {
-			questionImage: questionImage,
-			correctOption: correctOption,
+		// const question = {
+		// 	questionImage: questionImage,
+		// 	correctOption: correctOption,
+		// };
+		const singleCorrect = new SingleCorrect({ questionImage, correctOption });
+		singleCorrect.save();
+		const questions = {
+			questionNumber: questionNumber,
+			questionType: questionType,
+			question: singleCorrect,
 		};
+		console.log(singleCorrect);
 		Test.findByIdAndUpdate(
 			{ testId: testId },
 			{
-				$push: { questionNumber: questionNumber, questions: question, questionType: questionType },
+				$push: { questions: questions },
 			},
 			{
 				new: true,
 			}
-		).exec((err, result) => {
-			if (err) {
-				return res.status(422).json({ error: err });
-			} else {
-				res.json(result);
-			}
-		});
+		)
+			.then((result) => {
+				res.json({ result });
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+		// .exec((err, result) => {
+		// 	if (err) {
+		// 		return res.status(422).json({ error: err });
+		// 	} else {
+		// 		res.json(result);
+		// 	}
+		// });
 	} else if (questionType == "multipleCorrect") {
 		const {
 			questionNumber,

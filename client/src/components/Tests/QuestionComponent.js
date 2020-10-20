@@ -134,7 +134,7 @@ const QuestionComponent = ({ test, currentQuestion, currentQuestionIndex, select
 						<h2>{testName}</h2>
 					</span>
 					<span>
-						{currentQuestionIndex} of {questions.length}
+						{1 + currentQuestionIndex} of {questions.length}
 					</span>
 				</div>
 

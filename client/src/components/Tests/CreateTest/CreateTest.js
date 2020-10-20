@@ -48,7 +48,7 @@ const CreateTest = () => {
 	const [testName, setTestName] = useState("");
 	const [testDuration, setTestDuration] = useState("");
 	const [noOfQuestions, setNoOfQuestions] = useState("");
-	const [check, setCheck] = useState(true);
+	const [check, setCheck] = useState(false);
 
 	const SaveTest = () => {
 		fetch("/addtest", {

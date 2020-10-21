@@ -8,7 +8,7 @@ require("./QuestionTypes/NumericalType");
 const testSchema = new mongoose.Schema(
 	{
 		testId: {
-			type: Number,
+			type: String,
 			required: true,
 			unique: true,
 		},

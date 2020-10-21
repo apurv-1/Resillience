@@ -158,9 +158,9 @@ router.put("/add-question", (req, res) => {
 router.get("/showtest", (req, res) => {
 	const testId = req.query.testid;
 	// console.log(req.query)
-	Test.findOne({ testId })
+	Test.findOne({ testId: testId })
 		.then((test) => {
-			// console.log(test)
+			// console.log(test);
 			if (test === null) {
 				return res.status(422).json({ error: "Please enter valid Test ID" });
 			} else {

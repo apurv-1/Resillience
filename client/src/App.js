@@ -143,15 +143,15 @@ export const Context = createContext();
 
 //routes
 const Routing = () => {
-	const history = useHistory();
-	useEffect(() => {
-		const student = JSON.parse(localStorage.getItem("student"));
-		// if (student) {
-		// 	history.push("/student-dashboard");
-		// } else {
-		// 	console.log("Student Not Found!!");
-		// }
-	}, []);
+	// const history = useHistory();
+	// useEffect(() => {
+	// 	const student = JSON.parse(localStorage.getItem("student"));
+	// 	if (student) {
+	// 		history.push("/student-dashboard");
+	// 	} else {
+	// 		console.log("Student Not Found!!");
+	// 	}
+	// }, []);
 	return (
 		<Switch>
 			<Route exact path="/" component={HomeComponent} />

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { makeStyles, createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import Button from "@material-ui/core/Button";
@@ -70,6 +71,13 @@ const useStyles = makeStyles({
 		position: "absolute",
 		// top: "50%",
 	},
+	link: {
+		// display: "none",
+		textDecoration: "none",
+		fontWeight: "700",
+		fontSize: "20px",
+		color: "#000",
+	},
 });
 const theme = createMuiTheme({
 	palette: {
@@ -85,27 +93,6 @@ export default function SideNav() {
 	const handleDrawer = () => {
 		setOpen(true);
 	};
-	// const toggleDrawer = (anchor, open) => (event) => {
-	// 	if (event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
-	// 		return;
-	// 	}
-
-	// 	setState({ ...state, [anchor]: open });
-	// };
-
-	// const list = (anchor) => (
-	// 	<div className={classes.list}>
-	// 		<Divider />
-	// 		<List>
-	// 			<ListItem button key="Profile">
-	// 				<ListItemIcon>
-	// 					<MailIcon />
-	// 				</ListItemIcon>
-	// 				<ListItemText>Profile</ListItemText>
-	// 			</ListItem>
-	// 		</List>
-	// 	</div>
-	// );
 
 	return (
 		<div>
@@ -124,7 +111,7 @@ export default function SideNav() {
 								RESILLIENCE
 							</h1>
 							<Avatar
-								alt="Remy Sharp"
+								alt="profile-pic"
 								src="https://res.cloudinary.com/rweb1/image/upload/v1599639734/resilience_default_lqmb3p.png"
 								className={classes.avatar}
 							/>
@@ -133,14 +120,27 @@ export default function SideNav() {
 								<ListItemIcon>
 									<DashboardRoundedIcon />
 								</ListItemIcon>
-								<ListItemText>Dasboard</ListItemText>
+								<Link to="/student-dashboard" className={classes.link}>
+									<ListItemText>Dasboard</ListItemText>
+								</Link>
 							</ListItem>
 							<Divider />
 							<ListItem button key="Test" className={classes.listitem}>
 								<ListItemIcon>
 									<MenuBookRoundedIcon />
 								</ListItemIcon>
-								<ListItemText>Test</ListItemText>
+								<Link to="/maintest" className={classes.link}>
+									<ListItemText>Test</ListItemText>
+								</Link>
+							</ListItem>
+							<Divider />
+							<ListItem button key="Blogs" className={classes.listitem}>
+								<ListItemIcon>
+									<WebRoundedIcon />
+								</ListItemIcon>
+								<Link to="/blogs" className={classes.link}>
+									<ListItemText>Blogs</ListItemText>
+								</Link>
 							</ListItem>
 							<Divider />
 							<ListItem button key="Downloads" className={classes.listitem}>
@@ -148,13 +148,6 @@ export default function SideNav() {
 									<GetAppRoundedIcon />
 								</ListItemIcon>
 								<ListItemText>Download Section</ListItemText>
-							</ListItem>
-							<Divider />
-							<ListItem button key="Blogs" className={classes.listitem}>
-								<ListItemIcon>
-									<WebRoundedIcon />
-								</ListItemIcon>
-								<ListItemText>Blogs</ListItemText>
 							</ListItem>
 							<Divider />
 							<div className={classes.button}>

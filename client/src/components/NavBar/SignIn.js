@@ -109,10 +109,11 @@ function SignIn(props) {
 	return (
 		<div style={{ fontStyle: "23px" }}>
 			{state ? (
+				<SideDrawer />
+			) : (
 				<Button variant="contained" color="secondary" onClick={handleClickOpen}>
 					Sign In
 				</Button>
-			) : (
 				// <Button
 				// 	variant="contained"
 				// 	color="secondary"
@@ -123,7 +124,6 @@ function SignIn(props) {
 				// 	}}>
 				// 	Sign Out
 				// </Button>
-				<SideDrawer />
 			)}
 
 			<Dialog

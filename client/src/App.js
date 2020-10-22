@@ -15,7 +15,7 @@ import themeObject from "./theme";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { TitleComponent } from "./components/Title/TitleComponent";
 
-import { StudentReducer, TestReducer, InitialState } from "./components/Reducers/Reducer";
+import { StudentReducer, InitialState } from "./components/Reducers/Reducer";
 import "./ReactTransitions.css";
 
 //Components
@@ -144,14 +144,15 @@ export const Context = createContext();
 //routes
 const Routing = () => {
 	// const history = useHistory();
-	// useEffect(() => {
-	// 	const student = JSON.parse(localStorage.getItem("student"));
-	// 	if (student) {
-	// 		history.push("/student-dashboard");
-	// 	} else {
-	// 		console.log("Student Not Found!!");
-	// 	}
-	// }, []);
+	const { dispatch } = useContext(Context);
+	useEffect(() => {
+		const student = JSON.parse(localStorage.getItem("student"));
+		if (student) {
+			dispatch({ type: "STUDENT", payload: student });
+		} else {
+			console.log("Student Not Found!!");
+		}
+	}, []);
 	return (
 		<Switch>
 			<Route exact path="/" component={HomeComponent} />
@@ -199,29 +200,29 @@ const App = (props) => {
 	// const { location } = this.props;
 	const [state, dispatch] = useReducer(StudentReducer, InitialState);
 	// const currentKey = location.pathname.split("/")[1] || "/";
-	const timeout = { enter: 1000, exit: 1000 };
+	// const timeout = { enter: 1000, exit: 1000 };
 
 	return (
-		<MuiThemeProvider theme={theme}>
-			<Suspense fallback={<LinearProgress color="secondary" style={{ paddingTop: "0.2%" }} />}>
-				<TransitionGroup component="div" className="App">
-					<div
-					// className={
-					// 	this.getPathDepth(location) - this.state.prevDepth >= 0
-					// 		? "left" //left means right to left
-					// 		: "right" //right means towards right
-					// }
-					>
-						<Context.Provider value={{ state, dispatch }}>
+		<Context.Provider value={{ state, dispatch }}>
+			<MuiThemeProvider theme={theme}>
+				<Suspense fallback={<LinearProgress color="secondary" style={{ paddingTop: "0.2%" }} />}>
+					<TransitionGroup component="div" className="App">
+						<div
+						// className={
+						// 	this.getPathDepth(location) - this.state.prevDepth >= 0
+						// 		? "left" //left means right to left
+						// 		: "right" //right means towards right
+						// }
+						>
 							<Navbar />
 							<ScrollToTop />
 							<Routing />
 							<Footer />
-						</Context.Provider>
-					</div>
-				</TransitionGroup>
-			</Suspense>
-		</MuiThemeProvider>
+						</div>
+					</TransitionGroup>
+				</Suspense>
+			</MuiThemeProvider>
+		</Context.Provider>
 	);
 };
 

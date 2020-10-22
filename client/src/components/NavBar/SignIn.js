@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -41,19 +41,19 @@ const styles = () => ({
 
 function SignIn(props) {
 	const history = useHistory();
-	const { state, dispatch } = useContext(Context);
+	const { dispatch } = useContext(Context);
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [open, setOpen] = useState(false);
 	const [errors, setErrors] = useState({});
-	// const [message, setMessage] = useState("");
+	const [details, setDetails] = useState("");
 
-	function handleChangeEmail(event) {
-		setEmail(event.target.value);
-	}
-	function handleChangePassword(event) {
-		setPassword(event.target.value);
-	}
+	// function handleChangeEmail(event) {
+	// 	setEmail(event.target.value);
+	// }
+	// function handleChangePassword(event) {
+	// 	setPassword(event.target.value);
+	// }
 
 	const handleSubmit = () => {
 		if (
@@ -63,7 +63,9 @@ function SignIn(props) {
 		) {
 			return setErrors({ email: "Invalid Email!" });
 		}
-		if (email && password) {
+		if (password === "") {
+			return setErrors({ password: "Invalid Password" });
+		} else {
 			fetch("/student-signin", {
 				method: "post",
 				headers: {
@@ -79,10 +81,10 @@ function SignIn(props) {
 					console.log(data);
 					if (data.error) {
 						const err = data.error;
-						setErrors(err);
+						setErrors({ err });
 					} else {
 						localStorage.setItem("jwt", data.token);
-						// localStorage.setItem("student", JSON.stringify(data.student));
+						localStorage.setItem("student", JSON.stringify(data.student));
 						dispatch({ type: "STUDENT", payload: data.student });
 						// setMessage(data.message);
 						setOpen(false);
@@ -90,14 +92,20 @@ function SignIn(props) {
 					}
 				})
 				.catch((err) => {
-					console.log(err);
-					setErrors(err);
+					// console.log(err);
+					setErrors({ err });
 				});
-		} else {
-			setErrors("Please valid Email & password!");
 		}
 	};
-
+	// console.log(state);
+	useEffect(() => {
+		const student = JSON.parse(localStorage.getItem("student"));
+		if (student) {
+			setDetails(student);
+		} else {
+			console.log("Student Not Found!!");
+		}
+	}, []);
 	function handleClickOpen() {
 		setOpen(true);
 	}
@@ -105,10 +113,11 @@ function SignIn(props) {
 	function handleClose() {
 		setOpen(false);
 	}
+	// console.log(student);
 	const { classes } = props;
 	return (
 		<div style={{ fontStyle: "23px" }}>
-			{state ? (
+			{details ? (
 				<SideDrawer />
 			) : (
 				<Button variant="contained" color="secondary" onClick={handleClickOpen}>
@@ -161,7 +170,7 @@ function SignIn(props) {
 						// error={errors.email ? true : false}
 						className={classes.textField}
 						value={email}
-						onChange={handleChangeEmail}
+						onChange={(e) => setEmail(e.target.value)}
 						autoComplete="off"
 						fullWidth
 					/>
@@ -176,18 +185,22 @@ function SignIn(props) {
 						error={errors.password ? true : false}
 						className={classes.textField}
 						value={password}
-						onChange={handleChangePassword}
+						onChange={(e) => setPassword(e.target.value)}
 						fullWidth
 					/>
-					{console.log(errors.error)}
 					{errors.email && (
 						<Typography variant="body2" className={classes.customError}>
 							{errors.email}
 						</Typography>
 					)}
-					{errors.message && (
+					{errors.password && (
 						<Typography variant="body2" className={classes.customError}>
-							{errors.message}
+							{errors.password}
+						</Typography>
+					)}
+					{errors.err && (
+						<Typography variant="body2" className={classes.customError}>
+							{errors.err}
 						</Typography>
 					)}
 					<Button

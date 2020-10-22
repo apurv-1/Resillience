@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { makeStyles, createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -15,6 +15,7 @@ import GetAppRoundedIcon from "@material-ui/icons/GetAppRounded";
 import WebRoundedIcon from "@material-ui/icons/WebRounded";
 import Avatar from "@material-ui/core/Avatar";
 import { blue, red } from "@material-ui/core/colors";
+import { Context } from "../../App";
 
 const useStyles = makeStyles({
 	icon: {
@@ -88,8 +89,9 @@ const theme = createMuiTheme({
 
 export default function SideNav() {
 	const classes = useStyles();
+	const { state } = useContext(Context);
 	const [open, setOpen] = useState(false);
-
+	console.log(state);
 	const handleDrawer = () => {
 		setOpen(true);
 	};
@@ -115,7 +117,7 @@ export default function SideNav() {
 								src="https://res.cloudinary.com/rweb1/image/upload/v1599639734/resilience_default_lqmb3p.png"
 								className={classes.avatar}
 							/>
-							<div className={classes.name}>Apurv Gupta</div>
+							<div className={classes.name}>{state ? state.name : "loading..."}</div>
 							<Link to="/student-dashboard" className={classes.link}>
 								<ListItem button key="Profile" className={classes.listitem}>
 									<ListItemIcon>

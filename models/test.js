@@ -36,7 +36,7 @@ const testSchema = new mongoose.Schema(
 				},
 				question: {
 					singleCorrectQuestions: {
-						type: String,
+						type: ObjectId,
 						ref: "SingleCorrect",
 					},
 					multipleCorrectQuestions: {

@@ -116,32 +116,35 @@ export default function SideNav() {
 								className={classes.avatar}
 							/>
 							<div className={classes.name}>Apurv Gupta</div>
-							<ListItem button key="Profile" className={classes.listitem}>
-								<ListItemIcon>
-									<DashboardRoundedIcon />
-								</ListItemIcon>
-								<Link to="/student-dashboard" className={classes.link}>
+							<Link to="/student-dashboard" className={classes.link}>
+								<ListItem button key="Profile" className={classes.listitem}>
+									<ListItemIcon>
+										<DashboardRoundedIcon />
+									</ListItemIcon>
+
 									<ListItemText>Dasboard</ListItemText>
-								</Link>
-							</ListItem>
+								</ListItem>
+							</Link>
 							<Divider />
-							<ListItem button key="Test" className={classes.listitem}>
-								<ListItemIcon>
-									<MenuBookRoundedIcon />
-								</ListItemIcon>
-								<Link to="/maintest" className={classes.link}>
+							<Link to="/maintest" className={classes.link}>
+								<ListItem button key="Test" className={classes.listitem}>
+									<ListItemIcon>
+										<MenuBookRoundedIcon />
+									</ListItemIcon>
+
 									<ListItemText>Test</ListItemText>
-								</Link>
-							</ListItem>
+								</ListItem>
+							</Link>
 							<Divider />
-							<ListItem button key="Blogs" className={classes.listitem}>
-								<ListItemIcon>
-									<WebRoundedIcon />
-								</ListItemIcon>
-								<Link to="/blogs" className={classes.link}>
+							<Link to="/blogs" className={classes.link}>
+								<ListItem button key="Blogs" className={classes.listitem}>
+									<ListItemIcon>
+										<WebRoundedIcon />
+									</ListItemIcon>
+
 									<ListItemText>Blogs</ListItemText>
-								</Link>
-							</ListItem>
+								</ListItem>
+							</Link>
 							<Divider />
 							<ListItem button key="Downloads" className={classes.listitem}>
 								<ListItemIcon>

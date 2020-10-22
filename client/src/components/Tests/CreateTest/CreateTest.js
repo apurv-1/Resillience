@@ -97,6 +97,7 @@ const CreateTest = () => {
 							variant="outlined"
 							className={classes.textField}
 							value={testId}
+							type="number"
 							onChange={(e) => setTestId(e.target.value)}
 						/>
 						<TextField
@@ -113,6 +114,7 @@ const CreateTest = () => {
 							variant="outlined"
 							className={classes.testField}
 							value={noOfQuestions}
+							type="number"
 							onChange={(e) => setNoOfQuestions(e.target.value)}
 						/>
 						<TextField
@@ -121,6 +123,7 @@ const CreateTest = () => {
 							variant="outlined"
 							className={classes.testField}
 							value={testDuration}
+							type="number"
 							onChange={(e) => setTestDuration(e.target.value)}
 						/>
 						<Button

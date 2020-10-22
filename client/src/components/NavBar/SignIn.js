@@ -46,7 +46,7 @@ function SignIn(props) {
 	const [password, setPassword] = useState("");
 	const [open, setOpen] = useState(false);
 	const [errors, setErrors] = useState({});
-	const [message, setMessage] = useState("");
+	// const [message, setMessage] = useState("");
 
 	function handleChangeEmail(event) {
 		setEmail(event.target.value);
@@ -61,7 +61,7 @@ function SignIn(props) {
 				email
 			)
 		) {
-			return setErrors("Invalid Email");
+			return setErrors({ email: "Invalid Email!" });
 		}
 		if (email && password) {
 			fetch("/student-signin", {
@@ -84,7 +84,7 @@ function SignIn(props) {
 						localStorage.setItem("jwt", data.token);
 						// localStorage.setItem("student", JSON.stringify(data.student));
 						dispatch({ type: "STUDENT", payload: data.student });
-						setMessage(data.message);
+						// setMessage(data.message);
 						setOpen(false);
 						// history.push("/studentdashboard");
 					}
@@ -157,8 +157,8 @@ function SignIn(props) {
 						label="Email"
 						variant="outlined"
 						color="secondary"
-						helperText={!email} //error was defined in the backend
-						error={errors.email ? true : false}
+						// helperText={!email} //error was defined in the backend
+						// error={errors.email ? true : false}
 						className={classes.textField}
 						value={email}
 						onChange={handleChangeEmail}
@@ -179,9 +179,10 @@ function SignIn(props) {
 						onChange={handleChangePassword}
 						fullWidth
 					/>
-					{errors.error && (
+					{console.log(errors.error)}
+					{errors.email && (
 						<Typography variant="body2" className={classes.customError}>
-							{errors.error}
+							{errors.email}
 						</Typography>
 					)}
 					{errors.message && (

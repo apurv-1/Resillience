@@ -45,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	input: {
 		display: "none",
+
 		// marginLeft: "20px",
 	},
 	numerical: {
@@ -203,6 +204,7 @@ const AddQuestions = ({ testID }) => {
 							variant="outlined"
 							// className={classes.input}
 							value={questionNumber}
+							type="number"
 							fullWidth
 							onChange={(e) => setQuestionNumber(e.target.value)}
 						/>
@@ -326,6 +328,7 @@ const AddQuestions = ({ testID }) => {
 								label="Numerical Answer"
 								variant="outlined"
 								className={classes.numerical}
+								type="number"
 								value={numerical}
 								onChange={(e) => setNumerical(e.target.value)}
 							/>

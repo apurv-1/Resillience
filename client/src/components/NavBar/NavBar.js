@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -9,7 +9,7 @@ import TuitionDropdown from "./TuitionDropdown";
 import { NavLink } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 
-import { Context } from "../../App";
+// import { Context } from "../../App";
 //Components
 import SignIn from "./SignIn";
 
@@ -72,7 +72,8 @@ const styles = () => ({
 			alignItems: "start",
 			padding: "10px 20px 16px",
 			fontSize: "18px",
-			boxShadow: "0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)",
+			boxShadow:
+				"0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)",
 		},
 	},
 	vanish: {
@@ -137,7 +138,13 @@ class Navbar extends React.Component {
 							{ route: "/", name: "Home" },
 							{ route: "/aboutus", name: "About Us" },
 						].map((eachNav, index) => (
-							<NavLink key={index} exact className={classes.navIcons} activeClassName="active" to={eachNav.route} onClick={this.handleChange}>
+							<NavLink
+								key={index}
+								exact
+								className={classes.navIcons}
+								activeClassName="active"
+								to={eachNav.route}
+								onClick={this.handleChange}>
 								{eachNav.name}
 							</NavLink>
 						))}
@@ -146,10 +153,20 @@ class Navbar extends React.Component {
           </Typography> */}
 						<TuitionDropdown />
 						{/* TODO: Have to change here */}
-						<NavLink exact className={classes.navIcons} activeClassName="active" to="/test" onClick={this.handleChange}>
+						<NavLink
+							exact
+							className={classes.navIcons}
+							activeClassName="active"
+							to="/test"
+							onClick={this.handleChange}>
 							Test
 						</NavLink>
-						<NavLink exact className={classes.navIcons} activeClassName="active" to="/faqs" onClick={this.handleChange}>
+						<NavLink
+							exact
+							className={classes.navIcons}
+							activeClassName="active"
+							to="/faqs"
+							onClick={this.handleChange}>
 							FAQ'S
 						</NavLink>
 						<SignIn />

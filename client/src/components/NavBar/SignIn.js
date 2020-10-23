@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -41,12 +41,12 @@ const styles = () => ({
 
 function SignIn(props) {
 	const history = useHistory();
-	const { dispatch } = useContext(Context);
+	const { state, dispatch } = useContext(Context);
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [open, setOpen] = useState(false);
 	const [errors, setErrors] = useState({});
-	const [details, setDetails] = useState("");
+	// const [details, setDetails] = useState("");
 
 	// function handleChangeEmail(event) {
 	// 	setEmail(event.target.value);
@@ -88,6 +88,8 @@ function SignIn(props) {
 						dispatch({ type: "STUDENT", payload: data.student });
 						setOpen(false);
 						history.push("/student-dashboard");
+						setEmail("");
+						setPassword("");
 					}
 				})
 				.catch((err) => {
@@ -97,14 +99,14 @@ function SignIn(props) {
 		}
 	};
 	// console.log(state);
-	useEffect(() => {
-		const student = JSON.parse(localStorage.getItem("student"));
-		if (student) {
-			setDetails(student);
-		} else {
-			console.log("Student Not Found!!");
-		}
-	}, []);
+	// useEffect(() => {
+	// 	const student = JSON.parse(localStorage.getItem("student"));
+	// 	if (student) {
+	// 		setDetails(student);
+	// 	} else {
+	// 		console.log("Student Not Found!!");
+	// 	}
+	// }, []);
 	function handleClickOpen() {
 		setOpen(true);
 	}
@@ -112,26 +114,17 @@ function SignIn(props) {
 	function handleClose() {
 		setOpen(false);
 	}
+
 	// console.log(student);
 	const { classes } = props;
 	return (
 		<div style={{ fontStyle: "23px" }}>
-			{details ? (
+			{state ? (
 				<SideDrawer />
 			) : (
 				<Button variant="contained" color="secondary" onClick={handleClickOpen}>
 					Sign In
 				</Button>
-				// <Button
-				// 	variant="contained"
-				// 	color="secondary"
-				// 	onClick={() => {
-				// 		// localStorage.clear();
-				// 		dispatch({ type: "CLEAR" });
-				// 		setMessage("");
-				// 	}}>
-				// 	Sign Out
-				// </Button>
 			)}
 
 			<Dialog

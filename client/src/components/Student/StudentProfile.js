@@ -56,61 +56,53 @@ export default function SimplePaper() {
 	const [value, setValue] = useState("");
 	const [inputValue, setInputValue] = useState("");
 	// const [email, setEmail] = useState("");
-	const [dashboard, setDashboard] = useState("");
-	// const [batch, setBatch] = useState("");
-	// const [contact, setContact] = useState("");
-	// const [fname, setFname] = useState("");
-	// const [fcontact, setFcontact] = useState("");
-	// const [address, setAddress] = useState("");
-	// const [picture, setPicture] = useState("");
-	// const [password, setPassword] = useState("");
+	// const [dashboard, setDashboard] = useState("");
 
-	useEffect(() => {
-		fetch("/myprofile", {
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: "Bearer " + localStorage.getItem("jwt"),
-			},
-		})
-			.then((res) => res.json())
-			.then((profile) => {
-				setDashboard(profile.details);
-				// console.log(dashboard);
-			});
-	}, []);
+	// useEffect(() => {
+	// 	fetch("/myprofile", {
+	// 		headers: {
+	// 			"Content-Type": "application/json",
+	// 			Authorization: "Bearer " + localStorage.getItem("jwt"),
+	// 		},
+	// 	})
+	// 		.then((res) => res.json())
+	// 		.then((profile) => {
+	// 			setDashboard(profile.details);
+	// 			// console.log(dashboard);
+	// 		})
+	// 		.catch((err) => {
+	// 			console.log(err);
+	// 		});
+	// }, []);
 	console.log(state);
 	// const fun = ({name}) =>{
 	//   return()
 	// }
-
+	// <div className={classes.textbox}>
+	// 								<Autocomplete
+	// 									value={value}
+	// 									onChange={(event, newValue) => {
+	// 										setValue(newValue);
+	// 									}}
+	// 									inputValue={inputValue}
+	// 									onInputChange={(event, newInputValue) => {
+	// 										setInputValue(newInputValue);
+	// 									}}
+	// 									id="controllable-states-demo"
+	// 									options={options}
+	// 									style={{ width: 350 }}
+	// 									renderInput={(params) => (
+	// 										<TextField {...params} label="Enter test ID" variant="outlined" />
+	// 									)}
+	// 								/>
+	// 							</div>
 	return (
 		<div>
 			<Paper elevation={5} className={classes.card}>
 				{state ? (
 					<div>
 						<div className={classes.pic}>
-							<Avatar
-								alt="Student"
-								src="https://res.cloudinary.com/rweb1/image/upload/v1599639734/resilience_default_lqmb3p.png"
-							/>
-							<div className={classes.textbox}>
-								<Autocomplete
-									value={value}
-									onChange={(event, newValue) => {
-										setValue(newValue);
-									}}
-									inputValue={inputValue}
-									onInputChange={(event, newInputValue) => {
-										setInputValue(newInputValue);
-									}}
-									id="controllable-states-demo"
-									options={options}
-									style={{ width: 350 }}
-									renderInput={(params) => (
-										<TextField {...params} label="Enter test ID" variant="outlined" />
-									)}
-								/>
-							</div>
+							<Avatar alt="Student" src={state.picture} />
 						</div>
 						<div>
 							<Grid container spacing={3}>
@@ -129,35 +121,35 @@ export default function SimplePaper() {
 						<div>
 							<Grid container spacing={3}>
 								<Grid item xs={10} sm={6}>
-									<Paper className={classes.paper}>Batch : 2020-21</Paper>
+									<Paper className={classes.paper}>Batch : {state.batch}</Paper>
 								</Grid>
 							</Grid>
 						</div>
 						<div>
 							<Grid container spacing={3}>
 								<Grid item xs={10} sm={6}>
-									<Paper className={classes.paper}>Contact : 2637846287</Paper>
+									<Paper className={classes.paper}>Contact : {state.contact}</Paper>
 								</Grid>
 							</Grid>
 						</div>
 						<div>
 							<Grid container spacing={3}>
 								<Grid item xs={10} sm={6}>
-									<Paper className={classes.paper}>Fathers Name : Praveen Gupta</Paper>
+									<Paper className={classes.paper}>Fathers Name : {state.fname}</Paper>
 								</Grid>
 							</Grid>
 						</div>
 						<div>
 							<Grid container spacing={3}>
 								<Grid item xs={10} sm={6}>
-									<Paper className={classes.paper}>Parents Contact : 8794156452</Paper>
+									<Paper className={classes.paper}>Parents Contact : {state.parentContact}</Paper>
 								</Grid>
 							</Grid>
 						</div>
 						<div>
 							<Grid container spacing={3}>
 								<Grid item xs={10} sm={6}>
-									<Paper className={classes.paper}>Address : 123 xyz</Paper>
+									<Paper className={classes.paper}>Address : {state.address}</Paper>
 								</Grid>
 							</Grid>
 						</div>

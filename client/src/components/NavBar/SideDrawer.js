@@ -16,6 +16,14 @@ import WebRoundedIcon from "@material-ui/icons/WebRounded";
 import Avatar from "@material-ui/core/Avatar";
 import { blue, red } from "@material-ui/core/colors";
 import { Context } from "../../App";
+//dialog box
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Paper from "@material-ui/core/Paper";
+import Draggable from "react-draggable";
 
 const useStyles = makeStyles({
 	icon: {
@@ -87,13 +95,28 @@ const theme = createMuiTheme({
 	},
 });
 
+function SignOutDialog(props) {
+	return (
+		<Draggable handle="#draggable-dialog-title" cancel={'[class*="MuiDialogContent-root"]'}>
+			<Paper {...props} />
+		</Draggable>
+	);
+}
+
 export default function SideNav() {
 	const classes = useStyles();
-	const { state } = useContext(Context);
+	const { state, dispatch } = useContext(Context);
 	const [open, setOpen] = useState(false);
+	const [signOut, setSignOut] = useState(false);
 	console.log(state);
+
 	const handleDrawer = () => {
 		setOpen(true);
+	};
+	const handleSignOut = () => {
+		localStorage.clear();
+		dispatch({ type: "CLEAR" });
+		setSignOut(false);
 	};
 
 	return (
@@ -108,7 +131,7 @@ export default function SideNav() {
 			<Drawer anchor={"right"} open={open} onClose={() => setOpen(false)}>
 				<div className={classes.list}>
 					<ThemeProvider theme={theme}>
-						<List>
+						<List onClick={() => setOpen(false)}>
 							<h1 color="secondary" className={classes.resillience}>
 								RESILLIENCE
 							</h1>
@@ -118,6 +141,7 @@ export default function SideNav() {
 								className={classes.avatar}
 							/>
 							<div className={classes.name}>{state ? state.name : "loading..."}</div>
+
 							<Link to="/student-dashboard" className={classes.link}>
 								<ListItem button key="Profile" className={classes.listitem}>
 									<ListItemIcon>
@@ -127,6 +151,7 @@ export default function SideNav() {
 									<ListItemText>Dasboard</ListItemText>
 								</ListItem>
 							</Link>
+
 							<Divider />
 							<Link to="/maintest" className={classes.link}>
 								<ListItem button key="Test" className={classes.listitem}>
@@ -138,6 +163,7 @@ export default function SideNav() {
 								</ListItem>
 							</Link>
 							<Divider />
+
 							<Link to="/blogs" className={classes.link}>
 								<ListItem button key="Blogs" className={classes.listitem}>
 									<ListItemIcon>
@@ -148,6 +174,7 @@ export default function SideNav() {
 								</ListItem>
 							</Link>
 							<Divider />
+
 							<ListItem button key="Downloads" className={classes.listitem}>
 								<ListItemIcon>
 									<GetAppRoundedIcon />
@@ -156,9 +183,31 @@ export default function SideNav() {
 							</ListItem>
 							<Divider />
 							<div className={classes.button}>
-								<Button variant="contained" color="primary" className={classes.margin}>
+								<Button
+									variant="contained"
+									color="primary"
+									className={classes.margin}
+									onClick={() => setSignOut(true)}>
 									Sign Out
 								</Button>
+								<Dialog
+									open={signOut}
+									onClose={() => setSignOut(false)}
+									PaperComponent={SignOutDialog}
+									aria-labelledby="draggable-dialog-title">
+									<DialogTitle id="draggable-dialog-title">Sign Out</DialogTitle>
+									<DialogContent>
+										<DialogContentText>Confirm Sign Out?</DialogContentText>
+									</DialogContent>
+									<DialogActions>
+										<Button autoFocus onClick={() => setSignOut(false)} color="primary">
+											Cancel
+										</Button>
+										<Button onClick={handleSignOut} color="primary">
+											Sign Out
+										</Button>
+									</DialogActions>
+								</Dialog>
 							</div>
 						</List>
 					</ThemeProvider>

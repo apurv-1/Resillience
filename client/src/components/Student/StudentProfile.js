@@ -1,12 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Avatar from "@material-ui/core/Avatar";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
+import { Context } from "../../App";
 
 const useStyles = makeStyles((theme) => ({
+	head: {
+		marginTop: "-10%",
+		position: "fixed",
+		background:
+			"https://res.cloudinary.com/rweb1/image/upload/v1603446021/Assets/Scattered-Forcefields_cuwkvq.svg",
+	},
 	card: {
 		display: "flex",
 		flexWrap: "wrap",
@@ -45,6 +52,7 @@ const options = ["test1", "test2"];
 
 export default function SimplePaper() {
 	const classes = useStyles();
+	const { state } = useContext(Context);
 	const [value, setValue] = useState("");
 	const [inputValue, setInputValue] = useState("");
 	// const [email, setEmail] = useState("");
@@ -70,84 +78,93 @@ export default function SimplePaper() {
 				console.log(dashboard);
 			});
 	}, []);
-
+	console.log(state);
 	// const fun = ({name}) =>{
 	//   return()
 	// }
 
 	return (
-		<div className={classes.card}>
-			<Paper elevation={5}>
-				<div>
-					<div className={classes.pic}>
-						<Avatar alt="Student" src="https://res.cloudinary.com/rweb1/image/upload/v1599639734/resilience_default_lqmb3p.png" />
-						<div className={classes.textbox}>
-							<Autocomplete
-								value={value}
-								onChange={(event, newValue) => {
-									setValue(newValue);
-								}}
-								inputValue={inputValue}
-								onInputChange={(event, newInputValue) => {
-									setInputValue(newInputValue);
-								}}
-								id="controllable-states-demo"
-								options={options}
-								style={{ width: 350 }}
-								renderInput={(params) => <TextField {...params} label="Enter test ID" variant="outlined" />}
+		<div>
+			<Paper elevation={5} className={classes.card}>
+				{state ? (
+					<div>
+						<div className={classes.pic}>
+							<Avatar
+								alt="Student"
+								src="https://res.cloudinary.com/rweb1/image/upload/v1599639734/resilience_default_lqmb3p.png"
 							/>
+							<div className={classes.textbox}>
+								<Autocomplete
+									value={value}
+									onChange={(event, newValue) => {
+										setValue(newValue);
+									}}
+									inputValue={inputValue}
+									onInputChange={(event, newInputValue) => {
+										setInputValue(newInputValue);
+									}}
+									id="controllable-states-demo"
+									options={options}
+									style={{ width: 350 }}
+									renderInput={(params) => (
+										<TextField {...params} label="Enter test ID" variant="outlined" />
+									)}
+								/>
+							</div>
+						</div>
+						<div>
+							<Grid container spacing={3}>
+								<Grid item xs={10} sm={6}>
+									<Paper className={classes.paper}>Name : {state.name}</Paper>
+								</Grid>
+							</Grid>
+						</div>
+						<div>
+							<Grid container spacing={3}>
+								<Grid item xs={10} sm={6}>
+									<Paper className={classes.paper}>Email : {state.email}</Paper>
+								</Grid>
+							</Grid>
+						</div>
+						<div>
+							<Grid container spacing={3}>
+								<Grid item xs={10} sm={6}>
+									<Paper className={classes.paper}>Batch : 2020-21</Paper>
+								</Grid>
+							</Grid>
+						</div>
+						<div>
+							<Grid container spacing={3}>
+								<Grid item xs={10} sm={6}>
+									<Paper className={classes.paper}>Contact : 2637846287</Paper>
+								</Grid>
+							</Grid>
+						</div>
+						<div>
+							<Grid container spacing={3}>
+								<Grid item xs={10} sm={6}>
+									<Paper className={classes.paper}>Fathers Name : Praveen Gupta</Paper>
+								</Grid>
+							</Grid>
+						</div>
+						<div>
+							<Grid container spacing={3}>
+								<Grid item xs={10} sm={6}>
+									<Paper className={classes.paper}>Parents Contact : 8794156452</Paper>
+								</Grid>
+							</Grid>
+						</div>
+						<div>
+							<Grid container spacing={3}>
+								<Grid item xs={10} sm={6}>
+									<Paper className={classes.paper}>Address : 123 xyz</Paper>
+								</Grid>
+							</Grid>
 						</div>
 					</div>
-					<div>
-						<Grid container spacing={3}>
-							<Grid item xs={10} sm={6}>
-								<Paper className={classes.paper}>Name : {}</Paper>
-							</Grid>
-						</Grid>
-					</div>
-					<div>
-						<Grid container spacing={3}>
-							<Grid item xs={10} sm={6}>
-								<Paper className={classes.paper}>Email : qwes@habd.in</Paper>
-							</Grid>
-						</Grid>
-					</div>
-					<div>
-						<Grid container spacing={3}>
-							<Grid item xs={10} sm={6}>
-								<Paper className={classes.paper}>Batch : 2020-21</Paper>
-							</Grid>
-						</Grid>
-					</div>
-					<div>
-						<Grid container spacing={3}>
-							<Grid item xs={10} sm={6}>
-								<Paper className={classes.paper}>Contact : 2637846287</Paper>
-							</Grid>
-						</Grid>
-					</div>
-					<div>
-						<Grid container spacing={3}>
-							<Grid item xs={10} sm={6}>
-								<Paper className={classes.paper}>Fathers Name : Praveen Gupta</Paper>
-							</Grid>
-						</Grid>
-					</div>
-					<div>
-						<Grid container spacing={3}>
-							<Grid item xs={10} sm={6}>
-								<Paper className={classes.paper}>Parents Contact : 8794156452</Paper>
-							</Grid>
-						</Grid>
-					</div>
-					<div>
-						<Grid container spacing={3}>
-							<Grid item xs={10} sm={6}>
-								<Paper className={classes.paper}>Address : 123 xyz</Paper>
-							</Grid>
-						</Grid>
-					</div>
-				</div>
+				) : (
+					"Loading..."
+				)}
 			</Paper>
 		</div>
 	);

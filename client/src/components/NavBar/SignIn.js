@@ -86,9 +86,8 @@ function SignIn(props) {
 						localStorage.setItem("jwt", data.token);
 						localStorage.setItem("student", JSON.stringify(data.student));
 						dispatch({ type: "STUDENT", payload: data.student });
-						// setMessage(data.message);
 						setOpen(false);
-						// history.push("/studentdashboard");
+						history.push("/student-dashboard");
 					}
 				})
 				.catch((err) => {

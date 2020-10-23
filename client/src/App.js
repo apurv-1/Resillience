@@ -143,14 +143,14 @@ export const Context = createContext();
 
 //routes
 const Routing = () => {
-	// const history = useHistory();
+	const history = useHistory();
 	const { dispatch } = useContext(Context);
 	useEffect(() => {
 		const student = JSON.parse(localStorage.getItem("student"));
 		if (student) {
 			dispatch({ type: "STUDENT", payload: student });
 		} else {
-			console.log("Student Not Found!!");
+			history.push("/");
 		}
 	}, []);
 	return (

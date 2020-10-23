@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { makeStyles, createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import Button from "@material-ui/core/Button";
@@ -105,6 +105,7 @@ function SignOutDialog(props) {
 
 export default function SideNav() {
 	const classes = useStyles();
+	const history = useHistory();
 	const { state, dispatch } = useContext(Context);
 	const [open, setOpen] = useState(false);
 	const [signOut, setSignOut] = useState(false);
@@ -117,6 +118,7 @@ export default function SideNav() {
 		localStorage.clear();
 		dispatch({ type: "CLEAR" });
 		setSignOut(false);
+		history.push("/");
 	};
 
 	return (
@@ -131,7 +133,7 @@ export default function SideNav() {
 			<Drawer anchor={"right"} open={open} onClose={() => setOpen(false)}>
 				<div className={classes.list}>
 					<ThemeProvider theme={theme}>
-						<List onClick={() => setOpen(false)}>
+						<List>
 							<h1 color="secondary" className={classes.resillience}>
 								RESILLIENCE
 							</h1>
@@ -142,7 +144,7 @@ export default function SideNav() {
 							/>
 							<div className={classes.name}>{state ? state.name : "loading..."}</div>
 
-							<Link to="/student-dashboard" className={classes.link}>
+							<Link to="/student-dashboard" className={classes.link} onClick={() => setOpen(false)}>
 								<ListItem button key="Profile" className={classes.listitem}>
 									<ListItemIcon>
 										<DashboardRoundedIcon />
@@ -153,7 +155,7 @@ export default function SideNav() {
 							</Link>
 
 							<Divider />
-							<Link to="/maintest" className={classes.link}>
+							<Link to="/maintest" className={classes.link} onClick={() => setOpen(false)}>
 								<ListItem button key="Test" className={classes.listitem}>
 									<ListItemIcon>
 										<MenuBookRoundedIcon />
@@ -164,7 +166,7 @@ export default function SideNav() {
 							</Link>
 							<Divider />
 
-							<Link to="/blogs" className={classes.link}>
+							<Link to="/blogs" className={classes.link} onClick={() => setOpen(false)}>
 								<ListItem button key="Blogs" className={classes.listitem}>
 									<ListItemIcon>
 										<WebRoundedIcon />
@@ -175,7 +177,7 @@ export default function SideNav() {
 							</Link>
 							<Divider />
 
-							<ListItem button key="Downloads" className={classes.listitem}>
+							<ListItem button key="Downloads" className={classes.listitem} onClick={() => setOpen(false)}>
 								<ListItemIcon>
 									<GetAppRoundedIcon />
 								</ListItemIcon>
@@ -195,12 +197,10 @@ export default function SideNav() {
 									onClose={() => setSignOut(false)}
 									PaperComponent={SignOutDialog}
 									aria-labelledby="draggable-dialog-title">
-									<DialogTitle id="draggable-dialog-title">Sign Out</DialogTitle>
-									<DialogContent>
-										<DialogContentText>Confirm Sign Out?</DialogContentText>
-									</DialogContent>
+									<DialogTitle id="draggable-dialog-title">Confirm sign out, are you sure?</DialogTitle>
+
 									<DialogActions>
-										<Button autoFocus onClick={() => setSignOut(false)} color="primary">
+										<Button autoFocus onClick={() => setSignOut(false)} color="secondary">
 											Cancel
 										</Button>
 										<Button onClick={handleSignOut} color="primary">

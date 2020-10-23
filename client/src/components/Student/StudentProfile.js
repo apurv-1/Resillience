@@ -75,7 +75,7 @@ export default function SimplePaper() {
 			.then((res) => res.json())
 			.then((profile) => {
 				setDashboard(profile.details);
-				console.log(dashboard);
+				// console.log(dashboard);
 			});
 	}, []);
 	console.log(state);

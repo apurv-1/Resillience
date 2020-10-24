@@ -8,6 +8,7 @@ import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
+import Typography from "@material-ui/core/Typography";
 import DashboardRoundedIcon from "@material-ui/icons/DashboardRounded";
 import ClearAllRoundedIcon from "@material-ui/icons/ClearAllRounded";
 import MenuBookRoundedIcon from "@material-ui/icons/MenuBookRounded";
@@ -84,6 +85,12 @@ const useStyles = makeStyles({
 		fontWeight: "700",
 		fontSize: "20px",
 		color: "#000",
+	},
+	admin: {
+		fontFamily: "rubik",
+		fontSize: "15px",
+		textAlign: "center",
+		marginTop: "45px",
 	},
 });
 const theme = createMuiTheme({
@@ -207,6 +214,11 @@ export default function SideNav() {
 									</DialogActions>
 								</Dialog>
 							</div>
+							<ListItem button key="Admin" className={classes.admin}>
+								<Typography variant="inherit" className={classes.admin}>
+									Admin? <span style={{ color: "#0F7DC2" }}> Login here</span>
+								</Typography>
+							</ListItem>
 						</List>
 					</ThemeProvider>
 				</div>

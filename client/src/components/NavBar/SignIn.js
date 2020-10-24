@@ -37,6 +37,7 @@ const styles = () => ({
 		color: "red",
 		marginBottom: "2%",
 	},
+	bottom: {},
 });
 
 function SignIn(props) {
@@ -98,15 +99,6 @@ function SignIn(props) {
 				});
 		}
 	};
-	// console.log(state);
-	// useEffect(() => {
-	// 	const student = JSON.parse(localStorage.getItem("student"));
-	// 	if (student) {
-	// 		setDetails(student);
-	// 	} else {
-	// 		console.log("Student Not Found!!");
-	// 	}
-	// }, []);
 	function handleClickOpen() {
 		setOpen(true);
 	}
@@ -207,10 +199,9 @@ function SignIn(props) {
 					</Button>
 					<br />
 					<br />
-					<Typography variant="inherit" color="primary">
+					<Typography variant="inherit" color="primary" className={classes.forgot}>
 						Forgot <span style={{ color: "#0F7DC2" }}>Password?</span>
 					</Typography>
-					{/* </form> */}
 				</div>
 			</Dialog>
 		</div>

@@ -8,17 +8,13 @@ import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 import { Context } from "../../App";
-import SideDrawer from "./SideDrawer";
+import AdminSideDrawer from "./AdminSideDrawer";
 // import axios from "axios";
 
 const styles = () => ({
 	paper: {
 		backgroundColor: "transparent",
 		// maxWidth: "753px"
-	},
-	start: {
-		flexDirection: "column",
-		marginTop: "-30%",
 	},
 	login: {
 		display: "flex",
@@ -51,15 +47,6 @@ function SignIn(props) {
 	const [password, setPassword] = useState("");
 	const [open, setOpen] = useState(false);
 	const [errors, setErrors] = useState({});
-	const [user, setUser] = useState("");
-	// const [details, setDetails] = useState("");
-
-	// function handleChangeEmail(event) {
-	// 	setEmail(event.target.value);
-	// }
-	// function handleChangePassword(event) {
-	// 	setPassword(event.target.value);
-	// }
 
 	const handleSubmit = () => {
 		if (
@@ -72,10 +59,11 @@ function SignIn(props) {
 		if (password === "") {
 			return setErrors({ password: "Invalid Password" });
 		} else {
-			fetch("/student-signin", {
+			fetch("/admin-signin", {
 				method: "post",
 				headers: {
 					"Content-Type": "application/json",
+					Authorization: "Bearer " + localStorage.getItem("student_jwt"),
 				},
 				body: JSON.stringify({
 					email,
@@ -89,7 +77,7 @@ function SignIn(props) {
 						const err = data.error;
 						setErrors({ err });
 					} else {
-						localStorage.setItem("student_jwt", data.token);
+						localStorage.setItem("jwt", data.token);
 						localStorage.setItem("student", JSON.stringify(data.student));
 						dispatch({ type: "STUDENT", payload: data.student });
 						setOpen(false);
@@ -117,7 +105,7 @@ function SignIn(props) {
 	return (
 		<div style={{ fontStyle: "23px" }}>
 			{state ? (
-				<SideDrawer />
+				<AdminSideDrawer />
 			) : (
 				<Button variant="contained" color="secondary" onClick={handleClickOpen}>
 					Sign In
@@ -139,48 +127,12 @@ function SignIn(props) {
 					src="https://res.cloudinary.com/rweb1/image/upload/v1600243283/Assets/images/loginBg_olbayb.svg"
 					style={{ visibility: "initial", width: "580px" }}
 				/>
-				{/* {
-					user ?
-					user==="student" && (
-						<div>
-
-						</div>
-					) :
-						<div>
-							
-						</div>
-				} */}
-				{!user && (
-					<div className={classes.start}>
-						<Button
-							type="submit"
-							variant="contained"
-							color="secondary"
-							// className={classes.button}
-							// size="large"
-							onClick={() => setUser("student")}>
-							Student
-						</Button>
-						<Button
-							type="submit"
-							variant="contained"
-							color="secondary"
-							// className={classes.button}
-							// size="large"
-							onClick={() => setUser("admin")}>
-							Admin
-						</Button>
-					</div>
-				)}
-				{/* <div className={classes.login}>
+				<div className={classes.login}>
 					<Typography variant="h4" color="primary" className={classes.signIn}>
-						Student Log in
+						Admin Log in
 					</Typography>
-					<Typography variant="inherit" color="primary" className={classes.signIn}>
-						(Only enrolled students can login, kindly contact the administrator)
-					</Typography> */}
-				{/* <form noValidate> */}
-				{/* <TextField
+					{/* <form noValidate> */}
+					<TextField
 						id="email"
 						name="email"
 						type="email"
@@ -194,8 +146,8 @@ function SignIn(props) {
 						onChange={(e) => setEmail(e.target.value)}
 						autoComplete="off"
 						fullWidth
-					/> */}
-				{/* <TextField
+					/>
+					<TextField
 						id="password"
 						name="password"
 						type="password"
@@ -208,8 +160,8 @@ function SignIn(props) {
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
 						fullWidth
-					/> */}
-				{/* {errors.email && (
+					/>
+					{errors.email && (
 						<Typography variant="body2" className={classes.customError}>
 							{errors.email}
 						</Typography>
@@ -239,7 +191,7 @@ function SignIn(props) {
 					<Typography variant="inherit" color="primary" className={classes.forgot}>
 						Forgot <span style={{ color: "#0F7DC2" }}>Password?</span>
 					</Typography>
-				</div> */}
+				</div>
 			</Dialog>
 		</div>
 	);

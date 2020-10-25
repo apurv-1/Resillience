@@ -178,7 +178,21 @@ router.post("/user/signup", (req, res) => {
 });
 
 router.post("/student/signup", (req, res) => {
-	const { name, email, password, batch, contact, parentContact, fname, address, picture, phy, chem, math, bio } = req.body;
+	const {
+		name,
+		email,
+		password,
+		batch,
+		contact,
+		parentContact,
+		fname,
+		address,
+		picture,
+		phy,
+		chem,
+		math,
+		bio,
+	} = req.body;
 	if (!name) {
 		return res.status(422).json({ name: "Please add name" });
 	}
@@ -234,7 +248,7 @@ router.post("/student/signup", (req, res) => {
 	});
 });
 
-router.post("/admin/signin", (req, res) => {
+router.post("/admin-signin", requireStudent, (req, res) => {
 	const { email, password } = req.body;
 
 	if (!email) {
@@ -253,7 +267,12 @@ router.post("/admin/signin", (req, res) => {
 				if (doMatch) {
 					// res.json({message:"Signin Successful!"})
 					const token = jwt.sign({ _id: savedAdmin._id }, JWT_ADMIN);
-					res.json({ token: token, message: "Admin signed in successfully" });
+					const { _id, name, email, picture } = savedAdmin;
+					res.json({
+						token: token,
+						admin: { _id, name, email, picture },
+						message: "Admin signed in successfully",
+					});
 				} else {
 					return res.status(422).json({ error: "Invalid email or password" });
 				}
@@ -315,10 +334,38 @@ router.post("/student-signin", (req, res) => {
 				if (doMatch) {
 					// res.json({ message: "Signin Successful!" });
 					const token = jwt.sign({ _id: savedStudent._id }, JWT_STUDENT);
-					const { _id, name, email, batch, contact, parentContact, fname, address, picture, phy, chem, math, bio } = savedStudent;
+					const {
+						_id,
+						name,
+						email,
+						batch,
+						contact,
+						parentContact,
+						fname,
+						address,
+						picture,
+						phy,
+						chem,
+						math,
+						bio,
+					} = savedStudent;
 					res.json({
 						token,
-						student: { _id, name, email, batch, contact, parentContact, fname, address, picture, phy, chem, math, bio },
+						student: {
+							_id,
+							name,
+							email,
+							batch,
+							contact,
+							parentContact,
+							fname,
+							address,
+							picture,
+							phy,
+							chem,
+							math,
+							bio,
+						},
 						message: "Signin Successful!",
 					});
 				} else {

@@ -3,7 +3,7 @@ import React, { Suspense, lazy, useEffect, createContext, useReducer, useContext
 import { Switch, Route, withRouter, useHistory } from "react-router-dom";
 import ScrollToTop from "./ScrollToTop";
 import "./App.css";
-// import jwtDecode from "jwt-decode";
+
 import axios from "axios";
 
 //MUI
@@ -199,6 +199,7 @@ const App = (props) => {
 
 	// const { location } = this.props;
 	const [state, dispatch] = useReducer(StudentReducer, InitialState);
+
 	// const currentKey = location.pathname.split("/")[1] || "/";
 	// const timeout = { enter: 1000, exit: 1000 };
 

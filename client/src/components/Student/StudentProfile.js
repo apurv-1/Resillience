@@ -3,8 +3,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Avatar from "@material-ui/core/Avatar";
 import Grid from "@material-ui/core/Grid";
-import TextField from "@material-ui/core/TextField";
-import Autocomplete from "@material-ui/lab/Autocomplete";
+// import TextField from "@material-ui/core/TextField";
+// import Autocomplete from "@material-ui/lab/Autocomplete";
 import { Context } from "../../App";
 
 const useStyles = makeStyles((theme) => ({
@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
 		margin: "5%",
 		marginTop: "5%",
 		marginBottom: "-10%",
+
 		// marginLeft:"15%",
 		"& > *": {
 			margin: theme.spacing(2),
@@ -57,23 +58,6 @@ export default function SimplePaper() {
 	const [inputValue, setInputValue] = useState("");
 	// const [email, setEmail] = useState("");
 	// const [dashboard, setDashboard] = useState("");
-
-	// useEffect(() => {
-	// 	fetch("/myprofile", {
-	// 		headers: {
-	// 			"Content-Type": "application/json",
-	// 			Authorization: "Bearer " + localStorage.getItem("jwt"),
-	// 		},
-	// 	})
-	// 		.then((res) => res.json())
-	// 		.then((profile) => {
-	// 			setDashboard(profile.details);
-	// 			// console.log(dashboard);
-	// 		})
-	// 		.catch((err) => {
-	// 			console.log(err);
-	// 		});
-	// }, []);
 	console.log(state);
 	// const fun = ({name}) =>{
 	//   return()

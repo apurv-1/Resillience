@@ -14,11 +14,9 @@ export const StudentReducer = (state, action) => {
 	if (action.type === "CLEAR") {
 		return null;
 	}
-	// if(action.type === "UPDATEPROFILE"){
-	//     return{
-
-	//     }
-	// }
+	if (action.type === "ADMIN") {
+		return action.payload;
+	}
 	return state;
 };
 // export const TestReducer = (state, action) => {

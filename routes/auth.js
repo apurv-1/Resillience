@@ -23,6 +23,7 @@ const requireAdmin = require("../middleware/requireAdmin");
 
 //hashed password
 const bcrypt = require("bcryptjs");
+const crypto = require("crypto");
 
 //node mailer
 const nodemailer = require("nodemailer");
@@ -376,6 +377,34 @@ router.post("/student-signin", (req, res) => {
 				console.log(err);
 				res.status(500).json({ error: err });
 			});
+	});
+});
+
+router.post("/reset-student-password", (req, res) => {
+	crypto.randomBytes(32, (err, buffer) => {
+		if (err) {
+			console.log(err);
+		}
+		const token = buffer.toString("hex");
+		const { email } = req.body;
+		Student.findOne({ email: email }).then((student) => {
+			if (!student) {
+				return res.status(404).json({ error: " " });
+			}
+			student.resetToken = token;
+			student.expireToken = Date.now() + 900000;
+			student.save().then((mail) => {
+				transporter.sendMail({
+					to: email,
+					from: EMAIL,
+					subject: "Resillience - reset password!",
+					html: `<h3>Hey! ${email},</h3>
+					<h5>Your request for password has been processed!<br />
+					Click <a href="http://localhost:3000/reset/${token}" >here</a> 
+					to reset your password!</h5> <h6>NOTE: This link is only valid for 15 minutes.</h6>`,
+				});
+			});
+		});
 	});
 });
 

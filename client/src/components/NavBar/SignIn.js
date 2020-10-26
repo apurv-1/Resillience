@@ -28,6 +28,18 @@ const styles = () => ({
 		position: "absolute",
 		justifyContent: "center",
 	},
+	loginBg: {
+		visibility: "initial",
+		width: "580px",
+		"@media only screen and (max-width: 770px)": {
+			width: "410px",
+			height: "500px",
+		},
+		"@media only screen and (max-width: 430px)": {
+			width: "100%",
+			height: "500px",
+		},
+	},
 	signIn: {
 		marginBottom: "3%",
 	},
@@ -49,6 +61,7 @@ const styles = () => ({
 	customError: {
 		color: "red",
 		marginBottom: "2%",
+		// position: "absolute",
 	},
 	button: {
 		marginBottom: "5%",
@@ -123,6 +136,30 @@ function SignIn(props) {
 			)
 		) {
 			return setErrors({ email: "Invalid Email!" });
+		} else {
+			fetch("/reset-student-password", {
+				method: "post",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					email,
+				}),
+			})
+				.then((res) => res.json())
+				.then((data) => {
+					console.log(data);
+					if (data.error) {
+						const err = data.error;
+						setErrors({ err });
+					} else {
+						setEmail("");
+					}
+				})
+				.catch((err) => {
+					// console.log(err);
+					setErrors({ err });
+				});
 		}
 	};
 
@@ -156,9 +193,10 @@ function SignIn(props) {
 					paper: classes.paper,
 				}}>
 				<img
+					loading="lazy"
 					alt="loginBg"
 					src="https://res.cloudinary.com/rweb1/image/upload/v1600243283/Assets/images/loginBg_olbayb.svg"
-					style={{ visibility: "initial", width: "580px" }}
+					className={classes.loginBg}
 				/>
 				{!forgot ? (
 					<div className={classes.login}>

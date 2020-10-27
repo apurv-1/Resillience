@@ -72,6 +72,8 @@ router.put("/add-question", (req, res) => {
 		// 	correctOption: correctOption,
 		// };
 		const singleCorrectQuestions = new SingleCorrect({
+			questionNumber: questionNumber,
+			questionType: questionType,
 			questionImage: questionImage,
 			correctOption: correctOption,
 		});
@@ -80,23 +82,24 @@ router.put("/add-question", (req, res) => {
 		// 	correctOption: correctOption,
 		// };
 		singleCorrectQuestions.save();
-		const questions = {
-			questionNumber: questionNumber,
-			questionType: questionType,
-			question: singleCorrectQuestions,
-		};
+		// const questions = {
+		// 	questionNumber: questionNumber,
+		// 	questionType: questionType,
+		// 	question: singleCorrectQuestions,
+		// };
 		console.log({ singleCorrectQuestions });
 		Test.findOneAndUpdate(
 			{ testId: testId },
 			{
 				$push: {
-					questions: questions,
+					questions: singleCorrectQuestions,
 				},
 			},
 			{
 				new: true,
 			}
 		)
+			.populate("questions")
 			.then((test) => {
 				res.json({ test });
 			})
@@ -180,6 +183,7 @@ router.get("/showtest", (req, res) => {
 	const testId = req.query.testid;
 	// console.log(req.query)
 	Test.findOne({ testId: testId })
+		.populate("questions singleCorrectQuestions")
 		.then((test) => {
 			// console.log(test);
 			if (test === null) {

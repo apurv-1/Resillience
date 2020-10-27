@@ -16,14 +16,14 @@ const styles = () => ({
 		backgroundColor: "transparent",
 		// maxWidth: "753px"
 	},
-	start: {
-		flexDirection: "column",
-	},
+	// start: {
+	// 	flexDirection: "column",
+	// },
 	login: {
 		display: "flex",
 		top: "30%",
 		flexDirection: "column",
-		padding: "2% 5%",
+		padding: "0% 5%",
 		textAlign: "center",
 		position: "absolute",
 		justifyContent: "center",
@@ -41,7 +41,7 @@ const styles = () => ({
 		},
 	},
 	signIn: {
-		marginBottom: "3%",
+		marginBottom: "5%",
 	},
 	forgotPassword: {
 		padding: "5% 5%",
@@ -214,8 +214,8 @@ function SignIn(props) {
 							label="Email"
 							variant="outlined"
 							color="secondary"
-							// helperText={!email} //error was defined in the backend
-							// error={errors.email ? true : false}
+							helperText={!email} //error was defined in the backend
+							error={errors.email ? true : false}
 							className={classes.textField}
 							value={email}
 							onChange={(e) => setEmail(e.target.value)}

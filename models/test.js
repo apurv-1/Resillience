@@ -26,27 +26,17 @@ const testSchema = new mongoose.Schema(
 		},
 		questions: [
 			{
-				questionNumber: {
-					type: Number,
-					// required: true,
+				singleCorrectQuestions: {
+					type: ObjectId,
+					ref: "SingleCorrect",
 				},
-				questionType: {
-					type: String,
-					// required: true,
+				multipleCorrectQuestions: {
+					type: ObjectId,
+					ref: "MultipleCorrect",
 				},
-				question: {
-					singleCorrectQuestions: {
-						type: ObjectId,
-						ref: "SingleCorrect",
-					},
-					multipleCorrectQuestions: {
-						type: ObjectId,
-						ref: "MultipleCorrect",
-					},
-					numericalQuestions: {
-						type: ObjectId,
-						ref: "Numerical",
-					},
+				numericalQuestions: {
+					type: ObjectId,
+					ref: "Numerical",
 				},
 			},
 		],

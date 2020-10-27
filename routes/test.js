@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const Api = require("twilio/lib/rest/Api");
 const Test = mongoose.model("Test");
 const SingleCorrect = mongoose.model("SingleCorrect");
+const MultipleCorrect = mongoose.model("MultipleCorrect");
 const requireUser = require("../middleware/requireUser");
 
 router.get("/alltests", (req, res) => {
@@ -70,25 +71,34 @@ router.put("/add-question", (req, res) => {
 		// 	questionImage: questionImage,
 		// 	correctOption: correctOption,
 		// };
-		const singleCorrect = new SingleCorrect({ questionImage, correctOption });
-		singleCorrect.save();
+		const singleCorrectQuestions = new SingleCorrect({
+			questionImage: questionImage,
+			correctOption: correctOption,
+		});
+		// const singleCorrectQuestions = {
+		// 	questionImage: questionImage,
+		// 	correctOption: correctOption,
+		// };
+		singleCorrectQuestions.save();
 		const questions = {
 			questionNumber: questionNumber,
 			questionType: questionType,
-			question: singleCorrect,
+			question: singleCorrectQuestions,
 		};
-		console.log(singleCorrect);
-		Test.findByIdAndUpdate(
+		console.log({ singleCorrectQuestions });
+		Test.findOneAndUpdate(
 			{ testId: testId },
 			{
-				$push: { questions: questions },
+				$push: {
+					questions: questions,
+				},
 			},
 			{
 				new: true,
 			}
 		)
-			.then((result) => {
-				res.json({ result });
+			.then((test) => {
+				res.json({ test });
 			})
 			.catch((err) => {
 				console.log(err);
@@ -108,16 +118,27 @@ router.put("/add-question", (req, res) => {
 			correctOptionTwo,
 			correctOptionThree,
 		} = req.body;
-		const question = {
+		// const question = {
+		// 	questionImage: questionImage,
+		// 	correctOptionOne: correctOptionOne,
+		// 	correctOptionTwo: correctOptionTwo,
+		// 	correctOptionThree: correctOptionThree,
+		// };
+		const multipleCorrect = new MultipleCorrect({
 			questionImage: questionImage,
 			correctOptionOne: correctOptionOne,
 			correctOptionTwo: correctOptionTwo,
 			correctOptionThree: correctOptionThree,
-		};
-		Test.findByIdAndUpdate(
+		});
+		console.log({ multipleCorrect });
+		Test.findOneAndUpdate(
 			{ testId: testId },
 			{
-				$push: { questionNumber: questionNumber, questions: question, questionType: questionType },
+				$push: {
+					questionNumber: questionNumber,
+					questionType: questionType,
+					multipleCorrectQuestions: { multipleCorrect },
+				},
 			},
 			{
 				new: true,
@@ -135,7 +156,7 @@ router.put("/add-question", (req, res) => {
 			questionImage: questionImage,
 			numerical: numerical,
 		};
-		Test.findByIdAndUpdate(
+		Test.findOneAndUpdate(
 			{ testId: testId },
 			{
 				$push: { questionNumber: questionNumber, questions: question, questionType: questionType },

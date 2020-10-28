@@ -5,6 +5,11 @@ require("./QuestionTypes/SingleCorrect");
 require("./QuestionTypes/MultipleCorrect");
 require("./QuestionTypes/NumericalType");
 
+const question = {
+	typeOfQuestion: String,
+	questionId: ObjectId,
+};
+
 const testSchema = new mongoose.Schema(
 	{
 		testId: {
@@ -26,14 +31,19 @@ const testSchema = new mongoose.Schema(
 		},
 		questions: [
 			{
+				questionNumber: { type: Number },
+				questionType: { type: String },
+
 				singleCorrectQuestions: {
 					type: ObjectId,
 					ref: "SingleCorrect",
 				},
+
 				multipleCorrectQuestions: {
 					type: ObjectId,
 					ref: "MultipleCorrect",
 				},
+
 				numericalQuestions: {
 					type: ObjectId,
 					ref: "Numerical",
@@ -43,6 +53,11 @@ const testSchema = new mongoose.Schema(
 	},
 	{ timestamps: true }
 );
+
+// testSchema.find().populate({
+// 	path: question.questionId,
+// 	refpath: questions.typeOfQuestion,
+// });
 
 mongoose.model("Test", testSchema);
 
@@ -54,3 +69,6 @@ mongoose.model("Test", testSchema);
 //     type: Number,
 //     required: true
 // },
+
+// questionNumber: { type: Number },
+// questionType: { type: String },

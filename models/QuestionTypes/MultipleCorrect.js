@@ -15,10 +15,7 @@ const multipleCorrectSchema = new mongoose.Schema({
 	},
 	correctOption: [
 		{
-			one: {
-				type: Number,
-				required: true,
-			},
+			one: { type: Number, required: true },
 			two: { type: Number },
 			three: { type: Number },
 		},

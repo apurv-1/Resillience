@@ -67,39 +67,29 @@ router.put("/add-question", (req, res) => {
 
 	if (questionType == "singleCorrect") {
 		const { questionNumber, questionImage, correctOption } = req.body;
-		// const question = {
-		// 	questionImage: questionImage,
-		// 	correctOption: correctOption,
-		// };
 		const singleCorrectQuestions = new SingleCorrect({
+			questionImage,
+			correctOption,
+		});
+		singleCorrectQuestions.save();
+		// console.log({ singleCorrectQuestions });
+		const question = {
 			questionNumber: questionNumber,
 			questionType: questionType,
-			questionImage: questionImage,
-			correctOption: correctOption,
-		});
-		// const singleCorrectQuestions = {
-		// 	questionImage: questionImage,
-		// 	correctOption: correctOption,
-		// };
-		singleCorrectQuestions.save();
-		// const questions = {
-		// 	questionNumber: questionNumber,
-		// 	questionType: questionType,
-		// 	question: singleCorrectQuestions,
-		// };
-		console.log({ singleCorrectQuestions });
+			singleCorrectQuestions: singleCorrectQuestions,
+		};
 		Test.findOneAndUpdate(
 			{ testId: testId },
 			{
 				$push: {
-					questions: singleCorrectQuestions,
+					questions: question,
 				},
 			},
 			{
 				new: true,
 			}
 		)
-			.populate("questions")
+			// .populate("singleCorrectQuestions")
 			.then((test) => {
 				res.json({ test });
 			})
@@ -114,12 +104,14 @@ router.put("/add-question", (req, res) => {
 		// 	}
 		// });
 	} else if (questionType == "multipleCorrect") {
+		// const { one, two, three } = req.body.correctOption;
+		var correctOption = correctOption[(one, two, three)];
+		console.log(correctOption);
 		const {
 			questionNumber,
+			questionType,
 			questionImage,
-			correctOptionOne,
-			correctOptionTwo,
-			correctOptionThree,
+			correctOption: [one, two, three],
 		} = req.body;
 		// const question = {
 		// 	questionImage: questionImage,
@@ -127,20 +119,18 @@ router.put("/add-question", (req, res) => {
 		// 	correctOptionTwo: correctOptionTwo,
 		// 	correctOptionThree: correctOptionThree,
 		// };
-		const multipleCorrect = new MultipleCorrect({
-			questionImage: questionImage,
-			correctOptionOne: correctOptionOne,
-			correctOptionTwo: correctOptionTwo,
-			correctOptionThree: correctOptionThree,
+		const multipleCorrectQuestions = new MultipleCorrect({
+			questionNumber,
+			questionType,
+			questionImage,
+			correctOption,
 		});
-		console.log({ multipleCorrect });
+		// console.log({ multipleCorrect });
 		Test.findOneAndUpdate(
 			{ testId: testId },
 			{
 				$push: {
-					questionNumber: questionNumber,
-					questionType: questionType,
-					multipleCorrectQuestions: { multipleCorrect },
+					multipleCorrectQuestions: multipleCorrectQuestions,
 				},
 			},
 			{
@@ -183,7 +173,9 @@ router.get("/showtest", (req, res) => {
 	const testId = req.query.testid;
 	// console.log(req.query)
 	Test.findOne({ testId: testId })
-		.populate("questions singleCorrectQuestions")
+		.populate({
+			path: "questions.singleCorrectQuestions",
+		})
 		.then((test) => {
 			// console.log(test);
 			if (test === null) {

@@ -43,6 +43,12 @@ const styles = () => ({
 	signIn: {
 		marginBottom: "5%",
 	},
+	forgotHeading: {
+		marginBottom: "5%",
+		"@media only screen and (max-width: 430px)": {
+			margin: "5%",
+		},
+	},
 	forgotPassword: {
 		padding: "5% 5%",
 		position: "absolute",
@@ -52,6 +58,9 @@ const styles = () => ({
 	},
 	forgot: {
 		margin: "2%",
+		"@media only screen and (max-width: 430px)": {
+			margin: "-10px",
+		},
 	},
 	textField: {
 		marginTop: "2%",
@@ -60,8 +69,13 @@ const styles = () => ({
 	},
 	customError: {
 		color: "red",
-		marginBottom: "2%",
-		// position: "absolute",
+		marginBottom: "2px",
+		position: "fixed",
+		"@media only screen and (max-width: 430px)": {
+			marginTop: "30px",
+			marginLeft: "10px",
+			fontSize: "13px",
+		},
 	},
 	button: {
 		marginBottom: "5%",
@@ -233,11 +247,11 @@ function SignIn(props) {
 								{errors.email}
 							</Typography>
 						)}
-						{errors.password && (
+						{/* {errors.password && (
 							<Typography variant="body2" className={classes.customError}>
 								{errors.password}
 							</Typography>
-						)}
+						)} */}
 						{errors.err && (
 							<Typography variant="body2" className={classes.customError}>
 								{errors.err}
@@ -264,7 +278,7 @@ function SignIn(props) {
 					</div>
 				) : (
 					<div className={classes.forgotPassword}>
-						<Typography variant="h4" color="primary" className={classes.signIn}>
+						<Typography variant="h4" color="primary" className={classes.forgotHeading}>
 							Forgot Password?
 						</Typography>
 						<TextField
@@ -274,8 +288,8 @@ function SignIn(props) {
 							label="Email"
 							variant="outlined"
 							color="secondary"
-							// helperText={!email} //error was defined in the backend
-							// error={errors.email ? true : false}
+							helperText={!email} //error was defined in the backend
+							error={errors.email ? true : false}
 							className={classes.textField}
 							style={{ marginTop: "10%" }}
 							value={email}
@@ -286,6 +300,11 @@ function SignIn(props) {
 						{errors.email && (
 							<Typography variant="body2" className={classes.customError}>
 								{errors.email}
+							</Typography>
+						)}
+						{errors.err && (
+							<Typography variant="body2" className={classes.customError}>
+								{errors.err}
 							</Typography>
 						)}
 						<Button

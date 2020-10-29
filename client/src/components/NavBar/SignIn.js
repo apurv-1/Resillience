@@ -86,11 +86,7 @@ function SignIn(props) {
 	// }
 
 	const handleSubmit = () => {
-		if (
-			!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/(
-				email
-			)
-		) {
+		if (email === "") {
 			return setErrors({ email: "Invalid Email!" });
 		}
 		if (password === "") {
@@ -130,11 +126,7 @@ function SignIn(props) {
 	};
 
 	const handleForgotPassword = () => {
-		if (
-			!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-				email
-			)
-		) {
+		if (email === "") {
 			return setErrors({ email: "Invalid Email!" });
 		} else {
 			fetch("/reset-student-password", {

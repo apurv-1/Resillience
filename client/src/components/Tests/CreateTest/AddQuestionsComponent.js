@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
@@ -9,11 +9,11 @@ import Select from "@material-ui/core/Select";
 import TextField from "@material-ui/core/TextField";
 import SaveIcon from "@material-ui/icons/Save";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
-import ReactCrop from "react-image-crop";
-import CropIcon from "@material-ui/icons/Crop";
+// import ReactCrop from "react-image-crop";
+// import CropIcon from "@material-ui/icons/Crop";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
-import "react-image-crop/dist/ReactCrop.css";
+// import "react-image-crop/dist/ReactCrop.css";
 
 const useStyles = makeStyles((theme) => ({
 	card: {
@@ -95,12 +95,13 @@ const AddQuestions = ({ testID }) => {
 	const [correct, setCorrect] = useState("");
 	const [numerical, setNumerical] = useState("");
 
-	const [questionNumber, setQuestionNumber] = useState("");
+	const [questionNumber, setQuestionNumber] = useState(1);
 	const [questionImg, setQuestionImg] = useState("");
-	const [questionSrc, setQuestionSrc] = useState("");
 	const [questionUrl, setQuestionUrl] = useState("");
-	const [finalQuestion, setFinalQuestion] = useState("");
-	const [crop, setCrop] = useState({});
+
+	// const [questionSrc, setQuestionSrc] = useState("");
+	// const [finalQuestion, setFinalQuestion] = useState("");
+	// const [crop, setCrop] = useState({});
 
 	useEffect(() => {
 		if (questionUrl) {
@@ -117,7 +118,7 @@ const AddQuestions = ({ testID }) => {
 					questionNumber: questionNumber,
 					questionImage: questionUrl,
 					correctOption: correct,
-					questionType: subject,
+					subject: subject,
 				}),
 			})
 				.then((res) => res.json())
@@ -126,12 +127,13 @@ const AddQuestions = ({ testID }) => {
 						console.log(data.error);
 					} else {
 						console.log("question saved");
+						setQuestionNumber(1 + questionNumber);
 						setCorrect("");
 						setSubject("");
 						setQuestionImg("");
 						setQuestionUrl("");
-						setQuestionSrc("");
-						setFinalQuestion("");
+						// setQuestionSrc("");
+						// setFinalQuestion("");
 					}
 				})
 				.catch((err) => {
@@ -163,31 +165,6 @@ const AddQuestions = ({ testID }) => {
 		setQuestionImg(e.target.files[0]);
 		// setQuestionSrc(URL.createObjectURL(e.target.files[0]));
 	};
-
-	function getCroppedImg() {
-		const canvas = document.createElement("canvas");
-		const scaleX = questionImg.naturalWidth / questionImg.width;
-		const scaleY = questionImg.naturalHeight / questionImg.height;
-		canvas.width = crop.width;
-		canvas.height = crop.height;
-		const ctx = canvas.getContext("2d");
-
-		ctx.drawImage(
-			questionImg,
-			crop.x * scaleX,
-			crop.y * scaleY,
-			crop.width * scaleX,
-			crop.height * scaleY,
-			0,
-			0,
-			crop.width,
-			crop.height
-		);
-
-		const base64Image = canvas.toDataURL("image/jpeg");
-		setFinalQuestion(base64Image);
-		setQuestionImg(base64Image);
-	}
 
 	return (
 		<div className={classes.card}>
@@ -349,7 +326,7 @@ const AddQuestions = ({ testID }) => {
 					</div>
 				</div>
 			</Paper>
-			<div className={classes.cropContainer}>
+			{/* <div className={classes.cropContainer}>
 				<div className={classes.showImage}>
 					{questionSrc && (
 						<div>
@@ -372,9 +349,34 @@ const AddQuestions = ({ testID }) => {
 						</div>
 					)}
 				</div>
-			</div>
+			</div> */}
 		</div>
 	);
 };
 
 export default AddQuestions;
+
+// function getCroppedImg() {
+// 	const canvas = document.createElement("canvas");
+// 	const scaleX = questionImg.naturalWidth / questionImg.width;
+// 	const scaleY = questionImg.naturalHeight / questionImg.height;
+// 	canvas.width = crop.width;
+// 	canvas.height = crop.height;
+// 	const ctx = canvas.getContext("2d");
+//
+// 	ctx.drawImage(
+// 		questionImg,
+// 		crop.x * scaleX,
+// 		crop.y * scaleY,
+// 		crop.width * scaleX,
+// 		crop.height * scaleY,
+// 		0,
+// 		0,
+// 		crop.width,
+// 		crop.height
+// 	);
+//
+// 	const base64Image = canvas.toDataURL("image/jpeg");
+// 	setFinalQuestion(base64Image);
+// 	setQuestionImg(base64Image);
+// }

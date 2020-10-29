@@ -12,7 +12,7 @@ import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
 import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import themeObject from "./theme";
 
-import { TransitionGroup, CSSTransition } from "react-transition-group";
+import { TransitionGroup } from "react-transition-group";
 import { TitleComponent } from "./components/Title/TitleComponent";
 
 import { StudentReducer, InitialState } from "./components/Reducers/Reducer";

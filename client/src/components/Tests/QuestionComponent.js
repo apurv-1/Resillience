@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 // import Button from '@material-ui/core/Button';
-import Fab from "@material-ui/core/Fab";
+// import Fab from "@material-ui/core/Fab";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -93,7 +93,7 @@ const QuestionComponent = ({ test, currentQuestion, currentQuestionIndex, select
 	const [questions, setQuestions] = useState([]);
 	const [testName, setTestName] = useState("");
 	const [option, setOption] = useState([]);
-	const [selected, setSelected] = useState([]);
+	const [selected] = useState([]);
 
 	// const [currentQuestion, setCurrentQuestion] = useState({});
 	// const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);

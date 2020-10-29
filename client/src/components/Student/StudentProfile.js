@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Avatar from "@material-ui/core/Avatar";
@@ -49,37 +49,11 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const options = ["test1", "test2"];
-
-export default function SimplePaper() {
+export default function StudentProfile() {
 	const classes = useStyles();
 	const { state } = useContext(Context);
-	const [value, setValue] = useState("");
-	const [inputValue, setInputValue] = useState("");
-	// const [email, setEmail] = useState("");
-	// const [dashboard, setDashboard] = useState("");
-	console.log(state);
-	// const fun = ({name}) =>{
-	//   return()
-	// }
-	// <div className={classes.textbox}>
-	// 								<Autocomplete
-	// 									value={value}
-	// 									onChange={(event, newValue) => {
-	// 										setValue(newValue);
-	// 									}}
-	// 									inputValue={inputValue}
-	// 									onInputChange={(event, newInputValue) => {
-	// 										setInputValue(newInputValue);
-	// 									}}
-	// 									id="controllable-states-demo"
-	// 									options={options}
-	// 									style={{ width: 350 }}
-	// 									renderInput={(params) => (
-	// 										<TextField {...params} label="Enter test ID" variant="outlined" />
-	// 									)}
-	// 								/>
-	// 							</div>
+
+	// console.log(state);
 	return (
 		<div>
 			<Paper elevation={5} className={classes.card}>

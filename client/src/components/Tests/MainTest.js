@@ -1,18 +1,18 @@
-import React, { useReducer, useState } from "react";
+import React, { useState } from "react";
 //  import { Helmet } from "react-helmet";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
-import Alert from "@material-ui/lab/Alert";
+// import Alert from "@material-ui/lab/Alert";
 // import Typography from "@material-ui/core/Typography";
 //Components
 import QuestionComponent from "./QuestionComponent";
 import QuestionKeysComponent from "./QuestionKeysComponent";
 import TimerComponent from "./TimerComponent";
 //reducers
-import { SET_CURRENT_QUESTION, SET_CURRENT_ANSWER, SET_ANSWERS, SET_SHOW_RESULTS } from "../Reducers/types";
-import { quizReducer } from "../Reducers/Reducer";
+// import { SET_CURRENT_QUESTION, SET_CURRENT_ANSWER, SET_ANSWERS, SET_SHOW_RESULTS } from "../Reducers/types";
+// import { quizReducer } from "../Reducers/Reducer";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -88,10 +88,10 @@ const MainTest = () => {
 	const [check, setCheck] = useState(false);
 	const [testId, setTestId] = useState("");
 	const [test, setTest] = useState([]);
-	const [selected, setSelected] = useState([]);
+	// const [selected, setSelected] = useState([]);
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const [questionLength, setQuestionLength] = useState(0);
-	const [questionNum, setQuestionNum] = useState(0);
+	// const [questionNum, setQuestionNum] = useState(0);
 	// const [openAlert, setOpenAlert] = useState(false);
 
 	// const initialState = {
@@ -120,7 +120,7 @@ const MainTest = () => {
 				} else {
 					setTest(test.test);
 					setQuestionLength(test.test.questions.length);
-					setQuestionNum(test.test.questions.questionNumber);
+					// setQuestionNum(test.test.questions.questionNumber);
 					// setTime(test.test.testDuration)
 					// console.log(test.test.testDuration)
 					setCheck(true);
@@ -130,42 +130,6 @@ const MainTest = () => {
 				console.log(err);
 			});
 	};
-
-	// const handleSelect = e =>{
-	// 	setSelected({
-
-	// 	})
-	// }
-	// const SelectedAnswer = (e) => {
-	// 	// debugger;
-	// 	console.log(e);
-	// 	const studentAnswer = [selected];
-	// 	studentAnswer[currentIndex] = e;
-	// 	// console.log(studentAnswer);
-	// 	setSelected([studentAnswer]);
-	// };
-	// const handleCurrentIndex = (questionNo) => {
-	// 	setCurrentIndex(() => questionNo);
-	// };
-
-	// const AlertBox = () => {
-	// 	return(
-	// 		<div className={classes.toast}>
-	// 			<Alert variant="outlined" severity="error">
-	// 				Please enter valid Test ID
-	// 			</Alert>
-	// 		</div>
-	// 	)
-	// }
-
-	// useEffect(()=>{
-	//     if(currentIndex === (questionLength-1)){
-	//         setDisable(true);
-	//     }
-	//     else{
-	//         setDisable(false)
-	//     }
-	// })
 
 	const classes = useStyles();
 	return (
@@ -192,7 +156,11 @@ const MainTest = () => {
 					</Paper>
 					<Paper elevation={5} className={classes.paper2}>
 						<div className={classes.buttonContainer}>
-							<Button variant="contained" color="red" className={classes.button} style={{ marginLeft: "-10px" }}>
+							<Button
+								variant="contained"
+								color="red"
+								className={classes.button}
+								style={{ marginLeft: "-10px" }}>
 								End Test
 							</Button>
 							{currentIndex === 0 ? (
@@ -200,7 +168,11 @@ const MainTest = () => {
 									Previous Question
 								</Button>
 							) : (
-								<Button variant="contained" color="primary" className={classes.button} onClick={() => setCurrentIndex(currentIndex - 1)}>
+								<Button
+									variant="contained"
+									color="primary"
+									className={classes.button}
+									onClick={() => setCurrentIndex(currentIndex - 1)}>
 									Previous Question
 								</Button>
 							)}
@@ -235,7 +207,14 @@ const MainTest = () => {
 				<div className={classes.startbox}>
 					<Paper elevation={5} className={classes.paper4}>
 						<div>
-							<TextField id="outlined-basic" label="Enter Test ID" variant="outlined" value={testId} onChange={(e) => setTestId(e.target.value)} fullWidth />
+							<TextField
+								id="outlined-basic"
+								label="Enter Test ID"
+								variant="outlined"
+								value={testId}
+								onChange={(e) => setTestId(e.target.value)}
+								fullWidth
+							/>
 						</div>
 
 						<Button

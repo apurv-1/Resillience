@@ -101,7 +101,7 @@ const QuestionComponent = ({ test, currentQuestion, currentQuestionIndex, select
 	// const [previousQuestion, setPreviousQuestion] = useState({});
 	// console.log(currentQuestion)
 
-	useEffect(() => {
+	const options = () => {
 		setTestName(test.testName);
 		// setQuestions(test.questions)
 		setQuestions(test.questions);
@@ -124,7 +124,9 @@ const QuestionComponent = ({ test, currentQuestion, currentQuestionIndex, select
 				value: 3,
 			},
 		]);
-	}, []);
+	};
+
+	useEffect(options, []);
 
 	return (
 		<div>

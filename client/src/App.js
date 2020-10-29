@@ -145,14 +145,16 @@ export const Context = createContext();
 const Routing = () => {
 	const history = useHistory();
 	const { dispatch } = useContext(Context);
-	useEffect(() => {
+	const fetchStudent = () => {
 		const student = JSON.parse(localStorage.getItem("student"));
 		if (student) {
 			dispatch({ type: "STUDENT", payload: student });
 		} else {
 			history.push("/");
 		}
-	}, []);
+	};
+	useEffect(fetchStudent, []);
+
 	return (
 		<Switch>
 			<Route exact path="/" component={HomeComponent} />

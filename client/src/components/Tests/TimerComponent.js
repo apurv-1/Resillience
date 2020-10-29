@@ -50,13 +50,15 @@ const TimerComponent = ({ timeRemaining }) => {
 		}, 1000);
 	};
 
-	useEffect(() => {
+	const useTimer = () => {
 		setTestDuration(timeRemaining);
 		startTimer();
 		return () => {
 			clearInterval(interval);
 		};
-	}, []);
+	};
+
+	useEffect(useTimer, []);
 
 	const classes = useStyles();
 	return (

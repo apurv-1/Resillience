@@ -103,7 +103,7 @@ const AddQuestions = ({ testID }) => {
 	// const [finalQuestion, setFinalQuestion] = useState("");
 	// const [crop, setCrop] = useState({});
 
-	useEffect(() => {
+	const pushQuestion = () => {
 		if (questionUrl) {
 			// if(questionType === "singleCorrect"){
 
@@ -140,9 +140,11 @@ const AddQuestions = ({ testID }) => {
 					console.log(err);
 				});
 		}
-	}, [questionUrl]);
+	};
 
-	const addQuestion = () => {
+	useEffect(pushQuestion, []);
+
+	const uploadQuestion = () => {
 		console.log(questionImg);
 		const data = new FormData();
 		data.append("file", questionImg);
@@ -319,7 +321,7 @@ const AddQuestions = ({ testID }) => {
 							color="primary"
 							className={classes.button}
 							startIcon={<SaveIcon />}
-							onClick={() => addQuestion()}
+							onClick={() => uploadQuestion()}
 							fullWidth>
 							Save Question
 						</Button>

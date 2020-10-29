@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 // import AccessTimeIcon from "@material-ui/icons/AccessTime";
 // import Button from '@material-ui/core/Button';
@@ -52,26 +52,17 @@ const useStyles = makeStyles(() => ({
 		textSizeAdjust: "90%",
 	},
 }));
-// const QuestionKeysComponent = useCallback(()=>{
-
-// })
 
 const QuestionKeysComponent = ({ test, handleCurrentIndex }) => {
 	const classes = useStyles();
-	const [length, setLength] = useState(0);
-	const [questions, setQuestions] = useState([]);
-	// const [currentIndex, setCurrentIndex] = useState(handleCurrentIndex);
-	// console.log(test.questions);
+	// const [length, setLength] = useState(0);
+	// const [questions, setQuestions] = useState([]);
 
-	// const question = questionsLength.length
-	useEffect(() => {
-		setLength(test.questions.length);
-		setQuestions(test.questions);
-	}, []);
-	// const length = map
-	// const [length, setLength]
-	// console.log
-	// console.log(timeRemaining)
+	// useEffect(() => {
+	// 	setLength(test.questions.length);
+	// 	setQuestions(test.questions);
+	// }, []);
+	// setQuestions(test.questions);
 
 	return (
 		<div>
@@ -80,8 +71,8 @@ const QuestionKeysComponent = ({ test, handleCurrentIndex }) => {
 				<b>Questions Overview: </b>
 
 				<div>
-					{length &&
-						questions.map(({ questionNumber }) => (
+					{test.questions.length &&
+						test.questions.map(({ questionNumber }) => (
 							<Fab
 								size="medium"
 								color="secondary"

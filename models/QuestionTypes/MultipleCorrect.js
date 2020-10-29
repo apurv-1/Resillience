@@ -7,30 +7,29 @@ const multipleCorrectSchema = new mongoose.Schema({
 	},
 	questionType: {
 		type: String,
-		// required: true,
 	},
 	questionImage: {
 		type: String,
 		required: true,
 	},
-	correctOption: [
-		{
-			one: { type: Number, required: true },
-			two: { type: Number },
-			three: { type: Number },
-		},
-	],
+	correctOptionOne: {
+		type: Number,
+		required: true,
+	},
+	correctOptionTwo: {
+		type: Number,
+	},
+	correctOptionThree: {
+		type: Number,
+	},
 });
 
 mongoose.model("MultipleCorrect", multipleCorrectSchema);
 
-// correctOptionOne: {
-// 	type: Number,
-// 	required: true,
-// },
-// correctOptionTwo: {
-// 	type: Number,
-// },
-// correctOptionThree: {
-// 	type: Number,
-// },
+// correctOption: [
+// 		{
+// 			one: { type: Number, required: true },
+// 			two: { type: Number },
+// 			three: { type: Number },
+// 		},
+// 	],

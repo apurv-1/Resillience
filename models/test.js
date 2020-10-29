@@ -1,19 +1,14 @@
 const mongoose = require("mongoose");
-const { ObjectId } = mongoose.Schema.Types;
+// const { ObjectId } = mongoose.Schema.Types;
 //question models
 require("./QuestionTypes/SingleCorrect");
 require("./QuestionTypes/MultipleCorrect");
 require("./QuestionTypes/NumericalType");
 
-const question = {
-	typeOfQuestion: String,
-	questionId: ObjectId,
-};
-
 const testSchema = new mongoose.Schema(
 	{
 		testId: {
-			type: String,
+			type: Number,
 			required: true,
 			unique: true,
 		},
@@ -31,22 +26,22 @@ const testSchema = new mongoose.Schema(
 		},
 		questions: [
 			{
-				questionNumber: { type: Number },
-				questionType: { type: String },
-
-				singleCorrectQuestions: {
-					type: ObjectId,
-					ref: "SingleCorrect",
+				questionNumber: {
+					type: Number,
+					required: true,
+					unique: true,
 				},
-
-				multipleCorrectQuestions: {
-					type: ObjectId,
-					ref: "MultipleCorrect",
+				questionImage: {
+					type: String,
+					required: true,
 				},
-
-				numericalQuestions: {
-					type: ObjectId,
-					ref: "Numerical",
+				correctOption: {
+					type: Number,
+					required: true,
+				},
+				subject: {
+					type: String,
+					required: true,
 				},
 			},
 		],
@@ -54,21 +49,26 @@ const testSchema = new mongoose.Schema(
 	{ timestamps: true }
 );
 
-// testSchema.find().populate({
-// 	path: question.questionId,
-// 	refpath: questions.typeOfQuestion,
-// });
-
 mongoose.model("Test", testSchema);
 
-// questionImage:{
-//     type: String,
-//     required: true
+// questions: [
+// 	{
+//
+// singleCorrectQuestions: [
+// 	{
+// 		type: ObjectId,
+// 		ref: "SingleCorrect",
+// 	},
+// ],
+//
+// multipleCorrectQuestions: {
+// 	type: ObjectId,
+// 	ref: "MultipleCorrect",
 // },
-// correctOption:{
-//     type: Number,
-//     required: true
+//
+// numericalQuestions: {
+// 	type: ObjectId,
+// 	ref: "Numerical",
 // },
-
-// questionNumber: { type: Number },
-// questionType: { type: String },
+// 	},
+// ],

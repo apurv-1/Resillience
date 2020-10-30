@@ -114,7 +114,7 @@ export default function SideNav() {
 	const { state, dispatch } = useContext(Context);
 	const [open, setOpen] = useState(false);
 	const [signOut, setSignOut] = useState(false);
-	console.log(state);
+	// console.log(state);
 
 	const handleDrawer = () => {
 		setOpen(true);

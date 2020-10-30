@@ -28,11 +28,11 @@ const useStyles = makeStyles((theme) => ({
 	},
 	paper: {
 		// display: "flex",
-		width: "35%",
+		// width: "35%",
 		flexDirection: "column",
 		padding: "2% 4% 4%",
 		textAlign: "center",
-		position: "absolute",
+		// position: "fixed",
 		justifyContent: "center",
 	},
 	container: {
@@ -104,10 +104,7 @@ const AddQuestions = ({ testID }) => {
 	// const [crop, setCrop] = useState({});
 
 	const pushQuestion = () => {
-		if (questionUrl) {
-			// if(questionType === "singleCorrect"){
-
-			// }
+		if (questionType === "singleCorrect") {
 			fetch("/add-question", {
 				method: "put",
 				headers: {
@@ -139,10 +136,12 @@ const AddQuestions = ({ testID }) => {
 				.catch((err) => {
 					console.log(err);
 				});
+		} else {
+			console.log("Please select valid Question Type!");
 		}
 	};
 
-	useEffect(pushQuestion, []);
+	useEffect(pushQuestion, [questionUrl]);
 
 	const uploadQuestion = () => {
 		console.log(questionImg);
@@ -157,6 +156,7 @@ const AddQuestions = ({ testID }) => {
 			.then((res) => res.json())
 			.then((data) => {
 				setQuestionUrl(data.secure_url);
+				pushQuestion();
 			})
 			.catch((err) => {
 				console.log(err);

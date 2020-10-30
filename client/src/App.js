@@ -145,6 +145,7 @@ export const Context = createContext();
 const Routing = () => {
 	const history = useHistory();
 	const { dispatch } = useContext(Context);
+
 	const fetchStudent = () => {
 		const student = JSON.parse(localStorage.getItem("student"));
 		if (student) {
@@ -153,6 +154,7 @@ const Routing = () => {
 			history.push("/");
 		}
 	};
+
 	useEffect(fetchStudent, []);
 
 	return (

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-//  import { Helmet } from "react-helmet";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
@@ -11,8 +10,14 @@ import QuestionComponent from "./QuestionComponent";
 import QuestionKeysComponent from "./QuestionKeysComponent";
 import TimerComponent from "./TimerComponent";
 //reducers
-// import { SET_CURRENT_QUESTION, SET_CURRENT_ANSWER, SET_ANSWERS, SET_SHOW_RESULTS } from "../Reducers/types";
-// import { quizReducer } from "../Reducers/Reducer";
+// import TestContext from "../Context/TestContext";
+// import {
+// 	SET_CURRENT_QUESTION,
+// 	SET_CURRENT_ANSWER,
+// 	SET_ANSWERS,
+// 	SET_SHOW_RESULTS,
+// } from "../Reducers/types";
+// import { testReducer } from "../Reducers/TestReducer";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -88,7 +93,6 @@ const MainTest = () => {
 	const [check, setCheck] = useState(false);
 	const [testId, setTestId] = useState("");
 	const [test, setTest] = useState([]);
-	// const [selected, setSelected] = useState([]);
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const [questionLength, setQuestionLength] = useState(0);
 	// const [questionNum, setQuestionNum] = useState(0);
@@ -100,7 +104,7 @@ const MainTest = () => {
 	// 	correctOption: "",
 	// 	showResult: false,
 	// };
-	// const [state, dispatch] = useReducer(quizReducer, initialState);
+	// const [state, dispatch] = useReducer(testReducer, initialState);
 	// const { currentQuestion, currectOption, correctOption, showResult } = state;
 
 	// const question = test.questions[currentQuestion];
@@ -141,9 +145,6 @@ const MainTest = () => {
 						<QuestionKeysComponent
 							test={test}
 							handleCurrentIndex={(questionNo) => setCurrentIndex(questionNo)}
-							// questionsLength = {questionLength}
-							// currentQuestionIndex={1 + currentIndex}
-							// question = {}
 						/>
 					</Paper>
 					<Paper elevation={5} className={classes.paper1}>

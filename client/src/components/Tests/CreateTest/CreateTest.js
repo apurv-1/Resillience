@@ -14,8 +14,8 @@ const useStyles = makeStyles(() => ({
 		// margin: "2%",
 		// padding: "6%",
 	},
-	// questionsDiv:{
-	//     margin: "2px"
+	// questionsDiv: {
+	// 	margin: "2px",
 	// },
 	testDiv: {
 		// display: "flex",

@@ -2,7 +2,7 @@
 // import { makeStyles } from "@material-ui/core/styles";
 // import Paper from "@material-ui/core/Paper";
 // //components
-// 
+//
 // const useStyles = makeStyles(() => ({
 // 	root: {
 // 		// background:"#88888",
@@ -19,7 +19,7 @@
 // 		padding: "2%",
 // 	},
 // }));
-// 
+//
 // const ShowTest = ({ testId }) => {
 // 	const classes = useStyles();
 // 	const [test, setTest] = useState("");
@@ -27,7 +27,7 @@
 // 	// const [questionNo, setQuestionNo] = useState(0);
 // 	// const [questionImage, setQuestionImage] = useState("");
 // 	const [correctOption, setCorrectOption] = useState("");
-// 
+//
 // 	useEffect(() => {
 // 		fetch(`/showtest?testid=${testId}`, {
 // 			method: "get",
@@ -47,7 +47,7 @@
 // 				console.log(err);
 // 			});
 // 	}, []);
-// 
+//
 // 	return (
 // 		<div className={classes.root}>
 // 			<Paper elevation={5} className={classes.paper}>
@@ -62,5 +62,5 @@
 // 		</div>
 // 	);
 // };
-// 
+//
 // export default ShowTest;

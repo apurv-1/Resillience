@@ -169,8 +169,7 @@ const QuestionComponent = () => {
 
 export default QuestionComponent;
 
-{
-	/* {option.map(({ name, value }) => (
+/* {option.map(({ name, value }) => (
 						<ul className={classes.optionContainer} key={value}>
 							<label className={classes.label}>
 								<input
@@ -186,4 +185,3 @@ export default QuestionComponent;
 							</label>
 						</ul>
 					))} */
-}

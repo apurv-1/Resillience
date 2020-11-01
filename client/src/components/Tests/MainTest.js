@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useReducer } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
@@ -10,14 +10,15 @@ import QuestionComponent from "./QuestionComponent";
 import QuestionKeysComponent from "./QuestionKeysComponent";
 import TimerComponent from "./TimerComponent";
 //reducers
-// import TestContext from "../Context/TestContext";
-// import {
-// 	SET_CURRENT_QUESTION,
-// 	SET_CURRENT_ANSWER,
-// 	SET_ANSWERS,
-// 	SET_SHOW_RESULTS,
-// } from "../Reducers/types";
-// import { testReducer } from "../Reducers/TestReducer";
+import TestContext from "../Context/TestContext";
+import {
+	SET_TEST,
+	SET_CURRENT_INDEX,
+	SET_CURRENT_ANSWER,
+	SET_ANSWERS,
+	SET_SHOW_RESULTS,
+} from "../Reducers/types";
+import { initialState, testReducer } from "../Reducers/TestReducer";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -57,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	startbox: {
 		padding: "1%",
+		marginTop: "5%",
 		display: "flex",
 		alignItems: "center",
 		justifyContent: "space-around",
@@ -90,26 +92,25 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const MainTest = () => {
-	const [check, setCheck] = useState(false);
-	const [testId, setTestId] = useState("");
-	const [test, setTest] = useState([]);
-	const [currentIndex, setCurrentIndex] = useState(0);
+	// const [check, setCheck] = useState(false);
+	const [testId, setTestId] = useState(null);
 	const [questionLength, setQuestionLength] = useState(0);
-	// const [questionNum, setQuestionNum] = useState(0);
-	// const [openAlert, setOpenAlert] = useState(false);
-
 	// const initialState = {
 	// 	currentQuestion: 0,
 	// 	currentOption: "",
-	// 	correctOption: "",
+	// 	answers: [],
 	// 	showResult: false,
 	// };
-	// const [state, dispatch] = useReducer(testReducer, initialState);
-	// const { currentQuestion, currectOption, correctOption, showResult } = state;
 
-	// const question = test.questions[currentQuestion];
+	const [state, dispatch] = useReducer(testReducer, initialState);
+	const { test, currentIndex, currentOption, correctOption, answers, showResult } = state;
 
-	const FetchTest = () => {
+	// const [currentIndex, setCurrentIndex] = useState(0);
+
+	// const [questionNum, setQuestionNum] = useState(0);
+	// const [openAlert, setOpenAlert] = useState(false);
+
+	const fetchTest = () => {
 		fetch(`/showtest?testid=${testId}`, {
 			method: "get",
 			headers: {
@@ -122,12 +123,10 @@ const MainTest = () => {
 					// setOpenAlert(true);
 					console.log(test);
 				} else {
-					setTest(test.test);
+					// setTest(test.test);
+					// setCheck(true);
+					dispatch({ type: SET_TEST, test: test.test });
 					setQuestionLength(test.test.questions.length);
-					// setQuestionNum(test.test.questions.questionNumber);
-					// setTime(test.test.testDuration)
-					// console.log(test.test.testDuration)
-					setCheck(true);
 				}
 			})
 			.catch((err) => {
@@ -135,102 +134,153 @@ const MainTest = () => {
 			});
 	};
 
+	// console.log("hello: ", test.questions);
+
+	const fetchTestId = () => {
+		return (
+			<div className={classes.startbox}>
+				<Paper elevation={5} className={classes.paper4}>
+					<div>
+						<TextField
+							id="outlined-basic"
+							label="Enter Test ID"
+							variant="outlined"
+							value={testId}
+							onChange={(e) => setTestId(e.target.value)}
+							fullWidth
+						/>
+					</div>
+					<Button
+						variant="contained"
+						color="primary"
+						// className={classes.button}
+						style={{ width: "100%", marginTop: "3%" }}
+						onClick={() => fetchTest()}>
+						Begin Test
+					</Button>
+				</Paper>
+			</div>
+		);
+	};
+
+	const next = () => {
+		const question = test.questions[currentIndex];
+		// debugger;
+		const answer = { questionNo: question.questionNumber, answer: currentOption };
+
+		answers.push(answer);
+		dispatch({ type: SET_ANSWERS, answers });
+		dispatch({ type: SET_CURRENT_ANSWER, currectOption: "" });
+
+		if (currentIndex + 1 < test.questions.length) {
+			dispatch({
+				type: SET_CURRENT_INDEX,
+				currentIndex: currentIndex + 1,
+			});
+			return;
+		}
+	};
+
+	const previous = () => {
+		dispatch({
+			type: SET_CURRENT_INDEX,
+			currentIndex: currentIndex - 1,
+		});
+		return;
+	};
+
 	const classes = useStyles();
 	return (
-		<div className={classes.root}>
-			{check && test.questions.length > 0 ? (
-				<div>
-					<Paper elevation={5} className={classes.paper3}>
-						<TimerComponent timeRemaining={test.testDuration} />
-						<QuestionKeysComponent
-							test={test}
-							handleCurrentIndex={(questionNo) => setCurrentIndex(questionNo)}
-						/>
-					</Paper>
-					<Paper elevation={5} className={classes.paper1}>
-						<QuestionComponent
-							test={test}
-							currentQuestion={test.questions[currentIndex]}
-							currentQuestionIndex={currentIndex}
-							// selectedAnswer={(e) => SelectedAnswer(e)}
-						/>
-					</Paper>
-					<Paper elevation={5} className={classes.paper2}>
-						<div className={classes.buttonContainer}>
-							<Button
-								variant="contained"
-								color="red"
-								className={classes.button}
-								style={{ marginLeft: "-10px" }}>
-								End Test
-							</Button>
-							{currentIndex === 0 ? (
-								<Button variant="contained" color="primary" className={classes.button} disabled>
-									Previous Question
-								</Button>
-							) : (
-								<Button
-									variant="contained"
-									color="primary"
-									className={classes.button}
-									onClick={() => setCurrentIndex(currentIndex - 1)}>
-									Previous Question
-								</Button>
-							)}
-
-							<Button variant="contained" color="primary" className={classes.button}>
-								Mark for Review
-							</Button>
-
-							{currentIndex === questionLength - 1 ? (
-								<Button variant="contained" color="primary" className={classes.button} disabled>
-									Next Question
-								</Button>
-							) : (
-								<Button
-									variant="contained"
-									color="primary"
-									className={classes.button}
-									onClick={() => {
-										setCurrentIndex(currentIndex + 1);
-										// SelectedAnswer();
-									}}>
-									Next Question
-								</Button>
-							)}
-							<Button variant="contained" color="primary" className={classes.button}>
-								Submit Test
-							</Button>
-						</div>
-					</Paper>
-				</div>
-			) : (
-				<div className={classes.startbox}>
-					<Paper elevation={5} className={classes.paper4}>
+		<div>
+			{questionLength > 0 ? (
+				<TestContext.Provider value={{ state, dispatch }}>
+					<div className={classes.root}>
 						<div>
-							<TextField
-								id="outlined-basic"
-								label="Enter Test ID"
-								variant="outlined"
-								value={testId}
-								onChange={(e) => setTestId(e.target.value)}
-								fullWidth
-							/>
+							<Paper elevation={5} className={classes.paper3}>
+								<TimerComponent timeRemaining={test.testDuration} />
+								<QuestionKeysComponent />
+							</Paper>
 						</div>
+						<Paper elevation={5} className={classes.paper1}>
+							<QuestionComponent />
+						</Paper>
 
-						<Button
-							variant="contained"
-							color="primary"
-							// className={classes.button}
-							style={{ width: "100%", marginTop: "3%" }}
-							onClick={() => FetchTest()}>
-							Begin Test
-						</Button>
-					</Paper>
-				</div>
+						<Paper elevation={5} className={classes.paper2}>
+							<div className={classes.buttonContainer}>
+								<Button
+									variant="contained"
+									color="red"
+									className={classes.button}
+									style={{ marginLeft: "-10px" }}>
+									End Test
+								</Button>
+								{currentIndex === 0 ? (
+									<Button variant="contained" color="primary" className={classes.button} disabled>
+										Previous Question
+									</Button>
+								) : (
+									<Button
+										variant="contained"
+										color="primary"
+										className={classes.button}
+										onClick={() => previous()}>
+										Previous Question
+									</Button>
+								)}
+
+								<Button variant="contained" color="primary" className={classes.button}>
+									Mark for Review
+								</Button>
+
+								{currentIndex === questionLength - 1 ? (
+									<Button variant="contained" color="primary" className={classes.button} disabled>
+										Next Question
+									</Button>
+								) : (
+									<Button
+										variant="contained"
+										color="primary"
+										className={classes.button}
+										onClick={() => next()}>
+										Next Question
+									</Button>
+								)}
+								<Button variant="contained" color="primary" className={classes.button}>
+									Submit Test
+								</Button>
+							</div>
+						</Paper>
+					</div>
+				</TestContext.Provider>
+			) : (
+				fetchTestId()
 			)}
 		</div>
 	);
 };
 
 export default MainTest;
+
+// 	<div className={classes.root}>
+// 		{check && test.questions.length > 0 ? (
+// 			<div>
+// 				<Paper elevation={5} className={classes.paper3}>
+// 					<TimerComponent timeRemaining={test.testDuration} />
+// 					<QuestionKeysComponent
+// 						test={test}
+// 						handleCurrentIndex={(questionNo) => setCurrentIndex(questionNo)}
+// 					/>
+// 				</Paper>
+// <Paper elevation={5} className={classes.paper1}>
+// 	<QuestionComponent
+// 		test={test}
+// 		currentQuestion={test.questions[currentIndex]}
+// 		currentQuestionIndex={currentIndex}
+// 		// selectedAnswer={(e) => SelectedAnswer(e)}
+// 	/>
+// </Paper>
+// 			</div>
+// 		) : (
+
+// 		)}
+// 	</div>

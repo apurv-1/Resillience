@@ -1,15 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import TestContext from "../Context/TestContext";
 // import Button from '@material-ui/core/Button';
 // import Fab from "@material-ui/core/Fab";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
-		// margin: "4%",
 		marginTop: "5%",
-		// maxWidth:"70%",
-		// maxHeight:"100%",
-
 		paddingLeft: "60px",
 		paddingRight: "60px",
 	},
@@ -27,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	optionContainer: {
 		// display: "none",
-		padding: "10px",
+		padding: "10%",
 		gridRowStart: "2",
 	},
 	// option: {
@@ -88,66 +85,92 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const QuestionComponent = ({ test, currentQuestion, currentQuestionIndex, selectedAnswer }) => {
+const QuestionComponent = () => {
 	const classes = useStyles();
-	const [questions, setQuestions] = useState([]);
-	const [testName, setTestName] = useState("");
-	const [option, setOption] = useState([]);
-	const [selected] = useState([]);
+	const { state } = useContext(TestContext);
+	const { currentIndex } = state;
+	const questions = state.test.questions;
 
-	// const [currentQuestion, setCurrentQuestion] = useState({});
-	// const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-	// const [nextQuestion, setNextQuestion] = useState({});
-	// const [previousQuestion, setPreviousQuestion] = useState({});
-	// console.log(currentQuestion)
+	// console.log("question", questions);
+	// console.log("currentIndex", currentIndex);
 
-	const options = () => {
-		setTestName(test.testName);
-		// setQuestions(test.questions)
-		setQuestions(test.questions);
-		setOption([
-			...option,
-			{
-				name: "Option A",
-				value: 0,
-			},
-			{
-				name: "Option B",
-				value: 1,
-			},
-			{
-				name: "Option C",
-				value: 2,
-			},
-			{
-				name: "Option D",
-				value: 3,
-			},
-		]);
-	};
-
-	useEffect(options, []);
+	// 	const options = () => {
+	// 		setTestName(test.testName);
+	// 		// setQuestions(test.questions)
+	// 		setQuestions(test.questions);
+	// 		setOption([
+	// 			...option,
+	// 			{
+	// 				name: "Option A",
+	// 				value: 0,
+	// 			},
+	// 			{
+	// 				name: "Option B",
+	// 				value: 1,
+	// 			},
+	// 			{
+	// 				name: "Option C",
+	// 				value: 2,
+	// 			},
+	// 			{
+	// 				name: "Option D",
+	// 				value: 3,
+	// 			},
+	// 		]);
+	// 	};
+	//
+	// 	useEffect(options, []);
 
 	return (
 		<div>
 			<div className={classes.box}>
 				<div className={classes.top}>
 					<span>
-						<h2>{testName}</h2>
+						<h2>{state.test.testName}</h2>
 					</span>
 					<span>
-						{1 + currentQuestionIndex} of {questions.length}
+						{1 + currentIndex} of {questions.length}
 					</span>
 				</div>
 
 				<hr style={{ height: "2px", backgroundColor: "gray solid" }} />
 				<div className={classes.question}>
-					{/* <img alt="question" src="https://res.cloudinary.com/rweb1/image/upload/v1601136030/iukekz1lf7truo7huhtw.png" /> */}
-					<img alt="question" src={currentQuestion.questionImage} />
+					<img alt="question" src={questions[currentIndex].questionImage} />
 					<hr style={{ height: "2px", backgroundColor: "gray solid" }} />
 				</div>
 				<div>
-					{option.map(({ name, value }) => (
+					<div style={{ marginLeft: "-30%" }}>
+						<label className={classes.label}>
+							<input type="radio" name="Option A" className={classes.option} value="0" />
+							<span className={classes.span}>Option A</span>
+						</label>
+						<label className={classes.label}>
+							<input type="radio" name="Option A" className={classes.option} value="1" />
+							<span className={classes.span}>Option B</span>
+						</label>
+					</div>
+					<div>
+						<label className={classes.label}>
+							<input type="radio" name="Option A" className={classes.option} value="2" />
+							<span className={classes.span}>Option C</span>
+						</label>
+						<label className={classes.label}>
+							<input type="radio" name="Option A" className={classes.option} value="3" />
+							<span className={classes.span}>Option D</span>
+						</label>
+					</div>
+
+					<hr style={{ height: "1px", backgroundColor: "gray solid" }} />
+				</div>
+			</div>
+		</div>
+	);
+};
+
+export default QuestionComponent;
+
+{
+	/* {option.map(({ name, value }) => (
 						<ul className={classes.optionContainer} key={value}>
 							<label className={classes.label}>
 								<input
@@ -162,33 +185,5 @@ const QuestionComponent = ({ test, currentQuestion, currentQuestionIndex, select
 								<span className={classes.span}>{name}</span>
 							</label>
 						</ul>
-					))}
-
-					<hr style={{ height: "1px", backgroundColor: "gray solid" }} />
-				</div>
-			</div>
-		</div>
-	);
-};
-
-export default QuestionComponent;
-// <div style={{ marginLeft: "-30%" }}>
-// 							<label className={classes.label}>
-// 								<input type="radio" name="Option A" className={classes.option} value="0" />
-// 								<span className={classes.span}>Option A</span>
-// 							</label>
-// 							<label className={classes.label}>
-// 								<input type="radio" name="Option A" className={classes.option} value="1" />
-// 								<span className={classes.span}>Option B</span>
-// 							</label>
-// 						</div>
-// 						<div style={{ marginLeft: "-30%" }}>
-// 							<label className={classes.label}>
-// 								<input type="radio" name="Option A" className={classes.option} value="2" />
-// 								<span className={classes.span}>Option C</span>
-// 							</label>
-// 							<label className={classes.label}>
-// 								<input type="radio" name="Option A" className={classes.option} value="3" />
-// 								<span className={classes.span}>Option D</span>
-// 							</label>
-// 						</div>
+					))} */
+}

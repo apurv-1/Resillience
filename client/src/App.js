@@ -38,6 +38,7 @@ const Career = lazy(() => import("./components/Career/Career"));
 const PrivacyPolicy = lazy(() => import("./components/Miscellaneous/PrivacyPolicy"));
 const TermsOfService = lazy(() => import("./components/Miscellaneous/TermsOfService"));
 const CreateTest = lazy(() => import("./components/Tests/CreateTest/CreateTest"));
+// const FetchTest = lazy(() => import("./components/Tests/FetchTest"));
 const MainTest = lazy(() => import("./components/Tests/MainTest"));
 // const Sitemap = lazy(() => import("./components/Miscellaneous/Sitemap"));
 

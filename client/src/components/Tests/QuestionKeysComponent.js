@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 // import AccessTimeIcon from "@material-ui/icons/AccessTime";
 // import Button from '@material-ui/core/Button';
+import TestContext from "../Context/TestContext";
 import Fab from "@material-ui/core/Fab";
 
 const useStyles = makeStyles(() => ({
@@ -53,8 +54,10 @@ const useStyles = makeStyles(() => ({
 	},
 }));
 
-const QuestionKeysComponent = ({ test, handleCurrentIndex }) => {
+const QuestionKeysComponent = () => {
 	const classes = useStyles();
+	const { state } = useContext(TestContext);
+	const questions = state.test.questions;
 	// const [length, setLength] = useState(0);
 	// const [questions, setQuestions] = useState([]);
 
@@ -71,8 +74,8 @@ const QuestionKeysComponent = ({ test, handleCurrentIndex }) => {
 				<b>Questions Overview: </b>
 
 				<div>
-					{test.questions.length &&
-						test.questions.map(({ questionNumber }) => (
+					{questions.length &&
+						questions.map(({ questionNumber }) => (
 							<Fab
 								size="medium"
 								color="secondary"

@@ -21,7 +21,7 @@ require("./models/blogs");
 app.use(express.json({ limit: "50mb" }));
 app.use(require("./routes/auth"));
 app.use(require("./routes/student"));
-app.use(require("./routes/questions"));
+// app.use(require("./routes/questions"));
 app.use(require("./routes/test"));
 app.use(require("./routes/admin"));
 app.use(require("./routes/blogs"));

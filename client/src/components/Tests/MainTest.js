@@ -93,7 +93,7 @@ const useStyles = makeStyles((theme) => ({
 
 const MainTest = () => {
 	// const [check, setCheck] = useState(false);
-	const [testId, setTestId] = useState(null);
+	const [testId, setTestId] = useState();
 	const [questionLength, setQuestionLength] = useState(0);
 	// const initialState = {
 	// 	currentQuestion: 0,
@@ -164,13 +164,13 @@ const MainTest = () => {
 	};
 
 	const next = () => {
-		const question = test.questions[currentIndex];
+		// const question = test.questions[currentIndex];
 		// debugger;
-		const answer = { questionNo: question.questionNumber, answer: currentOption };
+		// const answer = { questionNo: questions[currentIndex].questionNumber, answer: currentOption };
 
-		answers.push(answer);
-		dispatch({ type: SET_ANSWERS, answers });
-		dispatch({ type: SET_CURRENT_ANSWER, currectOption: "" });
+		// answers.push(answer);
+		// dispatch({ type: SET_ANSWERS, answers });
+		// dispatch({ type: SET_CURRENT_ANSWER, currectOption: "" });
 
 		if (currentIndex + 1 < test.questions.length) {
 			dispatch({

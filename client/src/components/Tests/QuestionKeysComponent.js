@@ -3,15 +3,12 @@ import { makeStyles } from "@material-ui/core/styles";
 // import AccessTimeIcon from "@material-ui/icons/AccessTime";
 // import Button from '@material-ui/core/Button';
 import TestContext from "../Context/TestContext";
+import { SET_CURRENT_INDEX } from "../Reducers/types";
 import Fab from "@material-ui/core/Fab";
 
 const useStyles = makeStyles(() => ({
 	root: {
-		// margin: "4%",
 		marginTop: "5%",
-		// maxWidth:"70%",
-		// maxHeight:"100%",
-
 		paddingLeft: "60px",
 		paddingRight: "60px",
 	},
@@ -56,16 +53,12 @@ const useStyles = makeStyles(() => ({
 
 const QuestionKeysComponent = () => {
 	const classes = useStyles();
-	const { state } = useContext(TestContext);
+	const { state, dispatch } = useContext(TestContext);
 	const questions = state.test.questions;
-	// const [length, setLength] = useState(0);
-	// const [questions, setQuestions] = useState([]);
 
-	// useEffect(() => {
-	// 	setLength(test.questions.length);
-	// 	setQuestions(test.questions);
-	// }, []);
-	// setQuestions(test.questions);
+	const handleCurrentIndex = (cIndex) => {
+		dispatch({ type: SET_CURRENT_INDEX, currentIndex: cIndex });
+	};
 
 	return (
 		<div>
@@ -75,14 +68,13 @@ const QuestionKeysComponent = () => {
 
 				<div>
 					{questions.length &&
-						questions.map(({ questionNumber }) => (
+						questions.map(({ questionNumber, _id }, index) => (
 							<Fab
 								size="medium"
 								color="secondary"
-								key={questionNumber}
+								key={_id}
 								className={classes.fab}
-								// onClick={(e) => handleCurrentIndex(e.target.questionNumber)}
-							>
+								onClick={() => handleCurrentIndex(index)}>
 								{questionNumber}
 							</Fab>
 						))}

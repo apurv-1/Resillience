@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TestContext from "../Context/TestContext";
 // import Button from '@material-ui/core/Button';
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	optionContainer: {
 		// display: "none",
-		padding: "10%",
+		padding: "10px",
 		gridRowStart: "2",
 	},
 	// option: {
@@ -90,36 +90,41 @@ const QuestionComponent = () => {
 	const { state } = useContext(TestContext);
 	const { currentIndex } = state;
 	const questions = state.test.questions;
+	const [option, setOption] = useState([]);
 
 	// console.log("question", questions);
 	// console.log("currentIndex", currentIndex);
 
-	// 	const options = () => {
-	// 		setTestName(test.testName);
-	// 		// setQuestions(test.questions)
-	// 		setQuestions(test.questions);
-	// 		setOption([
-	// 			...option,
-	// 			{
-	// 				name: "Option A",
-	// 				value: 0,
-	// 			},
-	// 			{
-	// 				name: "Option B",
-	// 				value: 1,
-	// 			},
-	// 			{
-	// 				name: "Option C",
-	// 				value: 2,
-	// 			},
-	// 			{
-	// 				name: "Option D",
-	// 				value: 3,
-	// 			},
-	// 		]);
-	// 	};
-	//
-	// 	useEffect(options, []);
+	const options = () => {
+		// setTestName(test.testName);
+		// // setQuestions(test.questions)
+		// setQuestions(test.questions);
+		setOption([
+			...option,
+			{
+				name: "Option A",
+				value: 0,
+			},
+			{
+				name: "Option B",
+				value: 1,
+			},
+			{
+				name: "Option C",
+				value: 2,
+			},
+			{
+				name: "Option D",
+				value: 3,
+			},
+		]);
+	};
+
+	useEffect(options, []);
+
+	const handleSelect = (index) => {
+		console.log(index);
+	};
 
 	return (
 		<div>
@@ -132,33 +137,30 @@ const QuestionComponent = () => {
 						{1 + currentIndex} of {questions.length}
 					</span>
 				</div>
-
 				<hr style={{ height: "2px", backgroundColor: "gray solid" }} />
+
 				<div className={classes.question}>
 					<img alt="question" src={questions[currentIndex].questionImage} />
 					<hr style={{ height: "2px", backgroundColor: "gray solid" }} />
 				</div>
+
 				<div>
-					<div style={{ marginLeft: "-30%" }}>
-						<label className={classes.label}>
-							<input type="radio" name="Option A" className={classes.option} value="0" />
-							<span className={classes.span}>Option A</span>
-						</label>
-						<label className={classes.label}>
-							<input type="radio" name="Option A" className={classes.option} value="1" />
-							<span className={classes.span}>Option B</span>
-						</label>
-					</div>
-					<div>
-						<label className={classes.label}>
-							<input type="radio" name="Option A" className={classes.option} value="2" />
-							<span className={classes.span}>Option C</span>
-						</label>
-						<label className={classes.label}>
-							<input type="radio" name="Option A" className={classes.option} value="3" />
-							<span className={classes.span}>Option D</span>
-						</label>
-					</div>
+					{option.map(({ name, value }, index) => (
+						<ul className={classes.optionContainer} key={value}>
+							<label className={classes.label}>
+								<input
+									type="radio"
+									name="option"
+									className={classes.option}
+									onSelect={() => handleSelect(index)}
+									// value={selected}
+									// checked={value === selectedAnswer[currentQuestionIndex]}
+									// onChange={selectedAnswer}
+								/>
+								<span className={classes.span}>{name}</span>
+							</label>
+						</ul>
+					))}
 
 					<hr style={{ height: "1px", backgroundColor: "gray solid" }} />
 				</div>
@@ -169,19 +171,23 @@ const QuestionComponent = () => {
 
 export default QuestionComponent;
 
-/* {option.map(({ name, value }) => (
-						<ul className={classes.optionContainer} key={value}>
-							<label className={classes.label}>
-								<input
-									type="radio"
-									name="option"
-									className={classes.option}
-									onSelect={selected}
-									// value={selected}
-									// checked={value === selectedAnswer[currentQuestionIndex]}
-									onChange={selectedAnswer}
-								/>
-								<span className={classes.span}>{name}</span>
-							</label>
-						</ul>
-					))} */
+// <div style={{ marginLeft: "-30%" }}>
+// 	<label className={classes.label}>
+// 		<input type="radio" name="Option A" className={classes.option} value="0" />
+// 		<span className={classes.span}>Option A</span>
+// 	</label>
+// 	<label className={classes.label}>
+// 		<input type="radio" name="Option A" className={classes.option} value="1" />
+// 		<span className={classes.span}>Option B</span>
+// 	</label>
+// </div>
+// <div>
+// 	<label className={classes.label}>
+// 		<input type="radio" name="Option A" className={classes.option} value="2" />
+// 		<span className={classes.span}>Option C</span>
+// 	</label>
+// 	<label className={classes.label}>
+// 		<input type="radio" name="Option A" className={classes.option} value="3" />
+// 		<span className={classes.span}>Option D</span>
+// 	</label>
+// </div>

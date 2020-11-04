@@ -6,26 +6,18 @@ import TextField from "@material-ui/core/TextField";
 // import Alert from "@material-ui/lab/Alert";
 // import Typography from "@material-ui/core/Typography";
 //Components
+import KeysComponent from "./KeysComponent";
 import QuestionComponent from "./QuestionComponent";
 import QuestionKeysComponent from "./QuestionKeysComponent";
 import TimerComponent from "./TimerComponent";
 //reducers
 import TestContext from "../Context/TestContext";
-import {
-	SET_TEST,
-	SET_CURRENT_INDEX,
-	SET_CURRENT_ANSWER,
-	SET_ANSWERS,
-	SET_SHOW_RESULTS,
-} from "../Reducers/types";
+import { SET_TEST, SET_OPTIONS } from "../Reducers/types";
 import { initialState, testReducer } from "../Reducers/TestReducer";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
-		// margin: "4%",
 		marginTop: "5%",
-		// maxWidth:"70%",
-		// maxHeight:"100%",
 		paddingLeft: "60px",
 		paddingRight: "60px",
 	},
@@ -65,18 +57,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	paper4: {
 		padding: "5%",
-
 		textAlign: "center",
-		// color: "#f8f8f8"
-	},
-	buttonContainer: {
-		padding: "1%",
-		// backfaceVisibility: "hidden",
-	},
-	button: {
-		margin: "2.5%",
-		caretColor: "#0089FF",
-		// color: theme.palette.common.red
 	},
 	text: {
 		border: "2px",
@@ -93,21 +74,34 @@ const useStyles = makeStyles((theme) => ({
 
 const MainTest = () => {
 	// const [check, setCheck] = useState(false);
-	const [testId, setTestId] = useState();
+	// const [openTestId, setOpenTestId] = useState(true)
+	// const [openMainTest, setOpenMainTest] = useState(false)
+	// const [openResult, setOpenResult] = useState(false)
+
+	const [testId, setTestId] = useState(null);
 	const [questionLength, setQuestionLength] = useState(0);
-	// const initialState = {
-	// 	currentQuestion: 0,
-	// 	currentOption: "",
-	// 	answers: [],
-	// 	showResult: false,
-	// };
 
 	const [state, dispatch] = useReducer(testReducer, initialState);
-	const { test, currentIndex, currentOption, correctOption, answers, showResult } = state;
+	const { test } = state;
 
-	// const [currentIndex, setCurrentIndex] = useState(0);
-
-	// const [questionNum, setQuestionNum] = useState(0);
+	const options = [
+		{
+			name: "Option A",
+			value: "a",
+		},
+		{
+			name: "Option B",
+			value: "b",
+		},
+		{
+			name: "Option C",
+			value: "c",
+		},
+		{
+			name: "Option D",
+			value: "d",
+		},
+	];
 	// const [openAlert, setOpenAlert] = useState(false);
 
 	const fetchTest = () => {
@@ -125,7 +119,9 @@ const MainTest = () => {
 				} else {
 					// setTest(test.test);
 					// setCheck(true);
+					console.log(options);
 					dispatch({ type: SET_TEST, test: test.test });
+					dispatch({ type: SET_OPTIONS, options: options });
 					setQuestionLength(test.test.questions.length);
 				}
 			})
@@ -163,32 +159,6 @@ const MainTest = () => {
 		);
 	};
 
-	const next = () => {
-		// const question = test.questions[currentIndex];
-		// debugger;
-		// const answer = { questionNo: questions[currentIndex].questionNumber, answer: currentOption };
-
-		// answers.push(answer);
-		// dispatch({ type: SET_ANSWERS, answers });
-		// dispatch({ type: SET_CURRENT_ANSWER, currectOption: "" });
-
-		if (currentIndex + 1 < test.questions.length) {
-			dispatch({
-				type: SET_CURRENT_INDEX,
-				currentIndex: currentIndex + 1,
-			});
-			return;
-		}
-	};
-
-	const previous = () => {
-		dispatch({
-			type: SET_CURRENT_INDEX,
-			currentIndex: currentIndex - 1,
-		});
-		return;
-	};
-
 	const classes = useStyles();
 	return (
 		<div>
@@ -206,49 +176,7 @@ const MainTest = () => {
 						</Paper>
 
 						<Paper elevation={5} className={classes.paper2}>
-							<div className={classes.buttonContainer}>
-								<Button
-									variant="contained"
-									color="red"
-									className={classes.button}
-									style={{ marginLeft: "-10px" }}>
-									End Test
-								</Button>
-								{currentIndex === 0 ? (
-									<Button variant="contained" color="primary" className={classes.button} disabled>
-										Previous Question
-									</Button>
-								) : (
-									<Button
-										variant="contained"
-										color="primary"
-										className={classes.button}
-										onClick={() => previous()}>
-										Previous Question
-									</Button>
-								)}
-
-								<Button variant="contained" color="primary" className={classes.button}>
-									Mark for Review
-								</Button>
-
-								{currentIndex === questionLength - 1 ? (
-									<Button variant="contained" color="primary" className={classes.button} disabled>
-										Next Question
-									</Button>
-								) : (
-									<Button
-										variant="contained"
-										color="primary"
-										className={classes.button}
-										onClick={() => next()}>
-										Next Question
-									</Button>
-								)}
-								<Button variant="contained" color="primary" className={classes.button}>
-									Submit Test
-								</Button>
-							</div>
+							<KeysComponent />
 						</Paper>
 					</div>
 				</TestContext.Provider>

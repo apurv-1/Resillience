@@ -85,7 +85,7 @@ const CreateTest = () => {
 			{check ? (
 				<div>
 					<div className={classes.questionsDiv}>
-						<AddQuestions testID={testId} />
+						<AddQuestions testID={testId} totalQuestions={noOfQuestions} />
 					</div>
 				</div>
 			) : (

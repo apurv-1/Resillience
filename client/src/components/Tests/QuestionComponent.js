@@ -1,6 +1,7 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TestContext from "../Context/TestContext";
+import { SET_CURRENT_ANSWER } from "../Reducers/types";
 // import Button from '@material-ui/core/Button';
 // import Fab from "@material-ui/core/Fab";
 
@@ -56,20 +57,24 @@ const useStyles = makeStyles((theme) => ({
 		// /borderColor: "black",
 		cursor: "pointer",
 		border: "3px solid gray",
-		borderRadius: "10px",
-		padding: "8px 12px",
+		borderRadius: "25px",
+		padding: "10px 150px",
+		fontWeight: "bold",
 		"&:hover": {
 			borderColor: "#232127",
-			backgroundColor: "#33c9dc",
+			backgroundColor: "grey",
+		},
+		"&:selected": {
+			borderColor: "#55ae95",
 		},
 		$input: {
 			display: "none",
 
-			"&$checked": {
-				borderColor: "#55ae95",
-				backgroundColor: "#ffac8e",
-				fontWeight: "600",
-			},
+			// "&$checked": {
+			// 	borderColor: "#55ae95",
+			// 	backgroundColor: "#ffac8e",
+			// 	fontWeight: "600",
+			// },
 			span: {
 				display: "block",
 				cursor: "point",
@@ -80,6 +85,10 @@ const useStyles = makeStyles((theme) => ({
 					borderColor: "#55ae95",
 					backgroundColor: "#6decb9",
 				},
+				"&:checked": {
+					fontWeight: "bold",
+					borderColor: "#55ae95",
+				},
 			},
 		},
 	},
@@ -87,44 +96,23 @@ const useStyles = makeStyles((theme) => ({
 
 const QuestionComponent = () => {
 	const classes = useStyles();
-	const { state } = useContext(TestContext);
-	const { currentIndex } = state;
+	const { state, dispatch } = useContext(TestContext);
+	const { currentIndex, options } = state;
 	const questions = state.test.questions;
-	const [option, setOption] = useState([]);
 
-	// console.log("question", questions);
-	// console.log("currentIndex", currentIndex);
-
-	const options = () => {
-		// setTestName(test.testName);
-		// // setQuestions(test.questions)
-		// setQuestions(test.questions);
-		setOption([
-			...option,
-			{
-				name: "Option A",
-				value: 0,
-			},
-			{
-				name: "Option B",
-				value: 1,
-			},
-			{
-				name: "Option C",
-				value: 2,
-			},
-			{
-				name: "Option D",
-				value: 3,
-			},
-		]);
+	const handleSelect = (selectedOption) => {
+		// console.log(selectedOption);
+		// console.log(questions[currentIndex].correctOption);
+		const answer = { questionNo: questions[currentIndex].questionNumber, answer: selectedOption };
+		dispatch({ type: SET_CURRENT_ANSWER, currentAnswer: answer });
 	};
 
-	useEffect(options, []);
-
-	const handleSelect = (index) => {
-		console.log(index);
-	};
+	// const isCorrect = (selectedOption) => {
+	// 	if(value === questions[currentIndex].correctOption){
+	//
+	// 	}
+	// }
+	// console.log(answers);
 
 	return (
 		<div>
@@ -145,17 +133,17 @@ const QuestionComponent = () => {
 				</div>
 
 				<div>
-					{option.map(({ name, value }, index) => (
+					{options.map(({ name, value }) => (
 						<ul className={classes.optionContainer} key={value}>
 							<label className={classes.label}>
 								<input
 									type="radio"
 									name="option"
-									className={classes.option}
-									onSelect={() => handleSelect(index)}
-									// value={selected}
-									// checked={value === selectedAnswer[currentQuestionIndex]}
-									// onChange={selectedAnswer}
+									// className={classes.option}
+									value={value}
+									// onSelect={() => handleSelect(value)}
+									// checked={() => isCorrect(value)}
+									onChange={() => handleSelect(value)}
 								/>
 								<span className={classes.span}>{name}</span>
 							</label>

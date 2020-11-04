@@ -1,17 +1,21 @@
 import {
 	SET_ANSWERS,
 	SET_TEST,
+	SET_OPTIONS,
 	SET_CURRENT_INDEX,
 	SET_CURRENT_ANSWER,
 	SET_SHOW_RESULTS,
+	SET_IS_CLICKED,
 } from "./types";
 
 export const initialState = {
 	test: [],
+	options: [],
 	currentIndex: 0,
-	currentOption: "",
+	currentAnswer: "",
 	answers: [],
 	showResult: false,
+	isClicked: false,
 };
 
 export function testReducer(state, action) {
@@ -25,6 +29,11 @@ export function testReducer(state, action) {
 			return {
 				...state,
 				test: action.test,
+			};
+		case SET_OPTIONS:
+			return {
+				...state,
+				options: action.options,
 			};
 		case SET_CURRENT_INDEX:
 			return {
@@ -40,6 +49,11 @@ export function testReducer(state, action) {
 			return {
 				...state,
 				showResults: action.showResults,
+			};
+		case SET_IS_CLICKED:
+			return {
+				...state,
+				isClicked: action.isClicked,
 			};
 		default:
 			return state;

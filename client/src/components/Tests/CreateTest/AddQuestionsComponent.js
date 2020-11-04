@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
@@ -83,8 +84,9 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const AddQuestions = ({ testID }) => {
+const AddQuestions = ({ testID, totalQuestions }) => {
 	const classes = useStyles();
+	const history = useHistory();
 	const [openSubject, setOpenSubject] = useState(false);
 	const [openCorrect, setOpenCorrect] = useState(false);
 	const [openQuesType, setOpenQuesType] = useState(false);
@@ -102,9 +104,9 @@ const AddQuestions = ({ testID }) => {
 	// const [questionSrc, setQuestionSrc] = useState("");
 	// const [finalQuestion, setFinalQuestion] = useState("");
 	// const [crop, setCrop] = useState({});
-
-	const pushQuestion = () => {
-		if (questionType === "singleCorrect") {
+	console.log("total ", totalQuestions);
+	useEffect(() => {
+		if (questionType === "singleCorrect" && questionUrl) {
 			fetch("/add-question", {
 				method: "put",
 				headers: {
@@ -129,6 +131,7 @@ const AddQuestions = ({ testID }) => {
 						setSubject("");
 						setQuestionImg("");
 						setQuestionUrl("");
+
 						// setQuestionSrc("");
 						// setFinalQuestion("");
 					}
@@ -139,28 +142,41 @@ const AddQuestions = ({ testID }) => {
 		} else {
 			console.log("Please select valid Question Type!");
 		}
-	};
+	}, [questionUrl]);
 
-	// useEffect(pushQuestion, [questionUrl]);
+	// const pushQuestion = () => {
+	//
+	//
+	// };
 
+	// useEffect(() => pushQuestion(), [questionUrl]);
+	console.log("question no. ", questionNumber);
 	const uploadQuestion = () => {
-		console.log(questionImg);
-		const data = new FormData();
-		data.append("file", questionImg);
-		data.append("upload_preset", "question");
-		data.append("cloud_name", "rweb1");
-		fetch("https://api.cloudinary.com/v1_1/rweb1/image/upload", {
-			method: "post",
-			body: data,
-		})
-			.then((res) => res.json())
-			.then((data) => {
-				setQuestionUrl(data.secure_url);
-				pushQuestion();
+		// console.log(questionImg);
+		if (questionNumber === totalQuestions) {
+			console.log("question no. ", questionNumber);
+			alert(`${totalQuestions} of questions added!`);
+			history.push("/createtest");
+		} else if (!questionNumber || !questionType || !questionImg || !subject || !correct) {
+			console.log("Please Fill all the details");
+		} else {
+			const data = new FormData();
+			data.append("file", questionImg);
+			data.append("upload_preset", "question");
+			data.append("cloud_name", "rweb1");
+			fetch("https://api.cloudinary.com/v1_1/rweb1/image/upload", {
+				method: "post",
+				body: data,
 			})
-			.catch((err) => {
-				console.log(err);
-			});
+				.then((res) => res.json())
+				.then((data) => {
+					setQuestionUrl(data.secure_url);
+					console.log("Processing...");
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		}
 	};
 
 	const handleImageChange = (e) => {
@@ -258,10 +274,10 @@ const AddQuestions = ({ testID }) => {
 									value={correct}
 									onChange={(e) => setCorrect(e.target.value)}
 									fullWidth>
-									<MenuItem value={"0"}>1</MenuItem>
-									<MenuItem value={"1"}>2</MenuItem>
-									<MenuItem value={"2"}>3</MenuItem>
-									<MenuItem value={"3"}>4</MenuItem>
+									<MenuItem value={"a"}>A</MenuItem>
+									<MenuItem value={"b"}>B</MenuItem>
+									<MenuItem value={"c"}>C</MenuItem>
+									<MenuItem value={"d"}>D</MenuItem>
 								</Select>
 							</FormControl>
 						</div>

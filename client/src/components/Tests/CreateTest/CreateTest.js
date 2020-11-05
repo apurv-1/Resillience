@@ -4,7 +4,7 @@ import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import SaveIcon from "@material-ui/icons/Save";
-
+// import { Alert } from "@material-ui/lab";
 import AddQuestions from "./AddQuestionsComponent";
 // +import ShowTest from "./ShowTestComponent";
 
@@ -48,33 +48,39 @@ const CreateTest = () => {
 	const [testName, setTestName] = useState("");
 	const [testDuration, setTestDuration] = useState("");
 	const [noOfQuestions, setNoOfQuestions] = useState("");
+	// const [error, setError] = useState("");
 	const [check, setCheck] = useState(false);
 
 	const SaveTest = () => {
-		fetch("/addtest", {
-			method: "post",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				testId,
-				testName,
-				testDuration,
-				noOfQuestions,
-			}),
-		})
-			.then((res) => res.json())
-			.then((test) => {
-				if (test.error) {
-					console.log(test.error);
-				} else {
-					console.log("Test Created!");
-					setCheck(true);
-				}
+		if (!testId || !testName || !testDuration || !noOfQuestions) {
+			// setError("Please Fill all the fields..");
+			alert("Please Fill all the fields..");
+		} else {
+			fetch("/addtest", {
+				method: "post",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					testId,
+					testName,
+					testDuration,
+					noOfQuestions,
+				}),
 			})
-			.catch((err) => {
-				console.log(err);
-			});
+				.then((res) => res.json())
+				.then((test) => {
+					if (test.error) {
+						console.log(test.error);
+					} else {
+						console.log("Test Created!");
+						setCheck(true);
+					}
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		}
 	};
 
 	// <div className={classes.showtest}>
@@ -82,6 +88,13 @@ const CreateTest = () => {
 	// 				</div>
 	return (
 		<div className={classes.root}>
+			{/* {error ? (
+				<Alert severity="error" color="error" style={{ marginTop: "40%" }}>
+					{error}
+				</Alert>
+			) : (
+				""
+			)} */}
 			{check ? (
 				<div>
 					<div className={classes.questionsDiv}>

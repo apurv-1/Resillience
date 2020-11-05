@@ -102,7 +102,7 @@ const QuestionComponent = () => {
 
 	const handleSelect = (selectedOption) => {
 		// console.log(selectedOption);
-		// console.log(questions[currentIndex].correctOption);
+		console.log("correct: ", questions[currentIndex].correctOption);
 		const answer = { questionNo: questions[currentIndex].questionNumber, answer: selectedOption };
 		dispatch({ type: SET_CURRENT_ANSWER, currentAnswer: answer });
 	};

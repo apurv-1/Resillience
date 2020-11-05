@@ -48,7 +48,7 @@ export function testReducer(state, action) {
 		case SET_SHOW_RESULTS:
 			return {
 				...state,
-				showResults: action.showResults,
+				showResult: action.showResult,
 			};
 		case SET_IS_CLICKED:
 			return {

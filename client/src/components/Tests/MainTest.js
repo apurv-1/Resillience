@@ -10,6 +10,7 @@ import KeysComponent from "./KeysComponent";
 import QuestionComponent from "./QuestionComponent";
 import QuestionKeysComponent from "./QuestionKeysComponent";
 import TimerComponent from "./TimerComponent";
+import TestResult from "./TestResult";
 //reducers
 import TestContext from "../Context/TestContext";
 import { SET_TEST, SET_OPTIONS } from "../Reducers/types";
@@ -80,10 +81,11 @@ const MainTest = () => {
 
 	const [testId, setTestId] = useState(null);
 	const [questionLength, setQuestionLength] = useState(0);
+	// const [setShowResult, setsetShowResult] = useState(false);
 
 	const [state, dispatch] = useReducer(testReducer, initialState);
-	const { test } = state;
-
+	const { test, showResult } = state;
+	console.log(showResult);
 	const options = [
 		{
 			name: "Option A",
@@ -164,21 +166,25 @@ const MainTest = () => {
 		<div>
 			{questionLength > 0 ? (
 				<TestContext.Provider value={{ state, dispatch }}>
-					<div className={classes.root}>
-						<div>
-							<Paper elevation={5} className={classes.paper3}>
-								<TimerComponent timeRemaining={test.testDuration} />
-								<QuestionKeysComponent />
+					{showResult === false ? (
+						<div className={classes.root}>
+							<div>
+								<Paper elevation={5} className={classes.paper3}>
+									<TimerComponent timeRemaining={test.testDuration} />
+									<QuestionKeysComponent />
+								</Paper>
+							</div>
+							<Paper elevation={5} className={classes.paper1}>
+								<QuestionComponent />
+							</Paper>
+
+							<Paper elevation={5} className={classes.paper2}>
+								<KeysComponent />
 							</Paper>
 						</div>
-						<Paper elevation={5} className={classes.paper1}>
-							<QuestionComponent />
-						</Paper>
-
-						<Paper elevation={5} className={classes.paper2}>
-							<KeysComponent />
-						</Paper>
-					</div>
+					) : (
+						<TestResult />
+					)}
 				</TestContext.Provider>
 			) : (
 				fetchTestId()

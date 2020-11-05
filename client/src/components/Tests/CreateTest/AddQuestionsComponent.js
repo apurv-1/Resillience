@@ -14,6 +14,7 @@ import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 // import CropIcon from "@material-ui/icons/Crop";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
+// import { Alert } from "@material-ui/lab";
 // import "react-image-crop/dist/ReactCrop.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -101,6 +102,8 @@ const AddQuestions = ({ testID, totalQuestions }) => {
 	const [questionImg, setQuestionImg] = useState("");
 	const [questionUrl, setQuestionUrl] = useState("");
 
+	// const [error, setError] = useState("");
+
 	// const [questionSrc, setQuestionSrc] = useState("");
 	// const [finalQuestion, setFinalQuestion] = useState("");
 	// const [crop, setCrop] = useState({});
@@ -158,7 +161,9 @@ const AddQuestions = ({ testID, totalQuestions }) => {
 			alert(`${totalQuestions} of questions added!`);
 			history.push("/createtest");
 		} else if (!questionNumber || !questionType || !questionImg || !subject || !correct) {
-			console.log("Please Fill all the details");
+			// console.log("Please Fill all the details");
+			alert("Please Fill all the details");
+			// setError("Please Fill all the details");
 		} else {
 			const data = new FormData();
 			data.append("file", questionImg);
@@ -186,6 +191,13 @@ const AddQuestions = ({ testID, totalQuestions }) => {
 
 	return (
 		<div className={classes.card}>
+			{/* {error ? (
+				<Alert severity="error" color="error">
+					{error}
+				</Alert>
+			) : (
+				""
+			)} */}
 			<Paper elevation={5} className={classes.paper}>
 				<div className={classes.form}>
 					<Typography variant="h4" color="primary">

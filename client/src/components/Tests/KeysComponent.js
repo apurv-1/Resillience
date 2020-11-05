@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useContext } from "react";
+import React, { useContext } from "react";
 import { makeStyles, createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import TestContext from "../Context/TestContext";
@@ -65,6 +65,12 @@ const KeysComponent = () => {
 		});
 		return;
 	};
+	const handleSubmitTest = () => {
+		dispatch({
+			type: SET_SHOW_RESULTS,
+			showResult: true,
+		});
+	};
 
 	return (
 		<div className={classes.buttonContainer}>
@@ -107,7 +113,11 @@ const KeysComponent = () => {
 						Next Question
 					</Button>
 				)}
-				<Button variant="contained" color="secondary" className={classes.button}>
+				<Button
+					variant="contained"
+					color="secondary"
+					className={classes.button}
+					onClick={() => handleSubmitTest()}>
 					Submit Test
 				</Button>
 			</ThemeProvider>

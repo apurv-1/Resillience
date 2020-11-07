@@ -141,6 +141,7 @@ const QuestionComponent = () => {
 									name="option"
 									// className={classes.option}
 									value={value}
+									sele
 									// onSelect={() => handleSelect(value)}
 									// checked={() => isCorrect(value)}
 									onChange={() => handleSelect(value)}

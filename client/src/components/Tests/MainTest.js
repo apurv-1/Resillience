@@ -85,23 +85,27 @@ const MainTest = () => {
 
 	const [state, dispatch] = useReducer(testReducer, initialState);
 	const { test, showResult } = state;
-	console.log(showResult);
+	// console.log(showResult);
 	const options = [
 		{
 			name: "Option A",
 			value: "a",
+			selected: false,
 		},
 		{
 			name: "Option B",
 			value: "b",
+			selected: false,
 		},
 		{
 			name: "Option C",
 			value: "c",
+			selected: false,
 		},
 		{
 			name: "Option D",
 			value: "d",
+			selected: false,
 		},
 	];
 	// const [openAlert, setOpenAlert] = useState(false);
@@ -121,7 +125,7 @@ const MainTest = () => {
 				} else {
 					// setTest(test.test);
 					// setCheck(true);
-					console.log(options);
+					// console.log(options);
 					dispatch({ type: SET_TEST, test: test.test });
 					dispatch({ type: SET_OPTIONS, options: options });
 					setQuestionLength(test.test.questions.length);

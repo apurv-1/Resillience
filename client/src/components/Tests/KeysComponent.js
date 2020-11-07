@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { makeStyles, createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import TestContext from "../Context/TestContext";
@@ -41,10 +41,22 @@ const KeysComponent = () => {
 	const { test, currentIndex, currentAnswer, correctOption, answers, showResult } = state;
 	const questionLength = state.test.questions.length;
 
+	// 	const handleAnswer = () => {
+	// 		answers.push(currentAnswer);
+	// 		dispatch({ type: SET_ANSWERS, answers: answers });
+	// 		dispatch({ type: SET_CURRENT_ANSWER, currectOption: "" });
+	// 	};
+	//
+	// 	useEffect(() => {
+	// 		console.log(answers);
+	// 		// debugger;
+	// 		handleAnswer();
+	// 	}, [currentIndex]);
+
 	const next = () => {
 		// console.log(currentAnswer);
-		console.log(answers);
-		// debugger;
+		// console.log(answers);
+		// // debugger;
 		answers.push(currentAnswer);
 		dispatch({ type: SET_ANSWERS, answers: answers });
 		dispatch({ type: SET_CURRENT_ANSWER, currectOption: "" });

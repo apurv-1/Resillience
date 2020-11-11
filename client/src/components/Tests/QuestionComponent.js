@@ -1,9 +1,7 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TestContext from "../Context/TestContext";
 import { SET_CURRENT_ANSWER } from "../Reducers/types";
-// import Button from '@material-ui/core/Button';
-// import Fab from "@material-ui/core/Fab";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -24,99 +22,58 @@ const useStyles = makeStyles((theme) => ({
 		alignItems: "center",
 	},
 	optionContainer: {
-		// display: "none",
-		padding: "10px",
-		gridRowStart: "2",
+		padding: "2%",
+		marginLeft: "8%",
+		display: "flex",
+		flexDirection: "row",
 	},
-	// option: {
-	// 	display: "none",
-	// },
-
-	// label: {
-	// 	// display: "flex",
-	// 	// position: "space-around",
-	// 	cursor: "pointer",
-	// 	border: "3px solid gray",
-	// 	borderRadius: "10px",
-	// 	padding: "8px 12px",
-	// 	"&:hover": {
-	// 		borderColor: "#232127",
-	// 		backgroundColor: "#33c9dc",
-	// 	},
-	// 	"&${checked}": {
-	// 		borderColor: "#55ae95",
-	// 		backgroundColor: "#ffac8e",
-	// 		fontWeight: "500",
-	// 	},
-	// },
-	// span:{
-
-	// }
+	option: {
+		display: "none",
+	},
 	label: {
 		// display: "none",
 		// /borderColor: "black",
 		cursor: "pointer",
-		border: "3px solid gray",
+		// border: "3px solid",
 		borderRadius: "25px",
-		padding: "10px 150px",
+		padding: "10px 40px",
 		fontWeight: "bold",
+		alignContent: "center",
+		boxShadow: "0 1px 3px 1px rgba(35, 34, 39);",
 		"&:hover": {
-			borderColor: "#232127",
-			backgroundColor: "grey",
+			// border: "2px solid",
+			borderColor: "black",
+			backgroundColor: "#D2D2D2",
 		},
-		"&:selected": {
+		"&:active": {
+			borderColor: "#AAA19E",
+			backgroundColor: "#0E6195",
+		},
+		"&:checked": {
 			borderColor: "#55ae95",
-		},
-		$input: {
-			display: "none",
-
-			// "&$checked": {
-			// 	borderColor: "#55ae95",
-			// 	backgroundColor: "#ffac8e",
-			// 	fontWeight: "600",
-			// },
-			span: {
-				display: "block",
-				cursor: "point",
-				border: "1px solid #ccc",
-				borderRadius: "5px",
-				padding: "2px 5px",
-				"&:hover": {
-					borderColor: "#55ae95",
-					backgroundColor: "#6decb9",
-				},
-				"&:checked": {
-					fontWeight: "bold",
-					borderColor: "#55ae95",
-				},
-			},
+			backgroundColor: "#ffac8e",
+			fontWeight: "600",
 		},
 	},
 }));
 
 const QuestionComponent = () => {
 	const classes = useStyles();
+	// const [select, setSelect] = useState({
+	// 	backgroundColor: "#55ae95",
+	// });
 	const { state, dispatch } = useContext(TestContext);
-	const { currentIndex, options } = state;
+	const { currentIndex, options, correctAnswers } = state;
 	const questions = state.test.questions;
 
 	const handleSelect = (selectedOption) => {
-		// console.log(selectedOption);
-		console.log("correct: ", questions[currentIndex].correctOption);
-		const answer = { questionNo: questions[currentIndex].questionNumber, answer: selectedOption };
-		dispatch({ type: SET_CURRENT_ANSWER, currentAnswer: answer });
+		dispatch({ type: SET_CURRENT_ANSWER, currentAnswer: selectedOption });
 	};
-
-	// const isCorrect = (selectedOption) => {
-	// 	if(value === questions[currentIndex].correctOption){
-	//
-	// 	}
-	// }
-	// console.log(answers);
 
 	return (
 		<div>
 			<div className={classes.box}>
+				{/* Test Heading */}
 				<div className={classes.top}>
 					<span>
 						<h2>{state.test.testName}</h2>
@@ -127,23 +84,29 @@ const QuestionComponent = () => {
 				</div>
 				<hr style={{ height: "2px", backgroundColor: "gray solid" }} />
 
+				{/* Question Image */}
 				<div className={classes.question}>
 					<img alt="question" src={questions[currentIndex].questionImage} />
 					<hr style={{ height: "2px", backgroundColor: "gray solid" }} />
 				</div>
 
-				<div>
+				{/* Question Options */}
+				<div className={classes.optionContainer}>
 					{options.map(({ name, value }) => (
-						<ul className={classes.optionContainer} key={value}>
+						<ul key={value}>
 							<label className={classes.label}>
 								<input
 									type="radio"
 									name="option"
-									// className={classes.option}
+									className={classes.option}
 									value={value}
-									sele
+									// onClick={(e) => {
+									// 	e.preventDefault();
+									// 	e.target.style.color = "yellow";
+									// 	console.log(e.target);
+									// }}
 									// onSelect={() => handleSelect(value)}
-									// checked={() => isCorrect(value)}
+									checked={value === questions[currentIndex].correctOption}
 									onChange={() => handleSelect(value)}
 								/>
 								<span className={classes.span}>{name}</span>
@@ -160,23 +123,23 @@ const QuestionComponent = () => {
 
 export default QuestionComponent;
 
-// <div style={{ marginLeft: "-30%" }}>
-// 	<label className={classes.label}>
-// 		<input type="radio" name="Option A" className={classes.option} value="0" />
-// 		<span className={classes.span}>Option A</span>
-// 	</label>
-// 	<label className={classes.label}>
-// 		<input type="radio" name="Option A" className={classes.option} value="1" />
-// 		<span className={classes.span}>Option B</span>
-// 	</label>
-// </div>
-// <div>
-// 	<label className={classes.label}>
-// 		<input type="radio" name="Option A" className={classes.option} value="2" />
-// 		<span className={classes.span}>Option C</span>
-// 	</label>
-// 	<label className={classes.label}>
-// 		<input type="radio" name="Option A" className={classes.option} value="3" />
-// 		<span className={classes.span}>Option D</span>
-// 	</label>
-// </div>
+// label: {
+// 	// display: "flex",
+// 	// position: "space-around",
+// 	cursor: "pointer",
+// 	border: "3px solid gray",
+// 	borderRadius: "10px",
+// 	padding: "8px 12px",
+// 	"&:hover": {
+// 		borderColor: "#232127",
+// 		backgroundColor: "#33c9dc",
+// 	},
+// 	"&${checked}": {
+// 		borderColor: "#55ae95",
+// 		backgroundColor: "#ffac8e",
+// 		fontWeight: "500",
+// 	},
+// },
+// span:{
+
+// }

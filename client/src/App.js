@@ -184,42 +184,15 @@ const Routing = () => {
 	);
 };
 
-const App = (props) => {
-	// constructor(props) {
-	//   super(props);
-	//   this.state = {
-	//     prevDepth: this.getPathDepth(this.props.location)
-	//   };
-	// }
-
-	// UNSAFE_componentWillReceiveProps() {
-	//   this.setState({ prevDepth: this.getPathDepth(this.props.location) });
-	// }
-
-	// getPathDepth(location) {
-	//   let pathArr = location.pathname.split("/");
-	//   pathArr = pathArr.filter((n) => n !== "");
-	//   return pathArr.length;
-	// }
-
-	// const { location } = this.props;
+const App = () => {
 	const [state, dispatch] = useReducer(StudentReducer, InitialState);
-
-	// const currentKey = location.pathname.split("/")[1] || "/";
-	// const timeout = { enter: 1000, exit: 1000 };
 
 	return (
 		<Context.Provider value={{ state, dispatch }}>
 			<MuiThemeProvider theme={theme}>
 				<Suspense fallback={<LinearProgress color="secondary" style={{ paddingTop: "0.2%" }} />}>
 					<TransitionGroup component="div" className="App">
-						<div
-						// className={
-						// 	this.getPathDepth(location) - this.state.prevDepth >= 0
-						// 		? "left" //left means right to left
-						// 		: "right" //right means towards right
-						// }
-						>
+						<div>
 							<Navbar />
 							<ScrollToTop />
 							<Routing />

@@ -1,21 +1,27 @@
 import {
-	SET_ANSWERS,
+	SET_SELECTED_ANSWERS,
 	SET_TEST,
 	SET_OPTIONS,
+	SET_MARKS,
+	SET_TIMER,
 	SET_CURRENT_INDEX,
 	SET_CURRENT_ANSWER,
 	SET_SHOW_RESULTS,
-	SET_IS_CLICKED,
+	SET_IS_ATTEMPTED,
+	SET_IS_MARKED,
 } from "./types";
 
 export const initialState = {
 	test: [],
 	options: [],
 	currentIndex: 0,
+	marks: 0,
 	currentAnswer: "",
-	answers: [],
+	selectedAnswers: [],
+	timeElapsed: [],
 	showResult: false,
-	isClicked: false,
+	isAttempted: false,
+	isMarked: false,
 };
 
 export function testReducer(state, action) {
@@ -40,20 +46,35 @@ export function testReducer(state, action) {
 				...state,
 				currentIndex: action.currentIndex,
 			};
-		case SET_ANSWERS:
+		case SET_MARKS:
+			return {
+				...state,
+				marks: action.marks,
+			};
+		case SET_SELECTED_ANSWERS:
 			return {
 				...state,
 				answers: action.answers,
+			};
+		case SET_TIMER:
+			return {
+				...state,
+				timeElapsed: action.timeElapsed,
 			};
 		case SET_SHOW_RESULTS:
 			return {
 				...state,
 				showResult: action.showResult,
 			};
-		case SET_IS_CLICKED:
+		case SET_IS_ATTEMPTED:
 			return {
 				...state,
-				isClicked: action.isClicked,
+				isAttempted: action.isAttempted,
+			};
+		case SET_IS_MARKED:
+			return {
+				...state,
+				isMarked: action.isMarked,
 			};
 		default:
 			return state;

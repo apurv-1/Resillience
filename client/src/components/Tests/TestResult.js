@@ -3,33 +3,17 @@ import { makeStyles } from "@material-ui/core/styles";
 import TestContext from "../Context/TestContext";
 import { Card, CardContent, CardMedia, Typography } from "@material-ui/core";
 
-const useStyles = makeStyles((theme) => ({}));
+const useStyles = makeStyles((theme) => ({
+	root: {
+		maxWidth: "20%",
+	},
+}));
 
 const TestResult = () => {
 	const classes = useStyles();
 	const { state } = useContext(TestContext);
-	const { test, answers, showResult } = state;
+	const { test, showResult, marks } = state;
 	const questions = test.questions;
-	let marks = 0;
-
-	const calculateCorrect = () => {
-		console.log(questions);
-		// debugger;
-		// questions.map(({questionNumber,correctOption}, index)=>{
-		// 	if
-		// })
-		// for (let outer = 0; outer < questions.length; outer++) {
-		// 	for (let inner = 0; inner < answers.length; inner++) {
-		// 		if (questions[outer].questionNumber === answers[inner].questionNo) {
-		// 			if (questions[outer].correctOption === answers[inner].answer) {
-		// 				marks = marks + 1;
-		// 			}
-		// 		}
-		// 	}
-		// }
-	};
-
-	useEffect(calculateCorrect, []);
 
 	return (
 		<div>
@@ -37,12 +21,12 @@ const TestResult = () => {
 			{showResult === true && (
 				<>
 					<h3>
-						"You Scored: "{marks}/{questions.length}
+						You Scored: "{marks}/{questions.length}"
 					</h3>
 				</>
 			)}
 			{showResult === true
-				? questions.map(({ questionImage, correctOption }) => {
+				? questions.map(({ questionImage, correctOption }) => (
 						<Card className={classes.root}>
 							<CardMedia
 								component="img"
@@ -56,8 +40,8 @@ const TestResult = () => {
 									Correct Option: {correctOption}
 								</Typography>
 							</CardContent>
-						</Card>;
-				  })
+						</Card>
+				  ))
 				: "Complete the Quiz first!"}
 		</div>
 	);

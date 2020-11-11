@@ -84,8 +84,10 @@ const MainTest = () => {
 	// const [setShowResult, setsetShowResult] = useState(false);
 
 	const [state, dispatch] = useReducer(testReducer, initialState);
-	const { test, showResult } = state;
+	const { test, showResult, currentIndex } = state;
 	// console.log(showResult);
+	// debugger;
+	// console.log(test.questions[currentIndex].correctOption);
 	const options = [
 		{
 			name: "Option A",
@@ -128,6 +130,8 @@ const MainTest = () => {
 					// console.log(options);
 					dispatch({ type: SET_TEST, test: test.test });
 					dispatch({ type: SET_OPTIONS, options: options });
+					// console.log(test.test.questions[currentIndex].correctOption);
+					// dispatch({type: SET_CORRECT_ANSWERS, correctAnswers: test.test.correctOption })
 					setQuestionLength(test.test.questions.length);
 				}
 			})

@@ -63,7 +63,7 @@ const QuestionComponent = () => {
 	// 	backgroundColor: "#55ae95",
 	// });
 	const { state, dispatch } = useContext(TestContext);
-	const { currentIndex, options, correctAnswers } = state;
+	const { currentIndex, options, selectedAnswers, currentAnswer } = state;
 	const questions = state.test.questions;
 
 	const handleSelect = (selectedOption) => {
@@ -106,16 +106,19 @@ const QuestionComponent = () => {
 									// 	console.log(e.target);
 									// }}
 									// onSelect={() => handleSelect(value)}
-									checked={value === questions[currentIndex].correctOption}
+									// checked={value === questions[currentIndex].correctOption}
 									onChange={() => handleSelect(value)}
 								/>
 								<span className={classes.span}>{name}</span>
 							</label>
 						</ul>
 					))}
-
-					<hr style={{ height: "1px", backgroundColor: "gray solid" }} />
 				</div>
+				<h3>
+					<span>Select : "{currentAnswer}" </span>
+					<span> Selected : "{selectedAnswers[currentIndex]}"</span>
+				</h3>
+				<hr style={{ height: "1px", backgroundColor: "gray solid" }} />
 			</div>
 		</div>
 	);

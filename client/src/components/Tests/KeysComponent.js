@@ -44,7 +44,7 @@ const KeysComponent = () => {
 	const { test, currentIndex, timeElapsed, currentAnswer, selectedAnswers, marks } = state;
 	const questionLength = state.test.questions.length;
 	let correct = test.questions[currentIndex].correctOption;
-
+	// console.log(currentIndex);
 	useEffect(() => {
 		const timer = setTimeout(() => {
 			setTime(time + 1);
@@ -53,29 +53,17 @@ const KeysComponent = () => {
 			clearTimeout(timer);
 		};
 	});
-	// console.log(time);
 
 	const handleTimeElapsed = () => {
-		if (currentIndex) {
-			timeElapsed[currentIndex] = time;
-			console.log(timeElapsed);
-			if (timeElapsed[currentIndex]) {
-				setTime(timeElapsed[currentIndex]);
-			} else {
-				setTime(0);
-			}
-		}
+		timeElapsed[currentIndex] = time;
+		console.log(timeElapsed);
 	};
 
 	const handleAnswer = () => {
 		if (currentAnswer) {
-			// console.log("correct: ", correct);
-			// correctAnswers[currentIndex] = correct;
-			// dispatch({ type: SET_CORRECT_ANSWERS, correctAnswers: correctAnswers });
-
 			selectedAnswers[currentIndex] = currentAnswer;
 			dispatch({ type: SET_SELECTED_ANSWERS, selectedAnswers: selectedAnswers });
-			// console.log("selectd ", selectedAnswers);
+			console.log("selectd ", selectedAnswers);
 
 			dispatch({ type: SET_CURRENT_ANSWER, currectOption: "" });
 			correct = "";
@@ -95,13 +83,29 @@ const KeysComponent = () => {
 		}
 	};
 
-	useEffect(() => {
-		handleCorrectOption();
-		handleAnswer();
-		handleTimeElapsed();
-	}, [currentIndex]);
+	// 	useEffect(() => {
+	// 		handleAnswer();
+	// 		handleCorrectOption();
+	//
+	// 		// handleTimeElapsed();
+	// 	}, []);
+	//
+	// 	useEffect(() => {
+	// 		handleAnswer();
+	// 		handleCorrectOption();
+	//
+	// 		// handleTimeElapsed();
+	// 	}, [currentIndex]);
 
 	const next = () => {
+		handleAnswer();
+		handleCorrectOption();
+		handleTimeElapsed();
+		if (timeElapsed[currentIndex + 1]) {
+			setTime(timeElapsed[currentIndex + 1]);
+		} else {
+			setTime(0);
+		}
 		if (currentIndex + 1 < test.questions.length) {
 			dispatch({
 				type: SET_CURRENT_INDEX,
@@ -112,10 +116,17 @@ const KeysComponent = () => {
 	};
 
 	const previous = () => {
+		handleAnswer();
+		handleTimeElapsed();
 		dispatch({
 			type: SET_CURRENT_INDEX,
 			currentIndex: currentIndex - 1,
 		});
+		if (timeElapsed[currentIndex - 1]) {
+			setTime(timeElapsed[currentIndex - 1]);
+		} else {
+			setTime(0);
+		}
 		return;
 	};
 
@@ -164,7 +175,7 @@ const KeysComponent = () => {
 				onClick={() => next()}>
 				Next Question
 			</Button>
-			{time}
+			{/* {time} */}
 			<Button
 				variant="contained"
 				color="primary"

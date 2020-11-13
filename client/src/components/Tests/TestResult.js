@@ -5,18 +5,23 @@ import { Card, CardContent, CardMedia, Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
-		maxWidth: "20%",
+		margin: "5%",
+		marginLeft: "20%",
+		// textAlign: "center",
+	},
+	card: {
+		maxWidth: "80%",
 	},
 }));
 
 const TestResult = () => {
 	const classes = useStyles();
 	const { state } = useContext(TestContext);
-	const { test, showResult, marks } = state;
+	const { test, showResult, marks, selectedAnswers, timeElapsed } = state;
 	const questions = test.questions;
 
 	return (
-		<div>
+		<div className={classes.root}>
 			<h1>Result Section</h1>
 			{showResult === true && (
 				<>
@@ -26,20 +31,29 @@ const TestResult = () => {
 				</>
 			)}
 			{showResult === true
-				? questions.map(({ questionImage, correctOption }) => (
-						<Card className={classes.root}>
+				? questions.map(({ questionImage, correctOption }, index) => (
+						<Card className={classes.card}>
+							<hr style={{ height: "1px", backgroundColor: "gray solid" }} />
+							<Typography gutterBottom variant="h6" component="h6">
+								Question Number: {test.questions[index].questionNumber}
+							</Typography>
 							<CardMedia
 								component="img"
 								alt="Contemplative Reptile"
-								height="140"
+								// height="140"
 								image={questionImage}
-								title="Contemplative Reptile"
+								// title="Contemplative Reptile"
 							/>
 							<CardContent>
-								<Typography gutterBottom variant="h5" component="h2">
+								<Typography gutterBottom variant="h6" component="h6">
 									Correct Option: {correctOption}
+									<br />
+									Selected Option: {selectedAnswers[index]}
+									<br />
+									Time Taken: {timeElapsed[index]}s
 								</Typography>
 							</CardContent>
+							<hr style={{ height: "1px", backgroundColor: "gray solid" }} />
 						</Card>
 				  ))
 				: "Complete the Quiz first!"}

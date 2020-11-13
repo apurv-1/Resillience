@@ -56,6 +56,7 @@ const KeysComponent = () => {
 
 	const handleTimeElapsed = () => {
 		timeElapsed[currentIndex] = time;
+		dispatch({ type: SET_TIMER, timeElapsed: timeElapsed });
 		console.log(timeElapsed);
 	};
 
@@ -64,9 +65,6 @@ const KeysComponent = () => {
 			selectedAnswers[currentIndex] = currentAnswer;
 			dispatch({ type: SET_SELECTED_ANSWERS, selectedAnswers: selectedAnswers });
 			console.log("selectd ", selectedAnswers);
-
-			dispatch({ type: SET_CURRENT_ANSWER, currectOption: "" });
-			correct = "";
 		}
 	};
 
@@ -79,6 +77,8 @@ const KeysComponent = () => {
 				type: SET_MARKS,
 				marks: marks + 1,
 			});
+			dispatch({ type: SET_CURRENT_ANSWER, currentOption: "" });
+			correct = "";
 			return;
 		}
 	};
@@ -117,6 +117,7 @@ const KeysComponent = () => {
 
 	const previous = () => {
 		handleAnswer();
+		handleCorrectOption();
 		handleTimeElapsed();
 		dispatch({
 			type: SET_CURRENT_INDEX,
@@ -133,9 +134,11 @@ const KeysComponent = () => {
 	const handleSubmitTest = () => {
 		if (currentAnswer) {
 			selectedAnswers.push(currentAnswer);
+			handleCorrectOption();
 			dispatch({ type: SET_SELECTED_ANSWERS, selectedAnswers: selectedAnswers });
 			dispatch({ type: SET_CURRENT_ANSWER, currectOption: "" });
 		}
+
 		dispatch({
 			type: SET_SHOW_RESULTS,
 			showResult: true,

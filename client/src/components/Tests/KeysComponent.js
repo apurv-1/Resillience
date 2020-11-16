@@ -41,12 +41,23 @@ const KeysComponent = () => {
 	const classes = useStyles();
 	const [time, setTime] = useState(0);
 	const { state, dispatch } = useContext(TestContext);
-	const { test, currentIndex, timeElapsed, currentAnswer, selectedAnswers, marks } = state;
+	const {
+		test,
+		currentIndex,
+		timeElapsed,
+		currentAnswer,
+		selectedAnswers,
+		marks,
+		showResult,
+	} = state;
 	const questionLength = state.test.questions.length;
-	let correct = test.questions[currentIndex].correctOption;
+	// let correct = test.questions[currentIndex].correctOption;
 	// console.log(currentIndex);
 	useEffect(() => {
 		const timer = setTimeout(() => {
+			if (showResult) {
+				clearTimeout(timer);
+			}
 			setTime(time + 1);
 		}, 1000);
 		return () => {
@@ -64,24 +75,25 @@ const KeysComponent = () => {
 		if (currentAnswer) {
 			selectedAnswers[currentIndex] = currentAnswer;
 			dispatch({ type: SET_SELECTED_ANSWERS, selectedAnswers: selectedAnswers });
+			dispatch({ type: SET_CURRENT_ANSWER, currentAnswer: "" });
 			console.log("selectd ", selectedAnswers);
 		}
 	};
 
-	const handleCorrectOption = () => {
-		// console.log(correct, "false", currentAnswer);
-
-		if (currentAnswer === correct) {
-			console.log(correct, " true ", currentAnswer);
-			dispatch({
-				type: SET_MARKS,
-				marks: marks + 1,
-			});
-			dispatch({ type: SET_CURRENT_ANSWER, currentOption: "" });
-			correct = "";
-			return;
-		}
-	};
+	// 	const handleCorrectOption = () => {
+	// 		// console.log(correct, "false", currentAnswer);
+	//
+	// 		if (currentAnswer === correct) {
+	// 			console.log(correct, " true ", currentAnswer);
+	// 			dispatch({
+	// 				type: SET_MARKS,
+	// 				marks: marks + 1,
+	// 			});
+	// 			dispatch({ type: SET_CURRENT_ANSWER, currentOption: "" });
+	// 			correct = "";
+	// 			return;
+	// 		}
+	// 	};
 
 	// 	useEffect(() => {
 	// 		handleAnswer();
@@ -99,7 +111,6 @@ const KeysComponent = () => {
 
 	const next = () => {
 		handleAnswer();
-		handleCorrectOption();
 		handleTimeElapsed();
 		if (timeElapsed[currentIndex + 1]) {
 			setTime(timeElapsed[currentIndex + 1]);
@@ -117,7 +128,6 @@ const KeysComponent = () => {
 
 	const previous = () => {
 		handleAnswer();
-		handleCorrectOption();
 		handleTimeElapsed();
 		dispatch({
 			type: SET_CURRENT_INDEX,
@@ -133,12 +143,10 @@ const KeysComponent = () => {
 
 	const handleSubmitTest = () => {
 		if (currentAnswer) {
-			selectedAnswers.push(currentAnswer);
-			handleCorrectOption();
-			dispatch({ type: SET_SELECTED_ANSWERS, selectedAnswers: selectedAnswers });
-			dispatch({ type: SET_CURRENT_ANSWER, currectOption: "" });
+			handleAnswer();
 		}
-
+		timeElapsed[currentIndex] = time;
+		dispatch({ type: SET_TIMER, timeElapsed: timeElapsed });
 		dispatch({
 			type: SET_SHOW_RESULTS,
 			showResult: true,

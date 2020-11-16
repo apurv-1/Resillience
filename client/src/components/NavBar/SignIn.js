@@ -91,7 +91,7 @@ function SignIn(props) {
 	const [errors, setErrors] = useState({});
 	const [forgot, setForgot] = useState(false);
 	// const [details, setDetails] = useState("");
-
+	debugger;
 	// function handleChangeEmail(event) {
 	// 	setEmail(event.target.value);
 	// }

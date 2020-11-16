@@ -84,7 +84,7 @@ const MainTest = () => {
 	// const [setShowResult, setsetShowResult] = useState(false);
 
 	const [state, dispatch] = useReducer(testReducer, initialState);
-	const { test, showResult, currentIndex } = state;
+	const { test, showResult } = state;
 	// console.log(showResult);
 	// debugger;
 	// console.log(test.questions[currentIndex].correctOption);

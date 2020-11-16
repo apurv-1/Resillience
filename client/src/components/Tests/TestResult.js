@@ -17,14 +17,24 @@ const useStyles = makeStyles((theme) => ({
 const TestResult = () => {
 	const classes = useStyles();
 	const { state } = useContext(TestContext);
-	const { test, showResult, marks, selectedAnswers, timeElapsed } = state;
+	const { test, showResult, selectedAnswers, timeElapsed } = state;
 	const questions = test.questions;
+	let marks = 0;
+
+	const calculateMarks = () => {
+		questions.map(({ correctOption }, index) => {
+			if (correctOption === selectedAnswers[index]) {
+				marks = marks + 1;
+			}
+		});
+	};
 
 	return (
 		<div className={classes.root}>
 			<h1>Result Section</h1>
 			{showResult === true && (
 				<>
+					{calculateMarks()}
 					<h3>
 						You Scored: "{marks}/{questions.length}"
 					</h3>

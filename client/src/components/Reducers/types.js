@@ -5,9 +5,9 @@ export const SET_IS_ATTEMPTED = "SET_IS_ATTEMPTED"; //boolean
 export const SET_IS_MARKED = "SET_IS_MARKED"; //boolean
 
 export const SET_TEST = "SET_TEST";
-export const SET_OPTIONS = "SET_OPTIONS";
 
 export const SET_TIMER = "SET_TIMER";
+export const SET_CURRENT_TIME = "SET_CURRENT_TIME";
 
 export const SET_CURRENT_ANSWER = "SET_CURRENT_ANSWER";
 export const SET_SELECTED_ANSWERS = "SET_SELECTED_ANSWERS";

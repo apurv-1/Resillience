@@ -13,7 +13,7 @@ import TimerComponent from "./TimerComponent";
 import TestResult from "./TestResult";
 //reducers
 import TestContext from "../Context/TestContext";
-import { SET_TEST, SET_OPTIONS } from "../Reducers/types";
+import { SET_TEST } from "../Reducers/types";
 import { initialState, testReducer } from "../Reducers/TestReducer";
 
 const useStyles = makeStyles((theme) => ({
@@ -74,11 +74,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const MainTest = () => {
-	// const [check, setCheck] = useState(false);
-	// const [openTestId, setOpenTestId] = useState(true)
-	// const [openMainTest, setOpenMainTest] = useState(false)
-	// const [openResult, setOpenResult] = useState(false)
-
+	const classes = useStyles();
 	const [testId, setTestId] = useState(null);
 	const [questionLength, setQuestionLength] = useState(0);
 	// const [setShowResult, setsetShowResult] = useState(false);
@@ -88,28 +84,6 @@ const MainTest = () => {
 	// console.log(showResult);
 	// debugger;
 	// console.log(test.questions[currentIndex].correctOption);
-	const options = [
-		{
-			name: "Option A",
-			value: "a",
-			selected: false,
-		},
-		{
-			name: "Option B",
-			value: "b",
-			selected: false,
-		},
-		{
-			name: "Option C",
-			value: "c",
-			selected: false,
-		},
-		{
-			name: "Option D",
-			value: "d",
-			selected: false,
-		},
-	];
 	// const [openAlert, setOpenAlert] = useState(false);
 
 	const fetchTest = () => {
@@ -129,9 +103,6 @@ const MainTest = () => {
 					// setCheck(true);
 					// console.log(options);
 					dispatch({ type: SET_TEST, test: test.test });
-					dispatch({ type: SET_OPTIONS, options: options });
-					// console.log(test.test.questions[currentIndex].correctOption);
-					// dispatch({type: SET_CORRECT_ANSWERS, correctAnswers: test.test.correctOption })
 					setQuestionLength(test.test.questions.length);
 				}
 			})
@@ -169,7 +140,6 @@ const MainTest = () => {
 		);
 	};
 
-	const classes = useStyles();
 	return (
 		<div>
 			{questionLength > 0 ? (
@@ -202,27 +172,3 @@ const MainTest = () => {
 };
 
 export default MainTest;
-
-// 	<div className={classes.root}>
-// 		{check && test.questions.length > 0 ? (
-// 			<div>
-// 				<Paper elevation={5} className={classes.paper3}>
-// 					<TimerComponent timeRemaining={test.testDuration} />
-// 					<QuestionKeysComponent
-// 						test={test}
-// 						handleCurrentIndex={(questionNo) => setCurrentIndex(questionNo)}
-// 					/>
-// 				</Paper>
-// <Paper elevation={5} className={classes.paper1}>
-// 	<QuestionComponent
-// 		test={test}
-// 		currentQuestion={test.questions[currentIndex]}
-// 		currentQuestionIndex={currentIndex}
-// 		// selectedAnswer={(e) => SelectedAnswer(e)}
-// 	/>
-// </Paper>
-// 			</div>
-// 		) : (
-
-// 		)}
-// 	</div>

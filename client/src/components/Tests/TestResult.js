@@ -1,7 +1,6 @@
-import React, { useContext, useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import React, { useContext } from "react";
 import TestContext from "../Context/TestContext";
-import { Card, CardContent, CardMedia, Typography } from "@material-ui/core";
+import { makeStyles, Card, CardContent, CardMedia, Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -19,14 +18,23 @@ const TestResult = () => {
 	const { state } = useContext(TestContext);
 	const { test, showResult, selectedAnswers, timeElapsed } = state;
 	const questions = test.questions;
-	let marks = 0;
+	let marks = 0,
+		score = 0,
+		total = questions.length;
 
 	const calculateMarks = () => {
-		questions.map(({ correctOption }, index) => {
+		questions.forEach(({ correctOption }, index) => {
 			if (correctOption === selectedAnswers[index]) {
 				marks = marks + 1;
 			}
 		});
+		calculateScore();
+		return;
+	};
+	const calculateScore = () => {
+		// console.log(marks, total);
+		score = marks * 4 - (total - marks);
+		return;
 	};
 
 	return (
@@ -36,7 +44,7 @@ const TestResult = () => {
 				<>
 					{calculateMarks()}
 					<h3>
-						You Scored: "{marks}/{questions.length}"
+						You Scored: "{score}/{4 * total}"
 					</h3>
 				</>
 			)}

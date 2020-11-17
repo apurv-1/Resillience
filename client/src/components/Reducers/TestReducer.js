@@ -1,7 +1,7 @@
 import {
 	SET_SELECTED_ANSWERS,
 	SET_TEST,
-	SET_OPTIONS,
+	SET_CURRENT_TIME,
 	SET_MARKS,
 	SET_TIMER,
 	SET_CURRENT_INDEX,
@@ -13,11 +13,11 @@ import {
 
 export const initialState = {
 	test: [],
-	options: [],
 	currentIndex: 0,
 	marks: 0,
 	currentAnswer: "",
 	selectedAnswers: [],
+	currentTime: 0,
 	timeElapsed: [],
 	showResult: false,
 	isAttempted: false,
@@ -36,10 +36,10 @@ export function testReducer(state, action) {
 				...state,
 				test: action.test,
 			};
-		case SET_OPTIONS:
+		case SET_CURRENT_TIME:
 			return {
 				...state,
-				options: action.options,
+				currentTime: action.currentTime,
 			};
 		case SET_CURRENT_INDEX:
 			return {

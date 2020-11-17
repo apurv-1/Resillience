@@ -23,17 +23,16 @@ const useStyles = makeStyles((theme) => ({
 	},
 	optionContainer: {
 		padding: "2%",
-		marginLeft: "8%",
-		display: "flex",
-		flexDirection: "row",
+		// marginLeft: "8%",
+		// display: "flex",
+		// flexDirection: "row",
 	},
 	option: {
 		display: "none",
 	},
 	label: {
-		// display: "none",
-		// /borderColor: "black",
 		cursor: "pointer",
+		margin: "2%",
 		// border: "3px solid",
 		borderRadius: "25px",
 		padding: "10px 40px",
@@ -63,11 +62,15 @@ const QuestionComponent = () => {
 	// 	backgroundColor: "#55ae95",
 	// });
 	const { state, dispatch } = useContext(TestContext);
-	const { currentIndex, options, selectedAnswers, currentAnswer } = state;
+	const { currentIndex, selectedAnswers, currentAnswer } = state;
 	const questions = state.test.questions;
 
 	const handleSelect = (selectedOption) => {
 		dispatch({ type: SET_CURRENT_ANSWER, currentAnswer: selectedOption });
+	};
+	const handleDoubleClick = () => {
+		console.log("hello");
+		dispatch({ type: SET_CURRENT_ANSWER, currentAnswer: "" });
 	};
 
 	return (
@@ -92,27 +95,54 @@ const QuestionComponent = () => {
 
 				{/* Question Options */}
 				<div className={classes.optionContainer}>
-					{options.map(({ name, value }) => (
-						<ul key={value}>
-							<label className={classes.label}>
-								<input
-									type="radio"
-									name="option"
-									className={classes.option}
-									value={value}
-									// onClick={(e) => {
-									// 	e.preventDefault();
-									// 	e.target.style.color = "yellow";
-									// 	console.log(e.target);
-									// }}
-									// onSelect={() => handleSelect(value)}
-									// checked={value === questions[currentIndex].correctOption}
-									onChange={() => handleSelect(value)}
-								/>
-								<span className={classes.span}>{name}</span>
-							</label>
-						</ul>
-					))}
+					{/* {options.map(({ name, value }) => ( */}
+					<ul>
+						<label className={classes.label} onDoubleClick={() => handleDoubleClick()}>
+							<input
+								type="radio"
+								name="option"
+								className={classes.option}
+								value="a"
+								onClick={() => handleSelect("a")}
+								// onDoubleClick={() => handleDoubleClick()}
+							/>
+							<span className={classes.span}>Option A</span>
+						</label>
+						<label className={classes.label} onDoubleClick={() => handleDoubleClick()}>
+							<input
+								type="radio"
+								name="option"
+								className={classes.option}
+								value="b"
+								onClick={() => handleSelect("b")}
+								// onDoubleClick={() => handleDoubleClick()}
+							/>
+							<span className={classes.span}>Option B</span>
+						</label>
+						<label className={classes.label} onDoubleClick={() => handleDoubleClick()}>
+							<input
+								type="radio"
+								name="option"
+								className={classes.option}
+								value="c"
+								onClick={() => handleSelect("c")}
+								// onDoubleClick={() => handleDoubleClick()}
+							/>
+							<span className={classes.span}>Option C</span>
+						</label>
+						<label className={classes.label} onDoubleClick={() => handleDoubleClick()}>
+							<input
+								type="radio"
+								name="option"
+								className={classes.option}
+								value="d"
+								onClick={() => handleSelect("d")}
+								// onDoubleClick={() => handleDoubleClick()}
+							/>
+							<span className={classes.span}>Option D</span>
+						</label>
+					</ul>
+					{/* ))} */}
 				</div>
 				<h3>
 					<span>Select : "{currentAnswer}" </span>
@@ -125,24 +155,3 @@ const QuestionComponent = () => {
 };
 
 export default QuestionComponent;
-
-// label: {
-// 	// display: "flex",
-// 	// position: "space-around",
-// 	cursor: "pointer",
-// 	border: "3px solid gray",
-// 	borderRadius: "10px",
-// 	padding: "8px 12px",
-// 	"&:hover": {
-// 		borderColor: "#232127",
-// 		backgroundColor: "#33c9dc",
-// 	},
-// 	"&${checked}": {
-// 		borderColor: "#55ae95",
-// 		backgroundColor: "#ffac8e",
-// 		fontWeight: "500",
-// 	},
-// },
-// span:{
-
-// }

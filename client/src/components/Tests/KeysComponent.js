@@ -7,7 +7,7 @@ import {
 	SET_CURRENT_ANSWER,
 	SET_SELECTED_ANSWERS,
 	SET_SHOW_RESULTS,
-	SET_MARKS,
+	SET_CURRENT_TIME,
 	SET_TIMER,
 } from "../Reducers/types";
 import { blue, red } from "@material-ui/core/colors";
@@ -39,7 +39,7 @@ const theme = createMuiTheme({
 
 const KeysComponent = () => {
 	const classes = useStyles();
-	const [time, setTime] = useState(0);
+
 	const { state, dispatch } = useContext(TestContext);
 	const {
 		test,
@@ -47,12 +47,12 @@ const KeysComponent = () => {
 		timeElapsed,
 		currentAnswer,
 		selectedAnswers,
-		marks,
+		currentTime,
 		showResult,
 	} = state;
-	const questionLength = state.test.questions.length;
-	// let correct = test.questions[currentIndex].correctOption;
-	// console.log(currentIndex);
+	const questionLength = test.questions.length;
+	const [time, setTime] = useState(currentTime);
+	console.log("time", time);
 	useEffect(() => {
 		const timer = setTimeout(() => {
 			if (showResult) {
@@ -64,10 +64,23 @@ const KeysComponent = () => {
 			clearTimeout(timer);
 		};
 	});
+	/* eslint-disable */
+	useEffect(() => {
+		if (timeElapsed[currentIndex]) {
+			setTime(timeElapsed[currentIndex]);
+			timeElapsed[currentIndex] = time;
+			dispatch({ type: SET_TIMER, timeElapsed: timeElapsed });
+		} else {
+			setTime(0);
+			dispatch({ type: SET_CURRENT_TIME, currentTime: 0 });
+		}
+	}, [currentIndex]);
 
 	const handleTimeElapsed = () => {
 		timeElapsed[currentIndex] = time;
 		dispatch({ type: SET_TIMER, timeElapsed: timeElapsed });
+		dispatch({ type: SET_CURRENT_TIME, currentTime: 0 });
+		setTime(0);
 		console.log(timeElapsed);
 	};
 
@@ -79,35 +92,6 @@ const KeysComponent = () => {
 			console.log("selectd ", selectedAnswers);
 		}
 	};
-
-	// 	const handleCorrectOption = () => {
-	// 		// console.log(correct, "false", currentAnswer);
-	//
-	// 		if (currentAnswer === correct) {
-	// 			console.log(correct, " true ", currentAnswer);
-	// 			dispatch({
-	// 				type: SET_MARKS,
-	// 				marks: marks + 1,
-	// 			});
-	// 			dispatch({ type: SET_CURRENT_ANSWER, currentOption: "" });
-	// 			correct = "";
-	// 			return;
-	// 		}
-	// 	};
-
-	// 	useEffect(() => {
-	// 		handleAnswer();
-	// 		handleCorrectOption();
-	//
-	// 		// handleTimeElapsed();
-	// 	}, []);
-	//
-	// 	useEffect(() => {
-	// 		handleAnswer();
-	// 		handleCorrectOption();
-	//
-	// 		// handleTimeElapsed();
-	// 	}, [currentIndex]);
 
 	const next = () => {
 		handleAnswer();

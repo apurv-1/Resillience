@@ -12,7 +12,7 @@ import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
 import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import themeObject from "./theme";
 
-import { TransitionGroup } from "react-transition-group";
+// import { TransitionGroup } from "react-transition-group";
 import { TitleComponent } from "./components/Title/TitleComponent";
 
 import { StudentReducer, InitialState } from "./components/Reducers/Reducer";
@@ -143,6 +143,7 @@ const ErrorComponent = withTitle({
 export const Context = createContext();
 
 //routes
+/* eslint-disable */
 const Routing = () => {
 	const history = useHistory();
 	const { dispatch } = useContext(Context);
@@ -184,6 +185,7 @@ const Routing = () => {
 	);
 };
 
+/* eslint-disable */
 const App = () => {
 	const [state, dispatch] = useReducer(StudentReducer, InitialState);
 
@@ -191,14 +193,14 @@ const App = () => {
 		<Context.Provider value={{ state, dispatch }}>
 			<MuiThemeProvider theme={theme}>
 				<Suspense fallback={<LinearProgress color="secondary" style={{ paddingTop: "0.2%" }} />}>
-					<TransitionGroup component="div" className="App">
-						<div>
-							<Navbar />
-							<ScrollToTop />
-							<Routing />
-							<Footer />
-						</div>
-					</TransitionGroup>
+					{/* <TransitionGroup component="div" className="App"> */}
+					<div>
+						<Navbar />
+						<ScrollToTop />
+						<Routing />
+						<Footer />
+					</div>
+					{/* </TransitionGroup> */}
 				</Suspense>
 			</MuiThemeProvider>
 		</Context.Provider>

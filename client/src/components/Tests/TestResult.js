@@ -1,6 +1,14 @@
 import React, { useContext } from "react";
 import TestContext from "../Context/TestContext";
-import { makeStyles, Card, CardContent, CardMedia, Typography } from "@material-ui/core";
+import {
+	makeStyles,
+	Card,
+	CardContent,
+	CardMedia,
+	Typography,
+	Grid,
+	Paper,
+} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -10,6 +18,35 @@ const useStyles = makeStyles((theme) => ({
 	},
 	card: {
 		maxWidth: "80%",
+	},
+	grid: {
+		display: "flex",
+		flexDirection: "row",
+		borderColor: "blue",
+	},
+	paper: {
+		margin: "2%",
+		padding: "4%",
+		textAlign: "center",
+		border: "4px solid",
+		borderColor: "grey",
+		borderRadius: "25px",
+	},
+	correctPaper: {
+		margin: "2%",
+		padding: "4%",
+		textAlign: "center",
+		border: "4px solid",
+		borderColor: "green",
+		borderRadius: "25px",
+	},
+	WorngPaper: {
+		margin: "2%",
+		padding: "4%",
+		textAlign: "center",
+		border: "4px solid",
+		borderColor: "red",
+		borderRadius: "25px",
 	},
 }));
 
@@ -43,14 +80,40 @@ const TestResult = () => {
 			{showResult === true && (
 				<>
 					{calculateMarks()}
-					<h3>
-						You Scored: "{score}/{4 * total}"
-					</h3>
+					{/* <h3>
+						<Paper elevation={2} style={{ width: "auto" }}>
+							You Scored: {score}/{4 * total}
+						</Paper>
+					</h3> */}
+					<div>
+						<Grid className={classes.grid}>
+							<Paper className={classes.paper} elevation={5} square={true}>
+								<h2>Total Questions</h2>
+								<h1>{questions.length}</h1>
+							</Paper>
+
+							<Paper className={classes.correctPaper} elevation={5} square={true}>
+								<h2>Correct </h2>
+								<h1>{marks}</h1>
+							</Paper>
+
+							<Paper className={classes.WorngPaper} elevation={5} square={true}>
+								<h2>Wrong </h2>
+								<h1>{questions.length - marks}</h1>
+							</Paper>
+							<Paper className={classes.paper} elevation={5} square={true}>
+								<h2>You Scored </h2>
+								<h1>
+									{score}/{4 * total}
+								</h1>
+							</Paper>
+						</Grid>
+					</div>
 				</>
 			)}
 			{showResult === true
-				? questions.map(({ questionImage, correctOption }, index) => (
-						<Card className={classes.card}>
+				? questions.map(({ questionImage, correctOption, _id }, index) => (
+						<Card className={classes.card} key={_id}>
 							<hr style={{ height: "1px", backgroundColor: "gray solid" }} />
 							<Typography gutterBottom variant="h6" component="h6">
 								Question Number: {test.questions[index].questionNumber}
@@ -63,12 +126,12 @@ const TestResult = () => {
 								// title="Contemplative Reptile"
 							/>
 							<CardContent>
-								<Typography gutterBottom variant="h6" component="h6">
+								<Typography gutterBottom component="h6">
 									Correct Option: {correctOption}
 									<br />
-									Selected Option: {selectedAnswers[index]}
+									Selected Option: {selectedAnswers[index] ? selectedAnswers[index] : "Not Selected"}
 									<br />
-									Time Taken: {timeElapsed[index]}s
+									Time Taken: {timeElapsed[index] ? timeElapsed[index] : 0}s
 								</Typography>
 							</CardContent>
 							<hr style={{ height: "1px", backgroundColor: "gray solid" }} />

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TestContext from "../Context/TestContext";
 import { SET_CURRENT_ANSWER } from "../Reducers/types";
@@ -48,29 +48,64 @@ const useStyles = makeStyles((theme) => ({
 			borderColor: "#AAA19E",
 			backgroundColor: "#0E6195",
 		},
-		"&:checked": {
-			borderColor: "#55ae95",
-			backgroundColor: "#ffac8e",
-			fontWeight: "600",
-		},
+	},
+	selectedLabel: {
+		cursor: "pointer",
+		margin: "2%",
+		// border: "3px solid",
+		borderRadius: "25px",
+		padding: "10px 40px",
+		fontWeight: "bold",
+		alignContent: "center",
+		backgroundColor: "#0F7DC2",
+		boxShadow: "0 1px 3px 1px rgba(35, 34, 39);",
 	},
 }));
 
 const QuestionComponent = () => {
 	const classes = useStyles();
-	// const [select, setSelect] = useState({
-	// 	backgroundColor: "#55ae95",
-	// });
+	const [select, setSelect] = useState({
+		a: false,
+		b: false,
+		c: false,
+		d: false,
+	});
 	const { state, dispatch } = useContext(TestContext);
-	const { currentIndex, selectedAnswers, currentAnswer } = state;
+	const { currentIndex, selectedAnswers } = state;
 	const questions = state.test.questions;
 
 	const handleSelect = (selectedOption) => {
 		dispatch({ type: SET_CURRENT_ANSWER, currentAnswer: selectedOption });
+		if (selectedOption === "a") {
+			setSelect({ a: true });
+		} else if (selectedOption === "b") {
+			setSelect({ b: true });
+		} else if (selectedOption === "c") {
+			setSelect({ c: true });
+		} else {
+			setSelect({ d: true });
+		}
 	};
+	/* eslint-disable */
+	useEffect(() => {
+		// setSelect(false);
+		if (selectedAnswers[currentIndex] === "a") {
+			setSelect({ a: true });
+		} else if (selectedAnswers[currentIndex] === "b") {
+			setSelect({ b: true });
+		} else if (selectedAnswers[currentIndex] === "c") {
+			setSelect({ c: true });
+		} else if (selectedAnswers[currentIndex] === "d") {
+			setSelect({ d: true });
+		} else {
+			setSelect(false);
+		}
+	}, [currentIndex]);
+
 	const handleDoubleClick = () => {
-		console.log("hello");
 		dispatch({ type: SET_CURRENT_ANSWER, currentAnswer: "" });
+		setSelect(false);
+		console.log("hello");
 	};
 
 	return (
@@ -97,58 +132,66 @@ const QuestionComponent = () => {
 				<div className={classes.optionContainer}>
 					{/* {options.map(({ name, value }) => ( */}
 					<ul>
-						<label className={classes.label} onDoubleClick={() => handleDoubleClick()}>
+						<label
+							className={select.a ? classes.selectedLabel : classes.label}
+							onDoubleClick={() => handleDoubleClick()}>
 							<input
 								type="radio"
 								name="option"
 								className={classes.option}
 								value="a"
 								onClick={() => handleSelect("a")}
-								// onDoubleClick={() => handleDoubleClick()}
+								onDoubleClick={() => handleDoubleClick()}
 							/>
 							<span className={classes.span}>Option A</span>
 						</label>
-						<label className={classes.label} onDoubleClick={() => handleDoubleClick()}>
+						<label
+							className={select.b ? classes.selectedLabel : classes.label}
+							onDoubleClick={() => handleDoubleClick()}>
 							<input
 								type="radio"
 								name="option"
 								className={classes.option}
 								value="b"
 								onClick={() => handleSelect("b")}
-								// onDoubleClick={() => handleDoubleClick()}
+								onDoubleClick={() => handleDoubleClick()}
 							/>
 							<span className={classes.span}>Option B</span>
 						</label>
-						<label className={classes.label} onDoubleClick={() => handleDoubleClick()}>
+						<label
+							className={select.c ? classes.selectedLabel : classes.label}
+							onDoubleClick={() => handleDoubleClick()}>
 							<input
 								type="radio"
 								name="option"
 								className={classes.option}
 								value="c"
 								onClick={() => handleSelect("c")}
-								// onDoubleClick={() => handleDoubleClick()}
+								onDoubleClick={() => handleDoubleClick()}
 							/>
 							<span className={classes.span}>Option C</span>
 						</label>
-						<label className={classes.label} onDoubleClick={() => handleDoubleClick()}>
+						<label
+							className={select.d ? classes.selectedLabel : classes.label}
+							onDoubleClick={() => handleDoubleClick()}>
 							<input
 								type="radio"
 								name="option"
 								className={classes.option}
 								value="d"
 								onClick={() => handleSelect("d")}
-								// onDoubleClick={() => handleDoubleClick()}
+								onDoubleClick={() => handleDoubleClick()}
 							/>
 							<span className={classes.span}>Option D</span>
 						</label>
 					</ul>
 					{/* ))} */}
 				</div>
-				<h3>
+				{/* <h3>
 					<span>Select : "{currentAnswer}" </span>
 					<span> Selected : "{selectedAnswers[currentIndex]}"</span>
 				</h3>
-				<hr style={{ height: "1px", backgroundColor: "gray solid" }} />
+				<hr style={{ height: "1px", backgroundColor: "gray solid" }} /> */}
 			</div>
 		</div>
 	);

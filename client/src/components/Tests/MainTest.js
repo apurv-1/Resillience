@@ -15,6 +15,7 @@ import TestResult from "./TestResult";
 import TestContext from "../Context/TestContext";
 import { SET_TEST } from "../Reducers/types";
 import { initialState, testReducer } from "../Reducers/TestReducer";
+import { InitialState, StudentReducer } from "../Reducers/Reducer";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -75,13 +76,17 @@ const useStyles = makeStyles((theme) => ({
 
 const MainTest = () => {
 	const classes = useStyles();
-	const [testId, setTestId] = useState(null);
+	const [testId, setTestId] = useState("");
 	const [questionLength, setQuestionLength] = useState(0);
 	// const [setShowResult, setsetShowResult] = useState(false);
 
 	const [state, dispatch] = useReducer(testReducer, initialState);
+	const [student, setStudent] = useReducer(StudentReducer, InitialState);
 	const { test, showResult } = state;
-	// console.log(showResult);
+
+	console.log(student);
+	// console.log(state);
+	// debugger;
 	// debugger;
 	// console.log(test.questions[currentIndex].correctOption);
 	// const [openAlert, setOpenAlert] = useState(false);
@@ -99,9 +104,6 @@ const MainTest = () => {
 					// setOpenAlert(true);
 					console.log(test);
 				} else {
-					// setTest(test.test);
-					// setCheck(true);
-					// console.log(options);
 					dispatch({ type: SET_TEST, test: test.test });
 					setQuestionLength(test.test.questions.length);
 				}
@@ -113,32 +115,32 @@ const MainTest = () => {
 
 	// console.log("hello: ", test.questions);
 
-	const fetchTestId = () => {
-		return (
-			<div className={classes.startbox}>
-				<Paper elevation={5} className={classes.paper4}>
-					<div>
-						<TextField
-							id="outlined-basic"
-							label="Enter Test ID"
-							variant="outlined"
-							value={testId}
-							onChange={(e) => setTestId(e.target.value)}
-							fullWidth
-						/>
-					</div>
-					<Button
-						variant="contained"
-						color="primary"
-						// className={classes.button}
-						style={{ width: "100%", marginTop: "3%" }}
-						onClick={() => fetchTest()}>
-						Begin Test
-					</Button>
-				</Paper>
-			</div>
-		);
-	};
+	// const fetchTestId = () => {
+	// 	return (
+	// 		<div className={classes.startbox}>
+	// 			<Paper elevation={5} className={classes.paper4}>
+	// 				<div>
+	// 					<TextField
+	// 						id="outlined-basic"
+	// 						label="Enter Test ID"
+	// 						variant="outlined"
+	// 						value={testId}
+	// 						onChange={(e) => setTestId(e.target.value)}
+	// 						fullWidth
+	// 					/>
+	// 				</div>
+	// 				<Button
+	// 					variant="contained"
+	// 					color="primary"
+	// 					// className={classes.button}
+	// 					style={{ width: "100%", marginTop: "3%" }}
+	// 					onClick={() => fetchTest()}>
+	// 					Begin Test
+	// 				</Button>
+	// 			</Paper>
+	// 		</div>
+	// 	);
+	// };
 
 	return (
 		<div>
@@ -165,7 +167,28 @@ const MainTest = () => {
 					)}
 				</TestContext.Provider>
 			) : (
-				fetchTestId()
+				<div className={classes.startbox}>
+					<Paper elevation={5} className={classes.paper4}>
+						<div>
+							<TextField
+								id="outlined-basic"
+								label="Enter Test ID"
+								variant="outlined"
+								value={testId}
+								onChange={(e) => setTestId(e.target.value)}
+								fullWidth
+							/>
+						</div>
+						<Button
+							variant="contained"
+							color="primary"
+							// className={classes.button}
+							style={{ width: "100%", marginTop: "3%" }}
+							onClick={() => fetchTest()}>
+							Begin Test
+						</Button>
+					</Paper>
+				</div>
 			)}
 		</div>
 	);

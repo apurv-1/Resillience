@@ -1,9 +1,12 @@
 import React, { useContext } from "react";
 import { makeStyles, Fab } from "@material-ui/core";
-// import AccessTimeIcon from "@material-ui/icons/AccessTime";
-// import Button from '@material-ui/core/Button';
 import TestContext from "../Context/TestContext";
-import { SET_CURRENT_INDEX, SET_CURRENT_ANSWER } from "../Reducers/types";
+import {
+	SET_CURRENT_INDEX,
+	SET_CURRENT_ANSWER,
+	SET_CURRENT_TIME,
+	SET_TIMER,
+} from "../Reducers/types";
 // import Fab from "@material-ui/core/Fab";
 
 const useStyles = makeStyles(() => ({
@@ -54,17 +57,20 @@ const useStyles = makeStyles(() => ({
 const QuestionKeysComponent = () => {
 	const classes = useStyles();
 	const { state, dispatch } = useContext(TestContext);
-	// const { currentAnswer } = state;
-	const questions = state.test.questions;
+	const { test, timeElapsed, currentTime } = state;
+	const questions = test.questions;
 	// console.log(timeElapsed[currentIndex - 1]);
 	// console.log(currentIndex);
 
 	const handleCurrentIndex = (cIndex) => {
 		dispatch({ type: SET_CURRENT_ANSWER, currentAnswer: "" });
 		dispatch({ type: SET_CURRENT_INDEX, currentIndex: cIndex });
-		// if(timeElapsed[currentIndex]){
-		// 	timeElapsed[currentIndex] = timeElapsed[currentIndex] +
-		// }
+		if (timeElapsed[cIndex]) {
+			console.log(timeElapsed[cIndex]);
+			// currentTime = timeElapsed[cIndex] ;
+			// dispatch({ type: SET_TIMER, timeElapsed: timeElapsed });
+			dispatch({ type: SET_CURRENT_TIME, currentTime: timeElapsed[cIndex] });
+		}
 	};
 
 	return (

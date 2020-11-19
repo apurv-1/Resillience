@@ -20,8 +20,8 @@ export const initialState = {
 	currentTime: 0,
 	timeElapsed: [],
 	showResult: false,
-	isAttempted: false,
-	isMarked: false,
+	isAttempted: [],
+	isMarked: [],
 };
 
 export function testReducer(state, action) {

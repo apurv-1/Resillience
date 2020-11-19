@@ -7,57 +7,79 @@ import {
 	SET_CURRENT_TIME,
 	SET_TIMER,
 } from "../Reducers/types";
-// import Fab from "@material-ui/core/Fab";
 
 const useStyles = makeStyles(() => ({
-	root: {
-		marginTop: "5%",
-		paddingLeft: "60px",
-		paddingRight: "60px",
-	},
-	top: {
-		marginTop: "-5%",
-	},
-	box: {
-		padding: "10px",
-	},
-	question: {
-		height: "100%",
-		width: "200px",
-		marginTop: "2%",
-		alignItems: "center",
-	},
-	optionContainer: {
-		width: "100%",
-	},
-	option: {
-		marginLeft: "22%",
-		marginTop: "10px",
-		marginBottom: "10px",
-	},
-	buttonContainer: {
-		padding: "20px",
-	},
-	button: {
-		marginLeft: "80px",
-	},
-	fab: {
-		margin: "10px",
-	},
 	fabBox: {
 		padding: "20px",
+		margin: "10px",
+		marginLeft: "0px",
 		maxWidth: "300px",
 	},
-	timer: {
-		textAlign: "center",
-		textSizeAdjust: "90%",
+	keys: {
+		margin: "20px",
+		marginLeft: "0px",
+		width: "300px",
+	},
+	label: {
+		cursor: "pointer",
+		margin: "8px",
+		padding: "12px 18px",
+		borderRadius: "35px",
+		fontWeight: "bold",
+		boxShadow: "0 0px 4px 0px rgba(54, 114, 192);",
+		// backgroundColor: "grey",
+		"&:hover": {
+			backgroundColor: "white",
+			// boxShadow: "0 1px 3px 2px rgba(236, 236, 236);",
+		},
+	},
+	attemptedLabel: {
+		cursor: "pointer",
+		margin: "8px",
+		padding: "12px 18px",
+		borderRadius: "35px",
+		fontWeight: "bold",
+		backgroundColor: "grey",
+		boxShadow: "0 0px 4px 0px rgba(54, 114, 192);",
+		// backgroundColor: "grey",
+		"&:hover": {
+			backgroundColor: "white",
+			// boxShadow: "0 1px 3px 2px rgba(236, 236, 236);",
+		},
+	},
+	markedLabel: {
+		cursor: "pointer",
+		margin: "8px",
+		padding: "12px 18px",
+		borderRadius: "35px",
+		fontWeight: "bold",
+		boxShadow: "0 0px 4px 0px rgba(54, 114, 192);",
+		backgroundColor: "#FFAC45",
+		"&:hover": {
+			backgroundColor: "grey",
+			boxShadow: "0 1px 3px 2px rgba(236, 236, 236);",
+		},
+	},
+	currentLabel: {
+		cursor: "pointer",
+		margin: "8px",
+		padding: "12px 18px",
+		borderRadius: "35px",
+		fontWeight: "bold",
+		boxShadow: "0 0px 4px 0px rgba(54, 114, 192);",
+		backgroundColor: "#2C974B",
+		"&:hover": {
+			// backgroundColor: "grey",
+			boxShadow: "0 1px 3px 2px rgba(236, 236, 236);",
+		},
 	},
 }));
 
 const QuestionKeysComponent = () => {
 	const classes = useStyles();
 	const { state, dispatch } = useContext(TestContext);
-	const { test, timeElapsed, currentTime } = state;
+	const { test, timeElapsed, currentIndex, isAttempted, isMarked, selectedAnswers } = state;
+	// const [handleClass, setHandleClass] = useState(false);
 	const questions = test.questions;
 	// console.log(timeElapsed[currentIndex - 1]);
 	// console.log(currentIndex);
@@ -72,6 +94,7 @@ const QuestionKeysComponent = () => {
 			dispatch({ type: SET_CURRENT_TIME, currentTime: timeElapsed[cIndex] });
 		}
 	};
+	console.log(isMarked);
 
 	return (
 		<div>
@@ -79,17 +102,23 @@ const QuestionKeysComponent = () => {
 				<hr style={{ height: "2px", backgroundColor: "gray solid" }} />
 				<b>Questions Overview: </b>
 
-				<div>
+				<div className={classes.keys}>
 					{questions.length &&
 						questions.map(({ questionNumber, _id }, index) => (
-							<Fab
-								size="medium"
-								color="primary"
+							<label
 								key={_id}
-								className={classes.fab}
+								className={
+									currentIndex === index
+										? classes.currentLabel
+										: // : isMarked[currentIndex] === false
+										// ? classes.markedLabel
+										selectedAnswers[index]
+										? classes.attemptedLabel
+										: classes.label
+								}
 								onClick={() => handleCurrentIndex(index)}>
 								{questionNumber}
-							</Fab>
+							</label>
 						))}
 				</div>
 				<hr style={{ height: "2px", backgroundColor: "gray solid" }} />

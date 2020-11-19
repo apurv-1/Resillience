@@ -9,6 +9,8 @@ import {
 	SET_SHOW_RESULTS,
 	SET_CURRENT_TIME,
 	SET_TIMER,
+	SET_IS_ATTEMPTED,
+	SET_IS_MARKED,
 } from "../Reducers/types";
 import { blue, red } from "@material-ui/core/colors";
 
@@ -49,10 +51,13 @@ const KeysComponent = () => {
 		selectedAnswers,
 		currentTime,
 		showResult,
+		isAttempted = false,
+		isMarked = true,
 	} = state;
 	const questionLength = test.questions.length;
 	const [time, setTime] = useState(currentTime);
-	console.log("time", time);
+	// console.log("time", isAttempted);
+
 	useEffect(() => {
 		const timer = setTimeout(() => {
 			if (showResult) {
@@ -66,6 +71,11 @@ const KeysComponent = () => {
 	});
 	/* eslint-disable */
 	useEffect(() => {
+		isAttempted[currentIndex] = true;
+		dispatch({ type: SET_IS_ATTEMPTED, isAttempted: isAttempted });
+
+		// handleAnswer();
+
 		if (timeElapsed[currentIndex]) {
 			setTime(timeElapsed[currentIndex]);
 			timeElapsed[currentIndex] = time;
@@ -92,10 +102,14 @@ const KeysComponent = () => {
 			console.log("selectd ", selectedAnswers);
 		}
 	};
-
+	// console.log("selectd ", isMarked);
 	const next = () => {
 		handleAnswer();
 		handleTimeElapsed();
+
+		(isAttempted[currentIndex] = true),
+			dispatch({ type: SET_IS_ATTEMPTED, isAttempted: isAttempted });
+
 		if (timeElapsed[currentIndex + 1]) {
 			setTime(timeElapsed[currentIndex + 1]);
 		} else {
@@ -137,6 +151,11 @@ const KeysComponent = () => {
 		});
 	};
 
+	const marked = () => {
+		isMarked[currentIndex] = false;
+		dispatch({ type: SET_IS_MARKED, isMarked: isMarked });
+	};
+
 	return (
 		<div className={classes.buttonContainer}>
 			<ThemeProvider theme={theme}>
@@ -158,7 +177,7 @@ const KeysComponent = () => {
 				Previous Question
 			</Button>
 
-			<Button variant="contained" color="primary" className={classes.button}>
+			<Button variant="contained" color="primary" className={classes.button} onClick={() => marked()}>
 				Mark for Review
 			</Button>
 

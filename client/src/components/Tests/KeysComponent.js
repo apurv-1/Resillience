@@ -56,7 +56,7 @@ const KeysComponent = () => {
 	} = state;
 	const questionLength = test.questions.length;
 	const [time, setTime] = useState(currentTime);
-	// console.log("time", isAttempted);
+	console.log("time", time);
 
 	useEffect(() => {
 		const timer = setTimeout(() => {
@@ -78,12 +78,12 @@ const KeysComponent = () => {
 
 		if (timeElapsed[currentIndex]) {
 			setTime(timeElapsed[currentIndex]);
-			timeElapsed[currentIndex] = time;
-			dispatch({ type: SET_TIMER, timeElapsed: timeElapsed });
 		} else {
 			setTime(0);
 			dispatch({ type: SET_CURRENT_TIME, currentTime: 0 });
 		}
+		// timeElapsed[currentIndex] = time;
+		// dispatch({ type: SET_TIMER, timeElapsed: timeElapsed });
 	}, [currentIndex]);
 
 	const handleTimeElapsed = () => {
@@ -163,7 +163,8 @@ const KeysComponent = () => {
 					variant="contained"
 					color="primary"
 					className={classes.button}
-					style={{ marginLeft: "-10px" }}>
+					style={{ marginLeft: "-10px" }}
+					onClick={() => handleSubmitTest()}>
 					End Test
 				</Button>
 			</ThemeProvider>

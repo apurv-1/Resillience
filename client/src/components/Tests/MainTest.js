@@ -15,7 +15,7 @@ import TestResult from "./TestResult";
 import TestContext from "../Context/TestContext";
 import { SET_TEST } from "../Reducers/types";
 import { initialState, testReducer } from "../Reducers/TestReducer";
-import { InitialState, StudentReducer } from "../Reducers/Reducer";
+// import { InitialState, StudentReducer } from "../Reducers/Reducer";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -81,10 +81,10 @@ const MainTest = () => {
 	// const [setShowResult, setsetShowResult] = useState(false);
 
 	const [state, dispatch] = useReducer(testReducer, initialState);
-	const [student, setStudent] = useReducer(StudentReducer, InitialState);
+	// const [student, setStudent] = useReducer(StudentReducer, InitialState);
 	const { test, showResult } = state;
 
-	console.log(student);
+	// console.log(student);
 	// console.log(state);
 	// debugger;
 	// debugger;

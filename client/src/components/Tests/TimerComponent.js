@@ -1,7 +1,9 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useContext } from "react";
 // import {useHistory} from 'react-router-dom';
 import { makeStyles } from "@material-ui/core/styles";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
+import { SET_SHOW_RESULTS } from "../Reducers/types";
+import TestContext from "../Context/TestContext";
 
 const useStyles = makeStyles(() => ({
 	root: {
@@ -19,6 +21,7 @@ const TimerComponent = ({ timeRemaining }) => {
 	const [testDuration, setTestDuration] = useState(timeRemaining);
 	const [timeMins, setTimeMins] = useState("00");
 	const [timeSeconds, setTimeSeconds] = useState("00");
+	const { dispatch } = useContext(TestContext);
 	let interval = useRef();
 
 	const startTimer = () => {
@@ -41,6 +44,10 @@ const TimerComponent = ({ timeRemaining }) => {
 				setTimeMins("00");
 				setTimeSeconds("00");
 				alert("Times up!!");
+				dispatch({
+					type: SET_SHOW_RESULTS,
+					showResult: true,
+				});
 				// history.push('/')
 			} else {
 				//update timer

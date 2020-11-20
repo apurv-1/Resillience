@@ -73,9 +73,6 @@ const KeysComponent = () => {
 	useEffect(() => {
 		isAttempted[currentIndex] = true;
 		dispatch({ type: SET_IS_ATTEMPTED, isAttempted: isAttempted });
-
-		// handleAnswer();
-
 		if (timeElapsed[currentIndex]) {
 			setTime(timeElapsed[currentIndex]);
 		} else {
@@ -107,8 +104,8 @@ const KeysComponent = () => {
 		handleAnswer();
 		handleTimeElapsed();
 
-		(isAttempted[currentIndex] = true),
-			dispatch({ type: SET_IS_ATTEMPTED, isAttempted: isAttempted });
+		isAttempted[currentIndex] = true;
+		dispatch({ type: SET_IS_ATTEMPTED, isAttempted: isAttempted });
 
 		if (timeElapsed[currentIndex + 1]) {
 			setTime(timeElapsed[currentIndex + 1]);

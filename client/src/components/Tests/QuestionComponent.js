@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TestContext from "../Context/TestContext";
-import { SET_CURRENT_ANSWER } from "../Reducers/types";
+import { SET_CURRENT_ANSWER, SET_SELECTED_ANSWERS } from "../Reducers/types";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -104,6 +104,8 @@ const QuestionComponent = () => {
 
 	const handleDoubleClick = () => {
 		dispatch({ type: SET_CURRENT_ANSWER, currentAnswer: "" });
+		selectedAnswers[currentIndex] = "";
+		dispatch({ type: SET_SELECTED_ANSWERS, selectedAnswers: selectedAnswers });
 		setSelect(false);
 		console.log("hello");
 	};

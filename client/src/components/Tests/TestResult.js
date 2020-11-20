@@ -55,14 +55,16 @@ const TestResult = () => {
 	const { state } = useContext(TestContext);
 	const { test, showResult, selectedAnswers, timeElapsed } = state;
 	const questions = test.questions;
-	let marks = 0,
-		score = 0,
-		total = questions.length;
+	let score = 0,
+		total = questions.length,
+		// attempted = 0,
+		correct = 0,
+		wrong = 0;
 
 	const calculateMarks = () => {
 		questions.forEach(({ correctOption }, index) => {
-			if (correctOption === selectedAnswers[index]) {
-				marks = marks + 1;
+			if (selectedAnswers[index]) {
+				correctOption === selectedAnswers[index] ? (correct = correct + 1) : (wrong = wrong + 1);
 			}
 		});
 		calculateScore();
@@ -70,7 +72,7 @@ const TestResult = () => {
 	};
 	const calculateScore = () => {
 		// console.log(marks, total);
-		score = marks * 4 - (total - marks);
+		score = correct * 4 - wrong;
 		return;
 	};
 
@@ -94,12 +96,12 @@ const TestResult = () => {
 
 							<Paper className={classes.correctPaper} elevation={5} square={true}>
 								<h2>Correct </h2>
-								<h1>{marks}</h1>
+								<h1>{correct}</h1>
 							</Paper>
 
 							<Paper className={classes.WorngPaper} elevation={5} square={true}>
 								<h2>Wrong </h2>
-								<h1>{questions.length - marks}</h1>
+								<h1>{wrong}</h1>
 							</Paper>
 							<Paper className={classes.paper} elevation={5} square={true}>
 								<h2>You Scored </h2>

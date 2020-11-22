@@ -9,6 +9,7 @@ import {
 	Grid,
 	Paper,
 } from "@material-ui/core";
+import Confetti from "react-confetti";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -55,6 +56,7 @@ const TestResult = () => {
 	const { state } = useContext(TestContext);
 	const { test, showResult, selectedAnswers, timeElapsed } = state;
 	const questions = test.questions;
+
 	let score = 0,
 		total = questions.length,
 		// attempted = 0,
@@ -66,10 +68,13 @@ const TestResult = () => {
 			if (selectedAnswers[index]) {
 				correctOption === selectedAnswers[index] ? (correct = correct + 1) : (wrong = wrong + 1);
 			}
+			// setMarksPieData({ data: correct });
 		});
+		// setMarksPieData({ data: score });
 		calculateScore();
 		return;
 	};
+
 	const calculateScore = () => {
 		// console.log(marks, total);
 		score = correct * 4 - wrong;
@@ -79,8 +84,10 @@ const TestResult = () => {
 	return (
 		<div className={classes.root}>
 			<h1>Result Section</h1>
+
 			{showResult === true && (
 				<>
+					<Confetti numberOfPieces={50} />
 					{calculateMarks()}
 					{/* <h3>
 						<Paper elevation={2} style={{ width: "auto" }}>
@@ -113,6 +120,7 @@ const TestResult = () => {
 					</div>
 				</>
 			)}
+
 			{showResult === true
 				? questions.map(({ questionImage, correctOption, _id }, index) => (
 						<Card className={classes.card} key={_id}>

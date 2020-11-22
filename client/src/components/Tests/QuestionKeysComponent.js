@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { makeStyles, Fab } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 import TestContext from "../Context/TestContext";
 import {
 	SET_CURRENT_INDEX,
@@ -21,7 +21,7 @@ const useStyles = makeStyles(() => ({
 		height: "60%",
 		// width: "300px",
 		// minHeight: "60%",
-		overflowY: "auto",
+		// overflowY: "auto",
 	},
 	label: {
 		cursor: "pointer",
@@ -82,7 +82,7 @@ const useStyles = makeStyles(() => ({
 const QuestionKeysComponent = () => {
 	const classes = useStyles();
 	const { state, dispatch } = useContext(TestContext);
-	const { test, timeElapsed, currentIndex, isAttempted, isMarked, selectedAnswers } = state;
+	const { test, timeElapsed, currentIndex, isMarked, selectedAnswers } = state;
 	// const [handleClass, setHandleClass] = useState(false);
 	const questions = test.questions;
 	// console.log(timeElapsed[currentIndex - 1]);

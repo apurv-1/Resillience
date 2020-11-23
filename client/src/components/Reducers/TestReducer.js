@@ -9,6 +9,7 @@ import {
 	SET_SHOW_RESULTS,
 	SET_IS_ATTEMPTED,
 	SET_IS_MARKED,
+	SET_INCREMENT_TIME,
 } from "./types";
 
 export const initialState = {
@@ -35,6 +36,8 @@ export function testReducer(state, action) {
 			return {
 				...state,
 				test: action.test,
+				timeElapsed: new Array(action.test.questions.length).fill(0),
+				isMarked: new Array(action.test.questions.length).fill(false),
 			};
 		case SET_CURRENT_TIME:
 			return {
@@ -75,6 +78,13 @@ export function testReducer(state, action) {
 			return {
 				...state,
 				isMarked: action.isMarked,
+			};
+		case SET_INCREMENT_TIME:
+			return {
+				...state,
+				timeElapsed: Object.assign([], state.timeElapsed, {
+					[state.currentIndex]: state.timeElapsed[state.currentIndex] + 1,
+				}),
 			};
 		default:
 			return state;

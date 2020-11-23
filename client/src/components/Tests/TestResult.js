@@ -57,6 +57,8 @@ const TestResult = () => {
 	const { test, showResult, selectedAnswers, timeElapsed } = state;
 	const questions = test.questions;
 
+	// const timePerQuestion = test.testDuration / (questions.length * 1000);
+	// console.log(timePerQuestion);
 	let score = 0,
 		total = questions.length,
 		// attempted = 0,

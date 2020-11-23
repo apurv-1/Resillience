@@ -7,10 +7,7 @@ import TestContext from "../Context/TestContext";
 
 const useStyles = makeStyles(() => ({
 	root: {
-		// margin: "4%",
 		marginTop: "5%",
-		// maxWidth:"70%",
-		// maxHeight:"100%",
 		paddingLeft: "60px",
 		paddingRight: "60px",
 	},

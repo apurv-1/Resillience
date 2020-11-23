@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { makeStyles, createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import TestContext from "../Context/TestContext";
@@ -7,17 +7,15 @@ import {
 	SET_CURRENT_ANSWER,
 	SET_SELECTED_ANSWERS,
 	SET_SHOW_RESULTS,
-	SET_CURRENT_TIME,
-	SET_TIMER,
 	SET_IS_ATTEMPTED,
 	SET_IS_MARKED,
+	SET_INCREMENT_TIME,
 } from "../Reducers/types";
 import { blue, red } from "@material-ui/core/colors";
 
 const useStyles = makeStyles((theme) => ({
 	buttonContainer: {
 		padding: "1%",
-		// backfaceVisibility: "hidden",
 	},
 	button: {
 		margin: "2.5%",
@@ -49,47 +47,38 @@ const KeysComponent = () => {
 		timeElapsed,
 		currentAnswer,
 		selectedAnswers,
-		currentTime,
 		showResult,
 		isAttempted = false,
-		isMarked = true,
+		isMarked,
 	} = state;
 	const questionLength = test.questions.length;
-	const [time, setTime] = useState(currentTime);
-	console.log("time", time);
+	// const [time, setTime] = useState(timeElapsed);
+
+	console.log("time", isMarked);
 
 	useEffect(() => {
 		const timer = setTimeout(() => {
 			if (showResult) {
 				clearTimeout(timer);
 			}
-			setTime(time + 1);
+			dispatch({ type: SET_INCREMENT_TIME });
 		}, 1000);
 		return () => {
 			clearTimeout(timer);
 		};
 	});
-	/* eslint-disable */
-	useEffect(() => {
-		isAttempted[currentIndex] = true;
-		dispatch({ type: SET_IS_ATTEMPTED, isAttempted: isAttempted });
-		if (timeElapsed[currentIndex]) {
-			setTime(timeElapsed[currentIndex]);
-		} else {
-			setTime(0);
-			dispatch({ type: SET_CURRENT_TIME, currentTime: 0 });
-		}
-		// timeElapsed[currentIndex] = time;
-		// dispatch({ type: SET_TIMER, timeElapsed: timeElapsed });
-	}, [currentIndex]);
+	console.log(currentIndex, timeElapsed);
+	// /* eslint-disable */
 
-	const handleTimeElapsed = () => {
-		timeElapsed[currentIndex] = time;
-		dispatch({ type: SET_TIMER, timeElapsed: timeElapsed });
-		dispatch({ type: SET_CURRENT_TIME, currentTime: 0 });
-		setTime(0);
-		console.log(timeElapsed);
-	};
+	// const handleTimeElapsed = () => {
+	// 	// if (timeElapsed[time]) {
+	// 	// }
+	// 	timeElapsed[currentIndex] = time;
+	// 	dispatch({ type: SET_TIMER, timeElapsed: timeElapsed });
+	// 	dispatch({ type: SET_CURRENT_TIME, currentTime: 0 });
+	// 	setTime(0);
+	// 	console.log(timeElapsed);
+	// };
 
 	const handleAnswer = () => {
 		if (currentAnswer) {
@@ -102,16 +91,9 @@ const KeysComponent = () => {
 	// console.log("selectd ", isMarked);
 	const next = () => {
 		handleAnswer();
-		handleTimeElapsed();
-
 		isAttempted[currentIndex] = true;
 		dispatch({ type: SET_IS_ATTEMPTED, isAttempted: isAttempted });
 
-		if (timeElapsed[currentIndex + 1]) {
-			setTime(timeElapsed[currentIndex + 1]);
-		} else {
-			setTime(0);
-		}
 		if (currentIndex + 1 < test.questions.length) {
 			dispatch({
 				type: SET_CURRENT_INDEX,
@@ -123,16 +105,10 @@ const KeysComponent = () => {
 
 	const previous = () => {
 		handleAnswer();
-		handleTimeElapsed();
 		dispatch({
 			type: SET_CURRENT_INDEX,
 			currentIndex: currentIndex - 1,
 		});
-		if (timeElapsed[currentIndex - 1]) {
-			setTime(timeElapsed[currentIndex - 1]);
-		} else {
-			setTime(0);
-		}
 		return;
 	};
 
@@ -140,8 +116,6 @@ const KeysComponent = () => {
 		if (currentAnswer) {
 			handleAnswer();
 		}
-		timeElapsed[currentIndex] = time;
-		dispatch({ type: SET_TIMER, timeElapsed: timeElapsed });
 		dispatch({
 			type: SET_SHOW_RESULTS,
 			showResult: true,
@@ -149,7 +123,7 @@ const KeysComponent = () => {
 	};
 
 	const marked = () => {
-		isMarked[currentIndex] = false;
+		isMarked[currentIndex] = true;
 		dispatch({ type: SET_IS_MARKED, isMarked: isMarked });
 	};
 

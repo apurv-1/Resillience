@@ -5,6 +5,7 @@ import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
 // import Alert from "@material-ui/lab/Alert";
 // import Typography from "@material-ui/core/Typography";
+// import Loading from "./Loading";
 //Components
 import KeysComponent from "./KeysComponent";
 import QuestionComponent from "./QuestionComponent";
@@ -78,6 +79,7 @@ const MainTest = () => {
 	const classes = useStyles();
 	const [testId, setTestId] = useState("");
 	const [questionLength, setQuestionLength] = useState(0);
+	// const [loading, setLoading] = useState(false);
 	// const [setShowResult, setsetShowResult] = useState(false);
 
 	const [state, dispatch] = useReducer(testReducer, initialState);

@@ -48,7 +48,6 @@ const useStyles = makeStyles(() => ({
 		// backgroundColor: "grey",
 		"&:hover": {
 			backgroundColor: "white",
-			// boxShadow: "0 1px 3px 2px rgba(236, 236, 236);",
 		},
 	},
 	markedLabel: {
@@ -64,6 +63,19 @@ const useStyles = makeStyles(() => ({
 			boxShadow: "0 1px 3px 2px rgba(236, 236, 236);",
 		},
 	},
+	markedSelectedLabel: {
+		cursor: "pointer",
+		margin: "8px",
+		padding: "12px 18px",
+		borderRadius: "35px",
+		fontWeight: "bold",
+		boxShadow: "0 0px 4px 0px rgba(54, 114, 192);",
+		backgroundColor: "green",
+		"&:hover": {
+			backgroundColor: "grey",
+			boxShadow: "0 1px 3px 2px rgba(236, 236, 236);",
+		},
+	},
 	currentLabel: {
 		cursor: "pointer",
 		margin: "8px",
@@ -71,7 +83,7 @@ const useStyles = makeStyles(() => ({
 		borderRadius: "35px",
 		fontWeight: "bold",
 		boxShadow: "0 0px 4px 0px rgba(54, 114, 192);",
-		backgroundColor: "#2C974B",
+		backgroundColor: "#0C659D",
 		"&:hover": {
 			// backgroundColor: "grey",
 			boxShadow: "0 1px 3px 2px rgba(236, 236, 236);",
@@ -98,7 +110,7 @@ const QuestionKeysComponent = () => {
 			dispatch({ type: SET_CURRENT_TIME, currentTime: timeElapsed[cIndex] });
 		}
 	};
-	console.log(isMarked);
+	// console.log(isMarked);
 
 	return (
 		<div>
@@ -114,11 +126,16 @@ const QuestionKeysComponent = () => {
 								className={
 									currentIndex === index
 										? classes.currentLabel
-										: // : isMarked[currentIndex] === false
-										// ? classes.markedLabel
-										selectedAnswers[index]
+										: isMarked[index]
+										? classes.markedLabel
+										: selectedAnswers[index]
+										? isMarked[index] === true
+											? classes.markedSelectedLabel
+											: classes.attemptedLabel
+										: selectedAnswers[index]
 										? classes.attemptedLabel
 										: classes.label
+									// : classes.label
 								}
 								onClick={() => handleCurrentIndex(index)}>
 								{questionNumber}

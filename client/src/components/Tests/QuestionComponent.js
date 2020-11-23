@@ -23,9 +23,6 @@ const useStyles = makeStyles((theme) => ({
 	},
 	optionContainer: {
 		padding: "2%",
-		// marginLeft: "8%",
-		// display: "flex",
-		// flexDirection: "row",
 	},
 	option: {
 		display: "none",
@@ -33,14 +30,12 @@ const useStyles = makeStyles((theme) => ({
 	label: {
 		cursor: "pointer",
 		margin: "2%",
-		// border: "3px solid",
 		borderRadius: "25px",
 		padding: "10px 40px",
 		fontWeight: "bold",
 		alignContent: "center",
 		boxShadow: "0 1px 3px 1px rgba(35, 34, 39);",
 		"&:hover": {
-			// border: "2px solid",
 			borderColor: "black",
 			backgroundColor: "#D2D2D2",
 		},
@@ -52,7 +47,6 @@ const useStyles = makeStyles((theme) => ({
 	selectedLabel: {
 		cursor: "pointer",
 		margin: "2%",
-		// border: "3px solid",
 		borderRadius: "25px",
 		padding: "10px 40px",
 		fontWeight: "bold",
@@ -88,7 +82,6 @@ const QuestionComponent = () => {
 	};
 	/* eslint-disable */
 	useEffect(() => {
-		// setSelect(false);
 		if (selectedAnswers[currentIndex] === "a") {
 			setSelect({ a: true });
 		} else if (selectedAnswers[currentIndex] === "b") {
@@ -107,7 +100,7 @@ const QuestionComponent = () => {
 		selectedAnswers[currentIndex] = "";
 		dispatch({ type: SET_SELECTED_ANSWERS, selectedAnswers: selectedAnswers });
 		setSelect(false);
-		console.log("hello");
+		// console.log("hello");
 	};
 
 	return (
@@ -132,7 +125,6 @@ const QuestionComponent = () => {
 
 				{/* Question Options */}
 				<div className={classes.optionContainer}>
-					{/* {options.map(({ name, value }) => ( */}
 					<ul>
 						<label
 							className={select.a ? classes.selectedLabel : classes.label}
@@ -187,13 +179,7 @@ const QuestionComponent = () => {
 							<span className={classes.span}>Option D</span>
 						</label>
 					</ul>
-					{/* ))} */}
 				</div>
-				{/* <h3>
-					<span>Select : "{currentAnswer}" </span>
-					<span> Selected : "{selectedAnswers[currentIndex]}"</span>
-				</h3>
-				<hr style={{ height: "1px", backgroundColor: "gray solid" }} /> */}
 			</div>
 		</div>
 	);

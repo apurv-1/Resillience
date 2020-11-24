@@ -19,9 +19,6 @@ const useStyles = makeStyles(() => ({
 		margin: "20px",
 		marginLeft: "0px",
 		height: "60%",
-		// width: "300px",
-		// minHeight: "60%",
-		// overflowY: "auto",
 	},
 	label: {
 		cursor: "pointer",
@@ -31,10 +28,8 @@ const useStyles = makeStyles(() => ({
 		fontWeight: "bold",
 		boxShadow: "0 0px 4px 0px rgba(54, 114, 192);",
 		overflowY: "auto",
-		// backgroundColor: "grey",
 		"&:hover": {
 			backgroundColor: "white",
-			// boxShadow: "0 1px 3px 2px rgba(236, 236, 236);",
 		},
 	},
 	attemptedLabel: {
@@ -83,7 +78,7 @@ const useStyles = makeStyles(() => ({
 		borderRadius: "35px",
 		fontWeight: "bold",
 		boxShadow: "0 0px 4px 0px rgba(54, 114, 192);",
-		backgroundColor: "#0C659D",
+		backgroundColor: "#0F7DC2",
 		"&:hover": {
 			// backgroundColor: "grey",
 			boxShadow: "0 1px 3px 2px rgba(236, 236, 236);",
@@ -98,7 +93,7 @@ const QuestionKeysComponent = () => {
 	// const [handleClass, setHandleClass] = useState(false);
 	const questions = test.questions;
 	// console.log(timeElapsed[currentIndex - 1]);
-	// console.log(currentIndex);
+	// console.log(questions);
 
 	const handleCurrentIndex = (cIndex) => {
 		dispatch({ type: SET_CURRENT_ANSWER, currentAnswer: "" });
@@ -119,28 +114,95 @@ const QuestionKeysComponent = () => {
 				<b>Questions Overview: </b>
 
 				<div className={classes.keys}>
+					{/* <b>Physics : </b>
+					<br /> */}
 					{questions.length &&
-						questions.map(({ questionNumber, _id }, index) => (
-							<label
-								key={_id}
-								className={
-									currentIndex === index
-										? classes.currentLabel
-										: isMarked[index]
-										? classes.markedLabel
-										: selectedAnswers[index]
-										? isMarked[index] === true
-											? classes.markedSelectedLabel
-											: classes.attemptedLabel
-										: selectedAnswers[index]
-										? classes.attemptedLabel
-										: classes.label
-									// : classes.label
-								}
-								onClick={() => handleCurrentIndex(index)}>
-								{questionNumber}
-							</label>
-						))}
+						questions.map(
+							({ questionNumber, _id, subject }, index) => (
+								// subject === "Physics" && (
+								<label
+									key={_id}
+									className={
+										currentIndex === index
+											? isMarked[index]
+												? classes.markedLabel
+												: classes.currentLabel
+											: selectedAnswers[index]
+											? isMarked[index] === true
+												? classes.markedSelectedLabel
+												: classes.attemptedLabel
+											: selectedAnswers[index]
+											? classes.attemptedLabel
+											: isMarked[index] === true
+											? classes.markedLabel
+											: classes.label
+										// : classes.label
+									}
+									onClick={() => handleCurrentIndex(index)}>
+									{questionNumber}
+								</label>
+							)
+							// )
+							// 	)}
+							// <br />
+							// <b>Chemistry : </b>
+							// <br />
+							// {questions.length &&
+							// 	questions.map(
+							// 		({ questionNumber, _id, subject }, index) =>
+							// 			subject === "Chemistry" && (
+							// 				<label
+							// 					key={_id}
+							// 					className={
+							// 						currentIndex === index
+							// 							? isMarked[index]
+							// 								? classes.markedLabel
+							// 								: classes.currentLabel
+							// 							: selectedAnswers[index]
+							// 							? isMarked[index] === true
+							// 								? classes.markedSelectedLabel
+							// 								: classes.attemptedLabel
+							// 							: selectedAnswers[index]
+							// 							? classes.attemptedLabel
+							// 							: isMarked[index] === true
+							// 							? classes.markedLabel
+							// 							: classes.label
+							// 					}
+							// 					onClick={() => handleCurrentIndex(index)}>
+							// 					{questionNumber}
+							// 				</label>
+							// 			)
+							// 	)}
+							// <br />
+							// <b>Maths : </b>
+							// <br />
+							// {questions.length &&
+							// 	questions.map(
+							// 		({ questionNumber, _id, subject }, index) =>
+							// 			subject === "Maths" && (
+							// 				<label
+							// 					key={_id}
+							// 					className={
+							// 						currentIndex === index
+							// 							? isMarked[index]
+							// 								? classes.markedLabel
+							// 								: classes.currentLabel
+							// 							: selectedAnswers[index]
+							// 							? isMarked[index] === true
+							// 								? classes.markedSelectedLabel
+							// 								: classes.attemptedLabel
+							// 							: selectedAnswers[index]
+							// 							? classes.attemptedLabel
+							// 							: isMarked[index] === true
+							// 							? classes.markedLabel
+							// 							: classes.label
+							// 						// : classes.label
+							// 					}
+							// 					onClick={() => handleCurrentIndex(index)}>
+							// 					{questionNumber}
+							// 				</label>
+							// 			)
+						)}
 				</div>
 				<hr style={{ height: "2px", backgroundColor: "gray solid" }} />
 			</div>

@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import Button from "@material-ui/core/Button";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import TextField from "@material-ui/core/TextField";
+import {
+	makeStyles,
+	Paper,
+	Button,
+	InputLabel,
+	MenuItem,
+	FormControl,
+	Select,
+	TextField,
+} from "@material-ui/core";
 import SaveIcon from "@material-ui/icons/Save";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 // import ReactCrop from "react-image-crop";
@@ -29,12 +31,9 @@ const useStyles = makeStyles((theme) => ({
 		maxWidth: "50px",
 	},
 	paper: {
-		// display: "flex",
-		// width: "35%",
 		flexDirection: "column",
 		padding: "2% 4% 4%",
 		textAlign: "center",
-		// position: "fixed",
 		justifyContent: "center",
 	},
 	container: {
@@ -42,17 +41,13 @@ const useStyles = makeStyles((theme) => ({
 		padding: "3% 3% 3%",
 		width: "80%",
 		height: "80%",
-		// border: "1px solid",
 		marginLeft: "5%",
 	},
 	input: {
 		display: "none",
-
-		// marginLeft: "20px",
 	},
 	numerical: {
 		width: "50%",
-		// margin: "2.5% 2.5%",
 	},
 	button: {
 		padding: "2%",
@@ -61,19 +56,15 @@ const useStyles = makeStyles((theme) => ({
 		width: "45%",
 		margin: "2%",
 		height: "100%",
-		// width: "15%"
 	},
 	cropContainer12: {
 		height: "100%",
 	},
 	cropContainer: {
 		width: "100%",
-		// height: "100%",
 		display: "flex",
 		justifyContent: "space-around",
 		margin: "2px",
-		// border:"2px solid",
-		// background: "transparent",
 	},
 	showImage: {
 		maxWidth: "100%",
@@ -108,6 +99,7 @@ const AddQuestions = ({ testID, totalQuestions }) => {
 	// const [finalQuestion, setFinalQuestion] = useState("");
 	// const [crop, setCrop] = useState({});
 	console.log("total ", totalQuestions);
+	/* eslint-disable */
 	useEffect(() => {
 		if (questionType === "singleCorrect" && questionUrl) {
 			fetch("/add-question", {

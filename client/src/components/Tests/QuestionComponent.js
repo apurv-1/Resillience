@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TestContext from "../Context/TestContext";
-import { SET_CURRENT_ANSWER, SET_SELECTED_ANSWERS } from "../Reducers/types";
+import { SET_SELECTED_ANSWERS } from "../Reducers/types";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -58,50 +58,51 @@ const useStyles = makeStyles((theme) => ({
 
 const QuestionComponent = () => {
 	const classes = useStyles();
-	const [select, setSelect] = useState({
-		a: false,
-		b: false,
-		c: false,
-		d: false,
-	});
+	// const [select, setSelect] = useState({
+	// 	a: false,
+	// 	b: false,
+	// 	c: false,
+	// 	d: false,
+	// });
 	const { state, dispatch } = useContext(TestContext);
 	const { currentIndex, selectedAnswers } = state;
 	const questions = state.test.questions;
 
 	const handleSelect = (selectedOption) => {
-		dispatch({ type: SET_CURRENT_ANSWER, currentAnswer: selectedOption });
-		if (selectedOption === "a") {
-			setSelect({ a: true });
-		} else if (selectedOption === "b") {
-			setSelect({ b: true });
-		} else if (selectedOption === "c") {
-			setSelect({ c: true });
-		} else {
-			setSelect({ d: true });
-		}
+		selectedAnswers[currentIndex] = selectedOption;
+		dispatch({ type: SET_SELECTED_ANSWERS, currentAnswer: selectedAnswers });
+		// if (selectedOption === "a") {
+		// 	setSelect({ a: true });
+		// } else if (selectedOption === "b") {
+		// 	setSelect({ b: true });
+		// } else if (selectedOption === "c") {
+		// 	setSelect({ c: true });
+		// } else {
+		// 	setSelect({ d: true });
+		// }
 	};
 	/* eslint-disable */
-	useEffect(() => {
-		if (selectedAnswers[currentIndex] === "a") {
-			setSelect({ a: true });
-		} else if (selectedAnswers[currentIndex] === "b") {
-			setSelect({ b: true });
-		} else if (selectedAnswers[currentIndex] === "c") {
-			setSelect({ c: true });
-		} else if (selectedAnswers[currentIndex] === "d") {
-			setSelect({ d: true });
-		} else {
-			setSelect(false);
-		}
-	}, [currentIndex]);
+	// useEffect(() => {
+	// 	if (selectedAnswers[currentIndex] === "a") {
+	// 		setSelect({ a: true });
+	// 	} else if (selectedAnswers[currentIndex] === "b") {
+	// 		setSelect({ b: true });
+	// 	} else if (selectedAnswers[currentIndex] === "c") {
+	// 		setSelect({ c: true });
+	// 	} else if (selectedAnswers[currentIndex] === "d") {
+	// 		setSelect({ d: true });
+	// 	} else {
+	// 		setSelect(false);
+	// 	}
+	// }, [currentIndex]);
 
-	const handleDoubleClick = () => {
-		dispatch({ type: SET_CURRENT_ANSWER, currentAnswer: "" });
-		selectedAnswers[currentIndex] = "";
-		dispatch({ type: SET_SELECTED_ANSWERS, selectedAnswers: selectedAnswers });
-		setSelect(false);
-		// console.log("hello");
-	};
+	// const handleDoubleClick = () => {
+	// 	dispatch({ type: SET_CURRENT_ANSWER, currentAnswer: "" });
+	// 	selectedAnswers[currentIndex] = "";
+	// 	dispatch({ type: SET_SELECTED_ANSWERS, selectedAnswers: selectedAnswers });
+	// 	setSelect(false);
+	// 	// console.log("hello");
+	// };
 
 	return (
 		<div>
@@ -127,54 +128,46 @@ const QuestionComponent = () => {
 				<div className={classes.optionContainer}>
 					<ul>
 						<label
-							className={select.a ? classes.selectedLabel : classes.label}
-							onDoubleClick={() => handleDoubleClick()}>
+							className={selectedAnswers[currentIndex] === "a" ? classes.selectedLabel : classes.label}>
 							<input
 								type="radio"
 								name="option"
 								className={classes.option}
 								value="a"
-								onClick={() => handleSelect("a")}
-								onDoubleClick={() => handleDoubleClick()}
+								onClick={(e) => handleSelect(e.target.value)}
 							/>
 							<span className={classes.span}>Option A</span>
 						</label>
 						<label
-							className={select.b ? classes.selectedLabel : classes.label}
-							onDoubleClick={() => handleDoubleClick()}>
+							className={selectedAnswers[currentIndex] === "b" ? classes.selectedLabel : classes.label}>
 							<input
 								type="radio"
 								name="option"
 								className={classes.option}
 								value="b"
 								onClick={() => handleSelect("b")}
-								onDoubleClick={() => handleDoubleClick()}
 							/>
 							<span className={classes.span}>Option B</span>
 						</label>
 						<label
-							className={select.c ? classes.selectedLabel : classes.label}
-							onDoubleClick={() => handleDoubleClick()}>
+							className={selectedAnswers[currentIndex] === "c" ? classes.selectedLabel : classes.label}>
 							<input
 								type="radio"
 								name="option"
 								className={classes.option}
 								value="c"
 								onClick={() => handleSelect("c")}
-								onDoubleClick={() => handleDoubleClick()}
 							/>
 							<span className={classes.span}>Option C</span>
 						</label>
 						<label
-							className={select.d ? classes.selectedLabel : classes.label}
-							onDoubleClick={() => handleDoubleClick()}>
+							className={selectedAnswers[currentIndex] === "d" ? classes.selectedLabel : classes.label}>
 							<input
 								type="radio"
 								name="option"
 								className={classes.option}
 								value="d"
 								onClick={() => handleSelect("d")}
-								onDoubleClick={() => handleDoubleClick()}
 							/>
 							<span className={classes.span}>Option D</span>
 						</label>

@@ -54,7 +54,7 @@ const KeysComponent = () => {
 	const questionLength = test.questions.length;
 	// const [time, setTime] = useState(timeElapsed);
 
-	console.log("time", isMarked);
+	// console.log("time", isMarked);
 
 	useEffect(() => {
 		const timer = setTimeout(() => {
@@ -67,7 +67,7 @@ const KeysComponent = () => {
 			clearTimeout(timer);
 		};
 	});
-	console.log(currentIndex, timeElapsed);
+	// console.log(currentIndex, timeElapsed);
 	// /* eslint-disable */
 
 	// const handleTimeElapsed = () => {
@@ -89,7 +89,7 @@ const KeysComponent = () => {
 		}
 	};
 	// console.log("selectd ", isMarked);
-	const next = () => {
+	const save = () => {
 		handleAnswer();
 		isAttempted[currentIndex] = true;
 		dispatch({ type: SET_IS_ATTEMPTED, isAttempted: isAttempted });
@@ -103,19 +103,16 @@ const KeysComponent = () => {
 		}
 	};
 
-	const previous = () => {
-		handleAnswer();
-		dispatch({
-			type: SET_CURRENT_INDEX,
-			currentIndex: currentIndex - 1,
-		});
+	const clear = () => {
+		isMarked[currentIndex] = false;
+		dispatch({ type: SET_IS_MARKED, isMarked: isMarked });
+		selectedAnswers[currentIndex] = "";
+		dispatch({ type: SET_SELECTED_ANSWERS, selectedAnswers: selectedAnswers });
+		console.log(selectedAnswers);
 		return;
 	};
 
 	const handleSubmitTest = () => {
-		if (currentAnswer) {
-			handleAnswer();
-		}
 		dispatch({
 			type: SET_SHOW_RESULTS,
 			showResult: true,
@@ -129,7 +126,7 @@ const KeysComponent = () => {
 
 	return (
 		<div className={classes.buttonContainer}>
-			<ThemeProvider theme={theme}>
+			{/* <ThemeProvider theme={theme}>
 				<Button
 					variant="contained"
 					color="primary"
@@ -138,15 +135,15 @@ const KeysComponent = () => {
 					onClick={() => handleSubmitTest()}>
 					End Test
 				</Button>
-			</ThemeProvider>
+			</ThemeProvider> */}
 
 			<Button
 				variant="contained"
 				color="primary"
 				className={classes.button}
-				disabled={currentIndex === 0}
-				onClick={() => previous()}>
-				Previous Question
+				// disabled={currentIndex === 0}
+				onClick={() => clear()}>
+				Clear Selection
 			</Button>
 
 			<Button variant="contained" color="primary" className={classes.button} onClick={() => marked()}>
@@ -157,9 +154,9 @@ const KeysComponent = () => {
 				variant="contained"
 				color="primary"
 				className={classes.button}
-				disabled={currentIndex === questionLength - 1}
-				onClick={() => next()}>
-				Next Question
+				// disabled={currentIndex === questionLength - 1}
+				onClick={() => save()}>
+				Save Selection
 			</Button>
 			{/* {time} */}
 			<Button

@@ -1,5 +1,9 @@
 import React, { useContext, useEffect } from "react";
-import { makeStyles, createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import {
+	makeStyles,
+	// createMuiTheme,
+	// ThemeProvider,
+} from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import TestContext from "../Context/TestContext";
 import {
@@ -11,7 +15,7 @@ import {
 	SET_IS_MARKED,
 	SET_INCREMENT_TIME,
 } from "../Reducers/types";
-import { blue, red } from "@material-ui/core/colors";
+// import { blue, red } from "@material-ui/core/colors";
 
 const useStyles = makeStyles((theme) => ({
 	buttonContainer: {
@@ -30,12 +34,12 @@ const useStyles = makeStyles((theme) => ({
 		},
 	},
 }));
-const theme = createMuiTheme({
-	palette: {
-		primary: red,
-		secondary: blue,
-	},
-});
+// const theme = createMuiTheme({
+// 	palette: {
+// 		primary: red,
+// 		secondary: blue,
+// 	},
+// });
 
 const KeysComponent = () => {
 	const classes = useStyles();

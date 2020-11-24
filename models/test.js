@@ -39,6 +39,10 @@ const testSchema = new mongoose.Schema(
 					type: String,
 					required: true,
 				},
+				difficuilty: {
+					type: String,
+					required: true,
+				},
 				subject: {
 					type: String,
 					required: true,

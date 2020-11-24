@@ -9,6 +9,7 @@ const useStyles = makeStyles(() => ({
 		margin: "10px",
 		marginLeft: "0px",
 		width: "320px",
+		height: "400px",
 	},
 	keys: {
 		margin: "18px",
@@ -24,9 +25,9 @@ const useStyles = makeStyles(() => ({
 		fontWeight: "bold",
 		boxShadow: "0 0px 4px 0px rgba(54, 114, 192);",
 		overflowY: "auto",
-		"&:hover": {
-			backgroundColor: "white",
-		},
+		// "&:hover": {
+		// 	backgroundColor: "white",
+		// },
 	},
 	attemptedLabel: {
 		cursor: "pointer",
@@ -34,12 +35,12 @@ const useStyles = makeStyles(() => ({
 		padding: "12px 18px",
 		borderRadius: "35px",
 		fontWeight: "bold",
-		backgroundColor: "grey",
+		backgroundColor: "green",
 		boxShadow: "0 0px 4px 0px rgba(54, 114, 192);",
 		// backgroundColor: "grey",
-		"&:hover": {
-			backgroundColor: "white",
-		},
+		// "&:hover": {
+		// 	backgroundColor: "white",
+		// },
 	},
 	markedLabel: {
 		cursor: "pointer",
@@ -48,11 +49,11 @@ const useStyles = makeStyles(() => ({
 		borderRadius: "35px",
 		fontWeight: "bold",
 		boxShadow: "0 0px 4px 0px rgba(54, 114, 192);",
-		backgroundColor: "#FFAC45",
-		"&:hover": {
-			backgroundColor: "grey",
-			boxShadow: "0 1px 3px 2px rgba(236, 236, 236);",
-		},
+		backgroundColor: "#565fb8",
+		// "&:hover": {
+		// 	backgroundColor: "grey",
+		// 	boxShadow: "0 1px 3px 2px rgba(236, 236, 236);",
+		// },
 	},
 	markedSelectedLabel: {
 		cursor: "pointer",
@@ -61,11 +62,12 @@ const useStyles = makeStyles(() => ({
 		borderRadius: "35px",
 		fontWeight: "bold",
 		boxShadow: "0 0px 4px 0px rgba(54, 114, 192);",
-		backgroundColor: "green",
-		"&:hover": {
-			backgroundColor: "grey",
-			boxShadow: "0 1px 3px 2px rgba(236, 236, 236);",
-		},
+		backgroundColor: "#0F7DC2",
+
+		// "&:hover": {
+		// 	backgroundColor: "grey",
+		// 	boxShadow: "0 1px 3px 2px rgba(236, 236, 236);",
+		// },
 	},
 	currentLabel: {
 		cursor: "pointer",
@@ -74,14 +76,18 @@ const useStyles = makeStyles(() => ({
 		borderRadius: "35px",
 		fontWeight: "bold",
 		boxShadow: "0 0px 4px 0px rgba(54, 114, 192);",
-		backgroundColor: "#0F7DC2",
-		"&:hover": {
-			// backgroundColor: "grey",
-			boxShadow: "0 1px 3px 2px rgba(236, 236, 236);",
-		},
+		// backgroundColor: "green",
+		border: "3px solid",
+		borderColor: "green",
+		// "&:hover": {
+		// 	// backgroundColor: "grey",#0F7DC2
+		// 	boxShadow: "0 1px 3px 2px rgba(236, 236, 236);",
+		// },
 	},
 	bubbleContainer: {
 		margin: "20px",
+		display: "flex",
+		flexWrap: "wrap",
 	},
 }));
 
@@ -96,8 +102,8 @@ const QuestionKeysComponent = () => {
 	};
 
 	return (
-		<div>
-			<div className={classes.fabBox}>
+		<div className={classes.fabBox}>
+			<div>
 				<hr style={{ height: "2px", backgroundColor: "gray solid" }} />
 
 				<Typography gutterBottom variant="h6" component="h6">
@@ -105,9 +111,7 @@ const QuestionKeysComponent = () => {
 				</Typography>
 
 				<div className={classes.keys}>
-					<Typography gutterBottom variant="h6" component="h6">
-						Physics :
-					</Typography>
+					<b>Physics :</b>
 					<div className={classes.bubbleContainer}>
 						{questions.length &&
 							questions.map(
@@ -129,7 +133,6 @@ const QuestionKeysComponent = () => {
 													: isMarked[index] === true
 													? classes.markedLabel
 													: classes.label
-												// : classes.label
 											}
 											onClick={() => handleCurrentIndex(index)}>
 											{questionNumber}
@@ -137,9 +140,7 @@ const QuestionKeysComponent = () => {
 									)
 							)}
 					</div>
-					<Typography gutterBottom variant="h6" component="h6">
-						Chemistry :
-					</Typography>
+					<b>Chemistry :</b>
 					<div className={classes.bubbleContainer}>
 						{questions.length &&
 							questions.map(
@@ -168,9 +169,7 @@ const QuestionKeysComponent = () => {
 									)
 							)}
 					</div>
-					<Typography gutterBottom variant="h6" component="h6">
-						Maths :
-					</Typography>
+					<b>Maths :</b>
 					<div className={classes.bubbleContainer}>
 						{questions.length &&
 							questions.map(
@@ -202,6 +201,14 @@ const QuestionKeysComponent = () => {
 					</div>
 				</div>
 				<hr style={{ height: "2px", backgroundColor: "gray solid" }} />
+				{/* <div>
+					<label className={classes.currentLabel} />
+					<label className={classes.attemptedLabel} />
+					<label className={classes.markedLabel} />
+					<label className={classes.label} />
+					<label className={classes.markedSelectedLabel} />
+				</div>
+				<hr style={{ height: "2px", backgroundColor: "gray solid" }} /> */}
 			</div>
 		</div>
 	);

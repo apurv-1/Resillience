@@ -9,6 +9,7 @@ import {
 	Select,
 	MenuItem,
 } from "@material-ui/core";
+// import Loading from "./Loading"
 import Confetti from "react-confetti";
 
 const useStyles = makeStyles((theme) => ({
@@ -71,7 +72,7 @@ const TestResult = () => {
 	const { test, showResult, selectedAnswers, timeElapsed } = state;
 	const questions = test.questions;
 
-	// const timePerQuestion = test.testDuration / (questions.length * 1000);
+	const timePerQuestion = test.testDuration / (questions.length * 1000);
 	// console.log(timePerQuestion);
 	let score = 0,
 		total = questions.length,
@@ -145,6 +146,7 @@ const TestResult = () => {
 									<MenuItem value={"correct"}>Correct</MenuItem>
 									<MenuItem value={"incorrect"}>Incorrect</MenuItem>
 									<MenuItem value={"notAnswered"}>Not Answered</MenuItem>
+									<MenuItem value={"all"}>All</MenuItem>
 								</Select>
 							</FormControl>
 						</h3>
@@ -155,7 +157,7 @@ const TestResult = () => {
 			{showResult === true
 				? type === "correct"
 					? questions.map(
-							({ questionImage, correctOption, _id }, index) =>
+							({ questionImage, correctOption, _id, difficuilty }, index) =>
 								selectedAnswers[index] === correctOption && (
 									<Paper className={classes.card} key={_id}>
 										<hr style={{ height: "1px", backgroundColor: "gray solid" }} />
@@ -163,13 +165,15 @@ const TestResult = () => {
 											Question Number: {test.questions[index].questionNumber}
 										</Typography>
 										<img src={questionImage} alt={_id} />
-
+										{difficuilty}
 										<Typography gutterBottom component="h6">
 											Correct Option: {correctOption}
 											<br />
 											Selected Option: {selectedAnswers[index] ? selectedAnswers[index] : "Not Selected"}
 											<br />
-											Time Taken: {timeElapsed[index] ? timeElapsed[index] : 0}s
+											<label>
+												Time Taken: {timeElapsed[index] ? timeElapsed[index] : 0}s / {timePerQuestion}s
+											</label>
 										</Typography>
 
 										<hr style={{ height: "1px", backgroundColor: "gray solid" }} />
@@ -178,7 +182,7 @@ const TestResult = () => {
 					  )
 					: type === "incorrect"
 					? questions.map(
-							({ questionImage, correctOption, _id }, index) =>
+							({ questionImage, correctOption, _id, difficuilty }, index) =>
 								selectedAnswers[index] !== correctOption && (
 									<Paper className={classes.card} key={_id}>
 										<hr style={{ height: "1px", backgroundColor: "gray solid" }} />
@@ -186,13 +190,13 @@ const TestResult = () => {
 											Question Number: {test.questions[index].questionNumber}
 										</Typography>
 										<img src={questionImage} alt={_id} />
-
+										{difficuilty}
 										<Typography gutterBottom component="h6">
 											Correct Option: {correctOption}
 											<br />
 											Selected Option: {selectedAnswers[index] ? selectedAnswers[index] : "Not Selected"}
 											<br />
-											Time Taken: {timeElapsed[index] ? timeElapsed[index] : 0}s
+											Time Taken: {timeElapsed[index] ? timeElapsed[index] : 0}s /{timePerQuestion}s
 										</Typography>
 
 										<hr style={{ height: "1px", backgroundColor: "gray solid" }} />
@@ -201,7 +205,7 @@ const TestResult = () => {
 					  )
 					: type === "notAnswered"
 					? questions.map(
-							({ questionImage, correctOption, _id }, index) =>
+							({ questionImage, correctOption, _id, difficuilty }, index) =>
 								!selectedAnswers[index] && (
 									<Paper className={classes.card} key={_id}>
 										<hr style={{ height: "1px", backgroundColor: "gray solid" }} />
@@ -209,20 +213,41 @@ const TestResult = () => {
 											Question Number: {test.questions[index].questionNumber}
 										</Typography>
 										<img src={questionImage} alt={_id} />
-
+										{difficuilty}
 										<Typography gutterBottom component="h6">
 											Correct Option: {correctOption}
 											<br />
 											Selected Option: {selectedAnswers[index] ? selectedAnswers[index] : "Not Selected"}
 											<br />
-											Time Taken: {timeElapsed[index] ? timeElapsed[index] : 0}s
+											Time Taken: {timeElapsed[index] ? timeElapsed[index] : 0}s /{timePerQuestion}s
 										</Typography>
 
 										<hr style={{ height: "1px", backgroundColor: "gray solid" }} />
 									</Paper>
 								)
 					  )
-					: ""
+					: type === "all" &&
+					  questions.map(({ questionImage, correctOption, _id, difficuilty }, index) => (
+							<Paper className={classes.card} key={_id}>
+								<hr style={{ height: "1px", backgroundColor: "gray solid" }} />
+								<Typography gutterBottom variant="h6" component="h6">
+									Question Number: {test.questions[index].questionNumber}
+								</Typography>
+								<img src={questionImage} alt={_id} />
+								{difficuilty}
+								<Typography gutterBottom component="h6">
+									Correct Option: {correctOption}
+									<br />
+									Selected Option: {selectedAnswers[index] ? selectedAnswers[index] : "Not Selected"}
+									<br />
+									<label>
+										Time Taken: {timeElapsed[index] ? timeElapsed[index] : 0}s /{timePerQuestion}s
+									</label>
+								</Typography>
+
+								<hr style={{ height: "1px", backgroundColor: "gray solid" }} />
+							</Paper>
+					  ))
 				: "Complete the Quiz first!"}
 		</div>
 	);

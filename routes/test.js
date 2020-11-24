@@ -37,12 +37,13 @@ router.post("/addtest", (req, res) => {
 });
 
 router.put("/add-question", (req, res) => {
-	const { testId, questionImage, questionNumber, correctOption, subject } = req.body;
+	const { testId, questionImage, questionNumber, correctOption, subject, difficuilty } = req.body;
 	// Test.findOne({testId})
 	const question = {
 		questionNumber,
 		questionImage,
 		correctOption,
+		difficuilty,
 		subject,
 	};
 	// console.log(question);

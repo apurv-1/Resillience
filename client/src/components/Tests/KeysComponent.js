@@ -8,7 +8,6 @@ import Button from "@material-ui/core/Button";
 import TestContext from "../Context/TestContext";
 import {
 	SET_CURRENT_INDEX,
-	SET_CURRENT_ANSWER,
 	SET_SELECTED_ANSWERS,
 	SET_SHOW_RESULTS,
 	SET_IS_ATTEMPTED,
@@ -45,15 +44,7 @@ const KeysComponent = () => {
 	const classes = useStyles();
 
 	const { state, dispatch } = useContext(TestContext);
-	const {
-		test,
-		currentIndex,
-		currentAnswer,
-		selectedAnswers,
-		showResult,
-		isAttempted = false,
-		isMarked,
-	} = state;
+	const { test, currentIndex, selectedAnswers, showResult, isAttempted = false, isMarked } = state;
 	const questionLength = test.questions.length;
 	// const [time, setTime] = useState(timeElapsed);
 
@@ -83,17 +74,17 @@ const KeysComponent = () => {
 	// console.log(timeElapsed);
 	// };
 
-	const handleAnswer = () => {
-		if (currentAnswer) {
-			selectedAnswers[currentIndex] = currentAnswer;
-			dispatch({ type: SET_SELECTED_ANSWERS, selectedAnswers: selectedAnswers });
-			dispatch({ type: SET_CURRENT_ANSWER, currentAnswer: "" });
-			console.log("selectd ", selectedAnswers);
-		}
-	};
+	// const handleAnswer = () => {
+	// 	if (currentAnswer) {
+	// 		selectedAnswers[currentIndex] = currentAnswer;
+	// 		dispatch({ type: SET_SELECTED_ANSWERS, selectedAnswers: selectedAnswers });
+	// 		dispatch({ type: SET_CURRENT_ANSWER, currentAnswer: "" });
+	// 		console.log("selectd ", selectedAnswers);
+	// 	}
+	// };
 	// console.log("selectd ", isMarked);
 	const save = () => {
-		handleAnswer();
+		// handleAnswer();
 		isAttempted[currentIndex] = true;
 		dispatch({ type: SET_IS_ATTEMPTED, isAttempted: isAttempted });
 

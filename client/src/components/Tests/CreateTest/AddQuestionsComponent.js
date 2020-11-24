@@ -82,12 +82,14 @@ const AddQuestions = ({ testID, totalQuestions }) => {
 	const [openSubject, setOpenSubject] = useState(false);
 	const [openCorrect, setOpenCorrect] = useState(false);
 	const [openQuesType, setOpenQuesType] = useState(false);
+	const [openDiffType, setOpenDiffType] = useState(false);
 
 	const [subject, setSubject] = useState("");
 	const [questionType, setQuestionType] = useState("singleCorrect");
 
 	const [correct, setCorrect] = useState("");
 	const [numerical, setNumerical] = useState("");
+	const [difficuilty, setDifficuilty] = useState("");
 
 	const [questionNumber, setQuestionNumber] = useState(1);
 	const [questionImg, setQuestionImg] = useState("");
@@ -113,6 +115,7 @@ const AddQuestions = ({ testID, totalQuestions }) => {
 					questionImage: questionUrl,
 					correctOption: correct,
 					subject: subject,
+					difficuilty: difficuilty,
 				}),
 			})
 				.then((res) => res.json())
@@ -123,10 +126,9 @@ const AddQuestions = ({ testID, totalQuestions }) => {
 						console.log("question saved");
 						setQuestionNumber(1 + questionNumber);
 						setCorrect("");
-						setSubject("");
 						setQuestionImg("");
 						setQuestionUrl("");
-
+						setDifficuilty("");
 						// setQuestionSrc("");
 						// setFinalQuestion("");
 					}
@@ -225,6 +227,23 @@ const AddQuestions = ({ testID, totalQuestions }) => {
 								<MenuItem value={"numerical"}>Numerical</MenuItem>
 							</Select>
 						</FormControl>
+						<FormControl className={classes.formControl}>
+							<InputLabel>Subject</InputLabel>
+							<Select
+								labelId="controlled-open-select-label"
+								open={openSubject}
+								onClose={() => setOpenSubject(false)}
+								onOpen={() => setOpenSubject(true)}
+								value={subject}
+								onChange={(e) => setSubject(e.target.value)}
+								// fullWidth
+							>
+								<MenuItem value={"Physics"}>Physics</MenuItem>
+								<MenuItem value={"Chemistry"}>Chemistry</MenuItem>
+								<MenuItem value={"Maths"}>Maths</MenuItem>
+								<MenuItem value={"Biology"}>Bio</MenuItem>
+							</Select>
+						</FormControl>
 					</div>
 					<Divider />
 					<div className={classes.container}>
@@ -252,20 +271,19 @@ const AddQuestions = ({ testID, totalQuestions }) => {
 					{questionType === "singleCorrect" ? (
 						<div className={classes.container}>
 							<FormControl className={classes.formControl}>
-								<InputLabel>Subject</InputLabel>
+								<InputLabel>Select Difficuilty</InputLabel>
 								<Select
 									labelId="controlled-open-select-label"
-									open={openSubject}
-									onClose={() => setOpenSubject(false)}
-									onOpen={() => setOpenSubject(true)}
-									value={subject}
-									onChange={(e) => setSubject(e.target.value)}
+									open={openDiffType}
+									onClose={() => setOpenDiffType(false)}
+									onOpen={() => setOpenDiffType(true)}
+									value={difficuilty}
+									onChange={(e) => setDifficuilty(e.target.value)}
 									// fullWidth
 								>
-									<MenuItem value={"Physics"}>Physics</MenuItem>
-									<MenuItem value={"Chemistry"}>Chemistry</MenuItem>
-									<MenuItem value={"Maths"}>Maths</MenuItem>
-									<MenuItem value={"Biology"}>Bio</MenuItem>
+									<MenuItem value={"easy"}>Easy</MenuItem>
+									<MenuItem value={"medium"}>Medium</MenuItem>
+									<MenuItem value={"hard"}>Hard</MenuItem>
 								</Select>
 							</FormControl>
 							<FormControl className={classes.formControl}>

@@ -1,28 +1,24 @@
 import React, { useContext } from "react";
-import { makeStyles } from "@material-ui/core";
+import { makeStyles, Typography } from "@material-ui/core";
 import TestContext from "../Context/TestContext";
-import {
-	SET_CURRENT_INDEX,
-	SET_CURRENT_ANSWER,
-	SET_CURRENT_TIME,
-	// SET_TIMER,
-} from "../Reducers/types";
+import { SET_CURRENT_INDEX } from "../Reducers/types";
 
 const useStyles = makeStyles(() => ({
 	fabBox: {
 		padding: "20px",
 		margin: "10px",
 		marginLeft: "0px",
-		maxWidth: "300px",
+		width: "320px",
 	},
 	keys: {
-		margin: "20px",
+		margin: "18px",
 		marginLeft: "0px",
 		height: "60%",
 	},
 	label: {
 		cursor: "pointer",
 		margin: "8px",
+
 		padding: "12px 18px",
 		borderRadius: "35px",
 		fontWeight: "bold",
@@ -84,125 +80,126 @@ const useStyles = makeStyles(() => ({
 			boxShadow: "0 1px 3px 2px rgba(236, 236, 236);",
 		},
 	},
+	bubbleContainer: {
+		margin: "20px",
+	},
 }));
 
 const QuestionKeysComponent = () => {
 	const classes = useStyles();
 	const { state, dispatch } = useContext(TestContext);
-	const { test, timeElapsed, currentIndex, isMarked, selectedAnswers } = state;
-	// const [handleClass, setHandleClass] = useState(false);
+	const { test, currentIndex, isMarked, selectedAnswers } = state;
 	const questions = test.questions;
-	// console.log(timeElapsed[currentIndex - 1]);
-	// console.log(questions);
 
 	const handleCurrentIndex = (cIndex) => {
-		dispatch({ type: SET_CURRENT_ANSWER, currentAnswer: "" });
 		dispatch({ type: SET_CURRENT_INDEX, currentIndex: cIndex });
-		if (timeElapsed[cIndex]) {
-			console.log(timeElapsed[cIndex]);
-			// currentTime = timeElapsed[cIndex] ;
-			// dispatch({ type: SET_TIMER, timeElapsed: timeElapsed });
-			dispatch({ type: SET_CURRENT_TIME, currentTime: timeElapsed[cIndex] });
-		}
 	};
-	// console.log(isMarked);
 
 	return (
 		<div>
 			<div className={classes.fabBox}>
 				<hr style={{ height: "2px", backgroundColor: "gray solid" }} />
-				<b>Questions Overview: </b>
+
+				<Typography gutterBottom variant="h6" component="h6">
+					Questions Overview:
+				</Typography>
 
 				<div className={classes.keys}>
-					{/* <b>Physics : </b>
-					<br /> */}
-					{questions.length &&
-						questions.map(
-							({ questionNumber, _id, subject }, index) => (
-								// subject === "Physics" && (
-								<label
-									key={_id}
-									className={
-										currentIndex === index
-											? isMarked[index]
-												? classes.markedLabel
-												: classes.currentLabel
-											: selectedAnswers[index]
-											? isMarked[index] === true
-												? classes.markedSelectedLabel
-												: classes.attemptedLabel
-											: selectedAnswers[index]
-											? classes.attemptedLabel
-											: isMarked[index] === true
-											? classes.markedLabel
-											: classes.label
-										// : classes.label
-									}
-									onClick={() => handleCurrentIndex(index)}>
-									{questionNumber}
-								</label>
-							)
-							// )
-							// 	)}
-							// <br />
-							// <b>Chemistry : </b>
-							// <br />
-							// {questions.length &&
-							// 	questions.map(
-							// 		({ questionNumber, _id, subject }, index) =>
-							// 			subject === "Chemistry" && (
-							// 				<label
-							// 					key={_id}
-							// 					className={
-							// 						currentIndex === index
-							// 							? isMarked[index]
-							// 								? classes.markedLabel
-							// 								: classes.currentLabel
-							// 							: selectedAnswers[index]
-							// 							? isMarked[index] === true
-							// 								? classes.markedSelectedLabel
-							// 								: classes.attemptedLabel
-							// 							: selectedAnswers[index]
-							// 							? classes.attemptedLabel
-							// 							: isMarked[index] === true
-							// 							? classes.markedLabel
-							// 							: classes.label
-							// 					}
-							// 					onClick={() => handleCurrentIndex(index)}>
-							// 					{questionNumber}
-							// 				</label>
-							// 			)
-							// 	)}
-							// <br />
-							// <b>Maths : </b>
-							// <br />
-							// {questions.length &&
-							// 	questions.map(
-							// 		({ questionNumber, _id, subject }, index) =>
-							// 			subject === "Maths" && (
-							// 				<label
-							// 					key={_id}
-							// 					className={
-							// 						currentIndex === index
-							// 							? isMarked[index]
-							// 								? classes.markedLabel
-							// 								: classes.currentLabel
-							// 							: selectedAnswers[index]
-							// 							? isMarked[index] === true
-							// 								? classes.markedSelectedLabel
-							// 								: classes.attemptedLabel
-							// 							: selectedAnswers[index]
-							// 							? classes.attemptedLabel
-							// 							: isMarked[index] === true
-							// 							? classes.markedLabel
-							// 							: classes.label
-							// 						// : classes.label
-							// 					}
-							// 					onClick={() => handleCurrentIndex(index)}>
-							// 					{questionNumber}
-							// 				</label>
-							// 			)
-						)}
+					<Typography gutterBottom variant="h6" component="h6">
+						Physics :
+					</Typography>
+					<div className={classes.bubbleContainer}>
+						{questions.length &&
+							questions.map(
+								({ questionNumber, _id, subject }, index) =>
+									subject === "Physics" && (
+										<label
+											key={_id}
+											className={
+												currentIndex === index
+													? isMarked[index]
+														? classes.markedLabel
+														: classes.currentLabel
+													: selectedAnswers[index]
+													? isMarked[index] === true
+														? classes.markedSelectedLabel
+														: classes.attemptedLabel
+													: selectedAnswers[index]
+													? classes.attemptedLabel
+													: isMarked[index] === true
+													? classes.markedLabel
+													: classes.label
+												// : classes.label
+											}
+											onClick={() => handleCurrentIndex(index)}>
+											{questionNumber}
+										</label>
+									)
+							)}
+					</div>
+					<Typography gutterBottom variant="h6" component="h6">
+						Chemistry :
+					</Typography>
+					<div className={classes.bubbleContainer}>
+						{questions.length &&
+							questions.map(
+								({ questionNumber, _id, subject }, index) =>
+									subject === "Chemistry" && (
+										<label
+											key={_id}
+											className={
+												currentIndex === index
+													? isMarked[index]
+														? classes.markedLabel
+														: classes.currentLabel
+													: selectedAnswers[index]
+													? isMarked[index] === true
+														? classes.markedSelectedLabel
+														: classes.attemptedLabel
+													: selectedAnswers[index]
+													? classes.attemptedLabel
+													: isMarked[index] === true
+													? classes.markedLabel
+													: classes.label
+											}
+											onClick={() => handleCurrentIndex(index)}>
+											{questionNumber}
+										</label>
+									)
+							)}
+					</div>
+					<Typography gutterBottom variant="h6" component="h6">
+						Maths :
+					</Typography>
+					<div className={classes.bubbleContainer}>
+						{questions.length &&
+							questions.map(
+								({ questionNumber, _id, subject }, index) =>
+									subject === "Maths" && (
+										<label
+											key={_id}
+											className={
+												currentIndex === index
+													? isMarked[index]
+														? classes.markedLabel
+														: classes.currentLabel
+													: selectedAnswers[index]
+													? isMarked[index] === true
+														? classes.markedSelectedLabel
+														: classes.attemptedLabel
+													: selectedAnswers[index]
+													? classes.attemptedLabel
+													: isMarked[index] === true
+													? classes.markedLabel
+													: classes.label
+												// : classes.label
+											}
+											onClick={() => handleCurrentIndex(index)}>
+											{questionNumber}
+										</label>
+									)
+							)}
+					</div>
 				</div>
 				<hr style={{ height: "2px", backgroundColor: "gray solid" }} />
 			</div>

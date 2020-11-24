@@ -44,7 +44,6 @@ const KeysComponent = () => {
 	const {
 		test,
 		currentIndex,
-		timeElapsed,
 		currentAnswer,
 		selectedAnswers,
 		showResult,
@@ -77,7 +76,7 @@ const KeysComponent = () => {
 	// 	dispatch({ type: SET_TIMER, timeElapsed: timeElapsed });
 	// 	dispatch({ type: SET_CURRENT_TIME, currentTime: 0 });
 	// 	setTime(0);
-	// 	console.log(timeElapsed);
+	// console.log(timeElapsed);
 	// };
 
 	const handleAnswer = () => {
@@ -94,7 +93,7 @@ const KeysComponent = () => {
 		isAttempted[currentIndex] = true;
 		dispatch({ type: SET_IS_ATTEMPTED, isAttempted: isAttempted });
 
-		if (currentIndex + 1 < test.questions.length) {
+		if (currentIndex + 1 < questionLength) {
 			dispatch({
 				type: SET_CURRENT_INDEX,
 				currentIndex: currentIndex + 1,
@@ -108,7 +107,7 @@ const KeysComponent = () => {
 		dispatch({ type: SET_IS_MARKED, isMarked: isMarked });
 		selectedAnswers[currentIndex] = "";
 		dispatch({ type: SET_SELECTED_ANSWERS, selectedAnswers: selectedAnswers });
-		console.log(selectedAnswers);
+		// console.log(selectedAnswers);
 		return;
 	};
 

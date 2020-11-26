@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { makeStyles, Typography } from "@material-ui/core";
 import TestContext from "../Context/TestContext";
 import { SET_CURRENT_INDEX } from "../Reducers/types";
+// import { CheckCircleIcon } from "@material-ui/icons";
 
 const useStyles = makeStyles(() => ({
 	fabBox: {
@@ -10,91 +11,84 @@ const useStyles = makeStyles(() => ({
 		marginLeft: "0px",
 		width: "320px",
 		height: "400px",
+		overflow: "scroll",
+		overflowX: "hidden",
 	},
-	keys: {
-		margin: "18px",
-		marginLeft: "0px",
-		height: "60%",
+	// keys: {
+	// 	margin: "18px",
+	// 	marginLeft: "0px",
+	// 	height: "60%",
+	// },
+	bubbleContainer: {
+		margin: "20px",
+		display: "flex",
+		flexWrap: "wrap",
+		// justifyContent: "space-between",
 	},
 	label: {
 		cursor: "pointer",
-		margin: "8px",
-
+		margin: "6px",
 		padding: "12px 18px",
 		borderRadius: "35px",
 		fontWeight: "bold",
 		boxShadow: "0 0px 4px 0px rgba(54, 114, 192);",
-		overflowY: "auto",
+		// overflowY: "auto",
 		// "&:hover": {
 		// 	backgroundColor: "white",
 		// },
+	},
+	visitedLabel: {
+		cursor: "pointer",
+		margin: "6px",
+		padding: "12px 18px",
+		borderRadius: "35px",
+		fontWeight: "bold",
+		boxShadow: "0 0px 4px 0px rgba(54, 114, 192);",
+		backgroundColor: "#FF6961",
 	},
 	attemptedLabel: {
 		cursor: "pointer",
-		margin: "8px",
+		margin: "6px",
 		padding: "12px 18px",
 		borderRadius: "35px",
 		fontWeight: "bold",
-		backgroundColor: "green",
+		backgroundColor: "#2E8B57",
 		boxShadow: "0 0px 4px 0px rgba(54, 114, 192);",
-		// backgroundColor: "grey",
-		// "&:hover": {
-		// 	backgroundColor: "white",
-		// },
 	},
 	markedLabel: {
 		cursor: "pointer",
-		margin: "8px",
+		margin: "6px",
 		padding: "12px 18px",
 		borderRadius: "35px",
 		fontWeight: "bold",
 		boxShadow: "0 0px 4px 0px rgba(54, 114, 192);",
 		backgroundColor: "#565fb8",
-		// "&:hover": {
-		// 	backgroundColor: "grey",
-		// 	boxShadow: "0 1px 3px 2px rgba(236, 236, 236);",
-		// },
 	},
 	markedSelectedLabel: {
 		cursor: "pointer",
-		margin: "8px",
+		margin: "6px",
 		padding: "12px 18px",
 		borderRadius: "35px",
 		fontWeight: "bold",
 		boxShadow: "0 0px 4px 0px rgba(54, 114, 192);",
 		backgroundColor: "#0F7DC2",
-
-		// "&:hover": {
-		// 	backgroundColor: "grey",
-		// 	boxShadow: "0 1px 3px 2px rgba(236, 236, 236);",
-		// },
 	},
 	currentLabel: {
 		cursor: "pointer",
-		margin: "8px",
+		margin: "4px",
 		padding: "12px 18px",
 		borderRadius: "35px",
 		fontWeight: "bold",
 		boxShadow: "0 0px 4px 0px rgba(54, 114, 192);",
-		// backgroundColor: "green",
 		border: "3px solid",
 		borderColor: "green",
-		// "&:hover": {
-		// 	// backgroundColor: "grey",#0F7DC2
-		// 	boxShadow: "0 1px 3px 2px rgba(236, 236, 236);",
-		// },
-	},
-	bubbleContainer: {
-		margin: "20px",
-		display: "flex",
-		flexWrap: "wrap",
 	},
 }));
 
 const QuestionKeysComponent = () => {
 	const classes = useStyles();
 	const { state, dispatch } = useContext(TestContext);
-	const { test, currentIndex, isMarked, selectedAnswers } = state;
+	const { test, currentIndex, isMarked, selectedAnswers, isVisited } = state;
 	const questions = test.questions;
 
 	const handleCurrentIndex = (cIndex) => {
@@ -132,6 +126,8 @@ const QuestionKeysComponent = () => {
 													? classes.attemptedLabel
 													: isMarked[index] === true
 													? classes.markedLabel
+													: isVisited[index] === true
+													? classes.visitedLabel
 													: classes.label
 											}
 											onClick={() => handleCurrentIndex(index)}>
@@ -161,6 +157,8 @@ const QuestionKeysComponent = () => {
 													? classes.attemptedLabel
 													: isMarked[index] === true
 													? classes.markedLabel
+													: isVisited[index] === true
+													? classes.visitedLabel
 													: classes.label
 											}
 											onClick={() => handleCurrentIndex(index)}>
@@ -190,8 +188,9 @@ const QuestionKeysComponent = () => {
 													? classes.attemptedLabel
 													: isMarked[index] === true
 													? classes.markedLabel
+													: isVisited[index] === true
+													? classes.visitedLabel
 													: classes.label
-												// : classes.label
 											}
 											onClick={() => handleCurrentIndex(index)}>
 											{questionNumber}

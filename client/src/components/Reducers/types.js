@@ -1,7 +1,7 @@
 export const SET_CURRENT_INDEX = "SET_CURRENT_INDEX";
 export const SET_MARKS = "SET_MARKS";
 
-export const SET_IS_ATTEMPTED = "SET_IS_ATTEMPTED"; //boolean
+export const SET_IS_VISITED = "SET_IS_VISITED"; //boolean
 export const SET_IS_MARKED = "SET_IS_MARKED"; //boolean
 
 export const SET_TEST = "SET_TEST";

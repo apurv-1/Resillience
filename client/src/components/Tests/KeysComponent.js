@@ -10,7 +10,6 @@ import {
 	SET_CURRENT_INDEX,
 	SET_SELECTED_ANSWERS,
 	SET_SHOW_RESULTS,
-	SET_IS_ATTEMPTED,
 	SET_IS_MARKED,
 	SET_INCREMENT_TIME,
 } from "../Reducers/types";
@@ -44,7 +43,7 @@ const KeysComponent = () => {
 	const classes = useStyles();
 
 	const { state, dispatch } = useContext(TestContext);
-	const { test, currentIndex, selectedAnswers, showResult, isAttempted = false, isMarked } = state;
+	const { test, currentIndex, selectedAnswers, showResult, isMarked } = state;
 	const questionLength = test.questions.length;
 	// const [time, setTime] = useState(timeElapsed);
 
@@ -85,8 +84,8 @@ const KeysComponent = () => {
 	// console.log("selectd ", isMarked);
 	const save = () => {
 		// handleAnswer();
-		isAttempted[currentIndex] = true;
-		dispatch({ type: SET_IS_ATTEMPTED, isAttempted: isAttempted });
+		// isAttempted[currentIndex] = true;
+		// dispatch({ type: SET_IS_ATTEMPTED, isAttempted: isAttempted });
 
 		if (currentIndex + 1 < questionLength) {
 			dispatch({

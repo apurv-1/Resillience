@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TestContext from "../Context/TestContext";
-import { SET_SELECTED_ANSWERS } from "../Reducers/types";
+import { SET_SELECTED_ANSWERS, SET_IS_VISITED } from "../Reducers/types";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -56,53 +56,21 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const QuestionComponent = () => {
+function QuestionComponent() {
 	const classes = useStyles();
-	// const [select, setSelect] = useState({
-	// 	a: false,
-	// 	b: false,
-	// 	c: false,
-	// 	d: false,
-	// });
 	const { state, dispatch } = useContext(TestContext);
-	const { currentIndex, selectedAnswers } = state;
+	const { currentIndex, selectedAnswers, isVisited } = state;
 	const questions = state.test.questions;
 
 	const handleSelect = (selectedOption) => {
 		selectedAnswers[currentIndex] = selectedOption;
 		dispatch({ type: SET_SELECTED_ANSWERS, currentAnswer: selectedAnswers });
-		// if (selectedOption === "a") {
-		// 	setSelect({ a: true });
-		// } else if (selectedOption === "b") {
-		// 	setSelect({ b: true });
-		// } else if (selectedOption === "c") {
-		// 	setSelect({ c: true });
-		// } else {
-		// 	setSelect({ d: true });
-		// }
 	};
 	/* eslint-disable */
-	// useEffect(() => {
-	// 	if (selectedAnswers[currentIndex] === "a") {
-	// 		setSelect({ a: true });
-	// 	} else if (selectedAnswers[currentIndex] === "b") {
-	// 		setSelect({ b: true });
-	// 	} else if (selectedAnswers[currentIndex] === "c") {
-	// 		setSelect({ c: true });
-	// 	} else if (selectedAnswers[currentIndex] === "d") {
-	// 		setSelect({ d: true });
-	// 	} else {
-	// 		setSelect(false);
-	// 	}
-	// }, [currentIndex]);
-
-	// const handleDoubleClick = () => {
-	// 	dispatch({ type: SET_CURRENT_ANSWER, currentAnswer: "" });
-	// 	selectedAnswers[currentIndex] = "";
-	// 	dispatch({ type: SET_SELECTED_ANSWERS, selectedAnswers: selectedAnswers });
-	// 	setSelect(false);
-	// 	// console.log("hello");
-	// };
+	useEffect(() => {
+		isVisited[currentIndex] = true;
+		dispatch({ type: SET_IS_VISITED, isVisited: isVisited });
+	}, [currentIndex]);
 
 	return (
 		<div>
@@ -176,6 +144,6 @@ const QuestionComponent = () => {
 			</div>
 		</div>
 	);
-};
+}
 
 export default QuestionComponent;

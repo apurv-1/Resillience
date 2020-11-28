@@ -44,8 +44,6 @@ const useStyles = makeStyles((theme) => ({
 	},
 	paper3: {
 		float: "right",
-		// margin: "1%",
-		// marginTop: "4%",
 		paddingTop: "20px",
 		maxWidth: "30%",
 		maxHeight: "100%",
@@ -89,11 +87,6 @@ const MainTest = () => {
 	const [state, dispatch] = useReducer(testReducer, initialState);
 	// const [student, setStudent] = useReducer(StudentReducer, InitialState);
 	const { test, showResult } = state;
-
-	// console.log(student);
-	// console.log(state);
-	// debugger;
-	// debugger;
 	// console.log(test.questions[currentIndex].correctOption);
 	// const [openAlert, setOpenAlert] = useState(false);
 
@@ -120,33 +113,6 @@ const MainTest = () => {
 	};
 
 	// console.log("hello: ", test.questions);
-
-	// const fetchTestId = () => {
-	// 	return (
-	// 		<div className={classes.startbox}>
-	// 			<Paper elevation={5} className={classes.paper4}>
-	// 				<div>
-	// 					<TextField
-	// 						id="outlined-basic"
-	// 						label="Enter Test ID"
-	// 						variant="outlined"
-	// 						value={testId}
-	// 						onChange={(e) => setTestId(e.target.value)}
-	// 						fullWidth
-	// 					/>
-	// 				</div>
-	// 				<Button
-	// 					variant="contained"
-	// 					color="primary"
-	// 					// className={classes.button}
-	// 					style={{ width: "100%", marginTop: "3%" }}
-	// 					onClick={() => fetchTest()}>
-	// 					Begin Test
-	// 				</Button>
-	// 			</Paper>
-	// 		</div>
-	// 	);
-	// };
 
 	return (
 		<div>

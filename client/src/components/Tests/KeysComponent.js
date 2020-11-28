@@ -143,12 +143,7 @@ const KeysComponent = () => {
 				Mark for Review
 			</Button>
 
-			<Button
-				variant="contained"
-				color="primary"
-				className={classes.button}
-				// disabled={currentIndex === questionLength - 1}
-				onClick={() => save()}>
+			<Button variant="contained" color="primary" className={classes.button} onClick={() => save()}>
 				Save Selection
 			</Button>
 			{/* {time} */}

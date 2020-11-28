@@ -32,10 +32,6 @@ const useStyles = makeStyles(() => ({
 		borderRadius: "35px",
 		fontWeight: "bold",
 		boxShadow: "0 0px 4px 0px rgba(54, 114, 192);",
-		// overflowY: "auto",
-		// "&:hover": {
-		// 	backgroundColor: "white",
-		// },
 	},
 	visitedLabel: {
 		cursor: "pointer",

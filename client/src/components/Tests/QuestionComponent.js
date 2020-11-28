@@ -113,7 +113,7 @@ function QuestionComponent() {
 								name="option"
 								className={classes.option}
 								value="b"
-								onClick={() => handleSelect("b")}
+								onClick={(e) => handleSelect(e.target.value)}
 							/>
 							<span className={classes.span}>Option B</span>
 						</label>
@@ -124,7 +124,7 @@ function QuestionComponent() {
 								name="option"
 								className={classes.option}
 								value="c"
-								onClick={() => handleSelect("c")}
+								onClick={(e) => handleSelect(e.target.value)}
 							/>
 							<span className={classes.span}>Option C</span>
 						</label>
@@ -135,7 +135,7 @@ function QuestionComponent() {
 								name="option"
 								className={classes.option}
 								value="d"
-								onClick={() => handleSelect("d")}
+								onClick={(e) => handleSelect(e.target.value)}
 							/>
 							<span className={classes.span}>Option D</span>
 						</label>

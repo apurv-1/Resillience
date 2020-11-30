@@ -19,11 +19,13 @@ router.get("/alltests", (req, res) => {
 });
 
 router.post("/addtest", (req, res) => {
-	const { testId, testName, testDuration, noOfQuestions } = req.body;
+	const { testId, testName, testDuration, noOfQuestions, forCorrect, forInCorrect } = req.body;
 	const test = new Test({
 		testId,
 		testName,
 		testDuration: 60000 * testDuration,
+		forCorrect,
+		forInCorrect,
 		noOfQuestions,
 	});
 	test

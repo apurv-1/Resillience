@@ -7,23 +7,12 @@ require("./QuestionTypes/NumericalType");
 
 const testSchema = new mongoose.Schema(
 	{
-		testId: {
-			type: Number,
-			required: true,
-			unique: true,
-		},
-		testName: {
-			type: String,
-			required: true,
-		},
-		testDuration: {
-			type: Number,
-			required: true,
-		},
-		noOfQuestions: {
-			type: Number,
-			required: true,
-		},
+		testId: { type: Number, required: true, unique: true },
+		testName: { type: String, required: true },
+		testDuration: { type: Number, required: true },
+		noOfQuestions: { type: Number, required: true },
+		forCorrect: { type: Number, default: 4 },
+		forInCorrect: { type: Number, default: -1 },
 		questions: [
 			{
 				questionNumber: {

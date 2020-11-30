@@ -3,7 +3,7 @@ import { CircularProgress, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
 	loadingScreen: {
-		marginTop: "20%",
+		margin: "4%",
 		display: "flex",
 		width: "100%",
 		height: "40%",

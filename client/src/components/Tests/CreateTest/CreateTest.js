@@ -26,6 +26,8 @@ const useStyles = makeStyles(() => ({
 	paper: {
 		padding: "2%",
 		textAlign: "center",
+		display: "flex",
+		flexDirection: "row",
 	},
 	testField: {
 		marginLeft: "20px",
@@ -48,6 +50,8 @@ const CreateTest = () => {
 	const [testName, setTestName] = useState("");
 	const [testDuration, setTestDuration] = useState("");
 	const [noOfQuestions, setNoOfQuestions] = useState("");
+	const [forCorrect, setForCorrect] = useState(0);
+	const [forInCorrect, setForInCorrect] = useState(0);
 	// const [error, setError] = useState("");
 	const [check, setCheck] = useState(false);
 
@@ -66,6 +70,8 @@ const CreateTest = () => {
 					testName,
 					testDuration,
 					noOfQuestions,
+					forCorrect,
+					forInCorrect,
 				}),
 			})
 				.then((res) => res.json())
@@ -138,6 +144,24 @@ const CreateTest = () => {
 							value={testDuration}
 							type="number"
 							onChange={(e) => setTestDuration(e.target.value)}
+						/>
+						<TextField
+							id="test-duration"
+							label="For Correct"
+							variant="outlined"
+							className={classes.testField}
+							value={forCorrect}
+							type="number"
+							onChange={(e) => setForCorrect(e.target.value)}
+						/>
+						<TextField
+							id="test-duration"
+							label="For InCorrect"
+							variant="outlined"
+							className={classes.testField}
+							value={forInCorrect}
+							type="number"
+							onChange={(e) => setForInCorrect(e.target.value)}
 						/>
 						<Button
 							variant="contained"

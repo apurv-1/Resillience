@@ -1,7 +1,13 @@
 import React, { useContext, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TestContext from "../Context/TestContext";
-import { SET_SELECTED_ANSWERS, SET_IS_VISITED, SET_SUBJECT } from "../Reducers/types";
+// import Loading from "./Loading";
+import {
+	SET_SELECTED_ANSWERS,
+	SET_IS_VISITED,
+	SET_SUBJECT,
+	SET_CURRENT_INDEX,
+} from "../Reducers/types";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -92,6 +98,15 @@ function QuestionComponent() {
 	const handleSubject = (cSubject) => {
 		console.log("hello");
 		dispatch({ type: SET_SUBJECT, currentSubject: cSubject });
+		for (let index = 0; index < questions.length; index++) {
+			if (questions[index].subject === cSubject) {
+				dispatch({
+					type: SET_CURRENT_INDEX,
+					currentIndex: index,
+				});
+				break;
+			}
+		}
 	};
 
 	/* eslint-disable */
@@ -126,7 +141,7 @@ function QuestionComponent() {
 						</label>
 					</div>
 					<span>
-						{1 + currentIndex} of {questions.length}
+						<b>Question Number : {questions[currentIndex].questionNumber}</b>
 					</span>
 				</div>
 				<hr style={{ height: "2px", backgroundColor: "gray solid" }} />
@@ -134,7 +149,6 @@ function QuestionComponent() {
 				{/* Question Image */}
 				<div className={classes.question}>
 					<img alt="question" src={questions[currentIndex].questionImage} />
-
 					<hr style={{ height: "2px", backgroundColor: "gray solid" }} />
 				</div>
 

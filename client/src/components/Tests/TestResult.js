@@ -1,14 +1,6 @@
 import React, { useContext, useState } from "react";
 import TestContext from "../Context/TestContext";
-import {
-	makeStyles,
-	Typography,
-	Grid,
-	Paper,
-	FormControl,
-	Select,
-	MenuItem,
-} from "@material-ui/core";
+import { makeStyles, Typography, Paper, FormControl, Select, MenuItem } from "@material-ui/core";
 // import Loading from "./Loading"
 import Confetti from "react-confetti";
 import CorrectQuestionComponent from "./TestAnalysis/CorrectQuestions";
@@ -16,11 +8,12 @@ import IncorrectQuestionComponent from "./TestAnalysis/IncorrectQuestion";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
-		margin: "5%",
+		margin: "40px",
+		marginTop: "100px",
 		// marginLeft: "20%",
 	},
 	card: {
-		width: "80%",
+		width: "70%",
 	},
 	grid: {
 		display: "flex",
@@ -29,12 +22,15 @@ const useStyles = makeStyles((theme) => ({
 		borderColor: "blue",
 	},
 	paper: {
-		margin: "2%",
-		padding: "4%",
+		// margin: "2%",
+		padding: "10px",
 		textAlign: "center",
-		border: "4px solid",
-		borderColor: "grey",
-		borderRadius: "25px",
+		// border: "2px solid",
+		// borderColor: "grey",
+		// borderRadius: "10px",
+		display: "flex",
+		flexDirection: "row",
+		// width: "80%",
 	},
 	correctPaper: {
 		margin: "2%",
@@ -53,9 +49,9 @@ const useStyles = makeStyles((theme) => ({
 		borderRadius: "25px",
 	},
 	analysisBlock: {
-		margin: "3%",
-		padding: "4%",
-		width: "60%",
+		margin: "2%",
+		padding: "2%",
+		width: "50%",
 		// border: "2px solid",
 	},
 	analysisDropdown: {
@@ -65,6 +61,10 @@ const useStyles = makeStyles((theme) => ({
 		marginTop: "-2.5%",
 		// padding: "5%",
 	},
+	span: {
+		margin: "10px",
+		padding: "10px",
+	},
 }));
 
 const TestResult = () => {
@@ -72,21 +72,31 @@ const TestResult = () => {
 	const { state } = useContext(TestContext);
 	const [open, setOpen] = useState(false);
 	const [type, setType] = useState("");
-	const { test, showResult, selectedAnswers, timeElapsed } = state;
+	const { test, showResult, selectedAnswers, timeElapsed, isVisited } = state;
 	const questions = test.questions;
 
 	const timePerQuestion = test.testDuration / (questions.length * 1000);
 	// console.log(timePerQuestion);
 	let score = 0,
 		total = questions.length,
-		// attempted = 0,
+		notAttempted = 0,
 		correct = 0,
-		wrong = 0;
+		wrong = 0,
+		answered = 0,
+		withinTime = 0;
 
 	const calculateMarks = () => {
 		questions.forEach(({ correctOption }, index) => {
 			if (selectedAnswers[index]) {
-				correctOption === selectedAnswers[index] ? (correct = correct + 1) : (wrong = wrong + 1);
+				correctOption === selectedAnswers[index]
+					? (correct = correct + 1) &&
+					  timeElapsed[index] <= timePerQuestion &&
+					  (withinTime = withinTime + 1)
+					: (wrong = wrong + 1);
+				answered = answered + 1;
+			}
+			if (isVisited[index] === false) {
+				notAttempted = notAttempted + 1;
 			}
 		});
 		calculateScore();
@@ -107,7 +117,40 @@ const TestResult = () => {
 					<Confetti numberOfPieces={50} />
 					{calculateMarks()}
 					<div>
-						<Grid className={classes.grid}>
+						<Paper className={classes.paper} elevation={5}>
+							<span className={classes.span}>
+								<h1>{total}</h1>
+								<h2>Total Questions</h2>
+							</span>
+							<span className={classes.span}>
+								<h1>{answered}</h1>
+								<h2>Answered</h2>
+							</span>
+							<span className={classes.span}>
+								<h1>{correct}</h1>
+								<h2>Correct </h2>
+							</span>
+							<span className={classes.span}>
+								<h1>{withinTime}</h1>
+								<h2>Correct within target time </h2>
+							</span>
+							<span className={classes.span}>
+								<h1>{wrong}</h1>
+								<h2>Wrong </h2>
+							</span>
+
+							<span className={classes.span}>
+								<h1>{notAttempted}</h1>
+								<h2>Not Visited</h2>
+							</span>
+							<span className={classes.span}>
+								<h1>
+									{score}/{4 * total}
+								</h1>
+								<h2>You Scored </h2>
+							</span>
+						</Paper>
+						{/* <Grid className={classes.grid}>
 							<Paper className={classes.paper} elevation={5} square={true}>
 								<h2>Total Questions</h2>
 								<h1>{questions.length}</h1>
@@ -128,7 +171,7 @@ const TestResult = () => {
 									{score}/{4 * total}
 								</h1>
 							</Paper>
-						</Grid>
+						</Grid> */}
 					</div>
 
 					<div className={classes.analysisBlock}>

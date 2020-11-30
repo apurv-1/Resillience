@@ -5,6 +5,7 @@ export const SET_IS_VISITED = "SET_IS_VISITED"; //boolean
 export const SET_IS_MARKED = "SET_IS_MARKED"; //boolean
 
 export const SET_TEST = "SET_TEST";
+export const SET_SUBJECT = "SET_SUBJECT";
 
 export const SET_TIMER = "SET_TIMER";
 export const SET_CURRENT_TIME = "SET_CURRENT_TIME";

@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { makeStyles, Typography } from "@material-ui/core";
 import TestContext from "../Context/TestContext";
 import { SET_CURRENT_INDEX } from "../Reducers/types";
-// import { CheckCircleIcon } from "@material-ui/icons";
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 
 const useStyles = makeStyles(() => ({
 	fabBox: {
@@ -63,20 +63,20 @@ const useStyles = makeStyles(() => ({
 	markedSelectedLabel: {
 		cursor: "pointer",
 		margin: "6px",
-		padding: "12px 18px",
+		padding: "7px 9px",
 		borderRadius: "35px",
 		fontWeight: "bold",
 		boxShadow: "0 0px 4px 0px rgba(54, 114, 192);",
-		backgroundColor: "#0F7DC2",
+		backgroundColor: "#565fb8",
 	},
 	currentLabel: {
 		cursor: "pointer",
-		margin: "4px",
-		padding: "12px 18px",
+		margin: "6px",
+		padding: "10px 16px",
 		borderRadius: "35px",
 		fontWeight: "bold",
 		boxShadow: "0 0px 4px 0px rgba(54, 114, 192);",
-		border: "3px solid",
+		border: "2px solid",
 		borderColor: "green",
 	},
 }));
@@ -84,7 +84,8 @@ const useStyles = makeStyles(() => ({
 const QuestionKeysComponent = () => {
 	const classes = useStyles();
 	const { state, dispatch } = useContext(TestContext);
-	const { test, currentIndex, isMarked, selectedAnswers, isVisited } = state;
+	const { test, currentIndex, isMarked, selectedAnswers, isVisited, currentSubject } = state;
+	// console.log(currentSubject);
 	const questions = test.questions;
 
 	const handleCurrentIndex = (cIndex) => {
@@ -101,12 +102,12 @@ const QuestionKeysComponent = () => {
 				</Typography>
 
 				<div className={classes.keys}>
-					<b>Physics :</b>
+					<b>{currentSubject} :</b>
 					<div className={classes.bubbleContainer}>
 						{questions.length &&
 							questions.map(
 								({ questionNumber, _id, subject }, index) =>
-									subject === "Physics" && (
+									subject === currentSubject && (
 										<label
 											key={_id}
 											className={
@@ -127,69 +128,11 @@ const QuestionKeysComponent = () => {
 													: classes.label
 											}
 											onClick={() => handleCurrentIndex(index)}>
-											{questionNumber}
-										</label>
-									)
-							)}
-					</div>
-					<b>Chemistry :</b>
-					<div className={classes.bubbleContainer}>
-						{questions.length &&
-							questions.map(
-								({ questionNumber, _id, subject }, index) =>
-									subject === "Chemistry" && (
-										<label
-											key={_id}
-											className={
-												currentIndex === index
-													? isMarked[index]
-														? classes.markedLabel
-														: classes.currentLabel
-													: selectedAnswers[index]
-													? isMarked[index] === true
-														? classes.markedSelectedLabel
-														: classes.attemptedLabel
-													: selectedAnswers[index]
-													? classes.attemptedLabel
-													: isMarked[index] === true
-													? classes.markedLabel
-													: isVisited[index] === true
-													? classes.visitedLabel
-													: classes.label
-											}
-											onClick={() => handleCurrentIndex(index)}>
-											{questionNumber}
-										</label>
-									)
-							)}
-					</div>
-					<b>Maths :</b>
-					<div className={classes.bubbleContainer}>
-						{questions.length &&
-							questions.map(
-								({ questionNumber, _id, subject }, index) =>
-									subject === "Maths" && (
-										<label
-											key={_id}
-											className={
-												currentIndex === index
-													? isMarked[index]
-														? classes.markedLabel
-														: classes.currentLabel
-													: selectedAnswers[index]
-													? isMarked[index] === true
-														? classes.markedSelectedLabel
-														: classes.attemptedLabel
-													: selectedAnswers[index]
-													? classes.attemptedLabel
-													: isMarked[index] === true
-													? classes.markedLabel
-													: isVisited[index] === true
-													? classes.visitedLabel
-													: classes.label
-											}
-											onClick={() => handleCurrentIndex(index)}>
-											{questionNumber}
+											{isMarked[index] === true && selectedAnswers[index] ? (
+												<CheckCircleIcon />
+											) : (
+												questionNumber
+											)}
 										</label>
 									)
 							)}

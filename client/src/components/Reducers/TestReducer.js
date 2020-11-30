@@ -6,11 +6,13 @@ import {
 	SET_IS_VISITED,
 	SET_IS_MARKED,
 	SET_INCREMENT_TIME,
+	SET_SUBJECT,
 } from "./types";
 
 export const initialState = {
 	test: [],
 	currentIndex: 0,
+	currentSubject: "Physics",
 	selectedAnswers: [],
 	timeElapsed: [],
 	showResult: false,
@@ -32,6 +34,11 @@ export function testReducer(state, action) {
 			return {
 				...state,
 				currentIndex: action.currentIndex,
+			};
+		case SET_SUBJECT:
+			return {
+				...state,
+				currentSubject: action.currentSubject,
 			};
 		case SET_SELECTED_ANSWERS:
 			return {

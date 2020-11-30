@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TestContext from "../Context/TestContext";
-import { SET_SELECTED_ANSWERS, SET_IS_VISITED } from "../Reducers/types";
+import { SET_SELECTED_ANSWERS, SET_IS_VISITED, SET_SUBJECT } from "../Reducers/types";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
 		paddingRight: "60px",
 	},
 	top: {
-		marginTop: "-5%",
+		// marginTop: "-5%",
 	},
 	box: {
 		padding: "10px",
@@ -54,18 +54,46 @@ const useStyles = makeStyles((theme) => ({
 		backgroundColor: "#0F7DC2",
 		boxShadow: "0 1px 3px 1px rgba(35, 34, 39);",
 	},
+	subjectContainer: {
+		marginTop: "-20px",
+		paddingBottom: "25px",
+		// marginLeft: "20%",
+		// margin: "auto",
+		// width: "50%",
+	},
+	span: {
+		border: "1px solid #25B5E9",
+		borderRadius: "4px",
+		padding: "10px",
+		margin: "4px",
+		cursor: "pointer",
+	},
+	selectedSpan: {
+		border: "1px solid #25B5E9",
+		borderRadius: "4px",
+		padding: "10px",
+		margin: "4px",
+		cursor: "pointer",
+		backgroundColor: "#25B5E9",
+	},
 }));
 
 function QuestionComponent() {
 	const classes = useStyles();
 	const { state, dispatch } = useContext(TestContext);
-	const { currentIndex, selectedAnswers, isVisited } = state;
+	const { currentIndex, selectedAnswers, isVisited, currentSubject } = state;
 	const questions = state.test.questions;
 
 	const handleSelect = (selectedOption) => {
 		selectedAnswers[currentIndex] = selectedOption;
 		dispatch({ type: SET_SELECTED_ANSWERS, currentAnswer: selectedAnswers });
 	};
+
+	const handleSubject = (cSubject) => {
+		console.log("hello");
+		dispatch({ type: SET_SUBJECT, currentSubject: cSubject });
+	};
+
 	/* eslint-disable */
 	useEffect(() => {
 		isVisited[currentIndex] = true;
@@ -77,9 +105,26 @@ function QuestionComponent() {
 			<div className={classes.box}>
 				{/* Test Heading */}
 				<div className={classes.top}>
-					<span>
+					{/* <span>
 						<h2>{state.test.testName}</h2>
-					</span>
+					</span> */}
+					<div className={classes.subjectContainer}>
+						<label
+							className={currentSubject === "Physics" ? classes.selectedSpan : classes.span}
+							onClick={() => handleSubject("Physics")}>
+							Physics
+						</label>
+						<label
+							className={currentSubject === "Chemistry" ? classes.selectedSpan : classes.span}
+							onClick={() => handleSubject("Chemistry")}>
+							Chemistry
+						</label>
+						<label
+							className={currentSubject === "Maths" ? classes.selectedSpan : classes.span}
+							onClick={() => handleSubject("Maths")}>
+							Maths
+						</label>
+					</div>
 					<span>
 						{1 + currentIndex} of {questions.length}
 					</span>
@@ -89,6 +134,7 @@ function QuestionComponent() {
 				{/* Question Image */}
 				<div className={classes.question}>
 					<img alt="question" src={questions[currentIndex].questionImage} />
+
 					<hr style={{ height: "2px", backgroundColor: "gray solid" }} />
 				</div>
 
@@ -104,7 +150,7 @@ function QuestionComponent() {
 								value="a"
 								onClick={(e) => handleSelect(e.target.value)}
 							/>
-							<span className={classes.span}>Option A</span>
+							<span>Option A</span>
 						</label>
 						<label
 							className={selectedAnswers[currentIndex] === "b" ? classes.selectedLabel : classes.label}>
@@ -115,7 +161,7 @@ function QuestionComponent() {
 								value="b"
 								onClick={(e) => handleSelect(e.target.value)}
 							/>
-							<span className={classes.span}>Option B</span>
+							<span>Option B</span>
 						</label>
 						<label
 							className={selectedAnswers[currentIndex] === "c" ? classes.selectedLabel : classes.label}>
@@ -126,7 +172,7 @@ function QuestionComponent() {
 								value="c"
 								onClick={(e) => handleSelect(e.target.value)}
 							/>
-							<span className={classes.span}>Option C</span>
+							<span>Option C</span>
 						</label>
 						<label
 							className={selectedAnswers[currentIndex] === "d" ? classes.selectedLabel : classes.label}>
@@ -137,7 +183,7 @@ function QuestionComponent() {
 								value="d"
 								onClick={(e) => handleSelect(e.target.value)}
 							/>
-							<span className={classes.span}>Option D</span>
+							<span>Option D</span>
 						</label>
 					</ul>
 				</div>

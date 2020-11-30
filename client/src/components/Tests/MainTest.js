@@ -71,10 +71,6 @@ const useStyles = makeStyles((theme) => ({
 			marginTop: "5px",
 		},
 	},
-	subjectContainer: {
-		marginTop: "5%",
-		alignContent: "center",
-	},
 }));
 
 const MainTest = () => {
@@ -118,11 +114,6 @@ const MainTest = () => {
 		<div>
 			{questionLength > 0 ? (
 				<TestContext.Provider value={{ state, dispatch }}>
-					{/* <div className={classes.subjectContainer}>
-						<label className={classes.span}>Physics</label>
-						<label className={classes.span}>Chemistry</label>
-						<label className={classes.span}>Maths</label>
-					</div> */}
 					{showResult === false ? (
 						<div className={classes.root}>
 							<div>

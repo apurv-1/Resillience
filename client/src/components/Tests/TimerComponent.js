@@ -1,15 +1,19 @@
 import React, { useRef, useState, useEffect, useContext } from "react";
 // import {useHistory} from 'react-router-dom';
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import { SET_SHOW_RESULTS } from "../Reducers/types";
 import TestContext from "../Context/TestContext";
 
 const useStyles = makeStyles(() => ({
 	root: {
-		marginTop: "5%",
-		paddingLeft: "60px",
-		paddingRight: "60px",
+		display: "flex",
+		justifyContent: "center",
+		padding: "5px",
+	},
+	time: {
+		margin: "13px",
+		// position: "absolute",
 	},
 }));
 
@@ -61,13 +65,16 @@ const TimerComponent = ({ timeRemaining }) => {
 			clearInterval(interval);
 		};
 	};
-
+	/* eslint-disable */
 	useEffect(useTimer, []);
 
 	const classes = useStyles();
 	return (
 		<div className={classes.root}>
-			<AccessTimeIcon /> : {timeMins}:{timeSeconds}
+			<AccessTimeIcon fontSize="large" />
+			<span className={classes.time}>
+				<b>{timeMins}</b> minutes : <b>{timeSeconds}</b> seconds
+			</span>
 		</div>
 	);
 };

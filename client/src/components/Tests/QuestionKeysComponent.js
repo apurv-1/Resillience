@@ -8,18 +8,12 @@ const useStyles = makeStyles(() => ({
 	fabBox: {
 		padding: "20px",
 		marginTop: "-18px",
-		// margin: "10px",
 		marginLeft: "0px",
 		width: "320px",
-		height: "400px",
+		// height: "400px",
 		// overflow: "scroll",
 		// overflowX: "hidden",
 	},
-	// keys: {
-	// 	margin: "18px",
-	// 	marginLeft: "0px",
-	// 	height: "60%",
-	// },
 	tick: {
 		height: "0px",
 		width: "0px",
@@ -30,7 +24,7 @@ const useStyles = makeStyles(() => ({
 		// border: "10px solid white",
 	},
 	bubbleContainer: {
-		margin: "20px",
+		margin: "15px",
 		display: "flex",
 		flexWrap: "wrap",
 		justifyContent: "space-between",
@@ -74,7 +68,7 @@ const useStyles = makeStyles(() => ({
 		borderRadius: "5px",
 		fontWeight: "bold",
 		fontSize: "12px",
-		color: "white",
+		color: "#ffff",
 		boxShadow: "0 0px 4px 0px rgba(54, 114, 192);",
 		backgroundColor: "#565fb8",
 	},
@@ -88,6 +82,44 @@ const useStyles = makeStyles(() => ({
 		boxShadow: "0 0px 4px 0px rgba(54, 114, 192);",
 		border: "2px solid",
 		borderColor: "green",
+	},
+	text: {
+		fontSize: "14px",
+		fontWeight: "bold",
+	},
+	showCurrent: {
+		margin: "5px",
+		padding: "2px 10px",
+		borderRadius: "5px",
+		border: "3px solid",
+		borderColor: "green",
+	},
+	showMarked: {
+		margin: "5px",
+		padding: "4px 12px",
+		borderRadius: "5px",
+		boxShadow: "0 0px 4px 0px rgba(54, 114, 192);",
+		backgroundColor: "#565fb8",
+	},
+	showVisited: {
+		margin: "8px",
+		padding: "4px 12px",
+		borderRadius: "5px",
+		boxShadow: "0 0px 4px 0px rgba(54, 114, 192);",
+		backgroundColor: "#FF6961",
+	},
+	showAttempted: {
+		margin: "5px",
+		padding: "4px 12px",
+		borderRadius: "5px",
+		boxShadow: "0 0px 4px 0px rgba(54, 114, 192);",
+		backgroundColor: "#2E8B57",
+	},
+	showLabel: {
+		margin: "5px",
+		padding: "4px 12px",
+		borderRadius: "5px",
+		boxShadow: "0 0px 4px 0px rgba(54, 114, 192);",
 	},
 }));
 
@@ -150,14 +182,41 @@ const QuestionKeysComponent = () => {
 					</div>
 				</div>
 				<hr style={{ height: "2px", backgroundColor: "gray solid" }} />
-				<div className={classes.information}>
-					<span>
-						<label className={classes.currentLabel}>‏‏‎</label>
-						<b> Current </b>
-					</span>
-					<span>
-						<label className={classes.visitedLabel}>‎</label> <b> Visited</b>
-					</span>
+				<div>
+					<div className={classes.bubbleContainer}>
+						<span>
+							<label className={classes.showAttempted} />
+							<span className={classes.text}>‏‏‎Attempted</span>
+						</span>
+						<span>
+							<label className={classes.showVisited} />
+							<span className={classes.text}>‏‏‎Not Attempted</span>
+						</span>
+					</div>
+					<div className={classes.bubbleContainer} style={{ marginTop: "30px" }}>
+						<span>
+							<label className={classes.showMarked} />
+							‏‏‎<span className={classes.text}>‏‏‎To be reviewed</span>
+						</span>
+						<span>
+							<label className={classes.showLabel} />
+							<span className={classes.text}>‏‏‎Not viewed yet</span>
+						</span>
+					</div>
+					<div className={classes.bubbleContainer} style={{ marginTop: "30px" }}>
+						<span>
+							<label className={classes.showMarked}>
+								<span style={{ position: "absolute", paddingTop: "5px" }}>
+									<CheckCircleIcon fontSize="small" />
+								</span>
+							</label>
+							<span className={classes.text}>‏‏‎Attempted and Marked</span>
+						</span>
+						<span>
+							<label className={classes.showCurrent} />
+							<span className={classes.text}>‏‏‎Current</span>
+						</span>
+					</div>
 				</div>
 				<hr style={{ height: "2px", backgroundColor: "gray solid" }} />
 			</div>
@@ -166,17 +225,3 @@ const QuestionKeysComponent = () => {
 };
 
 export default QuestionKeysComponent;
-
-// isMarked[index]
-// 													? classes.markedLabel
-// 													: // : selectedAnswers[index]
-// 													// ? isMarked[index] === true
-// 													// 	? classes.markedSelectedLabel
-// 													// 	: classes.attemptedLabel
-// 													selectedAnswers[index]
-// 													? classes.attemptedLabel
-// 													: isMarked[index] === true
-// 													? classes.markedLabel
-// 													: isVisited[index] === true
-// 													? classes.visitedLabel
-// 													: classes.label

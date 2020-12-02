@@ -115,6 +115,13 @@ const KeysComponent = () => {
 	const marked = () => {
 		isMarked[currentIndex] = true;
 		dispatch({ type: SET_IS_MARKED, isMarked: isMarked });
+		if (currentIndex + 1 < questionLength) {
+			dispatch({
+				type: SET_CURRENT_INDEX,
+				currentIndex: currentIndex + 1,
+			});
+			return;
+		}
 	};
 
 	return (
@@ -140,7 +147,7 @@ const KeysComponent = () => {
 			</Button>
 
 			<Button variant="contained" color="primary" className={classes.button} onClick={() => marked()}>
-				Mark for Review
+				Review Later
 			</Button>
 
 			<Button variant="contained" color="primary" className={classes.button} onClick={() => save()}>

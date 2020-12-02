@@ -63,15 +63,13 @@ const useStyles = makeStyles((theme) => ({
 	subjectContainer: {
 		marginTop: "-20px",
 		paddingBottom: "25px",
-		// marginLeft: "20%",
-		// margin: "auto",
-		// width: "50%",
 	},
 	span: {
-		border: "1px solid #25B5E9",
+		border: "2px solid #25B5E9",
 		borderRadius: "4px",
 		padding: "10px",
 		margin: "4px",
+		fontWeight: "bold",
 		cursor: "pointer",
 	},
 	selectedSpan: {
@@ -80,7 +78,13 @@ const useStyles = makeStyles((theme) => ({
 		padding: "10px",
 		margin: "4px",
 		cursor: "pointer",
+		color: "#ffff",
+		fontWeight: "bold",
 		backgroundColor: "#25B5E9",
+	},
+	questionNumber: {
+		float: "left",
+		margin: "1px",
 	},
 }));
 
@@ -120,9 +124,6 @@ function QuestionComponent() {
 			<div className={classes.box}>
 				{/* Test Heading */}
 				<div className={classes.top}>
-					{/* <span>
-						<h2>{state.test.testName}</h2>
-					</span> */}
 					<div className={classes.subjectContainer}>
 						<label
 							className={currentSubject === "Physics" ? classes.selectedSpan : classes.span}
@@ -140,10 +141,11 @@ function QuestionComponent() {
 							Maths
 						</label>
 					</div>
-					<span>
-						<b>Question Number : {questions[currentIndex].questionNumber}</b>
-					</span>
 				</div>
+				<div className={classes.questionNumber}>
+					<b>Question Number : {questions[currentIndex].questionNumber}</b>
+				</div>
+				<br />
 				<hr style={{ height: "2px", backgroundColor: "gray solid" }} />
 
 				{/* Question Image */}
@@ -201,6 +203,7 @@ function QuestionComponent() {
 						</label>
 					</ul>
 				</div>
+				<hr style={{ height: "2px", backgroundColor: "gray solid" }} />
 			</div>
 		</div>
 	);

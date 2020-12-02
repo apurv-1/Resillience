@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 		marginTop: "2%",
 		paddingTop: "0px",
 		maxWidth: "70%",
-		maxHeight: "100%",
+
 		textAlign: "center",
 		marginBottom: "-10%",
 	},
@@ -46,6 +46,7 @@ const useStyles = makeStyles((theme) => ({
 		float: "right",
 		paddingTop: "20px",
 		width: "27%",
+		// height: "500px",
 	},
 	startbox: {
 		padding: "1%",
@@ -114,16 +115,16 @@ const MainTest = () => {
 				<TestContext.Provider value={{ state, dispatch }}>
 					{showResult === false ? (
 						<div className={classes.root}>
-							<Paper elevation={5} className={classes.paper3}>
+							<Paper elevation={4} className={classes.paper3}>
 								<TimerComponent timeRemaining={test.testDuration} />
 								<QuestionKeysComponent />
 							</Paper>
 
-							<Paper elevation={5} className={classes.paper1}>
+							<Paper elevation={4} className={classes.paper1}>
 								<QuestionComponent />
 							</Paper>
 
-							<Paper elevation={5} className={classes.paper2}>
+							<Paper elevation={4} className={classes.paper2}>
 								<KeysComponent />
 							</Paper>
 						</div>

@@ -1,11 +1,12 @@
 import React, { useContext, useState } from "react";
 import TestContext from "../Context/TestContext";
-import { makeStyles, Typography, Paper, FormControl, Select, MenuItem } from "@material-ui/core";
+import { makeStyles, Paper, FormControl, Select, MenuItem } from "@material-ui/core";
 // import Loading from "./Loading"
-import Confetti from "react-confetti";
-import CorrectQuestionComponent from "./TestAnalysis/CorrectQuestions";
-import IncorrectQuestionComponent from "./TestAnalysis/IncorrectQuestion";
-import NotAnsweredQuestions from "./TestAnalysis/NotAnsweredQuestions";
+// import Confetti from "react-confetti";
+import CorrectQuestionsComponent from "./TestAnalysis/CorrectQuestions";
+import IncorrectQuestionsComponent from "./TestAnalysis/IncorrectQuestion";
+import NotAnsweredQuestionsComponent from "./TestAnalysis/NotAnsweredQuestions";
+import AllQuestionsComponent from "./TestAnalysis/AllQuestions";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -20,17 +21,17 @@ const useStyles = makeStyles((theme) => ({
 	paper: {
 		padding: "10px",
 		textAlign: "center",
-		// border: "2px solid",
-		// borderColor: "grey",
-		// borderRadius: "10px",
 		display: "flex",
 		flexDirection: "row",
-		// width: "80%",
+		// flexWrap: "wrap",
+		width: "65%",
 	},
 	analysisBlock: {
 		margin: "2%",
 		padding: "2%",
 		width: "50%",
+		fontWeight: "bolder",
+		fontSize: "20px",
 		// border: "2px solid",
 	},
 	analysisDropdown: {
@@ -92,101 +93,73 @@ const TestResult = () => {
 
 			{showResult === true && (
 				<div>
-					<Confetti numberOfPieces={50} />
+					{/* <Confetti numberOfPieces={50} width="800px" /> */}
 					{calculateMarks()}
 
 					<Paper className={classes.paper} elevation={5}>
 						<span className={classes.span}>
 							<h1>{total}</h1>
-							<h2>Total Questions</h2>
+							<h3>Total Questions</h3>
 						</span>
 						<span className={classes.span}>
 							<h1>{answered}</h1>
-							<h2>Answered</h2>
+							<h3>Answered</h3>
 						</span>
 						<span className={classes.span}>
 							<h1>{correct}</h1>
-							<h2>Correct </h2>
+							<h3>Correct </h3>
 						</span>
 						<span className={classes.span}>
 							<h1>{withinTime}</h1>
-							<h2>Correct within target time </h2>
+							<h3>Correct within target time </h3>
 						</span>
 						<span className={classes.span}>
 							<h1>{wrong}</h1>
-							<h2>Incorrect </h2>
+							<h3>Incorrect </h3>
 						</span>
 
 						<span className={classes.span}>
 							<h1>{notAttempted}</h1>
-							<h2>Not Visited</h2>
+							<h3>Not Visited</h3>
 						</span>
 						<span className={classes.span}>
 							<h1>
 								{score}/{4 * total}
 							</h1>
-							<h2>You Scored </h2>
+							<h3>You Scored </h3>
 						</span>
 					</Paper>
 
 					<div className={classes.analysisBlock}>
-						<h3>
-							Choose Test Analysis :
-							<FormControl className={classes.analysisDropdown}>
-								{/* <InputLabel>Select Question Type</InputLabel> */}
-								<Select
-									// labelId="controlled-open-select-label"
-									variant="outlined"
-									open={open}
-									onClose={() => setOpen(false)}
-									onOpen={() => setOpen(true)}
-									value={type}
-									onChange={(e) => setType(e.target.value)}
-									fullWidth>
-									<MenuItem value={""}>None</MenuItem>
-									<MenuItem value={"correct"}>Correct</MenuItem>
-									<MenuItem value={"incorrect"}>Incorrect</MenuItem>
-									<MenuItem value={"notAnswered"}>Not Answered</MenuItem>
-									<MenuItem value={"all"}>All</MenuItem>
-								</Select>
-							</FormControl>
-						</h3>
+						Choose Test Analysis :
+						<FormControl className={classes.analysisDropdown}>
+							<Select
+								labelId="controlled-open-select-label"
+								variant="outlined"
+								open={open}
+								onClose={() => setOpen(false)}
+								onOpen={() => setOpen(true)}
+								value={type}
+								onChange={(e) => setType(e.target.value)}
+								fullWidth>
+								<MenuItem value={""}>None</MenuItem>
+								<MenuItem value={"correct"}>Correct</MenuItem>
+								<MenuItem value={"incorrect"}>Incorrect</MenuItem>
+								<MenuItem value={"notAnswered"}>Not Answered</MenuItem>
+								<MenuItem value={"all"}>All</MenuItem>
+							</Select>
+						</FormControl>
 					</div>
+					{type === "correct" ? (
+						<CorrectQuestionsComponent />
+					) : type === "incorrect" ? (
+						<IncorrectQuestionsComponent />
+					) : type === "notAnswered" ? (
+						<NotAnsweredQuestionsComponent />
+					) : (
+						type === "all" && <AllQuestionsComponent />
+					)}
 				</div>
-			)}
-			{showResult === true ? (
-				type === "correct" ? (
-					<CorrectQuestionComponent />
-				) : type === "incorrect" ? (
-					<IncorrectQuestionComponent />
-				) : type === "notAnswered" ? (
-					<NotAnsweredQuestions />
-				) : (
-					type === "all" &&
-					questions.map(({ questionImage, correctOption, _id, difficuilty }, index) => (
-						<Paper className={classes.card} key={_id}>
-							<hr style={{ height: "1px", backgroundColor: "gray solid" }} />
-							<Typography gutterBottom variant="h6" component="h6">
-								Question Number: {test.questions[index].questionNumber}
-							</Typography>
-							<img src={questionImage} alt={_id} />
-							{difficuilty}
-							<Typography gutterBottom component="h6">
-								Correct Option: {correctOption}
-								<br />
-								Selected Option: {selectedAnswers[index] ? selectedAnswers[index] : "Not Selected"}
-								<br />
-								<label>
-									Time Taken: {timeElapsed[index] ? timeElapsed[index] : 0}s /{timePerQuestion}s
-								</label>
-							</Typography>
-
-							<hr style={{ height: "1px", backgroundColor: "gray solid" }} />
-						</Paper>
-					))
-				)
-			) : (
-				"Complete the Quiz first!"
 			)}
 		</div>
 	);

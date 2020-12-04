@@ -17,13 +17,12 @@ import {
 
 const useStyles = makeStyles((theme) => ({
 	buttonContainer: {
-		padding: "1%",
+		marginLeft: "5%",
+		marginRight: "5%",
+		padding: "4%",
+		display: "flex",
+		justifyContent: "space-around",
 	},
-	button: {
-		margin: "2.5%",
-		caretColor: "#0089FF",
-	},
-
 	toast: {
 		width: "100%",
 		textAlign: "center",
@@ -126,23 +125,7 @@ const KeysComponent = () => {
 
 	return (
 		<div className={classes.buttonContainer}>
-			{/* <ThemeProvider theme={theme}>
-				<Button
-					variant="contained"
-					color="primary"
-					className={classes.button}
-					style={{ marginLeft: "-10px" }}
-					onClick={() => handleSubmitTest()}>
-					End Test
-				</Button>
-			</ThemeProvider> */}
-
-			<Button
-				variant="contained"
-				color="primary"
-				className={classes.button}
-				// disabled={currentIndex === 0}
-				onClick={() => clear()}>
+			<Button variant="contained" color="primary" className={classes.button} onClick={() => clear()}>
 				Clear Selection
 			</Button>
 

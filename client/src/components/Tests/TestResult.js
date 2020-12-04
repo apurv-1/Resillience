@@ -5,24 +5,19 @@ import { makeStyles, Typography, Paper, FormControl, Select, MenuItem } from "@m
 import Confetti from "react-confetti";
 import CorrectQuestionComponent from "./TestAnalysis/CorrectQuestions";
 import IncorrectQuestionComponent from "./TestAnalysis/IncorrectQuestion";
+import NotAnsweredQuestions from "./TestAnalysis/NotAnsweredQuestions";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
-		margin: "40px",
+		// margin: "20px",
 		marginTop: "100px",
 		// marginLeft: "20%",
 	},
 	card: {
-		width: "70%",
+		width: "50%",
 	},
-	grid: {
-		display: "flex",
-		// flexWrap: "wrap",
-		flexDirection: "row",
-		borderColor: "blue",
-	},
+
 	paper: {
-		// margin: "2%",
 		padding: "10px",
 		textAlign: "center",
 		// border: "2px solid",
@@ -31,22 +26,6 @@ const useStyles = makeStyles((theme) => ({
 		display: "flex",
 		flexDirection: "row",
 		// width: "80%",
-	},
-	correctPaper: {
-		margin: "2%",
-		padding: "4%",
-		textAlign: "center",
-		border: "4px solid",
-		borderColor: "green",
-		borderRadius: "25px",
-	},
-	WorngPaper: {
-		margin: "2%",
-		padding: "4%",
-		textAlign: "center",
-		border: "4px solid",
-		borderColor: "red",
-		borderRadius: "25px",
 	},
 	analysisBlock: {
 		margin: "2%",
@@ -59,7 +38,6 @@ const useStyles = makeStyles((theme) => ({
 		height: "100%",
 		marginLeft: "2%",
 		marginTop: "-2.5%",
-		// padding: "5%",
 	},
 	span: {
 		margin: "10px",
@@ -113,66 +91,43 @@ const TestResult = () => {
 			<h1>Result Section</h1>
 
 			{showResult === true && (
-				<>
+				<div>
 					<Confetti numberOfPieces={50} />
 					{calculateMarks()}
-					<div>
-						<Paper className={classes.paper} elevation={5}>
-							<span className={classes.span}>
-								<h1>{total}</h1>
-								<h2>Total Questions</h2>
-							</span>
-							<span className={classes.span}>
-								<h1>{answered}</h1>
-								<h2>Answered</h2>
-							</span>
-							<span className={classes.span}>
-								<h1>{correct}</h1>
-								<h2>Correct </h2>
-							</span>
-							<span className={classes.span}>
-								<h1>{withinTime}</h1>
-								<h2>Correct within target time </h2>
-							</span>
-							<span className={classes.span}>
-								<h1>{wrong}</h1>
-								<h2>Wrong </h2>
-							</span>
 
-							<span className={classes.span}>
-								<h1>{notAttempted}</h1>
-								<h2>Not Visited</h2>
-							</span>
-							<span className={classes.span}>
-								<h1>
-									{score}/{4 * total}
-								</h1>
-								<h2>You Scored </h2>
-							</span>
-						</Paper>
-						{/* <Grid className={classes.grid}>
-							<Paper className={classes.paper} elevation={5} square={true}>
-								<h2>Total Questions</h2>
-								<h1>{questions.length}</h1>
-							</Paper>
+					<Paper className={classes.paper} elevation={5}>
+						<span className={classes.span}>
+							<h1>{total}</h1>
+							<h2>Total Questions</h2>
+						</span>
+						<span className={classes.span}>
+							<h1>{answered}</h1>
+							<h2>Answered</h2>
+						</span>
+						<span className={classes.span}>
+							<h1>{correct}</h1>
+							<h2>Correct </h2>
+						</span>
+						<span className={classes.span}>
+							<h1>{withinTime}</h1>
+							<h2>Correct within target time </h2>
+						</span>
+						<span className={classes.span}>
+							<h1>{wrong}</h1>
+							<h2>Incorrect </h2>
+						</span>
 
-							<Paper className={classes.correctPaper} elevation={5} square={true}>
-								<h2>Correct </h2>
-								<h1>{correct}</h1>
-							</Paper>
-
-							<Paper className={classes.WorngPaper} elevation={5} square={true}>
-								<h2>Wrong </h2>
-								<h1>{wrong}</h1>
-							</Paper>
-							<Paper className={classes.paper} elevation={5} square={true}>
-								<h2>You Scored </h2>
-								<h1>
-									{score}/{4 * total}
-								</h1>
-							</Paper>
-						</Grid> */}
-					</div>
+						<span className={classes.span}>
+							<h1>{notAttempted}</h1>
+							<h2>Not Visited</h2>
+						</span>
+						<span className={classes.span}>
+							<h1>
+								{score}/{4 * total}
+							</h1>
+							<h2>You Scored </h2>
+						</span>
+					</Paper>
 
 					<div className={classes.analysisBlock}>
 						<h3>
@@ -197,37 +152,15 @@ const TestResult = () => {
 							</FormControl>
 						</h3>
 					</div>
-				</>
+				</div>
 			)}
-			{console.log(selectedAnswers)}
 			{showResult === true ? (
 				type === "correct" ? (
 					<CorrectQuestionComponent />
 				) : type === "incorrect" ? (
 					<IncorrectQuestionComponent />
 				) : type === "notAnswered" ? (
-					questions.map(
-						({ questionImage, correctOption, _id, difficuilty }, index) =>
-							!selectedAnswers[index] && (
-								<Paper className={classes.card} key={_id}>
-									<hr style={{ height: "1px", backgroundColor: "gray solid" }} />
-									<Typography gutterBottom variant="h6" component="h6">
-										Question Number: {test.questions[index].questionNumber}
-									</Typography>
-									<img src={questionImage} alt={_id} />
-									{difficuilty}
-									<Typography gutterBottom component="h6">
-										Correct Option: {correctOption}
-										<br />
-										Selected Option: {selectedAnswers[index] ? selectedAnswers[index] : "Not Selected"}
-										<br />
-										Time Taken: {timeElapsed[index] ? timeElapsed[index] : 0}s /{timePerQuestion}s
-									</Typography>
-
-									<hr style={{ height: "1px", backgroundColor: "gray solid" }} />
-								</Paper>
-							)
-					)
+					<NotAnsweredQuestions />
 				) : (
 					type === "all" &&
 					questions.map(({ questionImage, correctOption, _id, difficuilty }, index) => (

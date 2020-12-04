@@ -26,16 +26,23 @@ const useStyles = makeStyles((theme) => ({
 		width: "100%",
 		marginTop: "2%",
 		alignItems: "center",
+		"@media only screen and (max-width: 1024px)": {
+			height: "50%",
+			width: "50%",
+		},
 	},
 	optionContainer: {
+		marginLeft: "5%",
+		marginRight: "5%",
 		padding: "2%",
+		display: "flex",
+		justifyContent: "space-around",
 	},
 	option: {
 		display: "none",
 	},
 	label: {
 		cursor: "pointer",
-		margin: "2%",
 		borderRadius: "25px",
 		padding: "10px 40px",
 		fontWeight: "bold",
@@ -52,7 +59,6 @@ const useStyles = makeStyles((theme) => ({
 	},
 	selectedLabel: {
 		cursor: "pointer",
-		margin: "2%",
 		borderRadius: "25px",
 		padding: "10px 40px",
 		fontWeight: "bold",
@@ -61,8 +67,8 @@ const useStyles = makeStyles((theme) => ({
 		boxShadow: "0 1px 3px 1px rgba(35, 34, 39);",
 	},
 	subjectContainer: {
-		marginTop: "-20px",
-		paddingBottom: "25px",
+		// marginTop: "-10px",
+		paddingBottom: "30px",
 	},
 	span: {
 		border: "2px solid #25B5E9",
@@ -155,8 +161,8 @@ function QuestionComponent() {
 				</div>
 
 				{/* Question Options */}
-				<div className={classes.optionContainer}>
-					<ul>
+				<div>
+					<ul className={classes.optionContainer}>
 						<label
 							className={selectedAnswers[currentIndex] === "a" ? classes.selectedLabel : classes.label}>
 							<input

@@ -19,34 +19,34 @@ import { initialState, testReducer } from "../Reducers/TestReducer";
 // import { InitialState, StudentReducer } from "../Reducers/Reducer";
 
 const useStyles = makeStyles((theme) => ({
+	main: {
+		margin: "40px",
+		"@media only screen and (max-width: 1024px)": {
+			margin: "15px",
+		},
+	},
 	root: {
-		marginTop: "5%",
-		paddingLeft: "60px",
-		paddingRight: "60px",
+		// marginTop: "5%",
+		// paddingLeft: "60px",
+		// paddingRight: "60px",
 	},
 	paper1: {
-		margin: "1%",
-		marginTop: "4%",
+		marginTop: "6%",
 		paddingTop: "40px",
 		maxWidth: "70%",
-		maxHeight: "100%",
 		textAlign: "center",
-		// color: "#f8f8f8"
 	},
 	paper2: {
-		margin: "1%",
 		marginTop: "2%",
 		paddingTop: "0px",
 		maxWidth: "70%",
-
 		textAlign: "center",
-		marginBottom: "-10%",
+		marginBottom: "-8%",
 	},
 	paper3: {
 		float: "right",
 		paddingTop: "20px",
 		width: "27%",
-		// height: "500px",
 	},
 	startbox: {
 		padding: "1%",
@@ -110,23 +110,22 @@ const MainTest = () => {
 	// console.log("hello: ", test.questions);
 
 	return (
-		<div>
+		<div className={classes.main}>
 			{questionLength > 0 ? (
 				<TestContext.Provider value={{ state, dispatch }}>
 					{showResult === false ? (
 						<div className={classes.root}>
-							<Paper elevation={4} className={classes.paper3}>
+							<Paper elevation={5} className={classes.paper3}>
 								<TimerComponent timeRemaining={test.testDuration} />
 								<QuestionKeysComponent />
 							</Paper>
 
-							<Paper elevation={4} className={classes.paper1}>
+							<Paper elevation={5} className={classes.paper1}>
 								<QuestionComponent />
-							</Paper>
-
-							<Paper elevation={4} className={classes.paper2}>
 								<KeysComponent />
 							</Paper>
+
+							<Paper elevation={6} className={classes.paper2}></Paper>
 						</div>
 					) : (
 						<TestResult />

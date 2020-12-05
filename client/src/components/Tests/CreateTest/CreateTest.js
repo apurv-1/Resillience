@@ -9,33 +9,25 @@ import AddQuestions from "./AddQuestionsComponent";
 // +import ShowTest from "./ShowTestComponent";
 
 const useStyles = makeStyles(() => ({
-	root: {
-		// marginTop: "3%",
-		// margin: "2%",
-		// padding: "6%",
-	},
-	// questionsDiv: {
-	// 	margin: "2px",
-	// },
+	root: {},
 	testDiv: {
-		// display: "flex",
-		marginTop: "3%",
-		margin: "2%",
-		padding: "6%",
+		marginTop: "6%",
+		marginLeft: "20%",
+		marginRight: "20%",
+		paddingLeft: "10%",
+		paddingRight: "10%",
 	},
 	paper: {
-		padding: "2%",
-		textAlign: "center",
+		padding: "5%",
 		display: "flex",
-		flexDirection: "row",
+		flexDirection: "column",
+		textAlign: "center",
 	},
 	testField: {
-		marginLeft: "20px",
-		height: "10px",
+		margin: "5px",
 	},
 	button: {
-		marginLeft: "20px",
-		height: "55px",
+		margin: "20px",
 	},
 	showtest: {
 		marginTop: "5%",
@@ -53,7 +45,7 @@ const CreateTest = () => {
 	const [forCorrect, setForCorrect] = useState(0);
 	const [forInCorrect, setForInCorrect] = useState(0);
 	// const [error, setError] = useState("");
-	const [check, setCheck] = useState(false);
+	const [check, setCheck] = useState(true);
 
 	const SaveTest = () => {
 		if (!testId || !testName || !testDuration || !noOfQuestions) {
@@ -89,9 +81,6 @@ const CreateTest = () => {
 		}
 	};
 
-	// <div className={classes.showtest}>
-	// 					<ShowTest testId={testId} />
-	// 				</div>
 	return (
 		<div className={classes.root}>
 			{/* {error ? (
@@ -110,11 +99,12 @@ const CreateTest = () => {
 			) : (
 				<div className={classes.testDiv}>
 					<Paper elevation={5} className={classes.paper}>
+						<h1>Create Test</h1>
 						<TextField
 							id="test-id"
 							label="Test Id"
 							variant="outlined"
-							className={classes.textField}
+							className={classes.testField}
 							value={testId}
 							type="number"
 							onChange={(e) => setTestId(e.target.value)}

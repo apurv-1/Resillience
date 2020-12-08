@@ -77,6 +77,7 @@ const useStyles = makeStyles((theme) => ({
 		margin: "4px",
 		fontWeight: "bold",
 		cursor: "pointer",
+		color: "grey",
 	},
 	selectedSpan: {
 		border: "1px solid #25B5E9",

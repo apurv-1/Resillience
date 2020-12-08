@@ -46,7 +46,7 @@ const KeysComponent = () => {
 	const questionLength = test.questions.length;
 	// const [time, setTime] = useState(timeElapsed);
 
-	// console.log("time", isMarked);
+	console.log("time", state.timeElapsed);
 
 	useEffect(() => {
 		const timer = setTimeout(() => {
@@ -134,7 +134,7 @@ const KeysComponent = () => {
 			</Button>
 
 			<Button variant="contained" color="primary" className={classes.button} onClick={() => save()}>
-				Save Selection
+				Next Question
 			</Button>
 			{/* {time} */}
 			<Button

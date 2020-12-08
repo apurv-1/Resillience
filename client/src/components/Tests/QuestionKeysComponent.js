@@ -7,12 +7,7 @@ import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 const useStyles = makeStyles(() => ({
 	fabBox: {
 		padding: "20px",
-		marginTop: "-18px",
-		marginLeft: "0px",
-		width: "320px",
-		// height: "400px",
-		// overflow: "scroll",
-		// overflowX: "hidden",
+		// marginTop: "-18px",
 	},
 	tick: {
 		height: "0px",
@@ -143,44 +138,44 @@ const QuestionKeysComponent = () => {
 					</Typography>
 				</div>
 				<hr style={{ height: "2px", backgroundColor: "gray solid" }} />
-				<div className={classes.keys}>
-					<b>{currentSubject} :</b>
-					<div className={classes.bubbleContainer}>
-						{questions.length &&
-							questions.map(
-								({ questionNumber, _id, subject }, index) =>
-									subject === currentSubject && (
-										<label
-											key={_id}
-											className={
-												currentIndex === index
-													? isMarked[index]
-														? classes.markedLabel
-														: classes.currentLabel
-													: isMarked[index] === true
+
+				<b>{currentSubject} :</b>
+				<div className={classes.bubbleContainer}>
+					{questions.length &&
+						questions.map(
+							({ questionNumber, _id, subject }, index) =>
+								subject === currentSubject && (
+									<label
+										key={_id}
+										className={
+											currentIndex === index
+												? isMarked[index]
 													? classes.markedLabel
-													: selectedAnswers[index]
-													? classes.attemptedLabel
-													: isVisited[index] === true
-													? classes.visitedLabel
-													: classes.label
-											}
-											onClick={() => handleCurrentIndex(index)}>
-											{isMarked[index] === true && selectedAnswers[index] ? (
-												<span>
-													{questionNumber}
-													<div className={classes.tick}>
-														<CheckCircleIcon fontSize="small" />
-													</div>
-												</span>
-											) : (
-												questionNumber
-											)}
-										</label>
-									)
-							)}
-					</div>
+													: classes.currentLabel
+												: isMarked[index] === true
+												? classes.markedLabel
+												: selectedAnswers[index]
+												? classes.attemptedLabel
+												: isVisited[index] === true
+												? classes.visitedLabel
+												: classes.label
+										}
+										onClick={() => handleCurrentIndex(index)}>
+										{isMarked[index] === true && selectedAnswers[index] ? (
+											<span>
+												{questionNumber}
+												<div className={classes.tick}>
+													<CheckCircleIcon fontSize="small" />
+												</div>
+											</span>
+										) : (
+											questionNumber
+										)}
+									</label>
+								)
+						)}
 				</div>
+
 				<hr style={{ height: "2px", backgroundColor: "gray solid" }} />
 				<div>
 					<div className={classes.bubbleContainer}>
@@ -214,7 +209,7 @@ const QuestionKeysComponent = () => {
 						</span>
 						<span>
 							<label className={classes.showCurrent} />
-							<span className={classes.text}>‏‏‎Current</span>
+							<span className={classes.text}>‏‏‎Current </span>
 						</span>
 					</div>
 				</div>

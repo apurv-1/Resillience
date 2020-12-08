@@ -9,7 +9,7 @@ const useStyles = makeStyles(() => ({
 	root: {
 		display: "flex",
 		justifyContent: "center",
-		padding: "5px",
+		padding: "10px",
 	},
 	time: {
 		margin: "13px",

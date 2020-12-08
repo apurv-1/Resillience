@@ -81,7 +81,7 @@ const MainTest = () => {
 
 	const [state, dispatch] = useReducer(testReducer, initialState);
 	// const [student, setStudent] = useReducer(StudentReducer, InitialState);
-	const { test, showResult } = state;
+	const { showResult } = state;
 	// console.log(test.questions[currentIndex].correctOption);
 	// const [openAlert, setOpenAlert] = useState(false);
 
@@ -116,7 +116,7 @@ const MainTest = () => {
 					{showResult === false ? (
 						<div className={classes.root}>
 							<Paper elevation={5} className={classes.paper3}>
-								<TimerComponent timeRemaining={test.testDuration} />
+								<TimerComponent />
 								<QuestionKeysComponent />
 							</Paper>
 

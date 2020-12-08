@@ -1,9 +1,5 @@
-import React, { useContext, useEffect } from "react";
-import {
-	makeStyles,
-	// createMuiTheme,
-	// ThemeProvider,
-} from "@material-ui/core/styles";
+import React, { useContext, useEffect, useState } from "react";
+import { makeStyles, createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import TestContext from "../Context/TestContext";
 import {
@@ -13,7 +9,10 @@ import {
 	SET_IS_MARKED,
 	SET_INCREMENT_TIME,
 } from "../Reducers/types";
-// import { blue, red } from "@material-ui/core/colors";
+import { Dialog, DialogActions, DialogTitle, DialogContent } from "@material-ui/core";
+
+// import TimeLeft from "./TimerComponent";
+import { blue, red } from "@material-ui/core/colors";
 
 const useStyles = makeStyles((theme) => ({
 	buttonContainer: {
@@ -30,23 +29,78 @@ const useStyles = makeStyles((theme) => ({
 			marginTop: "5px",
 		},
 	},
+	container: {
+		display: "flex",
+		// float: "left",
+		justifyContent: "space-between",
+	},
+	showMarked: {
+		margin: "5px",
+		padding: "4px 12px",
+		borderRadius: "5px",
+		boxShadow: "0 0px 4px 0px rgba(54, 114, 192);",
+		backgroundColor: "#565fb8",
+	},
+	showVisited: {
+		margin: "8px",
+		padding: "4px 12px",
+		borderRadius: "5px",
+		boxShadow: "0 0px 4px 0px rgba(54, 114, 192);",
+		backgroundColor: "#FF6961",
+	},
+	showAttempted: {
+		margin: "5px",
+		padding: "4px 12px",
+		borderRadius: "5px",
+		boxShadow: "0 0px 4px 0px rgba(54, 114, 192);",
+		backgroundColor: "#2E8B57",
+	},
+	showLabel: {
+		margin: "4px",
+		padding: "4px 12px",
+		borderRadius: "5px",
+		boxShadow: "0 0px 4px 0px rgba(54, 114, 192);",
+	},
 }));
-// const theme = createMuiTheme({
-// 	palette: {
-// 		primary: red,
-// 		secondary: blue,
-// 	},
-// });
+const theme = createMuiTheme({
+	palette: {
+		primary: red,
+		secondary: blue,
+	},
+	typography: {
+		fontFamily: ["muli", "sans-serif"].join(","),
+		fontSize: "20px",
+		h6: {
+			fontFamily: "Rubik",
+		},
+		button: {
+			fontFamily: "Rubik",
+		},
+	},
+});
 
 const KeysComponent = () => {
 	const classes = useStyles();
-
+	const [openSubmitDialog, setOpenSubmitDialog] = useState(false);
 	const { state, dispatch } = useContext(TestContext);
 	const { test, currentIndex, selectedAnswers, showResult, isMarked } = state;
 	const questionLength = test.questions.length;
-	// const [time, setTime] = useState(timeElapsed);
+	//
+	// 	let
+	// 	notAttempted = 0,
+	// 	answered = 0;
+	// 	// const [time, setTime] = useState(timeElapsed);
+	//
+	// 	const currentStats = () => {
+	// 		if(openSubmitDialog){
+	// 			for (let index = 0; index < test.questions.length; index++) {
+	// 				if(selectedAnswers[index])
+	//
+	// 			}
+	// 		}
+	// 	}
 
-	console.log("time", state.timeElapsed);
+	// console.log("time", state.timeElapsed);
 
 	useEffect(() => {
 		const timer = setTimeout(() => {
@@ -59,33 +113,9 @@ const KeysComponent = () => {
 			clearTimeout(timer);
 		};
 	});
-	// console.log(currentIndex, timeElapsed);
-	// /* eslint-disable */
 
-	// const handleTimeElapsed = () => {
-	// 	// if (timeElapsed[time]) {
-	// 	// }
-	// 	timeElapsed[currentIndex] = time;
-	// 	dispatch({ type: SET_TIMER, timeElapsed: timeElapsed });
-	// 	dispatch({ type: SET_CURRENT_TIME, currentTime: 0 });
-	// 	setTime(0);
-	// console.log(timeElapsed);
-	// };
-
-	// const handleAnswer = () => {
-	// 	if (currentAnswer) {
-	// 		selectedAnswers[currentIndex] = currentAnswer;
-	// 		dispatch({ type: SET_SELECTED_ANSWERS, selectedAnswers: selectedAnswers });
-	// 		dispatch({ type: SET_CURRENT_ANSWER, currentAnswer: "" });
-	// 		console.log("selectd ", selectedAnswers);
-	// 	}
-	// };
 	// console.log("selectd ", isMarked);
 	const save = () => {
-		// handleAnswer();
-		// isAttempted[currentIndex] = true;
-		// dispatch({ type: SET_IS_ATTEMPTED, isAttempted: isAttempted });
-
 		if (currentIndex + 1 < questionLength) {
 			dispatch({
 				type: SET_CURRENT_INDEX,
@@ -136,14 +166,65 @@ const KeysComponent = () => {
 			<Button variant="contained" color="primary" className={classes.button} onClick={() => save()}>
 				Next Question
 			</Button>
-			{/* {time} */}
+
 			<Button
 				variant="contained"
 				color="primary"
 				className={classes.button}
-				onClick={() => handleSubmitTest()}>
+				onClick={() => setOpenSubmitDialog(true)}>
 				Submit Test
 			</Button>
+			<ThemeProvider theme={theme}>
+				<Dialog
+					open={openSubmitDialog}
+					onClose={() => setOpenSubmitDialog(false)}
+					aria-labelledby="alert-dialog-title">
+					{/* <DialogTitle id="alert-dialog-title">
+					<TimeLeft />
+				</DialogTitle> */}
+					<div style={{ padding: "10px" }}>
+						<DialogTitle id="alert-dialog-title">Confirm Submit Test, are you sure?</DialogTitle>
+
+						<DialogContent>
+							{/* <div>
+								<div className={classes.container}>
+									<span>
+										<label className={classes.showAttempted} />
+										<span className={classes.text}>‏‏‎Answered</span>
+									</span>
+									<span>
+										<label className={classes.showVisited} />
+										<span className={classes.text}>‏‏‎Not Answered</span>
+									</span>
+								</div>
+								<div className={classes.container} style={{ marginTop: "30px" }}>
+									<span>
+										<label className={classes.showLabel} />
+										<span className={classes.text}>‏‏‎Not Visited</span>
+									</span>
+									<span>
+										<label className={classes.showMarked} />
+										‏‏‎<span className={classes.text}>‏‏‎Review Later</span>
+									</span>
+								</div>
+							</div> */}
+						</DialogContent>
+
+						<DialogActions style={{ display: "flex", justifyContent: "space-between" }}>
+							<Button
+								autoFocus
+								variant="outlined"
+								onClick={() => setOpenSubmitDialog(false)}
+								color="secondary">
+								Resume Test
+							</Button>
+							<Button variant="outlined" onClick={() => handleSubmitTest()} color="primary">
+								Submit Test
+							</Button>
+						</DialogActions>
+					</div>
+				</Dialog>
+			</ThemeProvider>
 		</div>
 	);
 };

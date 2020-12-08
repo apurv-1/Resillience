@@ -17,13 +17,16 @@ const useStyles = makeStyles(() => ({
 	},
 }));
 
-const TimerComponent = ({ timeRemaining }) => {
+const TimerComponent = () => {
 	// const history = useHistory();
+
+	const { state, dispatch } = useContext(TestContext);
+	const { test, showResult } = state;
+	let interval = useRef();
+	let timeRemaining = test.testDuration;
 	const [testDuration, setTestDuration] = useState(timeRemaining);
 	const [timeMins, setTimeMins] = useState("00");
 	const [timeSeconds, setTimeSeconds] = useState("00");
-	const { dispatch } = useContext(TestContext);
-	let interval = useRef();
 
 	const startTimer = () => {
 		const countDownTime = Date.now() + testDuration;
@@ -39,7 +42,7 @@ const TimerComponent = ({ timeRemaining }) => {
 			const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 			const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-			if (distance < 0) {
+			if (distance < 0 || showResult === true) {
 				//stop timer
 				clearInterval(interval);
 				setTimeMins("00");

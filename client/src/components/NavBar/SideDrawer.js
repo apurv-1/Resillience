@@ -1,28 +1,26 @@
 import React, { useContext, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { makeStyles, createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
-import Button from "@material-ui/core/Button";
-import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import Typography from "@material-ui/core/Typography";
+import {
+	Drawer,
+	Button,
+	List,
+	Divider,
+	ListItem,
+	ListItemIcon,
+	ListItemText,
+	Typography,
+	Avatar,
+} from "@material-ui/core";
 import DashboardRoundedIcon from "@material-ui/icons/DashboardRounded";
 import ClearAllRoundedIcon from "@material-ui/icons/ClearAllRounded";
 import MenuBookRoundedIcon from "@material-ui/icons/MenuBookRounded";
 import GetAppRoundedIcon from "@material-ui/icons/GetAppRounded";
 import WebRoundedIcon from "@material-ui/icons/WebRounded";
-import Avatar from "@material-ui/core/Avatar";
 import { blue, red } from "@material-ui/core/colors";
 import { Context } from "../../App";
 //dialog box
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Paper from "@material-ui/core/Paper";
-import Draggable from "react-draggable";
+import { Dialog, DialogActions, DialogTitle } from "@material-ui/core";
 
 const useStyles = makeStyles({
 	icon: {
@@ -99,14 +97,6 @@ const theme = createMuiTheme({
 		secondary: blue,
 	},
 });
-
-function SignOutDialog(props) {
-	return (
-		<Draggable handle="#draggable-dialog-title" cancel={'[class*="MuiDialogContent-root"]'}>
-			<Paper {...props} />
-		</Draggable>
-	);
-}
 
 export default function SideNav() {
 	const classes = useStyles();
@@ -200,7 +190,6 @@ export default function SideNav() {
 								<Dialog
 									open={signOut}
 									onClose={() => setSignOut(false)}
-									PaperComponent={SignOutDialog}
 									aria-labelledby="draggable-dialog-title">
 									<DialogTitle id="draggable-dialog-title">Confirm sign out, are you sure?</DialogTitle>
 

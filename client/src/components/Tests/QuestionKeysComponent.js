@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { makeStyles, Typography } from "@material-ui/core";
 import TestContext from "../Context/TestContext";
 import { SET_CURRENT_INDEX } from "../Reducers/types";
-import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import CheckCircleIcon from "@material-ui/icons/CheckCircleSharp";
 
 const useStyles = makeStyles(() => ({
 	fabBox: {
@@ -13,7 +13,7 @@ const useStyles = makeStyles(() => ({
 		height: "0px",
 		width: "0px",
 		margin: "-4px",
-		marginLeft: "5px",
+		marginLeft: "6px",
 		padding: "0px",
 		color: "black",
 		// border: "10px solid white",
@@ -202,7 +202,7 @@ const QuestionKeysComponent = () => {
 						<span>
 							<label className={classes.showMarked}>
 								<span style={{ position: "absolute", paddingTop: "5px" }}>
-									<CheckCircleIcon fontSize="small" />
+									<CheckCircleIcon fontSize="small" color="#86d37c" />
 								</span>
 							</label>
 							<span className={classes.text}>‏‏‎Attempted and Marked</span>

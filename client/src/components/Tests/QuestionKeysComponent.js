@@ -31,8 +31,8 @@ const useStyles = makeStyles(() => ({
 		borderRadius: "5px",
 		fontWeight: "bold",
 		fontSize: "12px",
-		color: "grey",
-		boxShadow: "0 0px 4px 0px rgba(54, 114, 192);",
+		color: "#7a7a7a",
+		boxShadow: "0 0px 4px 0px rgba(54, 114, 192)",
 	},
 	visitedLabel: {
 		cursor: "pointer",
@@ -42,7 +42,7 @@ const useStyles = makeStyles(() => ({
 		fontWeight: "bold",
 		fontSize: "12px",
 		color: "white",
-		boxShadow: "0 0px 4px 0px rgba(54, 114, 192);",
+		boxShadow: "0 0px 4px 0px rgba(54, 114, 192)",
 		backgroundColor: "#FF6961",
 	},
 	attemptedLabel: {
@@ -54,7 +54,7 @@ const useStyles = makeStyles(() => ({
 		fontSize: "12px",
 		color: "white",
 		backgroundColor: "#2E8B57",
-		boxShadow: "0 0px 4px 0px rgba(54, 114, 192);",
+		boxShadow: "0 0px 4px 0px rgba(54, 114, 192)",
 	},
 	markedLabel: {
 		cursor: "pointer",
@@ -64,7 +64,7 @@ const useStyles = makeStyles(() => ({
 		fontWeight: "bold",
 		fontSize: "12px",
 		color: "#ffff",
-		boxShadow: "0 0px 4px 0px rgba(54, 114, 192);",
+		boxShadow: "0 0px 4px 0px rgba(54, 114, 192)",
 		backgroundColor: "#565fb8",
 	},
 	currentLabel: {
@@ -93,28 +93,28 @@ const useStyles = makeStyles(() => ({
 		margin: "5px",
 		padding: "4px 12px",
 		borderRadius: "5px",
-		boxShadow: "0 0px 4px 0px rgba(54, 114, 192);",
+		boxShadow: "0 0px 4px 0px rgba(54, 114, 192)",
 		backgroundColor: "#565fb8",
 	},
 	showVisited: {
 		margin: "8px",
 		padding: "4px 12px",
 		borderRadius: "5px",
-		boxShadow: "0 0px 4px 0px rgba(54, 114, 192);",
+		boxShadow: "0 0px 4px 0px rgba(54, 114, 192)",
 		backgroundColor: "#FF6961",
 	},
 	showAttempted: {
 		margin: "5px",
 		padding: "4px 12px",
 		borderRadius: "5px",
-		boxShadow: "0 0px 4px 0px rgba(54, 114, 192);",
+		boxShadow: "0 0px 4px 0px rgba(54, 114, 192)",
 		backgroundColor: "#2E8B57",
 	},
 	showLabel: {
 		margin: "5px",
 		padding: "4px 12px",
 		borderRadius: "5px",
-		boxShadow: "0 0px 4px 0px rgba(54, 114, 192);",
+		boxShadow: "0 0px 4px 0px rgba(54, 114, 192)",
 	},
 }));
 

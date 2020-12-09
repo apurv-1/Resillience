@@ -47,14 +47,13 @@ const useStyles = makeStyles((theme) => ({
 		padding: "10px 40px",
 		fontWeight: "bold",
 		alignContent: "center",
-		boxShadow: "0 1px 3px 1px rgba(35, 34, 39);",
+		border: "2px solid #ececec",
+		outline: "none",
+		boxShadow: "0 1px 3px 1px rgba(35, 34, 39)",
+		// boxShadow: "0 0.5px 5px 1px rgba(35, 34, 39), inset 1px 0.5px 10px 0.5px rgba(35, 34, 39)",
 		"&:hover": {
-			borderColor: "black",
+			borderColor: "#7a7a7a",
 			backgroundColor: "#D2D2D2",
-		},
-		"&:active": {
-			borderColor: "#AAA19E",
-			backgroundColor: "#0E6195",
 		},
 	},
 	selectedLabel: {
@@ -64,7 +63,9 @@ const useStyles = makeStyles((theme) => ({
 		fontWeight: "bold",
 		alignContent: "center",
 		backgroundColor: "#0F7DC2",
-		boxShadow: "0 1px 3px 1px rgba(35, 34, 39);",
+		border: "2px solid #ececec",
+		color: "#F8F8F8",
+		boxShadow: "0 1px 3px 1px rgba(35, 34, 39)",
 	},
 	subjectContainer: {
 		// marginTop: "-10px",

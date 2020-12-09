@@ -8,6 +8,7 @@ import {
 	SET_SHOW_RESULTS,
 	SET_IS_MARKED,
 	SET_INCREMENT_TIME,
+	SET_SUBJECT,
 } from "../Reducers/types";
 import { Dialog, DialogActions, DialogTitle, DialogContent } from "@material-ui/core";
 
@@ -15,6 +16,7 @@ import { Dialog, DialogActions, DialogTitle, DialogContent } from "@material-ui/
 import { blue, red } from "@material-ui/core/colors";
 
 const useStyles = makeStyles((theme) => ({
+	button: {},
 	buttonContainer: {
 		marginLeft: "5%",
 		marginRight: "5%",
@@ -31,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	container: {
 		display: "flex",
-		// float: "left",
+		padding: "7px",
 		justifyContent: "space-between",
 	},
 	showMarked: {
@@ -69,7 +71,7 @@ const theme = createMuiTheme({
 	},
 	typography: {
 		fontFamily: ["muli", "sans-serif"].join(","),
-		fontSize: "20px",
+		fontSize: "15",
 		h6: {
 			fontFamily: "Rubik",
 		},
@@ -85,20 +87,30 @@ const KeysComponent = () => {
 	const { state, dispatch } = useContext(TestContext);
 	const { test, currentIndex, selectedAnswers, showResult, isMarked } = state;
 	const questionLength = test.questions.length;
+	const questions = test.questions;
 	//
-	// 	let
-	// 	notAttempted = 0,
-	// 	answered = 0;
+	// 	let mark = 0,
+	// 		notAnswered = 0,
+	// 		answered = 0,
+	// 		notVisited = 0;
 	// 	// const [time, setTime] = useState(timeElapsed);
 	//
 	// 	const currentStats = () => {
-	// 		if(openSubmitDialog){
-	// 			for (let index = 0; index < test.questions.length; index++) {
-	// 				if(selectedAnswers[index])
-	//
+	// 		for (let index = 0; index < test.questions.length; index++) {
+	// 			if (selectedAnswers[index]) {
+	// 				answered = answered + 1;
+	// 				console.log("ans");
+	// 			}
+	// 			if (isMarked[index]) {
+	// 				mark = mark + 1;
+	// 			}
+	// 			if (isVisited[index] === false) {
+	// 				notVisited = notVisited + 1;
 	// 			}
 	// 		}
-	// 	}
+	// 		notAnswered = test.questions.length - answered;
+	// 		return;
+	// 	};
 
 	// console.log("time", state.timeElapsed);
 
@@ -121,6 +133,13 @@ const KeysComponent = () => {
 				type: SET_CURRENT_INDEX,
 				currentIndex: currentIndex + 1,
 			});
+			// console.log(questions[currentIndex].subject, currentSubject);
+
+			dispatch({
+				type: SET_SUBJECT,
+				currentSubject: questions[currentIndex + 1].subject,
+			});
+			// }
 			return;
 		}
 	};
@@ -164,7 +183,7 @@ const KeysComponent = () => {
 			</Button>
 
 			<Button variant="contained" color="primary" className={classes.button} onClick={() => save()}>
-				Next Question
+				Save Question
 			</Button>
 
 			<Button
@@ -189,21 +208,21 @@ const KeysComponent = () => {
 							{/* <div>
 								<div className={classes.container}>
 									<span>
-										<label className={classes.showAttempted} />
+										<label className={classes.showAttempted}>{answered}</label>
 										<span className={classes.text}>‏‏‎Answered</span>
 									</span>
 									<span>
-										<label className={classes.showVisited} />
+										<label className={classes.showVisited}>{notAnswered}</label>
 										<span className={classes.text}>‏‏‎Not Answered</span>
 									</span>
 								</div>
 								<div className={classes.container} style={{ marginTop: "30px" }}>
 									<span>
-										<label className={classes.showLabel} />
+										<label className={classes.showLabel}>{notVisited}</label>
 										<span className={classes.text}>‏‏‎Not Visited</span>
 									</span>
-									<span>
-										<label className={classes.showMarked} />
+									<span style={{ marginRight: "12px" }}>
+										<label className={classes.showMarked}>{mark}</label>
 										‏‏‎<span className={classes.text}>‏‏‎Review Later</span>
 									</span>
 								</div>
@@ -213,12 +232,12 @@ const KeysComponent = () => {
 						<DialogActions style={{ display: "flex", justifyContent: "space-between" }}>
 							<Button
 								autoFocus
-								variant="outlined"
+								// variant="outlined"
 								onClick={() => setOpenSubmitDialog(false)}
 								color="secondary">
 								Resume Test
 							</Button>
-							<Button variant="outlined" onClick={() => handleSubmitTest()} color="primary">
+							<Button onClick={() => handleSubmitTest()} color="primary">
 								Submit Test
 							</Button>
 						</DialogActions>

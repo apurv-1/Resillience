@@ -9,12 +9,12 @@ import {
 	FormControl,
 	Select,
 	TextField,
-	// Table,
-	// TableBody,
-	// TableContainer,
-	// TableHead,
-	// TableCell,
-	// TableRow,
+	Table,
+	TableBody,
+	TableContainer,
+	TableHead,
+	TableCell,
+	TableRow,
 } from "@material-ui/core";
 import SaveIcon from "@material-ui/icons/Save";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
@@ -191,7 +191,7 @@ const AddQuestions = ({ testID, totalQuestions }) => {
 			) : (
 				""
 			)} */}
-			{/* <div className={classes.viewQuesion}>
+			<div className={classes.viewQuesion}>
 				<TableContainer component={Paper} elevation={4}>
 					<Table className={classes.table} aria-label="simple table">
 						<TableHead>
@@ -207,14 +207,12 @@ const AddQuestions = ({ testID, totalQuestions }) => {
 								<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bold" }}>
 									{questionNumber}
 								</TableCell>
-								<TableCell>
-									<img src={questionImg} alt="question" />
-								</TableCell>
+								<TableCell>{questionUrl && <img src={questionUrl} alt="question" />}</TableCell>
 							</TableRow>
 						</TableBody>
 					</Table>
 				</TableContainer>
-			</div> */}
+			</div>
 			<div>
 				<Paper elevation={5} className={classes.paper}>
 					<div className={classes.form}>

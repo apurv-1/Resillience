@@ -34,6 +34,7 @@ router.post("/addtest", (req, res) => {
 			res.json({ message: "Test Created!" });
 		})
 		.catch((err) => {
+			res.json({ error: err.keyValue.testId });
 			console.log(err);
 		});
 });

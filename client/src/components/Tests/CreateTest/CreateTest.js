@@ -4,7 +4,8 @@ import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import SaveIcon from "@material-ui/icons/Save";
-// import { Alert } from "@material-ui/lab";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import AddQuestions from "./AddQuestionsComponent";
 // +import ShowTest from "./ShowTestComponent";
 
@@ -45,12 +46,18 @@ const CreateTest = () => {
 	const [forCorrect, setForCorrect] = useState(0);
 	const [forInCorrect, setForInCorrect] = useState(0);
 	// const [error, setError] = useState("");
-	const [check, setCheck] = useState(true);
+	const [check, setCheck] = useState(false);
 
 	const SaveTest = () => {
 		if (!testId || !testName || !testDuration || !noOfQuestions) {
-			// setError("Please Fill all the fields..");
-			alert("Please Fill all the fields..");
+			toast.error("Please Fill all the fields..", {
+				position: "bottom-right",
+				autoClose: 4000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: false,
+			});
 		} else {
 			fetch("/addtest", {
 				method: "post",
@@ -70,6 +77,16 @@ const CreateTest = () => {
 				.then((test) => {
 					if (test.error) {
 						console.log(test.error);
+						// console.log(testId);
+
+						toast.error("The Test Id exists. Try another!", {
+							position: "bottom-right",
+							autoClose: 4000,
+							hideProgressBar: false,
+							closeOnClick: true,
+							pauseOnHover: true,
+							draggable: false,
+						});
 					} else {
 						console.log("Test Created!");
 						setCheck(true);
@@ -77,19 +94,20 @@ const CreateTest = () => {
 				})
 				.catch((err) => {
 					console.log(err);
+					toast.error(err, {
+						position: "bottom-right",
+						autoClose: 4000,
+						hideProgressBar: false,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: false,
+					});
 				});
 		}
 	};
 
 	return (
 		<div className={classes.root}>
-			{/* {error ? (
-				<Alert severity="error" color="error" style={{ marginTop: "40%" }}>
-					{error}
-				</Alert>
-			) : (
-				""
-			)} */}
 			{check ? (
 				<div>
 					<div className={classes.questionsDiv}>

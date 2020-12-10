@@ -18,73 +18,51 @@ import {
 } from "@material-ui/core";
 import SaveIcon from "@material-ui/icons/Save";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
-// import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
-// import { Alert } from "@material-ui/lab";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const useStyles = makeStyles((theme) => ({
 	card: {
-		margin: "6%",
-		display: "absolute",
-		height: "50%",
-		width: "40%",
+		marginTop: "5rem",
+		margin: "2rem",
 	},
 	textField: {
 		height: "10px",
-		maxWidth: "50px",
 	},
 	paper: {
 		flexDirection: "column",
-		padding: "2% 4% 4%",
+		padding: "10px 15px 15px",
 		textAlign: "center",
 		justifyContent: "center",
+		width: "35rem",
 	},
 	container: {
-		alignSelf: "stretch",
-		padding: "3% 3% 3%",
-		width: "80%",
-		height: "80%",
-		marginLeft: "5%",
-	},
-	input: {
-		display: "none",
+		padding: "20px 20px 20px",
 	},
 	numerical: {
-		width: "50%",
+		width: "250px",
 	},
 	button: {
-		padding: "2%",
+		padding: "10px",
 	},
 	formControl: {
-		width: "45%",
-		margin: "2%",
-		height: "100%",
-	},
-	cropContainer12: {
-		height: "100%",
-	},
-	cropContainer: {
-		width: "100%",
-		display: "flex",
-		justifyContent: "space-around",
-		margin: "2px",
-	},
-	showImage: {
-		maxWidth: "100%",
-		maxHeight: "100%",
-	},
-	croppedQuestion: {
-		minWidth: "500px",
-		minHeight: "500px",
+		width: "15rem",
+		margin: "0.5rem",
 	},
 	viewQuesion: {
 		display: "flex",
 		float: "right",
+		width: "52rem",
+	},
+	table: {
+		textAlign: "center",
 	},
 }));
 
 const AddQuestions = ({ testID, totalQuestions }) => {
 	const classes = useStyles();
+	toast.configure();
 	const history = useHistory();
 	const [openSubject, setOpenSubject] = useState(false);
 	const [openCorrect, setOpenCorrect] = useState(false);
@@ -100,6 +78,8 @@ const AddQuestions = ({ testID, totalQuestions }) => {
 
 	const [questionNumber, setQuestionNumber] = useState(1);
 	const [questionImg, setQuestionImg] = useState("");
+	const [questionPreview, setQuestionPreview] = useState("");
+
 	const [questionUrl, setQuestionUrl] = useState("");
 
 	// const [error, setError] = useState("");
@@ -146,18 +126,32 @@ const AddQuestions = ({ testID, totalQuestions }) => {
 	}, [questionUrl]);
 
 	// useEffect(() => pushQuestion(), [questionUrl]);
-	console.log("question no. ", questionNumber);
+	// console.log("question no. ", questionNumber);
 
 	const uploadQuestion = () => {
 		// console.log(questionImg);
 		if (questionNumber === totalQuestions) {
 			console.log("question no. ", questionNumber);
-			alert(`${totalQuestions} of questions added!`);
+			// alert(`${totalQuestions} of questions added!`);
+			toast.success(`${totalQuestions} of questions added!`, {
+				position: "bottom-right",
+				autoClose: 4000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: false,
+			});
 			history.push("/createtest");
 		} else if (!questionNumber || !questionType || !questionImg || !subject || !correct) {
-			// console.log("Please Fill all the details");
-			alert("Please Fill all the details");
-			// setError("Please Fill all the details");
+			// alert("Please Fill all the details");
+			toast.error(`Please Fill all the details`, {
+				position: "bottom-right",
+				autoClose: 3000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: false,
+			});
 		} else {
 			const data = new FormData();
 			data.append("file", questionImg);
@@ -169,45 +163,68 @@ const AddQuestions = ({ testID, totalQuestions }) => {
 			})
 				.then((res) => res.json())
 				.then((data) => {
+					toast.info("Processing...", {
+						position: "bottom-right",
+						autoClose: 4000,
+						hideProgressBar: false,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: false,
+					});
 					setQuestionUrl(data.secure_url);
 					console.log("Processing...");
 				})
 				.catch((err) => {
 					console.log(err);
+					toast.error("Something went wrong!", {
+						position: "bottom-right",
+						autoClose: 4000,
+						hideProgressBar: false,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: false,
+					});
 				});
 		}
 	};
 
 	const handleImageChange = (e) => {
-		setQuestionImg(e.target.files[0]);
+		const file = e.target.files[0];
+		previewQuestion(file);
+		setQuestionImg(file);
+	};
+
+	const previewQuestion = (file) => {
+		const reader = new FileReader();
+		reader.readAsDataURL(file);
+		reader.onloadend = () => {
+			setQuestionPreview(reader.result);
+		};
 	};
 
 	return (
 		<div className={classes.card}>
-			{/* {error ? (
-				<Alert severity="error" color="error">
-					{error}
-				</Alert>
-			) : (
-				""
-			)} */}
 			<div className={classes.viewQuesion}>
 				<TableContainer component={Paper} elevation={4}>
 					<Table className={classes.table} aria-label="simple table">
 						<TableHead>
 							<TableRow component="th">
-								<TableCell style={{ fontSize: "20px", fontWeight: "bolder" }}>Question Number:</TableCell>
-								<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bolder" }}>
+								<TableCell style={{ fontSize: "20px", fontWeight: "bold" }}>Q.No</TableCell>
+								<TableCell align="center" style={{ fontSize: "20px", fontWeight: "bold" }}>
 									Question Image
 								</TableCell>
 							</TableRow>
 						</TableHead>
 						<TableBody>
 							<TableRow>
-								<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bold" }}>
+								<TableCell align="center" style={{ fontSize: "20px", fontWeight: "bold" }}>
 									{questionNumber}
 								</TableCell>
-								<TableCell>{questionUrl && <img src={questionUrl} alt="question" />}</TableCell>
+								<TableCell>
+									{questionPreview && (
+										<img src={questionPreview} style={{ width: "45rem" }} alt="question" />
+									)}
+								</TableCell>
 							</TableRow>
 						</TableBody>
 					</Table>
@@ -255,9 +272,7 @@ const AddQuestions = ({ testID, totalQuestions }) => {
 									onClose={() => setOpenSubject(false)}
 									onOpen={() => setOpenSubject(true)}
 									value={subject}
-									onChange={(e) => setSubject(e.target.value)}
-									// fullWidth
-								>
+									onChange={(e) => setSubject(e.target.value)}>
 									<MenuItem value={"Physics"}>Physics</MenuItem>
 									<MenuItem value={"Chemistry"}>Chemistry</MenuItem>
 									<MenuItem value={"Maths"}>Maths</MenuItem>
@@ -269,7 +284,7 @@ const AddQuestions = ({ testID, totalQuestions }) => {
 						<div className={classes.container}>
 							<input
 								accept="image/*"
-								className={classes.input}
+								style={{ display: "none" }}
 								id="contained-button-file"
 								multiple
 								type="file"
@@ -298,9 +313,7 @@ const AddQuestions = ({ testID, totalQuestions }) => {
 										onClose={() => setOpenDiffType(false)}
 										onOpen={() => setOpenDiffType(true)}
 										value={difficuilty}
-										onChange={(e) => setDifficuilty(e.target.value)}
-										// fullWidth
-									>
+										onChange={(e) => setDifficuilty(e.target.value)}>
 										<MenuItem value={"easy"}>Easy</MenuItem>
 										<MenuItem value={"medium"}>Medium</MenuItem>
 										<MenuItem value={"hard"}>Hard</MenuItem>
@@ -332,9 +345,7 @@ const AddQuestions = ({ testID, totalQuestions }) => {
 									onClose={() => setOpenSubject(false)}
 									onOpen={() => setOpenSubject(true)}
 									value={subject}
-									onChange={(e) => setSubject(e.target.value)}
-									// fullWidth
-								>
+									onChange={(e) => setSubject(e.target.value)}>
 									<MenuItem value={"Physics"}>Physics</MenuItem>
 									<MenuItem value={"Chemistry"}>Chemistry</MenuItem>
 									<MenuItem value={"Maths"}>Maths</MenuItem>
@@ -351,9 +362,7 @@ const AddQuestions = ({ testID, totalQuestions }) => {
 										onClose={() => setOpenSubject(false)}
 										onOpen={() => setOpenSubject(true)}
 										value={subject}
-										onChange={(e) => setSubject(e.target.value)}
-										// fullWidth
-									>
+										onChange={(e) => setSubject(e.target.value)}>
 										<MenuItem value={"Physics"}>Physics</MenuItem>
 										<MenuItem value={"Chemistry"}>Chemistry</MenuItem>
 										<MenuItem value={"Maths"}>Maths</MenuItem>
@@ -379,6 +388,7 @@ const AddQuestions = ({ testID, totalQuestions }) => {
 								color="primary"
 								className={classes.button}
 								startIcon={<SaveIcon />}
+								// onClick={notify}
 								onClick={() => uploadQuestion()}
 								fullWidth>
 								Save Question

@@ -33,52 +33,55 @@ const CorrectQuestion = () => {
 	var timePerQuestion = parseInt(test.testDuration / (questions.length * 1000));
 	return (
 		<div className={classes.root}>
-			{questions.map(({ questionImage, correctOption, _id, difficuilty }, index) => (
-				<div className={classes.card} key={_id}>
-					<TableContainer component={Paper} elevation={4}>
-						<Table className={classes.table} aria-label="simple table">
-							<TableHead>
-								<TableRow component="th">
-									<TableCell style={{ fontSize: "20px", fontWeight: "bolder" }}>
-										Question Number: {test.questions[index].questionNumber}
-									</TableCell>
-									<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bolder" }}>
-										Difficuilty level
-									</TableCell>
-									<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bolder" }}>
-										Correct Option
-									</TableCell>
-									<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bolder" }}>
-										Selected Option
-									</TableCell>
-									<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bolder" }}>
-										Time Taken
-									</TableCell>
-								</TableRow>
-							</TableHead>
-							<TableBody>
-								<TableRow>
-									<TableCell>
-										<img src={questionImage} alt={_id} />
-									</TableCell>
-									<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bold" }}>
-										{difficuilty}
-									</TableCell>
-									<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bold" }}>
-										{correctOption}
-									</TableCell>
-									<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bold" }}>
-										{selectedAnswers[index]}
-									</TableCell>
-									<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bold" }}>
-										{timeElapsed[index] ? timeElapsed[index] : 0}s / {timePerQuestion}s&nbsp;
-									</TableCell>
-								</TableRow>
-							</TableBody>
-						</Table>
-					</TableContainer>
-				</div>
-			))}
+			{questions.map(
+				({ questionImage, correctOption, difficuilty, questionNumber, subject }, index) => (
+					<div className={classes.card} key={index}>
+						<TableContainer component={Paper} elevation={4}>
+							<Table className={classes.table} aria-label="simple table">
+								<TableHead>
+									<TableRow component="th">
+										<TableCell style={{ fontSize: "20px", fontWeight: "bolder" }}>
+											Question Number: {questionNumber}
+											<b style={{ marginLeft: "35%" }}>Subject : {subject}</b>
+										</TableCell>
+										<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bolder" }}>
+											Difficuilty level
+										</TableCell>
+										<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bolder" }}>
+											Correct Option
+										</TableCell>
+										<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bolder" }}>
+											Selected Option
+										</TableCell>
+										<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bolder" }}>
+											Time Taken
+										</TableCell>
+									</TableRow>
+								</TableHead>
+								<TableBody>
+									<TableRow>
+										<TableCell>
+											<img src={questionImage} alt="question" />
+										</TableCell>
+										<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bold" }}>
+											{difficuilty}
+										</TableCell>
+										<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bold" }}>
+											{correctOption}
+										</TableCell>
+										<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bold" }}>
+											{selectedAnswers[index]}
+										</TableCell>
+										<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bold" }}>
+											{timeElapsed[index] ? timeElapsed[index] : 0}s / {timePerQuestion}s&nbsp;
+										</TableCell>
+									</TableRow>
+								</TableBody>
+							</Table>
+						</TableContainer>
+					</div>
+				)
+			)}
 		</div>
 	);
 };

@@ -14,17 +14,23 @@ const useStyles = makeStyles((theme) => ({
 		marginTop: "100px",
 		// marginLeft: "20%",
 	},
-	card: {
-		width: "50%",
-	},
-
-	paper: {
+	// card: {
+	// 	width: "50%",
+	// },
+	subjectScore: {
+		display: "flex",
+		float: "right",
 		padding: "10px",
+		textAlign: "center",
+		width: "38%",
+	},
+	paper: {
+		// padding: "10px",
 		textAlign: "center",
 		display: "flex",
 		flexDirection: "row",
 		// flexWrap: "wrap",
-		width: "65%",
+		width: "60%",
 	},
 	analysisBlock: {
 		margin: "2%",
@@ -48,11 +54,16 @@ const useStyles = makeStyles((theme) => ({
 
 const TestResult = () => {
 	const classes = useStyles();
+
 	const { state } = useContext(TestContext);
-	const [open, setOpen] = useState(false);
-	const [type, setType] = useState("");
 	const { test, showResult, selectedAnswers, timeElapsed, isVisited } = state;
 	const questions = test.questions;
+
+	const [open, setOpen] = useState(false);
+	const [openSubject, setOpenSubject] = useState(false);
+
+	const [type, setType] = useState("");
+	const [cSubject, setcSubject] = useState("physics");
 
 	const timePerQuestion = test.testDuration / (questions.length * 1000);
 	// console.log(timePerQuestion);
@@ -62,10 +73,14 @@ const TestResult = () => {
 		correct = 0,
 		wrong = 0,
 		answered = 0,
-		withinTime = 0;
+		withinTime = 0,
+		SubjectwiseTotal = 0,
+		SubjectwiseAnswered = 0,
+		SubjectwiseCorrect = 0,
+		SubjectwiseWrong = 0;
 
 	const calculateMarks = () => {
-		questions.forEach(({ correctOption }, index) => {
+		questions.forEach(({ correctOption, subject }, index) => {
 			if (selectedAnswers[index]) {
 				correctOption === selectedAnswers[index]
 					? (correct = correct + 1) &&
@@ -76,6 +91,13 @@ const TestResult = () => {
 			}
 			if (isVisited[index] === false) {
 				notAttempted = notAttempted + 1;
+			}
+			if (subject === cSubject) {
+				console.log(subject);
+				SubjectwiseTotal = SubjectwiseTotal + 1;
+				if (selectedAnswers[index]) {
+					SubjectwiseAnswered = SubjectwiseAnswered + 1;
+				}
 			}
 		});
 		calculateScore();
@@ -95,6 +117,25 @@ const TestResult = () => {
 				<div>
 					{/* <Confetti numberOfPieces={50} width="800px" /> */}
 					{calculateMarks()}
+
+					<Paper className={classes.subjectScore} elevation={5}>
+						<span className={classes.span}>
+							<h1>{SubjectwiseTotal}</h1>
+							<h3>Total {cSubject} Questions</h3>
+						</span>
+						<span className={classes.span}>
+							<h1>{SubjectwiseAnswered}</h1>
+							<h3>Answered</h3>
+						</span>
+						<span className={classes.span}>
+							<h1>{SubjectwiseCorrect}</h1>
+							<h3>Correct </h3>
+						</span>
+						<span className={classes.span}>
+							<h1>{SubjectwiseWrong}</h1>
+							<h3>Wrong </h3>
+						</span>
+					</Paper>
 
 					<Paper className={classes.paper} elevation={5}>
 						<span className={classes.span}>
@@ -129,26 +170,45 @@ const TestResult = () => {
 							<h3>You Scored </h3>
 						</span>
 					</Paper>
-
-					<div className={classes.analysisBlock}>
-						Choose Test Analysis :
-						<FormControl className={classes.analysisDropdown}>
-							<Select
-								labelId="controlled-open-select-label"
-								variant="outlined"
-								open={open}
-								onClose={() => setOpen(false)}
-								onOpen={() => setOpen(true)}
-								value={type}
-								onChange={(e) => setType(e.target.value)}
-								fullWidth>
-								<MenuItem value={""}>None</MenuItem>
-								<MenuItem value={"correct"}>Correct</MenuItem>
-								<MenuItem value={"incorrect"}>Incorrect</MenuItem>
-								<MenuItem value={"notAnswered"}>Not Answered</MenuItem>
-								<MenuItem value={"all"}>All</MenuItem>
-							</Select>
-						</FormControl>
+					<div style={{ display: "flex", flexDirection: "row" }}>
+						<div className={classes.analysisBlock}>
+							Choose Test Analysis :
+							<FormControl className={classes.analysisDropdown}>
+								<Select
+									labelId="controlled-open-select-label"
+									variant="outlined"
+									open={open}
+									onClose={() => setOpen(false)}
+									onOpen={() => setOpen(true)}
+									value={type}
+									onChange={(e) => setType(e.target.value)}
+									fullWidth>
+									<MenuItem value={""}>None</MenuItem>
+									<MenuItem value={"correct"}>Correct</MenuItem>
+									<MenuItem value={"incorrect"}>Incorrect</MenuItem>
+									<MenuItem value={"notAnswered"}>Not Answered</MenuItem>
+									<MenuItem value={"all"}>All</MenuItem>
+								</Select>
+							</FormControl>
+						</div>
+						<div className={classes.analysisBlock}>
+							Choose Subject :
+							<FormControl className={classes.analysisDropdown}>
+								<Select
+									labelId="controlled-open-select-label"
+									variant="outlined"
+									open={openSubject}
+									onClose={() => setOpenSubject(false)}
+									onOpen={() => setOpenSubject(true)}
+									value={cSubject}
+									onChange={(e) => setcSubject(e.target.value)}
+									fullWidth>
+									<MenuItem value={"physics"}>Physics</MenuItem>
+									<MenuItem value={"chemistry"}>Chemistry</MenuItem>
+									<MenuItem value={"maths"}>Maths</MenuItem>
+								</Select>
+							</FormControl>
+						</div>
 					</div>
 					{type === "correct" ? (
 						<CorrectQuestionsComponent />

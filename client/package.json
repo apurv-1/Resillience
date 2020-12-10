@@ -23,6 +23,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.0",
     "react-slick": "^0.27.11",
+    "react-toastify": "^6.2.0",
     "react-transition-group": "^4.4.1",
     "react-visibility-sensor": "^5.1.1"
   },

@@ -38,7 +38,7 @@ const useStyles = makeStyles(() => ({
 
 const CreateTest = () => {
 	const classes = useStyles();
-
+	toast.configure();
 	const [testId, setTestId] = useState("");
 	const [testName, setTestName] = useState("");
 	const [testDuration, setTestDuration] = useState("");
@@ -76,9 +76,6 @@ const CreateTest = () => {
 				.then((res) => res.json())
 				.then((test) => {
 					if (test.error) {
-						console.log(test.error);
-						// console.log(testId);
-
 						toast.error("The Test Id exists. Try another!", {
 							position: "bottom-right",
 							autoClose: 4000,
@@ -87,8 +84,16 @@ const CreateTest = () => {
 							pauseOnHover: true,
 							draggable: false,
 						});
+						console.log(test.error);
 					} else {
-						console.log("Test Created!");
+						toast.success(`${testName} created with Id:${testId}`, {
+							position: "bottom-right",
+							autoClose: 20000,
+							hideProgressBar: true,
+							closeOnClick: true,
+							pauseOnHover: true,
+							draggable: false,
+						});
 						setCheck(true);
 					}
 				})

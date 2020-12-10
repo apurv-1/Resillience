@@ -106,15 +106,29 @@ const AddQuestions = ({ testID, totalQuestions }) => {
 				.then((data) => {
 					if (data.error) {
 						console.log(data.error);
+						toast.error(data.error, {
+							position: "bottom-right",
+							autoClose: 4000,
+							hideProgressBar: false,
+							closeOnClick: true,
+							pauseOnHover: true,
+							draggable: false,
+						});
 					} else {
-						console.log("question saved");
+						toast.success(`Q.No: ${questionNumber} added to testId: ${testID}`, {
+							position: "bottom-right",
+							autoClose: 10000,
+							hideProgressBar: true,
+							closeOnClick: true,
+							pauseOnHover: true,
+							draggable: false,
+						});
 						setQuestionNumber(1 + questionNumber);
 						setCorrect("");
 						setQuestionImg("");
 						setQuestionUrl("");
 						setDifficuilty("");
-						// setQuestionSrc("");
-						// setFinalQuestion("");
+						setQuestionPreview("");
 					}
 				})
 				.catch((err) => {
@@ -129,11 +143,10 @@ const AddQuestions = ({ testID, totalQuestions }) => {
 	// console.log("question no. ", questionNumber);
 
 	const uploadQuestion = () => {
-		// console.log(questionImg);
-		if (questionNumber === totalQuestions) {
-			console.log("question no. ", questionNumber);
-			// alert(`${totalQuestions} of questions added!`);
-			toast.success(`${totalQuestions} of questions added!`, {
+		if (questionNumber > totalQuestions) {
+			console.log("question no. hello ", questionNumber);
+
+			toast.dark(`${totalQuestions} questions added!`, {
 				position: "bottom-right",
 				autoClose: 4000,
 				hideProgressBar: false,
@@ -141,9 +154,12 @@ const AddQuestions = ({ testID, totalQuestions }) => {
 				pauseOnHover: true,
 				draggable: false,
 			});
+			// location.reload();
 			history.push("/createtest");
 		} else if (!questionNumber || !questionType || !questionImg || !subject || !correct) {
-			// alert("Please Fill all the details");
+			window.onbeforeunload = function () {
+				return "Test won't be saved, Are you sure?";
+			};
 			toast.error(`Please Fill all the details`, {
 				position: "bottom-right",
 				autoClose: 3000,
@@ -189,6 +205,7 @@ const AddQuestions = ({ testID, totalQuestions }) => {
 	};
 
 	const handleImageChange = (e) => {
+		e.preventDefault();
 		const file = e.target.files[0];
 		previewQuestion(file);
 		setQuestionImg(file);

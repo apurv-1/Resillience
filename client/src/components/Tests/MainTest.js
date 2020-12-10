@@ -80,7 +80,9 @@ const MainTest = () => {
 	const [questionLength, setQuestionLength] = useState(0);
 	// const [loading, setLoading] = useState(false);
 	// const [setShowResult, setsetShowResult] = useState(false);
-
+	window.onbeforeunload = function () {
+		return "are you sure? Test will not be submitted";
+	};
 	const [state, dispatch] = useReducer(testReducer, initialState);
 	// const [student, setStudent] = useReducer(StudentReducer, InitialState);
 	const { showResult } = state;

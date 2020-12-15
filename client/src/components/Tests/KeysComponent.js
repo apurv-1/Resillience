@@ -12,7 +12,7 @@ import {
 } from "../Reducers/types";
 import { Dialog, DialogActions, DialogTitle, DialogContent } from "@material-ui/core";
 
-import TimeLeft from "./TimerComponent";
+// import TimeLeft from "./TimerComponent";
 import { blue, red } from "@material-ui/core/colors";
 
 const useStyles = makeStyles((theme) => ({
@@ -202,9 +202,9 @@ const KeysComponent = () => {
 					open={openSubmitDialog}
 					onClose={() => setOpenSubmitDialog(false)}
 					aria-labelledby="alert-dialog-title">
-					<DialogTitle id="alert-dialog-title">
+					{/* <DialogTitle id="alert-dialog-title">
 						<TimeLeft />
-					</DialogTitle>
+					</DialogTitle> */}
 					<div style={{ padding: "10px" }}>
 						<DialogTitle id="alert-dialog-title">Confirm Submit Test, are you sure?</DialogTitle>
 

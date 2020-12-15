@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 		display: "flex",
 		flexDirection: "row",
 		// flexWrap: "wrap",
-		width: "60%",
+		// width: "100%",
 	},
 	analysisBlock: {
 		margin: "2%",
@@ -47,8 +47,18 @@ const useStyles = makeStyles((theme) => ({
 		marginTop: "-2.5%",
 	},
 	span: {
-		margin: "10px",
-		padding: "10px",
+		margin: "6px",
+		padding: "5px",
+		width: "20rem",
+		height: "8rem",
+		border: "1px solid",
+		borderRadius: "5px",
+		boxShadow: "0 0px 5px 0px rgba(35, 34, 39), inset 1px 1px 2px 2px rgba(35, 34, 39)",
+
+		// "&:hover": {
+		// 	backgroundColor: "grey",
+		// 	color: "white",
+		// },
 	},
 }));
 
@@ -74,32 +84,33 @@ const TestResult = () => {
 		wrong = 0,
 		answered = 0,
 		withinTime = 0,
-		SubjectwiseTotal = 0,
-		SubjectwiseAnswered = 0,
-		SubjectwiseCorrect = 0,
-		SubjectwiseWrong = 0;
-
+		correctButOverTime = 0,
+		timeSpentOnInCorrect = 0,
+		timeSpentOnCorrect = 0,
+		timeSpentOnNotAttempted = 0;
+	// SubjectwiseTotal = 0,
+	// SubjectwiseAnswered = 0,
+	// SubjectwiseCorrect = 0,
+	// SubjectwiseWrong = 0
 	const calculateMarks = () => {
-		questions.forEach(({ correctOption, subject }, index) => {
+		for (let index = 0; index < questions.length; index++) {
 			if (selectedAnswers[index]) {
-				correctOption === selectedAnswers[index]
+				questions[index].correctOption === selectedAnswers[index]
 					? (correct = correct + 1) &&
-					  timeElapsed[index] <= timePerQuestion &&
-					  (withinTime = withinTime + 1)
-					: (wrong = wrong + 1);
+					  (timeSpentOnCorrect = timeSpentOnCorrect + timeElapsed[index]) &&
+					  timeElapsed[index] <= timePerQuestion
+						? (withinTime = withinTime + 1)
+						: (correctButOverTime = correctButOverTime + 1)
+					: (wrong = wrong + 1) && (timeSpentOnInCorrect = timeSpentOnInCorrect + timeElapsed[index]);
 				answered = answered + 1;
 			}
 			if (isVisited[index] === false) {
 				notAttempted = notAttempted + 1;
 			}
-			if (subject === cSubject) {
-				console.log(subject);
-				SubjectwiseTotal = SubjectwiseTotal + 1;
-				if (selectedAnswers[index]) {
-					SubjectwiseAnswered = SubjectwiseAnswered + 1;
-				}
+			if (!selectedAnswers[index]) {
+				timeSpentOnNotAttempted = timeSpentOnNotAttempted + timeElapsed[index];
 			}
-		});
+		}
 		calculateScore();
 		return;
 	};
@@ -118,7 +129,7 @@ const TestResult = () => {
 					{/* <Confetti numberOfPieces={50} width="800px" /> */}
 					{calculateMarks()}
 
-					<Paper className={classes.subjectScore} elevation={5}>
+					{/* <Paper className={classes.subjectScore} elevation={5}>
 						<span className={classes.span}>
 							<h1>{SubjectwiseTotal}</h1>
 							<h3>Total {cSubject} Questions</h3>
@@ -135,7 +146,7 @@ const TestResult = () => {
 							<h1>{SubjectwiseWrong}</h1>
 							<h3>Wrong </h3>
 						</span>
-					</Paper>
+					</Paper> */}
 
 					<Paper className={classes.paper} elevation={5}>
 						<span className={classes.span}>
@@ -152,17 +163,49 @@ const TestResult = () => {
 						</span>
 						<span className={classes.span}>
 							<h1>{withinTime}</h1>
-							<h3>Correct within target time </h3>
+							<h4>Correct within target time </h4>
+						</span>
+						<span className={classes.span}>
+							<h1>{correctButOverTime}</h1>
+							<h3>Correct but Overtime</h3>
 						</span>
 						<span className={classes.span}>
 							<h1>{wrong}</h1>
 							<h3>Incorrect </h3>
 						</span>
-
 						<span className={classes.span}>
 							<h1>{notAttempted}</h1>
 							<h3>Not Visited</h3>
 						</span>
+						<span className={classes.span}>
+							<h2>
+								{timeSpentOnCorrect > 60
+									? `${parseInt(timeSpentOnCorrect / 60)}m : ${timeSpentOnCorrect % 60}`
+									: timeSpentOnCorrect}
+								s
+							</h2>
+							<h5>Total Time spent on Correct Questions </h5>
+						</span>
+						<span className={classes.span}>
+							<h2>
+								{timeSpentOnInCorrect > 60
+									? `${parseInt(timeSpentOnInCorrect / 60)}m:${timeSpentOnInCorrect % 60}`
+									: timeSpentOnInCorrect}
+								s
+							</h2>
+							<h5>Total Time spent on Incorrect Questions </h5>
+						</span>
+
+						<span className={classes.span}>
+							<h2>
+								{timeSpentOnNotAttempted > 60
+									? `${parseInt(timeSpentOnNotAttempted / 60)}m : ${timeSpentOnNotAttempted % 60}`
+									: timeSpentOnNotAttempted}
+								s
+							</h2>
+							<h5>Time spent on Not Attempted Questions</h5>
+						</span>
+
 						<span className={classes.span}>
 							<h1>
 								{score}/{4 * total}

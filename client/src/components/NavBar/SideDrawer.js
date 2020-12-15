@@ -9,7 +9,6 @@ import {
 	ListItem,
 	ListItemIcon,
 	ListItemText,
-	Typography,
 	Avatar,
 } from "@material-ui/core";
 import DashboardRoundedIcon from "@material-ui/icons/DashboardRounded";
@@ -203,11 +202,6 @@ export default function SideNav() {
 									</DialogActions>
 								</Dialog>
 							</div>
-							<ListItem button key="Admin" className={classes.admin}>
-								<Typography variant="inherit" className={classes.admin}>
-									Admin? <span style={{ color: "#0F7DC2" }}> Login here</span>
-								</Typography>
-							</ListItem>
 						</List>
 					</ThemeProvider>
 				</div>

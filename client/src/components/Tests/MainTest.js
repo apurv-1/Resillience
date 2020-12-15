@@ -3,8 +3,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
-// import Alert from "@material-ui/lab/Alert";
-// import Typography from "@material-ui/core/Typography";
 // import Loading from "./Loading";
 //Components
 import KeysComponent from "./KeysComponent";
@@ -16,7 +14,7 @@ import TestResult from "./TestResult";
 import TestContext from "../Context/TestContext";
 import { SET_TEST } from "../Reducers/types";
 import { initialState, testReducer } from "../Reducers/TestReducer";
-import InstructionsPage from "./StartPage";
+import StartPage from "./StartPage";
 // import { InitialState, StudentReducer } from "../Reducers/Reducer";
 
 const useStyles = makeStyles((theme) => ({
@@ -76,18 +74,14 @@ const useStyles = makeStyles((theme) => ({
 const MainTest = () => {
 	const classes = useStyles();
 	const [testId, setTestId] = useState("");
-	// const [started, setStarted] = useState(true);
 	const [questionLength, setQuestionLength] = useState(0);
-	// const [loading, setLoading] = useState(false);
-	// const [setShowResult, setsetShowResult] = useState(false);
 	window.onbeforeunload = function () {
 		return "are you sure? Test will not be submitted";
 	};
+	// const [start, setStart] = useState(false);
 	const [state, dispatch] = useReducer(testReducer, initialState);
 	// const [student, setStudent] = useReducer(StudentReducer, InitialState);
-	const { showResult } = state;
-	// console.log(test.questions[currentIndex].correctOption);
-	// const [openAlert, setOpenAlert] = useState(false);
+	const { showResult, isStarted, timeElapsed } = state;
 
 	const fetchTest = () => {
 		fetch(`/showtest?testid=${testId}`, {
@@ -104,8 +98,6 @@ const MainTest = () => {
 				} else {
 					dispatch({ type: SET_TEST, test: test.test });
 					setQuestionLength(test.test.questions.length);
-					// setStarted(true);
-					// console.log("test");
 				}
 			})
 			.catch((err) => {
@@ -113,14 +105,14 @@ const MainTest = () => {
 			});
 	};
 
-	// console.log("hello: ", test.questions);
+	console.log("hello: ", timeElapsed);
 
 	return (
 		<div className={classes.main}>
 			{
 				questionLength > 0 ? (
 					<TestContext.Provider value={{ state, dispatch }}>
-						{showResult === false ? (
+						{showResult === false && isStarted === true ? (
 							<div className={classes.root}>
 								<Paper elevation={5} className={classes.paper3}>
 									<TimerComponent />
@@ -134,6 +126,8 @@ const MainTest = () => {
 
 								<Paper elevation={6} className={classes.paper2}></Paper>
 							</div>
+						) : isStarted === false ? (
+							<StartPage />
 						) : (
 							<TestResult />
 						)}

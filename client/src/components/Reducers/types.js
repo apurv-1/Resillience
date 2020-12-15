@@ -1,3 +1,6 @@
+//Student & ADMIN
+
+//Test
 export const SET_CURRENT_INDEX = "SET_CURRENT_INDEX";
 export const SET_MARKS = "SET_MARKS";
 
@@ -16,4 +19,4 @@ export const SET_SELECTED_ANSWERS = "SET_SELECTED_ANSWERS";
 // export const SET_CORRECT_ANSWERS = "SET_CORRECT_ANSWERS";
 
 export const SET_SHOW_RESULTS = "SET_SHOW_RESULTS"; //boolean
-export const SET_RESULTS = "SET_RESULTS"; //boolean
+export const SET_STARTED = "SET_STARTED"; //boolean

@@ -1,5 +1,5 @@
 import React, { Suspense, lazy, useEffect, createContext, useReducer, useContext } from "react";
-
+import { Redirect } from "react-router";
 import { Switch, Route, withRouter, useHistory } from "react-router-dom";
 import ScrollToTop from "./ScrollToTop";
 import "./App.css";
@@ -38,7 +38,7 @@ const Career = lazy(() => import("./components/Career/Career"));
 const PrivacyPolicy = lazy(() => import("./components/Miscellaneous/PrivacyPolicy"));
 const TermsOfService = lazy(() => import("./components/Miscellaneous/TermsOfService"));
 const CreateTest = lazy(() => import("./components/Tests/CreateTest/CreateTest"));
-// const FetchTest = lazy(() => import("./components/Tests/FetchTest"));
+const FetchTest = lazy(() => import("./components/Tests/FetchTest"));
 const MainTest = lazy(() => import("./components/Tests/MainTest"));
 // const Sitemap = lazy(() => import("./components/Miscellaneous/Sitemap"));
 
@@ -128,6 +128,10 @@ const CreateTestComponent = withTitle({
 	component: CreateTest,
 	title: "Create Test | RESILLIENCE",
 });
+const FetchTestComponent = withTitle({
+	component: FetchTest,
+	title: "Test Section | RESILLIENCE",
+});
 const MainTestComponent = withTitle({
 	component: MainTest,
 	title: "Test Section | RESILLIENCE",
@@ -149,10 +153,31 @@ const Routing = () => {
 	const { dispatch } = useContext(Context);
 
 	const fetchStudent = () => {
-		const student = JSON.parse(localStorage.getItem("student"));
-		if (student) {
-			dispatch({ type: "STUDENT", payload: student });
-		} else {
+		if (localStorage.getItem("student_jwt")) {
+			const student = JSON.parse(localStorage.getItem("student"));
+			if (student) {
+				dispatch({ type: "STUDENT", payload: student });
+			} else {
+				history.push("/");
+			}
+		} else if (localStorage.getItem("admin_jwt")) {
+			const admin = JSON.parse(localStorage.getItem("admin"));
+			if (admin) {
+				dispatch({ type: "ADMIN", payload: admin });
+			} else {
+				history.push("/");
+			}
+		}
+
+		// const student = JSON.parse(localStorage.getItem("student"));
+		// const admin = JSON.parse(localStorage.getItem("admin"));
+		// if (student) {
+		// 	dispatch({ type: "STUDENT", payload: student });
+		// }
+		//  else if (admin_jwt) {
+		// 	dispatch({ type: "ADMIN", payload: admin });
+		// }
+		else {
 			history.push("/");
 		}
 	};
@@ -168,7 +193,10 @@ const Routing = () => {
 			<Route path="/tuitions/mastering-a-week-topic" component={MasteringAChapterComponent} />
 			<Route path="/test" component={TestComponent} />
 			<Route path="/createtest" component={CreateTestComponent} />
+			<Route path="/fetchtest" component={FetchTestComponent} />
+			{/* <Prompt when={false} message={() => "Test will not be submitted! Are you sure?"}> */}
 			<Route path="/maintest" component={MainTestComponent} />
+			{/* </Prompt> */}
 			<Route path="/faqs" component={FaqsComponent} />
 			<Route path="/contact-us" component={ContactUsComponent} />
 			<Route path="/career" component={CareerComponent} />

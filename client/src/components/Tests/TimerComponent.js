@@ -21,10 +21,11 @@ const TimerComponent = () => {
 	// const history = useHistory();
 
 	const { state, dispatch } = useContext(TestContext);
-	const { test, showResult } = state;
+	const { test, showResult, isStarted } = state;
 	let interval = useRef();
 	let timeRemaining = test.testDuration;
 	const [testDuration, setTestDuration] = useState(timeRemaining);
+	const [timeHours, setTimeHours] = useState("00");
 	const [timeMins, setTimeMins] = useState("00");
 	const [timeSeconds, setTimeSeconds] = useState("00");
 
@@ -38,13 +39,14 @@ const TimerComponent = () => {
 
 			const distance = countDownTime - now;
 			// console.log("distance ",distance)
-
+			const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
 			const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 			const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
 			if (distance < 0 || showResult === true) {
 				//stop timer
 				clearInterval(interval);
+				setTimeHours("00");
 				setTimeMins("00");
 				setTimeSeconds("00");
 				alert("Times up!!");
@@ -55,6 +57,7 @@ const TimerComponent = () => {
 				// history.push('/')
 			} else {
 				//update timer
+				setTimeHours(hours);
 				setTimeMins(minutes);
 				setTimeSeconds(seconds);
 			}
@@ -76,7 +79,7 @@ const TimerComponent = () => {
 		<div className={classes.root}>
 			<AccessTimeIcon fontSize="large" />
 			<span className={classes.time}>
-				<b>{timeMins}</b> minutes : <b>{timeSeconds}</b> seconds
+				<b>{timeHours} </b>hours :<b> {timeMins}</b> minutes : <b>{timeSeconds}</b> seconds
 			</span>
 		</div>
 	);

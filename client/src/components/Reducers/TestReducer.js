@@ -3,6 +3,7 @@ import {
 	SET_TEST,
 	SET_CURRENT_INDEX,
 	SET_SHOW_RESULTS,
+	SET_STARTED,
 	SET_IS_VISITED,
 	SET_IS_MARKED,
 	SET_INCREMENT_TIME,
@@ -16,6 +17,7 @@ export const initialState = {
 	selectedAnswers: [],
 	timeElapsed: [],
 	showResult: false,
+	isStarted: false,
 	isVisited: [],
 	isMarked: [],
 };
@@ -49,6 +51,11 @@ export function testReducer(state, action) {
 			return {
 				...state,
 				showResult: action.showResult,
+			};
+		case SET_STARTED:
+			return {
+				...state,
+				isStarted: action.isStarted,
 			};
 		case SET_IS_VISITED:
 			return {

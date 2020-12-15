@@ -28,11 +28,7 @@ const useStyles = makeStyles(() => ({
 		margin: "5px",
 	},
 	button: {
-		margin: "20px",
-	},
-	showtest: {
-		marginTop: "5%",
-		marginBottom: "-10%",
+		margin: "5px",
 	},
 }));
 

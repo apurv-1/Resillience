@@ -108,7 +108,7 @@ function QuestionComponent() {
 	};
 
 	const handleSubject = (cSubject) => {
-		console.log("hello");
+		// console.log("hello");
 		dispatch({ type: SET_SUBJECT, currentSubject: cSubject });
 		for (let index = 0; index < questions.length; index++) {
 			if (questions[index].subject === cSubject) {
@@ -130,7 +130,7 @@ function QuestionComponent() {
 	return (
 		<div>
 			<div className={classes.box}>
-				{/* Test Heading */}
+				{/* Subjects */}
 				<div className={classes.top}>
 					<div className={classes.subjectContainer}>
 						<label

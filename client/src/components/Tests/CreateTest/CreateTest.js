@@ -1,8 +1,14 @@
 import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
+import {
+	makeStyles,
+	Paper,
+	FormControl,
+	Select,
+	MenuItem,
+	TextField,
+	Button,
+} from "@material-ui/core";
+
 import SaveIcon from "@material-ui/icons/Save";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -30,18 +36,26 @@ const useStyles = makeStyles(() => ({
 	button: {
 		margin: "5px",
 	},
+	dropText: {
+		marginTop: "200px",
+		paddingTop: "20px",
+	},
 }));
 
 const CreateTest = () => {
 	const classes = useStyles();
 	toast.configure();
+
 	const [testId, setTestId] = useState("");
 	const [testName, setTestName] = useState("");
 	const [testDuration, setTestDuration] = useState("");
 	const [noOfQuestions, setNoOfQuestions] = useState("");
+	const [testType, setTestType] = useState("pcm");
+
 	const [forCorrect, setForCorrect] = useState(0);
 	const [forInCorrect, setForInCorrect] = useState(0);
-	// const [error, setError] = useState("");
+
+	const [open, setOpen] = useState("");
 	const [check, setCheck] = useState(false);
 
 	const SaveTest = () => {
@@ -65,6 +79,7 @@ const CreateTest = () => {
 					testName,
 					testDuration,
 					noOfQuestions,
+					testType,
 					forCorrect,
 					forInCorrect,
 				}),
@@ -118,7 +133,7 @@ const CreateTest = () => {
 			) : (
 				<div className={classes.testDiv}>
 					<Paper elevation={5} className={classes.paper}>
-						<h1>Create Test</h1>
+						<h1>Create a New Test </h1>
 						<TextField
 							id="test-id"
 							label="Test Id"
@@ -172,6 +187,22 @@ const CreateTest = () => {
 							type="number"
 							onChange={(e) => setForInCorrect(e.target.value)}
 						/>
+						<div className={classes.testField}>
+							<FormControl className={classes.testField}>
+								<Select
+									labelId="controlled-open-select-label"
+									variant="outlined"
+									open={open}
+									onClose={() => setOpen(false)}
+									onOpen={() => setOpen(true)}
+									value={testType}
+									onChange={(e) => setTestType(e.target.value)}
+									fullWidth>
+									<MenuItem value={"pcm"}>Physics, Chemistry, Maths</MenuItem>
+									<MenuItem value={"pcb"}>Physics, Chemistry, Biology</MenuItem>
+								</Select>
+							</FormControl>
+						</div>
 						<Button
 							variant="contained"
 							color="primary"

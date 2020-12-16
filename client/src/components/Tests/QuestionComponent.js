@@ -99,7 +99,7 @@ const useStyles = makeStyles((theme) => ({
 function QuestionComponent() {
 	const classes = useStyles();
 	const { state, dispatch } = useContext(TestContext);
-	const { currentIndex, selectedAnswers, isVisited, currentSubject } = state;
+	const { test, currentIndex, selectedAnswers, isVisited, currentSubject } = state;
 	const questions = state.test.questions;
 
 	const handleSelect = (selectedOption) => {
@@ -143,11 +143,19 @@ function QuestionComponent() {
 							onClick={() => handleSubject("Chemistry")}>
 							Chemistry
 						</label>
-						<label
-							className={currentSubject === "Maths" ? classes.selectedSpan : classes.span}
-							onClick={() => handleSubject("Maths")}>
-							Maths
-						</label>
+						{test.testType === "pcb" ? (
+							<label
+								className={currentSubject === "Biology" ? classes.selectedSpan : classes.span}
+								onClick={() => handleSubject("Biology")}>
+								Biology
+							</label>
+						) : (
+							<label
+								className={currentSubject === "Maths" ? classes.selectedSpan : classes.span}
+								onClick={() => handleSubject("Maths")}>
+								Maths
+							</label>
+						)}
 					</div>
 				</div>
 				<div className={classes.questionNumber}>

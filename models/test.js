@@ -13,6 +13,7 @@ const testSchema = new mongoose.Schema(
 		noOfQuestions: { type: Number, required: true },
 		forCorrect: { type: Number, default: 4 },
 		forInCorrect: { type: Number, default: -1 },
+		testType: { type: String },
 		questions: [
 			{
 				questionNumber: {

@@ -73,7 +73,7 @@ const TestResult = () => {
 	const [openSubject, setOpenSubject] = useState(false);
 
 	const [type, setType] = useState("");
-	const [cSubject, setcSubject] = useState("physics");
+	const [cSubject, setcSubject] = useState("");
 
 	const timePerQuestion = test.testDuration / (questions.length * 1000);
 	// console.log(timePerQuestion);
@@ -116,7 +116,8 @@ const TestResult = () => {
 	};
 
 	const calculateScore = () => {
-		score = correct * 4 - wrong;
+		// console.log(test.forCorrect, test.forInCorrect);
+		score = correct * test.forCorrect + test.forInCorrect;
 		return;
 	};
 

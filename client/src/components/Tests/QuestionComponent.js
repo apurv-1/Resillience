@@ -98,6 +98,9 @@ const useStyles = makeStyles((theme) => ({
 
 function QuestionComponent() {
 	const classes = useStyles();
+	window.onbeforeunload = function () {
+		return "are you sure? Test will not be submitted";
+	};
 	const { state, dispatch } = useContext(TestContext);
 	const { test, currentIndex, selectedAnswers, isVisited, currentSubject } = state;
 	const questions = state.test.questions;

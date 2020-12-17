@@ -75,13 +75,11 @@ const MainTest = () => {
 	const classes = useStyles();
 	const [testId, setTestId] = useState("");
 	const [questionLength, setQuestionLength] = useState(0);
-	window.onbeforeunload = function () {
-		return "are you sure? Test will not be submitted";
-	};
+
 	// const [start, setStart] = useState(false);
 	const [state, dispatch] = useReducer(testReducer, initialState);
 	// const [student, setStudent] = useReducer(StudentReducer, InitialState);
-	const { showResult, isStarted, timeElapsed } = state;
+	const { showResult, isStarted } = state;
 
 	const fetchTest = () => {
 		fetch(`/showtest?testid=${testId}`, {
@@ -105,7 +103,7 @@ const MainTest = () => {
 			});
 	};
 
-	console.log("hello: ", timeElapsed);
+	// console.log("hello: ", timeElapsed);
 
 	return (
 		<div className={classes.main}>

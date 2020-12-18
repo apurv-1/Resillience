@@ -5,24 +5,15 @@ import { SET_STARTED } from "../Reducers/types";
 
 const useStyles = makeStyles({
 	root: {
-		// margin: "20px",
 		marginTop: "3rem",
 		padding: "2rem",
+		marginBottom: "-10rem",
 	},
 	main: {
 		padding: "40px",
 	},
 	li: {
-		padding: "15px",
-	},
-	button: {
-		cursor: "pointer",
-		padding: "5px 15px",
-		fontWeight: "bold",
-		alignContent: "center",
-		backgroundColor: "#0F7DC2",
-		width: "10rem",
-		// color: "#F8F8F8",
+		padding: "12px",
 	},
 });
 
@@ -87,9 +78,11 @@ const StartPage = () => {
 					</div>
 					<div style={{ display: "flex", justifyContent: "center" }}>
 						<Fab
+							color="primary"
+							size="medium"
 							disabled={checked === false}
 							onClick={() => handleStartTest()}
-							className={classes.button}>
+							variant="extended">
 							Start Test
 						</Fab>
 					</div>

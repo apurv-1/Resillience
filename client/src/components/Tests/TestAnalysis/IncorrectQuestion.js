@@ -25,7 +25,7 @@ const useStyles = makeStyles({
 	},
 });
 
-const IncorrectQuestion = () => {
+const IncorrectQuestion = (cSubject) => {
 	const classes = useStyles();
 	const { state } = useContext(TestContext);
 	const { test, selectedAnswers, timeElapsed } = state;
@@ -33,55 +33,105 @@ const IncorrectQuestion = () => {
 	var timePerQuestion = parseInt(test.testDuration / (questions.length * 1000));
 	return (
 		<div className={classes.root}>
-			{questions.map(
-				({ questionImage, correctOption, _id, difficuilty }, index) =>
-					selectedAnswers[index] &&
-					selectedAnswers[index] !== correctOption && (
-						<div className={classes.card} key={_id}>
-							<TableContainer component={Paper} elevation={4}>
-								<Table className={classes.table} aria-label="simple table">
-									<TableHead>
-										<TableRow component="th">
-											<TableCell style={{ fontSize: "20px", fontWeight: "bolder" }}>
-												Question Number: {test.questions[index].questionNumber}
-											</TableCell>
-											<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bolder" }}>
-												Difficuilty level
-											</TableCell>
-											<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bolder" }}>
-												Correct Option
-											</TableCell>
-											<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bolder" }}>
-												Selected Option
-											</TableCell>
-											<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bolder" }}>
-												Time Taken
-											</TableCell>
-										</TableRow>
-									</TableHead>
-									<TableBody>
-										<TableRow>
-											<TableCell>
-												<img src={questionImage} alt={_id} />
-											</TableCell>
-											<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bold" }}>
-												{difficuilty}
-											</TableCell>
-											<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bold" }}>
-												{correctOption}
-											</TableCell>
-											<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bold" }}>
-												{selectedAnswers[index]}
-											</TableCell>
-											<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bold" }}>
-												{timeElapsed[index] ? timeElapsed[index] : 0}s / {timePerQuestion}s&nbsp;
-											</TableCell>
-										</TableRow>
-									</TableBody>
-								</Table>
-							</TableContainer>
-						</div>
-					)
+			{questions.map(({ questionImage, correctOption, _id, difficuilty, subject }, index) =>
+				cSubject.cSubject !== ""
+					? subject === cSubject.cSubject &&
+					  selectedAnswers[index] &&
+					  selectedAnswers[index] !== correctOption && (
+							<div className={classes.card} key={_id}>
+								<TableContainer component={Paper} elevation={4}>
+									<Table className={classes.table} aria-label="simple table">
+										<TableHead>
+											<TableRow component="th">
+												<TableCell style={{ fontSize: "20px", fontWeight: "bolder" }}>
+													Question Number: {test.questions[index].questionNumber}
+													<b style={{ marginLeft: "20rem" }}>Subject : {subject}</b>
+												</TableCell>
+												<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bolder" }}>
+													Difficuilty level
+												</TableCell>
+												<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bolder" }}>
+													Correct Option
+												</TableCell>
+												<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bolder" }}>
+													Selected Option
+												</TableCell>
+												<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bolder" }}>
+													Time Taken
+												</TableCell>
+											</TableRow>
+										</TableHead>
+										<TableBody>
+											<TableRow>
+												<TableCell>
+													<img src={questionImage} alt={_id} />
+												</TableCell>
+												<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bold" }}>
+													{difficuilty}
+												</TableCell>
+												<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bold" }}>
+													{correctOption}
+												</TableCell>
+												<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bold" }}>
+													{selectedAnswers[index]}
+												</TableCell>
+												<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bold" }}>
+													{timeElapsed[index] ? timeElapsed[index] : 0}s / {timePerQuestion}s&nbsp;
+												</TableCell>
+											</TableRow>
+										</TableBody>
+									</Table>
+								</TableContainer>
+							</div>
+					  )
+					: selectedAnswers[index] &&
+					  selectedAnswers[index] !== correctOption && (
+							<div className={classes.card} key={_id}>
+								<TableContainer component={Paper} elevation={4}>
+									<Table className={classes.table} aria-label="simple table">
+										<TableHead>
+											<TableRow component="th">
+												<TableCell style={{ fontSize: "20px", fontWeight: "bolder" }}>
+													Question Number: {test.questions[index].questionNumber}
+													<b style={{ marginLeft: "20rem" }}>Subject : {subject}</b>
+												</TableCell>
+												<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bolder" }}>
+													Difficuilty level
+												</TableCell>
+												<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bolder" }}>
+													Correct Option
+												</TableCell>
+												<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bolder" }}>
+													Selected Option
+												</TableCell>
+												<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bolder" }}>
+													Time Taken
+												</TableCell>
+											</TableRow>
+										</TableHead>
+										<TableBody>
+											<TableRow>
+												<TableCell>
+													<img src={questionImage} alt={_id} />
+												</TableCell>
+												<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bold" }}>
+													{difficuilty}
+												</TableCell>
+												<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bold" }}>
+													{correctOption}
+												</TableCell>
+												<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bold" }}>
+													{selectedAnswers[index]}
+												</TableCell>
+												<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bold" }}>
+													{timeElapsed[index] ? timeElapsed[index] : 0}s / {timePerQuestion}s&nbsp;
+												</TableCell>
+											</TableRow>
+										</TableBody>
+									</Table>
+								</TableContainer>
+							</div>
+					  )
 			)}
 		</div>
 	);

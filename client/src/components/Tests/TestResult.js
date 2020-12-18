@@ -20,9 +20,8 @@ const useStyles = makeStyles((theme) => ({
 	subjectScore: {
 		display: "flex",
 		float: "right",
-		padding: "10px",
 		textAlign: "center",
-		width: "38%",
+		width: "35rem",
 	},
 	paper: {
 		textAlign: "center",

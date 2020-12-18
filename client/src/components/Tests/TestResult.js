@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import TestContext from "../Context/TestContext";
-import { makeStyles, Paper, FormControl, Select, MenuItem } from "@material-ui/core";
+import { makeStyles, FormControl, Select, MenuItem } from "@material-ui/core";
 // import Loading from "./Loading"
 // import Confetti from "react-confetti";
 import CorrectQuestionsComponent from "./TestAnalysis/CorrectQuestions";
@@ -25,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
 		width: "38%",
 	},
 	paper: {
-		// padding: "10px",
 		textAlign: "center",
 		display: "flex",
 		flexDirection: "row",
@@ -33,32 +32,32 @@ const useStyles = makeStyles((theme) => ({
 		// width: "100%",
 	},
 	analysisBlock: {
-		margin: "2%",
-		padding: "2%",
-		width: "50%",
+		marginTop: "2rem",
+		padding: "1rem",
+
 		fontWeight: "bolder",
 		fontSize: "20px",
-		// border: "2px solid",
 	},
 	analysisDropdown: {
-		width: "40%",
-		height: "100%",
-		marginLeft: "2%",
-		marginTop: "-2.5%",
+		width: "12rem",
+		marginTop: "-1rem",
+		marginLeft: "10px",
 	},
 	span: {
 		margin: "6px",
 		padding: "5px",
 		width: "20rem",
 		height: "8rem",
-		border: "1px solid",
-		borderRadius: "5px",
-		boxShadow: "0 0px 5px 0px rgba(35, 34, 39), inset 1px 1px 2px 2px rgba(35, 34, 39)",
-
-		// "&:hover": {
-		// 	backgroundColor: "grey",
-		// 	color: "white",
-		// },
+		background: "rgba( 74, 74, 74, 0.05 )",
+		boxShadow: "0 6px 12px 0 rgba( 31, 38, 135, 0.37 ), inset 0 6px 2px 0 rgba( 31, 38, 135, 0.37 )",
+		backdropFilter: "blur( 20.0px )",
+		WebkitBackdropFilter: "blur( 20.0px )",
+		borderRadius: "12px",
+	},
+	container: {
+		display: "flex",
+		flexDirection: "row",
+		margin: "1rem",
 	},
 }));
 
@@ -87,11 +86,12 @@ const TestResult = () => {
 		correctButOverTime = 0,
 		timeSpentOnInCorrect = 0,
 		timeSpentOnCorrect = 0,
-		timeSpentOnNotAttempted = 0;
-	// SubjectwiseTotal = 0,
-	// SubjectwiseAnswered = 0,
-	// SubjectwiseCorrect = 0,
-	// SubjectwiseWrong = 0
+		timeSpentOnNotAttempted = 0,
+		SubjectwiseTotal = 0,
+		SubjectwiseAnswered = 0,
+		SubjectwiseCorrect = 0,
+		SubjectwiseWrong = 0;
+
 	const calculateMarks = () => {
 		for (let index = 0; index < questions.length; index++) {
 			if (selectedAnswers[index]) {
@@ -110,14 +110,25 @@ const TestResult = () => {
 			if (!selectedAnswers[index]) {
 				timeSpentOnNotAttempted = timeSpentOnNotAttempted + timeElapsed[index];
 			}
+			if (questions[index].subject === cSubject) {
+				SubjectwiseTotal = SubjectwiseTotal + 1;
+				if (selectedAnswers[index]) {
+					SubjectwiseAnswered = SubjectwiseAnswered + 1;
+					if (questions[index].correctOption === selectedAnswers[index]) {
+						SubjectwiseCorrect = SubjectwiseCorrect + 1;
+					} else {
+						SubjectwiseWrong = SubjectwiseWrong + 1;
+					}
+				}
+			}
 		}
 		calculateScore();
 		return;
 	};
 
 	const calculateScore = () => {
-		// console.log(test.forCorrect, test.forInCorrect);
-		score = correct * test.forCorrect + test.forInCorrect;
+		console.log(correct, test.forCorrect, test.forInCorrect);
+		score = correct * test.forCorrect + wrong * test.forInCorrect;
 		return;
 	};
 
@@ -130,26 +141,7 @@ const TestResult = () => {
 					{/* <Confetti numberOfPieces={50} width="800px" /> */}
 					{calculateMarks()}
 
-					{/* <Paper className={classes.subjectScore} elevation={5}>
-						<span className={classes.span}>
-							<h1>{SubjectwiseTotal}</h1>
-							<h3>Total {cSubject} Questions</h3>
-						</span>
-						<span className={classes.span}>
-							<h1>{SubjectwiseAnswered}</h1>
-							<h3>Answered</h3>
-						</span>
-						<span className={classes.span}>
-							<h1>{SubjectwiseCorrect}</h1>
-							<h3>Correct </h3>
-						</span>
-						<span className={classes.span}>
-							<h1>{SubjectwiseWrong}</h1>
-							<h3>Wrong </h3>
-						</span>
-					</Paper> */}
-
-					<Paper className={classes.paper} elevation={5}>
+					<div className={classes.paper}>
 						<span className={classes.span}>
 							<h1>{total}</h1>
 							<h3>Total Questions</h3>
@@ -213,8 +205,9 @@ const TestResult = () => {
 							</h1>
 							<h3>You Scored </h3>
 						</span>
-					</Paper>
-					<div style={{ display: "flex", flexDirection: "row" }}>
+					</div>
+
+					<div className={classes.container}>
 						<div className={classes.analysisBlock}>
 							Choose Test Analysis :
 							<FormControl className={classes.analysisDropdown}>
@@ -247,21 +240,45 @@ const TestResult = () => {
 									value={cSubject}
 									onChange={(e) => setcSubject(e.target.value)}
 									fullWidth>
-									<MenuItem value={"physics"}>Physics</MenuItem>
-									<MenuItem value={"chemistry"}>Chemistry</MenuItem>
-									<MenuItem value={"maths"}>Maths</MenuItem>
+									<MenuItem value={""}>None</MenuItem>
+									<MenuItem value={"Physics"}>Physics</MenuItem>
+									<MenuItem value={"Chemistry"}>Chemistry</MenuItem>
+									{test.testType === "pcb" ? (
+										<MenuItem value={"Biology"}>Maths</MenuItem>
+									) : (
+										<MenuItem value={"Maths"}>Maths</MenuItem>
+									)}
 								</Select>
 							</FormControl>
 						</div>
+						<div className={classes.subjectScore} elevation={5}>
+							{/* <b>{cSubject}: </b> */}
+							<span className={classes.span}>
+								<h1>{SubjectwiseTotal}</h1>
+								<h3>Total Questions</h3>
+							</span>
+							<span className={classes.span}>
+								<h1>{SubjectwiseAnswered}</h1>
+								<h3>Answered</h3>
+							</span>
+							<span className={classes.span}>
+								<h1>{SubjectwiseCorrect}</h1>
+								<h3>Correct </h3>
+							</span>
+							<span className={classes.span}>
+								<h1>{SubjectwiseWrong}</h1>
+								<h3>Wrong </h3>
+							</span>
+						</div>
 					</div>
 					{type === "correct" ? (
-						<CorrectQuestionsComponent />
+						<CorrectQuestionsComponent cSubject={cSubject} />
 					) : type === "incorrect" ? (
-						<IncorrectQuestionsComponent />
+						<IncorrectQuestionsComponent cSubject={cSubject} />
 					) : type === "notAnswered" ? (
-						<NotAnsweredQuestionsComponent />
+						<NotAnsweredQuestionsComponent cSubject={cSubject} />
 					) : (
-						type === "all" && <AllQuestionsComponent />
+						type === "all" && <AllQuestionsComponent cSubject={cSubject} />
 					)}
 				</div>
 			)}

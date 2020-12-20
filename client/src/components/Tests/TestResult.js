@@ -10,9 +10,7 @@ import AllQuestionsComponent from "./TestAnalysis/AllQuestions";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
-		// margin: "20px",
 		marginTop: "100px",
-		// marginLeft: "20%",
 	},
 	// card: {
 	// 	width: "50%",
@@ -21,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 		display: "flex",
 		float: "right",
 		textAlign: "center",
-		width: "35rem",
+		width: "37rem",
 	},
 	paper: {
 		textAlign: "center",
@@ -33,7 +31,6 @@ const useStyles = makeStyles((theme) => ({
 	analysisBlock: {
 		marginTop: "2rem",
 		padding: "1rem",
-
 		fontWeight: "bolder",
 		fontSize: "20px",
 	},
@@ -56,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
 	container: {
 		display: "flex",
 		flexDirection: "row",
-		margin: "1rem",
+		marginTop: "1rem",
 	},
 }));
 
@@ -89,7 +86,8 @@ const TestResult = () => {
 		SubjectwiseTotal = 0,
 		SubjectwiseAnswered = 0,
 		SubjectwiseCorrect = 0,
-		SubjectwiseWrong = 0;
+		SubjectwiseWrong = 0,
+		SubjectwiseTime = 0;
 
 	const calculateMarks = () => {
 		for (let index = 0; index < questions.length; index++) {
@@ -111,6 +109,7 @@ const TestResult = () => {
 			}
 			if (questions[index].subject === cSubject) {
 				SubjectwiseTotal = SubjectwiseTotal + 1;
+				SubjectwiseTime = SubjectwiseTime + timeElapsed[index];
 				if (selectedAnswers[index]) {
 					SubjectwiseAnswered = SubjectwiseAnswered + 1;
 					if (questions[index].correctOption === selectedAnswers[index]) {
@@ -172,7 +171,7 @@ const TestResult = () => {
 						<span className={classes.span}>
 							<h2>
 								{timeSpentOnCorrect > 60
-									? `${parseInt(timeSpentOnCorrect / 60)}m : ${timeSpentOnCorrect % 60}`
+									? `${parseInt(timeSpentOnCorrect / 60)}m :${timeSpentOnCorrect % 60}`
 									: timeSpentOnCorrect}
 								s
 							</h2>
@@ -181,7 +180,7 @@ const TestResult = () => {
 						<span className={classes.span}>
 							<h2>
 								{timeSpentOnInCorrect > 60
-									? `${parseInt(timeSpentOnInCorrect / 60)}m:${timeSpentOnInCorrect % 60}`
+									? `${parseInt(timeSpentOnInCorrect / 60)}m :${timeSpentOnInCorrect % 60}`
 									: timeSpentOnInCorrect}
 								s
 							</h2>
@@ -243,15 +242,14 @@ const TestResult = () => {
 									<MenuItem value={"Physics"}>Physics</MenuItem>
 									<MenuItem value={"Chemistry"}>Chemistry</MenuItem>
 									{test.testType === "pcb" ? (
-										<MenuItem value={"Biology"}>Maths</MenuItem>
+										<MenuItem value={"Biology"}>Biology</MenuItem>
 									) : (
 										<MenuItem value={"Maths"}>Maths</MenuItem>
 									)}
 								</Select>
 							</FormControl>
 						</div>
-						<div className={classes.subjectScore} elevation={5}>
-							{/* <b>{cSubject}: </b> */}
+						<div className={classes.subjectScore}>
 							<span className={classes.span}>
 								<h1>{SubjectwiseTotal}</h1>
 								<h3>Total Questions</h3>
@@ -267,6 +265,15 @@ const TestResult = () => {
 							<span className={classes.span}>
 								<h1>{SubjectwiseWrong}</h1>
 								<h3>Wrong </h3>
+							</span>
+							<span className={classes.span}>
+								<h3>
+									{SubjectwiseTime > 60
+										? `${parseInt(SubjectwiseTime / 60)}m :${SubjectwiseTime % 60}`
+										: SubjectwiseTime}
+									s
+								</h3>
+								<h4>Total Time spent on {cSubject} </h4>
 							</span>
 						</div>
 					</div>

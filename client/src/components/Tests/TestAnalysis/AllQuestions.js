@@ -63,7 +63,7 @@ const AllQuestions = (cSubject) => {
 									<TableBody>
 										<TableRow>
 											<TableCell>
-												<img src={questionImage} alt="question" />
+												<img src={questionImage} alt="question" width="100%" />
 											</TableCell>
 											<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bold" }}>
 												{difficuilty}
@@ -110,7 +110,7 @@ const AllQuestions = (cSubject) => {
 								<TableBody>
 									<TableRow>
 										<TableCell>
-											<img src={questionImage} alt="question" />
+											<img src={questionImage} alt="question" width="100%" />
 										</TableCell>
 										<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bold" }}>
 											{difficuilty}

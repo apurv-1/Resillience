@@ -64,7 +64,7 @@ const IncorrectQuestion = (cSubject) => {
 										<TableBody>
 											<TableRow>
 												<TableCell>
-													<img src={questionImage} alt={_id} />
+													<img src={questionImage} alt={_id} width="100%" />
 												</TableCell>
 												<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bold" }}>
 													{difficuilty}
@@ -112,7 +112,7 @@ const IncorrectQuestion = (cSubject) => {
 										<TableBody>
 											<TableRow>
 												<TableCell>
-													<img src={questionImage} alt={_id} />
+													<img src={questionImage} alt={_id} width="100%" />
 												</TableCell>
 												<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bold" }}>
 													{difficuilty}

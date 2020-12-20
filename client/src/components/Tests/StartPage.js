@@ -49,13 +49,13 @@ const StartPage = () => {
 							</li>
 							{test.testType === "pcb" ? (
 								<li className={classes.li}>
-									There are <b>{test.questions.length}</b> in the question paper consisting of Physics,
-									Chemistry and Biology.
+									There are <b>{test.questions.length} Questions</b> in the question paper consisting of{" "}
+									<b>Physics, Chemistry and Biology.</b>
 								</li>
 							) : (
 								<li className={classes.li}>
-									There are <b>{test.questions.length}</b> in the question paper consisting of Physics,
-									Chemistry and Mathematics.
+									There are <b>{test.questions.length} Questions</b> in the question paper consisting of{" "}
+									<b>Physics, Chemistry and Mathematics.</b>
 								</li>
 							)}
 							<li className={classes.li}>

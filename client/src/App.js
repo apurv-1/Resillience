@@ -1,5 +1,5 @@
 import React, { Suspense, lazy, useEffect, createContext, useReducer, useContext } from "react";
-import { Redirect } from "react-router";
+import { Prompt, Redirect } from "react-router";
 import { Switch, Route, withRouter, useHistory } from "react-router-dom";
 import ScrollToTop from "./ScrollToTop";
 import "./App.css";
@@ -40,6 +40,7 @@ const TermsOfService = lazy(() => import("./components/Miscellaneous/TermsOfServ
 const CreateTest = lazy(() => import("./components/Tests/CreateTest/CreateTest"));
 const FetchTest = lazy(() => import("./components/Tests/FetchTest"));
 const MainTest = lazy(() => import("./components/Tests/MainTest"));
+const EnrollStudent = lazy(() => import("./components/Admin/EnrollStudent"));
 // const Sitemap = lazy(() => import("./components/Miscellaneous/Sitemap"));
 
 // const Room = lazy(() => import("./components/Room"));
@@ -136,6 +137,10 @@ const MainTestComponent = withTitle({
 	component: MainTest,
 	title: "Test Section | RESILLIENCE",
 });
+const EnrollStudentComponent = withTitle({
+	component: EnrollStudent,
+	title: "Enroll Student | RESILLIENCE",
+});
 // const SitemapComponent = withTitle({ component: Sitemap, title: "Sitemap | RESILLIENCE" });
 
 const ErrorComponent = withTitle({
@@ -158,14 +163,15 @@ const Routing = () => {
 			if (student) {
 				dispatch({ type: "STUDENT", payload: student });
 			} else {
-				history.push("/");
+				<Redirect to="/" />;
 			}
 		} else if (localStorage.getItem("admin_jwt")) {
 			const admin = JSON.parse(localStorage.getItem("admin"));
 			if (admin) {
 				dispatch({ type: "ADMIN", payload: admin });
 			} else {
-				history.push("/");
+				// history.push("/");
+				<Redirect to="/" />;
 			}
 		}
 
@@ -194,6 +200,7 @@ const Routing = () => {
 			<Route path="/test" component={TestComponent} />
 			<Route path="/createtest" component={CreateTestComponent} />
 			<Route path="/fetchtest" component={FetchTestComponent} />
+			<Route path="/enroll-student" component={EnrollStudentComponent} />
 			{/* <Prompt when={false} message={() => "Test will not be submitted! Are you sure?"}> */}
 			<Route path="/maintest" component={MainTestComponent} />
 			{/* </Prompt> */}
@@ -226,6 +233,14 @@ const App = () => {
 						<Navbar />
 						<ScrollToTop />
 						<Routing />
+						<Prompt
+							when={false}
+							message={(location) => {
+								return location.pathname.startsWith("/maintest")
+									? "Test will not be submitted! Are you sure?"
+									: true;
+							}}
+						/>
 						<Footer />
 					</div>
 					{/* </TransitionGroup> */}

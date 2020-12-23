@@ -178,7 +178,7 @@ router.post("/user/signup", (req, res) => {
 	});
 });
 
-router.post("/student/signup", (req, res) => {
+router.post("/student-signup", (req, res) => {
 	const {
 		name,
 		email,
@@ -195,16 +195,16 @@ router.post("/student/signup", (req, res) => {
 		bio,
 	} = req.body;
 	if (!name) {
-		return res.status(422).json({ name: "Please add name" });
+		return res.status(422).json({ error: "Please add name" });
 	}
 	if (!email) {
-		return res.status(422).json({ email: "Please add email" });
+		return res.status(422).json({ error: "Please add email" });
 	}
 	if (!password) {
-		return res.status(422).json({ password: "Please add password" });
+		return res.status(422).json({ error: "Please add password" });
 	}
 	if (!contact) {
-		return res.status(422).json({ contact: "Please add mobile number" });
+		return res.status(422).json({ error: "Please add mobile number" });
 	}
 	Student.findOne({ email }).then((savedStudent) => {
 		if (savedStudent) {
@@ -236,8 +236,8 @@ router.post("/student/signup", (req, res) => {
 						from: EMAIL,
 						subject: "Enrollment Successful!",
 						html: `<h2>Hello ${student.name},</h2>
-                  you're successfully enrolled for batch ${student.batch}. <br />Regards!,
-                  <br />Team Resillience.`,
+						you're successfully enrolled for batch ${student.batch}. <br />Regards!,
+						<br />Team Resillience.`,
 					});
 					res.json({ message: "Student added!" });
 				})

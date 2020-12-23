@@ -14,7 +14,6 @@ const studentSchema = new mongoose.Schema(
 		batch: { type: String },
 		contact: {
 			type: String,
-			match: /^([7-9][0-9]{9})$/g,
 			required: true,
 		},
 		parentContact: { type: String },

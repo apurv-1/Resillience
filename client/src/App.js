@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useEffect, createContext, useReducer, useContext } from "react";
+import React, { Suspense, lazy, useEffect, useReducer, useContext } from "react";
 import { Prompt, Redirect } from "react-router";
 import { Switch, Route, withRouter, useHistory } from "react-router-dom";
 import ScrollToTop from "./ScrollToTop";
@@ -15,9 +15,9 @@ import themeObject from "./theme";
 // import { TransitionGroup } from "react-transition-group";
 import { TitleComponent } from "./components/Title/TitleComponent";
 
-import { StudentReducer, InitialState } from "./components/Reducers/Reducer";
+import { StudentReducer, InitialState } from "./components/Reducers/UserReducer";
+import UserContext from "./components/Context/UserContext";
 import "./ReactTransitions.css";
-
 //Components
 const Navbar = lazy(() => import("./components/NavBar/NavBar"));
 const Home = lazy(() => import("./components/Home/Home"));
@@ -148,27 +148,23 @@ const ErrorComponent = withTitle({
 	title: "Not Found | RESILLIENCE",
 });
 
-//context api
-export const Context = createContext();
-
 //routes
 /* eslint-disable */
 const Routing = () => {
 	const history = useHistory();
-	const { dispatch } = useContext(Context);
-
+	const { userDispatch } = useContext(UserContext);
 	const fetchStudent = () => {
 		if (localStorage.getItem("student_jwt")) {
 			const student = JSON.parse(localStorage.getItem("student"));
 			if (student) {
-				dispatch({ type: "STUDENT", payload: student });
+				userDispatch({ type: "STUDENT", payload: student });
 			} else {
 				<Redirect to="/" />;
 			}
 		} else if (localStorage.getItem("admin_jwt")) {
 			const admin = JSON.parse(localStorage.getItem("admin"));
 			if (admin) {
-				dispatch({ type: "ADMIN", payload: admin });
+				userDispatch({ type: "ADMIN", payload: admin });
 			} else {
 				// history.push("/");
 				<Redirect to="/" />;
@@ -222,10 +218,10 @@ const Routing = () => {
 
 /* eslint-disable */
 const App = () => {
-	const [state, dispatch] = useReducer(StudentReducer, InitialState);
+	const [userState, userDispatch] = useReducer(StudentReducer, InitialState);
 
 	return (
-		<Context.Provider value={{ state, dispatch }}>
+		<UserContext.Provider value={{ userState, userDispatch }}>
 			<MuiThemeProvider theme={theme}>
 				<Suspense fallback={<LinearProgress color="secondary" style={{ paddingTop: "0.2%" }} />}>
 					{/* <TransitionGroup component="div" className="App"> */}
@@ -246,7 +242,7 @@ const App = () => {
 					{/* </TransitionGroup> */}
 				</Suspense>
 			</MuiThemeProvider>
-		</Context.Provider>
+		</UserContext.Provider>
 	);
 };
 

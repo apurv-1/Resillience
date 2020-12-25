@@ -17,7 +17,7 @@ import MenuBookRoundedIcon from "@material-ui/icons/MenuBookRounded";
 import GetAppRoundedIcon from "@material-ui/icons/GetAppRounded";
 import WebRoundedIcon from "@material-ui/icons/WebRounded";
 import { blue, red } from "@material-ui/core/colors";
-import { Context } from "../../App";
+import UserContext from "../Context/UserContext";
 //dialog box
 import { Dialog, DialogActions, DialogTitle } from "@material-ui/core";
 
@@ -100,7 +100,7 @@ const theme = createMuiTheme({
 export default function SideNav() {
 	const classes = useStyles();
 	const history = useHistory();
-	const { state, dispatch } = useContext(Context);
+	const { userState, userDispatch } = useContext(UserContext);
 	const [open, setOpen] = useState(false);
 	const [signOut, setSignOut] = useState(false);
 	// console.log(state);
@@ -110,7 +110,7 @@ export default function SideNav() {
 	};
 	const handleSignOut = () => {
 		localStorage.clear();
-		dispatch({ type: "CLEAR" });
+		userDispatch({ type: "CLEAR" });
 		setSignOut(false);
 		history.push("/");
 	};
@@ -136,7 +136,7 @@ export default function SideNav() {
 								src="https://res.cloudinary.com/rweb1/image/upload/v1599639734/resilience_default_lqmb3p.png"
 								className={classes.avatar}
 							/>
-							<div className={classes.name}>{state ? state.name : "loading..."}</div>
+							<div className={classes.name}>{userState ? userState.name : "loading..."}</div>
 
 							<Link to="/student-dashboard" className={classes.link} onClick={() => setOpen(false)}>
 								<ListItem button key="Profile" className={classes.listitem}>

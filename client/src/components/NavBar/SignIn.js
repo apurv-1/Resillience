@@ -7,7 +7,7 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
 
-import { Context } from "../../App";
+import UserContext from "../Context/UserContext";
 import SideDrawer from "./SideDrawer";
 // import axios from "axios";
 
@@ -84,7 +84,7 @@ const styles = () => ({
 
 function SignIn(props) {
 	const history = useHistory();
-	const { state, dispatch } = useContext(Context);
+	const { userState, userDispatch } = useContext(UserContext);
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [open, setOpen] = useState(false);
@@ -118,14 +118,14 @@ function SignIn(props) {
 			})
 				.then((res) => res.json())
 				.then((data) => {
-					console.log(data);
+					// console.log(data);
 					if (data.error) {
 						const err = data.error;
 						setErrors({ err });
 					} else {
 						localStorage.setItem("student_jwt", data.token);
 						localStorage.setItem("student", JSON.stringify(data.student));
-						dispatch({ type: "STUDENT", payload: data.student });
+						userDispatch({ type: "STUDENT", payload: data.student });
 						setOpen(false);
 						history.push("/student-dashboard");
 						setEmail("");
@@ -181,7 +181,7 @@ function SignIn(props) {
 	const { classes } = props;
 	return (
 		<div style={{ fontStyle: "23px" }}>
-			{state ? (
+			{userState ? (
 				<SideDrawer />
 			) : (
 				<Button variant="contained" color="secondary" onClick={handleClickOpen}>

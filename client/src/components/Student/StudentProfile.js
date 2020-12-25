@@ -4,7 +4,7 @@ import { Paper, Avatar, Grid } from "@material-ui/core";
 
 // import TextField from "@material-ui/core/TextField";
 // import Autocomplete from "@material-ui/lab/Autocomplete";
-import { Context } from "../../App";
+import UserContext from "../Context/UserContext";
 
 const useStyles = makeStyles((theme) => ({
 	head: {
@@ -48,63 +48,63 @@ const useStyles = makeStyles((theme) => ({
 
 export default function StudentProfile() {
 	const classes = useStyles();
-	const { state } = useContext(Context);
+	const { userState } = useContext(UserContext);
 
-	// console.log(state);
+	console.log(userState);
 	return (
 		<div>
 			<Paper elevation={5} className={classes.card}>
-				{state ? (
+				{userState ? (
 					<div>
 						<div className={classes.pic}>
-							<Avatar alt="Student" src={state.picture} />
+							<Avatar alt="Student" src={userState.picture} />
 						</div>
 						<div>
 							<Grid container spacing={3}>
 								<Grid item xs={10} sm={6}>
-									<Paper className={classes.paper}>Name : {state.name}</Paper>
+									<Paper className={classes.paper}>Name : {userState.name}</Paper>
 								</Grid>
 							</Grid>
 						</div>
 						<div>
 							<Grid container spacing={3}>
 								<Grid item xs={10} sm={6}>
-									<Paper className={classes.paper}>Email : {state.email}</Paper>
+									<Paper className={classes.paper}>Email : {userState.email}</Paper>
 								</Grid>
 							</Grid>
 						</div>
 						<div>
 							<Grid container spacing={3}>
 								<Grid item xs={10} sm={6}>
-									<Paper className={classes.paper}>Batch : {state.batch}</Paper>
+									<Paper className={classes.paper}>Batch : {userState.batch}</Paper>
 								</Grid>
 							</Grid>
 						</div>
 						<div>
 							<Grid container spacing={3}>
 								<Grid item xs={10} sm={6}>
-									<Paper className={classes.paper}>Contact : {state.contact}</Paper>
+									<Paper className={classes.paper}>Contact : {userState.contact}</Paper>
 								</Grid>
 							</Grid>
 						</div>
 						<div>
 							<Grid container spacing={3}>
 								<Grid item xs={10} sm={6}>
-									<Paper className={classes.paper}>Fathers Name : {state.fname}</Paper>
+									<Paper className={classes.paper}>Fathers Name : {userState.fname}</Paper>
 								</Grid>
 							</Grid>
 						</div>
 						<div>
 							<Grid container spacing={3}>
 								<Grid item xs={10} sm={6}>
-									<Paper className={classes.paper}>Parents Contact : {state.parentContact}</Paper>
+									<Paper className={classes.paper}>Parents Contact : {userState.parentContact}</Paper>
 								</Grid>
 							</Grid>
 						</div>
 						<div>
 							<Grid container spacing={3}>
 								<Grid item xs={10} sm={6}>
-									<Paper className={classes.paper}>Address : {state.address}</Paper>
+									<Paper className={classes.paper}>Address : {userState.address}</Paper>
 								</Grid>
 							</Grid>
 						</div>

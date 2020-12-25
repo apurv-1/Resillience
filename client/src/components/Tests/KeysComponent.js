@@ -11,6 +11,7 @@ import {
 	SET_SUBJECT,
 } from "../Reducers/types";
 import { Dialog, DialogActions, DialogTitle, DialogContent } from "@material-ui/core";
+import UserContext from "../Context/UserContext";
 
 // import TimeLeft from "./TimerComponent";
 import { blue, red } from "@material-ui/core/colors";
@@ -88,7 +89,9 @@ const KeysComponent = () => {
 	const { test, currentIndex, selectedAnswers, showResult, isMarked } = state;
 	const questionLength = test.questions.length;
 	const questions = test.questions;
-	//
+	// const { userState } = useContext(UserContext);
+	// console.log(userState);
+
 	// 	let mark = 0,
 	// 		notAnswered = 0,
 	// 		answered = 0,

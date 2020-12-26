@@ -1,5 +1,5 @@
 import React, { Suspense, lazy, useEffect, useReducer, useContext } from "react";
-import { Prompt, Redirect } from "react-router";
+import { Prompt } from "react-router";
 import { Switch, Route, withRouter, useHistory } from "react-router-dom";
 import ScrollToTop from "./ScrollToTop";
 import "./App.css";
@@ -15,8 +15,10 @@ import themeObject from "./theme";
 // import { TransitionGroup } from "react-transition-group";
 import { TitleComponent } from "./components/Title/TitleComponent";
 
-import { StudentReducer, InitialState } from "./components/Reducers/UserReducer";
+//Context & Reducers
+import { userReducer, initialState } from "./components/Reducers/UserReducer";
 import UserContext from "./components/Context/UserContext";
+import { SET_STUDENT, SET_ADMIN, SET_USER_TYPE } from "./components/Reducers/types";
 import "./ReactTransitions.css";
 //Components
 const Navbar = lazy(() => import("./components/NavBar/NavBar"));
@@ -41,6 +43,7 @@ const CreateTest = lazy(() => import("./components/Tests/CreateTest/CreateTest")
 const FetchTest = lazy(() => import("./components/Tests/FetchTest"));
 const MainTest = lazy(() => import("./components/Tests/MainTest"));
 const EnrollStudent = lazy(() => import("./components/Admin/EnrollStudent"));
+const AdminSignIn = lazy(() => import("./components/Admin/AdminSignIn"));
 // const Sitemap = lazy(() => import("./components/Miscellaneous/Sitemap"));
 
 // const Room = lazy(() => import("./components/Room"));
@@ -141,6 +144,10 @@ const EnrollStudentComponent = withTitle({
 	component: EnrollStudent,
 	title: "Enroll Student | RESILLIENCE",
 });
+const AdminSignInComponent = withTitle({
+	component: EnrollStudent,
+	title: "Admin | RESILLIENCE",
+});
 // const SitemapComponent = withTitle({ component: Sitemap, title: "Sitemap | RESILLIENCE" });
 
 const ErrorComponent = withTitle({
@@ -153,33 +160,50 @@ const ErrorComponent = withTitle({
 const Routing = () => {
 	const history = useHistory();
 	const { userDispatch } = useContext(UserContext);
+
+	//async api call to fetch the user
 	const fetchStudent = () => {
 		if (localStorage.getItem("student_jwt")) {
-			const student = JSON.parse(localStorage.getItem("student"));
-			if (student) {
-				userDispatch({ type: "STUDENT", payload: student });
-			} else {
-				<Redirect to="/" />;
-			}
+			fetch("/student-profile", {
+				method: "get",
+				headers: {
+					Authorization: "Bearer " + localStorage.getItem("student_jwt"),
+				},
+			})
+				.then((res) => res.json())
+				.then((student) => {
+					// console.log(student.details);
+					userDispatch({ type: SET_STUDENT, payload: student.details[0] });
+					userDispatch({ type: SET_USER_TYPE, userType: "student" });
+					history.push("/student-dashboard");
+				})
+				.catch((err) => {
+					console.log(err);
+				});
 		} else if (localStorage.getItem("admin_jwt")) {
-			const admin = JSON.parse(localStorage.getItem("admin"));
-			if (admin) {
-				userDispatch({ type: "ADMIN", payload: admin });
-			} else {
-				// history.push("/");
-				<Redirect to="/" />;
-			}
-		}
-
-		// const student = JSON.parse(localStorage.getItem("student"));
-		// const admin = JSON.parse(localStorage.getItem("admin"));
-		// if (student) {
-		// 	dispatch({ type: "STUDENT", payload: student });
-		// }
-		//  else if (admin_jwt) {
-		// 	dispatch({ type: "ADMIN", payload: admin });
-		// }
-		else {
+			// const admin = JSON.parse(localStorage.getItem("admin"));
+			// if (admin) {
+			// 	userDispatch({ type: SET_ADMIN, payload: admin });
+			// } else {
+			// 	history.push("/");
+			// }
+			fetch("admin-profile", {
+				method: "get",
+				headers: {
+					Authorization: "Bearer " + localStorage.getItem("admin_jwt"),
+				},
+			})
+				.then((res) => res.json())
+				.then((admin) => {
+					// console.log(admin.details);
+					userDispatch({ type: SET_ADMIN, payload: admin.details[0] });
+					userDispatch({ type: SET_USER_TYPE, userType: "admin" });
+					history.push("/student-dashboard");
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		} else {
 			history.push("/");
 		}
 	};
@@ -194,21 +218,26 @@ const Routing = () => {
 			<Route path="/tuitions/one-on-one-online-tuitions" component={OneOnOneLiveComponent} />
 			<Route path="/tuitions/mastering-a-week-topic" component={MasteringAChapterComponent} />
 			<Route path="/test" component={TestComponent} />
-			<Route path="/createtest" component={CreateTestComponent} />
-			<Route path="/fetchtest" component={FetchTestComponent} />
-			<Route path="/enroll-student" component={EnrollStudentComponent} />
-			{/* <Prompt when={false} message={() => "Test will not be submitted! Are you sure?"}> */}
-			<Route path="/maintest" component={MainTestComponent} />
-			{/* </Prompt> */}
 			<Route path="/faqs" component={FaqsComponent} />
 			<Route path="/contact-us" component={ContactUsComponent} />
 			<Route path="/career" component={CareerComponent} />
-			<Route path="/admin/createblogs" component={PostBlogComponent} />
+
 			<Route exact path="/blogs" component={ShowBlogsComponent} />
 			<Route exact path="/blogs/:id" component={ParticularBlogComponent} />
-			<Route path="/student-dashboard" component={StudentProfileComponent} />
+
 			<Route path="/privacypolicy" component={PrivacyPolicyComponent} />
 			<Route path="/termsofservice" component={TermsOfServiceComponent} />
+
+			{/* student routes */}
+			<Route path="/student-dashboard" component={StudentProfileComponent} />
+			<Route path="/maintest" component={MainTestComponent} />
+			<Route path="/fetchtest" component={FetchTestComponent} />
+
+			{/* admin routes */}
+			<Route path="/createtest" component={CreateTestComponent} />
+			<Route path="/admin0p-signin" component={AdminSignIn} />
+			<Route path="/admin/createblogs" component={PostBlogComponent} />
+			<Route path="/enroll-student" component={EnrollStudentComponent} />
 			{/* <Route path="/sitemap" component={SitemapComponent} /> */}
 			<Route component={ErrorComponent} />
 			{/* <Route path="/room" component={RoomComponent} /> */}
@@ -218,7 +247,7 @@ const Routing = () => {
 
 /* eslint-disable */
 const App = () => {
-	const [userState, userDispatch] = useReducer(StudentReducer, InitialState);
+	const [userState, userDispatch] = useReducer(userReducer, initialState);
 
 	return (
 		<UserContext.Provider value={{ userState, userDispatch }}>

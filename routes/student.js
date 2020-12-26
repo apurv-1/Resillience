@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const Student = mongoose.model("Student");
 const requireStudent = require("../middleware/requireStudent");
 
-router.get("/myprofile", requireStudent, (req, res) => {
+router.get("/student-profile", requireStudent, (req, res) => {
 	Student.find(req.student._id)
 		.select("-password")
 		.then((details) => {

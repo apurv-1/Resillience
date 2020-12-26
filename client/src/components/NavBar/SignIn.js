@@ -8,7 +8,9 @@ import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 import UserContext from "../Context/UserContext";
-import SideDrawer from "./SideDrawer";
+import { SET_STUDENT } from "../Reducers/types";
+import SideDrawer from "../Student/SideDrawer";
+import AdminSideDrawer from "../Admin/AdminSideDrawer";
 // import axios from "axios";
 
 const styles = () => ({
@@ -90,14 +92,9 @@ function SignIn(props) {
 	const [open, setOpen] = useState(false);
 	const [errors, setErrors] = useState({});
 	const [forgot, setForgot] = useState(false);
-	// const [details, setDetails] = useState("");
-	// debugger;
-	// function handleChangeEmail(event) {
-	// 	setEmail(event.target.value);
-	// }
-	// function handleChangePassword(event) {
-	// 	setPassword(event.target.value);
-	// }
+
+	const { userType } = userState;
+	// console.log(userType);
 
 	const handleSubmit = () => {
 		if (email === "") {
@@ -124,8 +121,8 @@ function SignIn(props) {
 						setErrors({ err });
 					} else {
 						localStorage.setItem("student_jwt", data.token);
-						localStorage.setItem("student", JSON.stringify(data.student));
-						userDispatch({ type: "STUDENT", payload: data.student });
+						// localStorage.setItem("student", JSON.stringify(data.student));
+						userDispatch({ type: SET_STUDENT, payload: data.student });
 						setOpen(false);
 						history.push("/student-dashboard");
 						setEmail("");
@@ -181,8 +178,10 @@ function SignIn(props) {
 	const { classes } = props;
 	return (
 		<div style={{ fontStyle: "23px" }}>
-			{userState ? (
+			{userType === "student" ? (
 				<SideDrawer />
+			) : userType === "admin" ? (
+				<AdminSideDrawer />
 			) : (
 				<Button variant="contained" color="secondary" onClick={handleClickOpen}>
 					Sign In

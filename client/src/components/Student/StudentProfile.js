@@ -4,6 +4,7 @@ import { Paper, Avatar, Grid } from "@material-ui/core";
 
 // import TextField from "@material-ui/core/TextField";
 // import Autocomplete from "@material-ui/lab/Autocomplete";
+import Loading from "../Tests/Loading";
 import UserContext from "../Context/UserContext";
 
 const useStyles = makeStyles((theme) => ({
@@ -44,13 +45,17 @@ const useStyles = makeStyles((theme) => ({
 		marginLeft: "26%",
 		marginTop: "5%",
 	},
+	loading: {
+		display: "flex",
+		justifyContent: "center",
+	},
 }));
 
 export default function StudentProfile() {
 	const classes = useStyles();
 	const { userState } = useContext(UserContext);
 
-	console.log(userState);
+	// console.log(userState);
 	return (
 		<div>
 			<Paper elevation={5} className={classes.card}>
@@ -110,7 +115,9 @@ export default function StudentProfile() {
 						</div>
 					</div>
 				) : (
-					"Loading..."
+					<div className={classes.loading}>
+						<Loading />
+					</div>
 				)}
 			</Paper>
 		</div>

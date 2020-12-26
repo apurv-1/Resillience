@@ -1,4 +1,8 @@
 //Student & ADMIN
+export const SET_STUDENT = "SET_STUDENT";
+export const SET_ADMIN = "SET_ADMIN";
+export const SET_USER_TYPE = "SET_USER_TYPE";
+export const CLEAR = "CLEAR";
 
 //Test
 export const SET_CURRENT_INDEX = "SET_CURRENT_INDEX";

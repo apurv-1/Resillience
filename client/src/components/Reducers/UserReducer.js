@@ -7,16 +7,22 @@ export const initialState = {
 export const userReducer = (state, action) => {
 	switch (action.type) {
 		case SET_STUDENT:
-			return action.payload;
+			return {
+				...state,
+				payload: action.payload,
+			};
 		case SET_USER_TYPE:
 			return {
 				...state,
 				userType: action.userType,
 			};
 		case CLEAR:
-			return null;
+			return "";
 		case SET_ADMIN:
-			return action.payload;
+			return {
+				...state,
+				payload: action.payload,
+			};
 		default:
 			return state;
 	}

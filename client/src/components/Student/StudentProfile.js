@@ -1,4 +1,5 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Paper, Avatar, Grid } from "@material-ui/core";
 
@@ -54,62 +55,84 @@ const useStyles = makeStyles((theme) => ({
 export default function StudentProfile() {
 	const classes = useStyles();
 	const { userState } = useContext(UserContext);
+	const history = useHistory();
 
-	// console.log(userState);
+	useEffect(() => {
+		if (!userState.payload) {
+			history.push("/");
+		}
+	}, []);
+	//
+	// 	const { name, email, batch, contact, fname, parentContact, address } = userState.payload;
+
 	return (
 		<div>
 			<Paper elevation={5} className={classes.card}>
 				{userState ? (
 					<div>
 						<div className={classes.pic}>
-							<Avatar alt="Student" src={userState.picture} />
+							<Avatar alt="Student" src={userState.payload ? userState.payload.picture : ""} />
 						</div>
 						<div>
 							<Grid container spacing={3}>
 								<Grid item xs={10} sm={6}>
-									<Paper className={classes.paper}>Name : {userState.name}</Paper>
+									<Paper className={classes.paper}>
+										Name : {userState.payload ? userState.payload.name : ""}
+									</Paper>
 								</Grid>
 							</Grid>
 						</div>
 						<div>
 							<Grid container spacing={3}>
 								<Grid item xs={10} sm={6}>
-									<Paper className={classes.paper}>Email : {userState.email}</Paper>
+									<Paper className={classes.paper}>
+										Email : {userState.payload ? userState.payload.email : ""}
+									</Paper>
 								</Grid>
 							</Grid>
 						</div>
 						<div>
 							<Grid container spacing={3}>
 								<Grid item xs={10} sm={6}>
-									<Paper className={classes.paper}>Batch : {userState.batch}</Paper>
+									<Paper className={classes.paper}>
+										Batch : {userState.payload ? userState.payload.batch : ""}
+									</Paper>
 								</Grid>
 							</Grid>
 						</div>
 						<div>
 							<Grid container spacing={3}>
 								<Grid item xs={10} sm={6}>
-									<Paper className={classes.paper}>Contact : {userState.contact}</Paper>
+									<Paper className={classes.paper}>
+										Contact : {userState.payload ? userState.payload.contact : ""}
+									</Paper>
 								</Grid>
 							</Grid>
 						</div>
 						<div>
 							<Grid container spacing={3}>
 								<Grid item xs={10} sm={6}>
-									<Paper className={classes.paper}>Fathers Name : {userState.fname}</Paper>
+									<Paper className={classes.paper}>
+										Fathers Name : {userState.payload ? userState.payload.fname : ""}
+									</Paper>
 								</Grid>
 							</Grid>
 						</div>
 						<div>
 							<Grid container spacing={3}>
 								<Grid item xs={10} sm={6}>
-									<Paper className={classes.paper}>Parents Contact : {userState.parentContact}</Paper>
+									<Paper className={classes.paper}>
+										Parents Contact : {userState.payload ? userState.payload.parentContact : ""}
+									</Paper>
 								</Grid>
 							</Grid>
 						</div>
 						<div>
 							<Grid container spacing={3}>
 								<Grid item xs={10} sm={6}>
-									<Paper className={classes.paper}>Address : {userState.address}</Paper>
+									<Paper className={classes.paper}>
+										Address : {userState.payload ? userState.payload.address : ""}
+									</Paper>
 								</Grid>
 							</Grid>
 						</div>

@@ -249,7 +249,7 @@ router.post("/student-signup", (req, res) => {
 	});
 });
 
-router.post("/admin-signin", requireStudent, (req, res) => {
+router.post("/admin-signin", (req, res) => {
 	const { email, password } = req.body;
 
 	if (!email) {

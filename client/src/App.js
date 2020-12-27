@@ -44,6 +44,7 @@ const FetchTest = lazy(() => import("./components/Tests/FetchTest"));
 const MainTest = lazy(() => import("./components/Tests/MainTest"));
 const EnrollStudent = lazy(() => import("./components/Admin/EnrollStudent"));
 const AdminSignIn = lazy(() => import("./components/Admin/AdminSignIn"));
+const AdminDashboard = lazy(() => import("./components/Admin/AdminDashboard"));
 // const Sitemap = lazy(() => import("./components/Miscellaneous/Sitemap"));
 
 // const Room = lazy(() => import("./components/Room"));
@@ -144,8 +145,8 @@ const EnrollStudentComponent = withTitle({
 	component: EnrollStudent,
 	title: "Enroll Student | RESILLIENCE",
 });
-const AdminSignInComponent = withTitle({
-	component: EnrollStudent,
+const AdminDashboardComponent = withTitle({
+	component: AdminDashboard,
 	title: "Admin | RESILLIENCE",
 });
 // const SitemapComponent = withTitle({ component: Sitemap, title: "Sitemap | RESILLIENCE" });
@@ -175,19 +176,13 @@ const Routing = () => {
 					// console.log(student.details);
 					userDispatch({ type: SET_STUDENT, payload: student.details[0] });
 					userDispatch({ type: SET_USER_TYPE, userType: "student" });
-					history.push("/student-dashboard");
+					// history.push("/student-dashboard");
 				})
 				.catch((err) => {
 					console.log(err);
 				});
 		} else if (localStorage.getItem("admin_jwt")) {
-			// const admin = JSON.parse(localStorage.getItem("admin"));
-			// if (admin) {
-			// 	userDispatch({ type: SET_ADMIN, payload: admin });
-			// } else {
-			// 	history.push("/");
-			// }
-			fetch("admin-profile", {
+			fetch("/admin-profile", {
 				method: "get",
 				headers: {
 					Authorization: "Bearer " + localStorage.getItem("admin_jwt"),
@@ -195,10 +190,10 @@ const Routing = () => {
 			})
 				.then((res) => res.json())
 				.then((admin) => {
-					// console.log(admin.details);
+					console.log(admin.details[0]);
 					userDispatch({ type: SET_ADMIN, payload: admin.details[0] });
 					userDispatch({ type: SET_USER_TYPE, userType: "admin" });
-					history.push("/student-dashboard");
+					// history.push("/admin-dashboard");
 				})
 				.catch((err) => {
 					console.log(err);
@@ -236,6 +231,7 @@ const Routing = () => {
 			{/* admin routes */}
 			<Route path="/createtest" component={CreateTestComponent} />
 			<Route path="/admin0p-signin" component={AdminSignIn} />
+			<Route path="/admin-dashboard" component={AdminDashboardComponent} />
 			<Route path="/admin/createblogs" component={PostBlogComponent} />
 			<Route path="/enroll-student" component={EnrollStudentComponent} />
 			{/* <Route path="/sitemap" component={SitemapComponent} /> */}

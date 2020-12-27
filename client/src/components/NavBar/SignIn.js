@@ -8,7 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 import UserContext from "../Context/UserContext";
-import { SET_STUDENT } from "../Reducers/types";
+import { SET_STUDENT, SET_USER_TYPE } from "../Reducers/types";
 import SideDrawer from "../Student/SideDrawer";
 import AdminSideDrawer from "../Admin/AdminSideDrawer";
 // import axios from "axios";
@@ -93,8 +93,7 @@ function SignIn(props) {
 	const [errors, setErrors] = useState({});
 	const [forgot, setForgot] = useState(false);
 
-	const { userType } = userState;
-	// console.log(userType);
+	// const { userType } = userState;
 
 	const handleSubmit = () => {
 		if (email === "") {
@@ -122,7 +121,9 @@ function SignIn(props) {
 					} else {
 						localStorage.setItem("student_jwt", data.token);
 						// localStorage.setItem("student", JSON.stringify(data.student));
+						// console.log(data);
 						userDispatch({ type: SET_STUDENT, payload: data.student });
+						userDispatch({ type: SET_USER_TYPE, userType: "student" });
 						setOpen(false);
 						history.push("/student-dashboard");
 						setEmail("");
@@ -178,9 +179,9 @@ function SignIn(props) {
 	const { classes } = props;
 	return (
 		<div style={{ fontStyle: "23px" }}>
-			{userType === "student" ? (
+			{userState.userType === "student" ? (
 				<SideDrawer />
-			) : userType === "admin" ? (
+			) : userState.userType === "admin" ? (
 				<AdminSideDrawer />
 			) : (
 				<Button variant="contained" color="secondary" onClick={handleClickOpen}>

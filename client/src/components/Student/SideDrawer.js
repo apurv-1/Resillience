@@ -18,8 +18,10 @@ import GetAppRoundedIcon from "@material-ui/icons/GetAppRounded";
 import WebRoundedIcon from "@material-ui/icons/WebRounded";
 import { blue, red } from "@material-ui/core/colors";
 import UserContext from "../Context/UserContext";
+import { CLEAR } from "../Reducers/types";
 //dialog box
 import { Dialog, DialogActions, DialogTitle } from "@material-ui/core";
+import Loading from "../Tests/Loading";
 
 const useStyles = makeStyles({
 	icon: {
@@ -104,13 +106,13 @@ export default function SideNav() {
 	const [open, setOpen] = useState(false);
 	const [signOut, setSignOut] = useState(false);
 	// console.log(state);
-
+	// const { name, picture } = userState.payload;
 	const handleDrawer = () => {
 		setOpen(true);
 	};
 	const handleSignOut = () => {
 		localStorage.clear();
-		userDispatch({ type: "CLEAR" });
+		userDispatch({ type: CLEAR });
 		setSignOut(false);
 		history.push("/");
 	};
@@ -133,10 +135,12 @@ export default function SideNav() {
 							</h1>
 							<Avatar
 								alt="profile-pic"
-								src="https://res.cloudinary.com/rweb1/image/upload/v1599639734/resilience_default_lqmb3p.png"
+								src={userState.payload ? userState.payload.picture : <Loading />}
 								className={classes.avatar}
 							/>
-							<div className={classes.name}>{userState ? userState.name : "loading..."}</div>
+							<div className={classes.name}>
+								{userState.payload ? userState.payload.name : "loading..."}
+							</div>
 
 							<Link to="/student-dashboard" className={classes.link} onClick={() => setOpen(false)}>
 								<ListItem button key="Profile" className={classes.listitem}>

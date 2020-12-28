@@ -14,7 +14,6 @@ import {
 import DashboardRoundedIcon from "@material-ui/icons/DashboardRounded";
 import ClearAllRoundedIcon from "@material-ui/icons/ClearAllRounded";
 import MenuBookRoundedIcon from "@material-ui/icons/MenuBookRounded";
-import GetAppRoundedIcon from "@material-ui/icons/GetAppRounded";
 import WebRoundedIcon from "@material-ui/icons/WebRounded";
 import AddBoxRoundedIcon from "@material-ui/icons/AddBoxRounded";
 import { blue, red } from "@material-ui/core/colors";
@@ -50,21 +49,28 @@ const useStyles = makeStyles({
 		width: "auto",
 	},
 	avatar: {
-		paddingTop: "10%",
+		paddingTop: "15px",
 		margin: "0 auto",
 		padding: "5%",
 		height: "35%",
 		width: "35%",
 	},
 	listitem: {
-		padding: "5%",
+		padding: "18px",
+	},
+	detailsDiv: {
+		textAlign: "center",
+		marginBottom: "1rem",
 	},
 	name: {
-		marginBottom: "8%",
 		fontWeight: "700",
 		fontSize: "20px",
 		color: "#000",
-		textAlign: "center",
+	},
+	email: {
+		fontWeight: "700",
+		fontSize: "15px",
+		color: "#000",
 	},
 	button: {
 		paddingTop: "20%",
@@ -104,7 +110,7 @@ export default function SideNav() {
 	const { userState, userDispatch } = useContext(UserContext);
 	const [open, setOpen] = useState(false);
 	const [signOut, setSignOut] = useState(false);
-	console.log(userState);
+	// console.log(userState);
 
 	const handleDrawer = () => {
 		setOpen(true);
@@ -130,14 +136,23 @@ export default function SideNav() {
 					<ThemeProvider theme={theme}>
 						<List>
 							<h1 color="secondary" className={classes.resillience}>
-								RESILLIENCE ADMIN
+								RESILLIENCE
+								<br /> ADMIN
 							</h1>
 							<Avatar
 								alt="profile-pic"
 								src="https://res.cloudinary.com/rweb1/image/upload/v1599639734/resilience_default_lqmb3p.png"
 								className={classes.avatar}
 							/>
-							<div className={classes.name}>{userState ? userState.name : "loading..."}</div>
+							<div className={classes.detailsDiv}>
+								<span className={classes.name}>
+									{userState.payload ? userState.payload.name : "loading..."}
+								</span>
+								<br />
+								<span className={classes.email}>
+									{userState.payload ? userState.payload.email : "loading..."}
+								</span>
+							</div>
 
 							<Link to="/admin-dashboard" className={classes.link} onClick={() => setOpen(false)}>
 								<ListItem button key="Profile" className={classes.listitem}>

@@ -190,10 +190,10 @@ const Routing = () => {
 			})
 				.then((res) => res.json())
 				.then((admin) => {
-					console.log(admin.details[0]);
+					// console.log(admin.details[0]);
 					userDispatch({ type: SET_ADMIN, payload: admin.details[0] });
 					userDispatch({ type: SET_USER_TYPE, userType: "admin" });
-					// history.push("/admin-dashboard");
+					history.push("/admin-dashboard");
 				})
 				.catch((err) => {
 					console.log(err);
@@ -226,6 +226,7 @@ const Routing = () => {
 			{/* student routes */}
 			<Route path="/student-dashboard" component={StudentProfileComponent} />
 			<Route path="/maintest" component={MainTestComponent} />
+			{/* <Route path="/maintest/:id" component={MainTestComponent} /> */}
 			<Route path="/fetchtest" component={FetchTestComponent} />
 
 			{/* admin routes */}

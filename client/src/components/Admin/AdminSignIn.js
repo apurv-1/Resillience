@@ -6,7 +6,7 @@ import SaveIcon from "@material-ui/icons/Save";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import UserContext from "../Context/UserContext";
-import { SET_ADMIN, SET_USER_TYPE } from "../Reducers/types";
+import { SET_ADMIN, SET_USER_TYPE, CLEAR } from "../Reducers/types";
 // +import ShowTest from "./ShowTestComponent";
 
 const useStyles = makeStyles(() => ({
@@ -84,12 +84,15 @@ const AdminSignIn = () => {
 							draggable: false,
 						});
 						console.log(data);
+						userDispatch({ type: CLEAR });
 						localStorage.clear();
+
 						localStorage.setItem("admin_jwt", data.token);
 						userDispatch({ type: SET_ADMIN, payload: data.admin });
 						userDispatch({ type: SET_USER_TYPE, userType: "admin" });
-						// history.push("/")
+						history.push("/admin-dashboard");
 						setEmail("");
+						setPassword("");
 					}
 				})
 				.catch((err) => {

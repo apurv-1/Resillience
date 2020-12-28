@@ -7,6 +7,7 @@ import {
 	MenuItem,
 	TextField,
 	Button,
+	Typography,
 } from "@material-ui/core";
 
 import SaveIcon from "@material-ui/icons/Save";
@@ -133,7 +134,8 @@ const CreateTest = () => {
 			) : (
 				<div className={classes.testDiv}>
 					<Paper elevation={5} className={classes.paper}>
-						<h1>Create a New Test </h1>
+						<Typography variant="h4">Create Test</Typography>
+
 						<TextField
 							id="test-id"
 							label="Test Id"
@@ -169,6 +171,7 @@ const CreateTest = () => {
 							type="number"
 							onChange={(e) => setTestDuration(e.target.value)}
 						/>
+
 						<TextField
 							id="test-duration"
 							label="For Correct"
@@ -187,6 +190,7 @@ const CreateTest = () => {
 							type="number"
 							onChange={(e) => setForInCorrect(e.target.value)}
 						/>
+
 						<div className={classes.testField}>
 							<FormControl className={classes.testField}>
 								<Select

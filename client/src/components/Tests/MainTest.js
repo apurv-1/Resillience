@@ -96,6 +96,7 @@ const MainTest = () => {
 				} else {
 					dispatch({ type: SET_TEST, test: test.test });
 					setQuestionLength(test.test.questions.length);
+					console.log(test.test);
 				}
 			})
 			.catch((err) => {
@@ -121,8 +122,6 @@ const MainTest = () => {
 									<QuestionComponent />
 									<KeysComponent />
 								</Paper>
-
-								<Paper elevation={6} className={classes.paper2}></Paper>
 							</div>
 						) : isStarted === false ? (
 							<StartPage />

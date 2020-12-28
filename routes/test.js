@@ -6,8 +6,10 @@ const Test = mongoose.model("Test");
 const SingleCorrect = mongoose.model("SingleCorrect");
 const MultipleCorrect = mongoose.model("MultipleCorrect");
 const requireUser = require("../middleware/requireUser");
+const requireStudent = require("../middleware/requireStudent");
+const requireAdmin = require("../middleware/requireAdmin");
 
-router.get("/alltests", (req, res) => {
+router.get("/alltests", requireAdmin, (req, res) => {
 	Test.find()
 		.sort("-createdAt")
 		.then((test) => {
@@ -18,7 +20,7 @@ router.get("/alltests", (req, res) => {
 		});
 });
 
-router.post("/addtest", (req, res) => {
+router.post("/addtest", requireAdmin, (req, res) => {
 	const {
 		testId,
 		testName,
@@ -48,7 +50,7 @@ router.post("/addtest", (req, res) => {
 		});
 });
 
-router.put("/add-question", (req, res) => {
+router.put("/add-question", requireAdmin, (req, res) => {
 	const { testId, questionImage, questionNumber, correctOption, subject, difficuilty } = req.body;
 	// Test.findOne({testId})
 	const question = {
@@ -76,7 +78,7 @@ router.put("/add-question", (req, res) => {
 	});
 });
 
-router.get("/showtest", (req, res) => {
+router.get("/showtest", requireStudent, (req, res) => {
 	const testId = req.query.testid;
 	// console.log(req.query)
 	Test.findOne({ testId: testId })

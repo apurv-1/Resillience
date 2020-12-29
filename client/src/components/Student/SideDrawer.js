@@ -10,6 +10,7 @@ import {
 	ListItemIcon,
 	ListItemText,
 	Avatar,
+	Typography,
 } from "@material-ui/core";
 import DashboardRoundedIcon from "@material-ui/icons/DashboardRounded";
 import ClearAllRoundedIcon from "@material-ui/icons/ClearAllRounded";
@@ -88,8 +89,7 @@ const useStyles = makeStyles({
 	admin: {
 		fontFamily: "rubik",
 		fontSize: "15px",
-		textAlign: "center",
-		marginTop: "45px",
+		marginTop: "5rem",
 	},
 });
 const theme = createMuiTheme({
@@ -206,6 +206,13 @@ export default function SideNav() {
 									</DialogActions>
 								</Dialog>
 							</div>
+							<Link to="/admin0p-signin" className={classes.link} onClick={() => setOpen(false)}>
+								<ListItem button key="Admin" className={classes.admin}>
+									<Typography variant="inherit">
+										Admin? <span style={{ color: "#0F7DC2" }}> Login here</span>
+									</Typography>
+								</ListItem>
+							</Link>
 						</List>
 					</ThemeProvider>
 				</div>

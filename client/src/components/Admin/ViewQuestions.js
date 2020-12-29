@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import { Paper } from "@material-ui/core";
 
@@ -23,9 +23,8 @@ const StyledTableCell = withStyles((theme) => ({
 		fontWeight: "bold",
 	},
 	body: {
-		fontSize: 16,
+		fontSize: 20,
 		fontWeight: "bold",
-		textDecoration: "none",
 	},
 }))(TableCell);
 
@@ -43,8 +42,8 @@ const useStyles = makeStyles((theme) => ({
 		margin: "1rem",
 		display: "flex",
 	},
-	table: {
-		fontWeight: "bold",
+	questionImage: {
+		width: "30rem",
 	},
 	loading: {
 		display: "flex",
@@ -52,24 +51,24 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default function AdminProfile() {
+export default function ViewQuestions() {
 	const classes = useStyles();
-
 	const history = useHistory();
-	const [activeTest, setActiveTest] = useState([]);
+	const { testid } = useParams();
+	const [questions, setQuestions] = useState([]);
 
 	useEffect(() => {
 		if (localStorage.getItem("admin_jwt")) {
-			fetch("/alltests", {
+			fetch(`/alltests/${testid}`, {
 				method: "get",
 				headers: {
 					Authorization: "Bearer " + localStorage.getItem("admin_jwt"),
 				},
 			})
 				.then((res) => res.json())
-				.then((activeTests) => {
-					// console.log(activeTests);
-					setActiveTest(activeTests.test);
+				.then((test) => {
+					// console.log(test.test.questions);
+					setQuestions(test.test.questions);
 				})
 				.catch((err) => {
 					console.log(err);
@@ -78,7 +77,7 @@ export default function AdminProfile() {
 			history.push("/");
 		}
 	}, []);
-	console.log(activeTest);
+	// console.log(testid);
 	//
 	// 	const { name, email, batch, contact, fname, parentContact, address } = userState.payload;
 
@@ -88,45 +87,32 @@ export default function AdminProfile() {
 				<Table className={classes.table} aria-label="customized table">
 					<TableHead>
 						<TableRow>
-							<StyledTableCell>Test ID</StyledTableCell>
-							<StyledTableCell>Test Name</StyledTableCell>
-							<StyledTableCell align="right">Number of Questions</StyledTableCell>
-							<StyledTableCell align="right">Test Duration</StyledTableCell>
-							<StyledTableCell align="right">Correct</StyledTableCell>
-							<StyledTableCell align="right">Incorrect</StyledTableCell>
-							<StyledTableCell align="right">Total Marks</StyledTableCell>
+							<StyledTableCell>Question Number</StyledTableCell>
+							<StyledTableCell>Question Image</StyledTableCell>
+							<StyledTableCell align="right">Difficuilty</StyledTableCell>
+							<StyledTableCell align="right">Subject</StyledTableCell>
+							<StyledTableCell align="right">Correct Option</StyledTableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{activeTest.length > 0 &&
-							activeTest.map(
-								(
-									{ _id, testId, testName, noOfQuestions, testDuration, forCorrect, forInCorrect },
-									index
-								) => (
+						{questions.length > 0 &&
+							questions.map(
+								({ questionNumber, questionImage, difficuilty, subject, correctOption }, index) => (
 									<StyledTableRow key={index}>
 										<StyledTableCell component="th" scope="row">
-											{testId}
+											{questionNumber}
 										</StyledTableCell>
 										<StyledTableCell component="th" scope="row">
-											<Link style={{ color: "black", textDecoration: "none" }} to={"/admin-dashboard/" + _id}>
-												{testName}
-											</Link>
+											<img src={questionImage} className={classes.questionImage} alt={questionNumber} />
 										</StyledTableCell>
 										<StyledTableCell component="th" scope="row" align="right">
-											{noOfQuestions}
+											{difficuilty}
 										</StyledTableCell>
 										<StyledTableCell component="th" scope="row" align="right">
-											{testDuration / 60000}&nbsp;mins
+											{subject}
 										</StyledTableCell>
 										<StyledTableCell component="th" scope="row" align="right">
-											{forCorrect}
-										</StyledTableCell>
-										<StyledTableCell component="th" scope="row" align="right">
-											{forInCorrect}
-										</StyledTableCell>
-										<StyledTableCell component="th" scope="row" align="right">
-											{noOfQuestions * forCorrect}&nbsp;marks
+											{correctOption}
 										</StyledTableCell>
 									</StyledTableRow>
 								)

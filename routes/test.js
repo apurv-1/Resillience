@@ -20,6 +20,15 @@ router.get("/alltests", requireAdmin, (req, res) => {
 			console.log(err);
 		});
 });
+router.get("/alltests/:id", (req, res) => {
+	Test.findById({ _id: req.params.id })
+		.then((test) => {
+			res.json({ test });
+		})
+		.catch((err) => {
+			return res.status(404).json({ error: "Test Not found!" });
+		});
+});
 
 router.post("/addtest", requireAdmin, (req, res) => {
 	const {

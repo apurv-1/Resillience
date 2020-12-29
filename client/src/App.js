@@ -45,6 +45,7 @@ const MainTest = lazy(() => import("./components/Tests/MainTest"));
 const EnrollStudent = lazy(() => import("./components/Admin/EnrollStudent"));
 const AdminSignIn = lazy(() => import("./components/Admin/AdminSignIn"));
 const AdminDashboard = lazy(() => import("./components/Admin/AdminDashboard"));
+const ViewQuestions = lazy(() => import("./components/Admin/ViewQuestions"));
 // const Sitemap = lazy(() => import("./components/Miscellaneous/Sitemap"));
 
 // const Room = lazy(() => import("./components/Room"));
@@ -149,6 +150,10 @@ const AdminDashboardComponent = withTitle({
 	component: AdminDashboard,
 	title: "Admin | RESILLIENCE",
 });
+const ViewQuestionsComponent = withTitle({
+	component: ViewQuestions,
+	title: "Questions | ADMIN",
+});
 // const SitemapComponent = withTitle({ component: Sitemap, title: "Sitemap | RESILLIENCE" });
 
 const ErrorComponent = withTitle({
@@ -193,7 +198,7 @@ const Routing = () => {
 					// console.log(admin.details[0]);
 					userDispatch({ type: SET_ADMIN, payload: admin.details[0] });
 					userDispatch({ type: SET_USER_TYPE, userType: "admin" });
-					history.push("/admin-dashboard");
+					// history.push("/admin-dashboard");
 				})
 				.catch((err) => {
 					console.log(err);
@@ -232,7 +237,8 @@ const Routing = () => {
 			{/* admin routes */}
 			<Route path="/createtest" component={CreateTestComponent} />
 			<Route path="/admin0p-signin" component={AdminSignIn} />
-			<Route path="/admin-dashboard" component={AdminDashboardComponent} />
+			<Route exact path="/admin-dashboard" component={AdminDashboardComponent} />
+			<Route exact path="/admin-dashboard/:testid" component={ViewQuestionsComponent} />
 			<Route path="/admin/createblogs" component={PostBlogComponent} />
 			<Route path="/enroll-student" component={EnrollStudentComponent} />
 			{/* <Route path="/sitemap" component={SitemapComponent} /> */}

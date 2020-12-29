@@ -12,6 +12,7 @@ const requireAdmin = require("../middleware/requireAdmin");
 router.get("/alltests", requireAdmin, (req, res) => {
 	Test.find()
 		.sort("-createdAt")
+		.select("-questions")
 		.then((test) => {
 			res.json({ test });
 		})

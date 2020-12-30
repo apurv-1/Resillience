@@ -20,7 +20,7 @@ router.get("/alltests", requireAdmin, (req, res) => {
 			console.log(err);
 		});
 });
-router.get("/alltests/:id", (req, res) => {
+router.get("/alltests/:id", requireAdmin, (req, res) => {
 	Test.findById({ _id: req.params.id })
 		.then((test) => {
 			res.json({ test });

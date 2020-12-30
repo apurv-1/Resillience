@@ -4,59 +4,60 @@ const mongoose = require("mongoose");
 
 const Blog = mongoose.model("Blog");
 const requireStudent = require("../middleware/requireStudent");
+const requireAdmin = require("../middleware/requireAdmin");
 
 router.get("/blogs", (req, res) => {
-  Blog.find()
-    .sort("-createdAt")
-    .then((blogs) => {
-      res.json({ blogs });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+	Blog.find()
+		.sort("-createdAt")
+		.then((blogs) => {
+			res.json({ blogs });
+		})
+		.catch((err) => {
+			console.log(err);
+		});
 });
 
 router.get("/blogs/:id", (req, res) => {
-  Blog.findOne({ _id: req.params.id })
-    .then((blog) => {
-      res.json({ blog });
-    })
-    .catch((err) => {
-      return res.status(404).json({ error: "Blog not found" });
-    });
+	Blog.findOne({ _id: req.params.id })
+		.then((blog) => {
+			res.json({ blog });
+		})
+		.catch((err) => {
+			return res.status(404).json({ error: "Blog not found" });
+		});
 });
 
 //TODO: Added admin middleware
 
-router.post("/createblogs", (req, res) => {
-  const { heading, date, description, content } = req.body;
+router.post("/createblogs", requireAdmin, (req, res) => {
+	const { heading, date, description, content } = req.body;
 
-  if (heading == "") {
-    return res.status(422).json({ heading: "Please add heading" });
-  }
-  if (description == "") {
-    return res.status(422).json({ description: "Please add description" });
-  }
-  if (date == "") {
-    return res.status(422).json({ date: "Please add date" });
-  }
+	if (heading == "") {
+		return res.status(422).json({ heading: "Please add heading" });
+	}
+	if (description == "") {
+		return res.status(422).json({ description: "Please add description" });
+	}
+	if (date == "") {
+		return res.status(422).json({ date: "Please add date" });
+	}
 
-  const blog = new Blog({
-    heading,
-    date,
-    description,
-    content
-  });
+	const blog = new Blog({
+		heading,
+		date,
+		description,
+		content,
+	});
 
-  blog
-    .save()
-    .then((blog) => {
-      res.json({ message: "Blog added successfully!" });
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json({ error: err });
-    });
+	blog
+		.save()
+		.then((blog) => {
+			res.json({ message: "Blog added successfully!" });
+		})
+		.catch((err) => {
+			console.log(err);
+			res.status(500).json({ error: err });
+		});
 });
 
 module.exports = router;

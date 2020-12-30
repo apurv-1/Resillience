@@ -86,6 +86,7 @@ const MainTest = () => {
 			method: "get",
 			headers: {
 				"Content-Type": "application/json",
+				Authorization: "Bearer " + localStorage.getItem("student_jwt"),
 			},
 		})
 			.then((res) => res.json())
@@ -96,7 +97,7 @@ const MainTest = () => {
 				} else {
 					dispatch({ type: SET_TEST, test: test.test });
 					setQuestionLength(test.test.questions.length);
-					console.log(test.test);
+					// console.log(test.test);
 				}
 			})
 			.catch((err) => {

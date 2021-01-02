@@ -207,11 +207,8 @@ export default function SideNav() {
 									onClick={() => setSignOut(true)}>
 									Sign Out
 								</Button>
-								<Dialog
-									open={signOut}
-									onClose={() => setSignOut(false)}
-									aria-labelledby="draggable-dialog-title">
-									<DialogTitle id="draggable-dialog-title">Confirm sign out, are you sure?</DialogTitle>
+								<Dialog open={signOut} onClose={() => setSignOut(false)} aria-labelledby="dialog-title">
+									<DialogTitle id="dialog-title">Confirm sign out, are you sure?</DialogTitle>
 
 									<DialogActions>
 										<Button autoFocus onClick={() => setSignOut(false)} color="secondary">

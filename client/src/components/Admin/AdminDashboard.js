@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
-import { Paper } from "@material-ui/core";
+import { Paper, Button } from "@material-ui/core";
 
 // import TextField from "@material-ui/core/TextField";
 // import Autocomplete from "@material-ui/lab/Autocomplete";
 // import Loading from "../Tests/Loading";
 // import UserContext from "../Context/UserContext";
+
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import { Dialog, DialogActions, DialogTitle } from "@material-ui/core";
 
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -14,6 +19,9 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 
 const StyledTableCell = withStyles((theme) => ({
 	head: {
@@ -54,9 +62,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AdminProfile() {
 	const classes = useStyles();
+	toast.configure();
 
 	const history = useHistory();
 	const [activeTest, setActiveTest] = useState([]);
+
+	const [openDeleteDialogue, setOpenDeleteDialogue] = useState(false);
+	const [currentTestId, setCurrentTestId] = useState("");
 
 	useEffect(() => {
 		if (localStorage.getItem("admin_jwt")) {
@@ -72,15 +84,68 @@ export default function AdminProfile() {
 					setActiveTest(activeTests.test);
 				})
 				.catch((err) => {
-					console.log(err);
+					// console.log(err);
+					toast.error(err, {
+						position: "bottom-right",
+						autoClose: 4000,
+						hideProgressBar: false,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: false,
+					});
+				});
+		} else {
+			toast.error("You're Not Signed in as Admin", {
+				position: "bottom-right",
+				autoClose: 4000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: false,
+			});
+			history.push("/");
+		}
+	}, [currentTestId]);
+	// console.log(currentTestId);
+	//
+	// 	const { name, email, batch, contact, fname, parentContact, address } = userState.payload;
+
+	const deleteTest = () => {
+		if (localStorage.getItem("admin_jwt")) {
+			fetch(`/delete-test/${currentTestId}`, {
+				method: "delete",
+				headers: {
+					Authorization: "Bearer " + localStorage.getItem("admin_jwt"),
+				},
+			})
+				.then((res) => res.json())
+				.then((message) => {
+					setCurrentTestId("");
+					setOpenDeleteDialogue(false);
+					toast.info(message.message, {
+						position: "bottom-right",
+						autoClose: 4000,
+						hideProgressBar: false,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: false,
+					});
+				})
+				.catch((err) => {
+					// console.log(err);
+					toast.error(err, {
+						position: "bottom-right",
+						autoClose: 4000,
+						hideProgressBar: false,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: false,
+					});
 				});
 		} else {
 			history.push("/");
 		}
-	}, []);
-	console.log(activeTest);
-	//
-	// 	const { name, email, batch, contact, fname, parentContact, address } = userState.payload;
+	};
 
 	return (
 		<div className={classes.root}>
@@ -95,6 +160,7 @@ export default function AdminProfile() {
 							<StyledTableCell align="right">Correct</StyledTableCell>
 							<StyledTableCell align="right">Incorrect</StyledTableCell>
 							<StyledTableCell align="right">Total Marks</StyledTableCell>
+							<StyledTableCell align="right">&nbsp;</StyledTableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
@@ -128,12 +194,37 @@ export default function AdminProfile() {
 										<StyledTableCell component="th" scope="row" align="right">
 											{noOfQuestions * forCorrect}&nbsp;marks
 										</StyledTableCell>
+										<StyledTableCell
+											component="th"
+											scope="row"
+											align="right"
+											onClick={() => setCurrentTestId(_id)}>
+											<EditIcon />
+											<span onClick={() => setOpenDeleteDialogue(true)}>
+												<DeleteForeverIcon />
+											</span>
+										</StyledTableCell>
 									</StyledTableRow>
 								)
 							)}
 					</TableBody>
 				</Table>
 			</TableContainer>
+			<Dialog
+				open={openDeleteDialogue}
+				onClose={() => setOpenDeleteDialogue(false)}
+				aria-labelledby="dialog-title">
+				<DialogTitle id="dialog-title">Confirm Delete, are you sure?</DialogTitle>
+
+				<DialogActions>
+					<Button onClick={() => setOpenDeleteDialogue(false)} color="default">
+						Cancel
+					</Button>
+					<Button onClick={deleteTest} color="default">
+						Delete
+					</Button>
+				</DialogActions>
+			</Dialog>
 		</div>
 	);
 }

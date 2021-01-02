@@ -30,6 +30,16 @@ router.get("/alltests/:id", requireAdmin, (req, res) => {
 		});
 });
 
+router.delete("/delete-test/:testid", requireAdmin, (req, res) => {
+	Test.findByIdAndDelete({ _id: req.params.testid })
+		.then(() => {
+			res.json({ message: "Test deleted!" });
+		})
+		.catch((err) => {
+			return res.status(404).json({ error: err });
+		});
+});
+
 router.post("/addtest", requireAdmin, (req, res) => {
 	const {
 		testId,

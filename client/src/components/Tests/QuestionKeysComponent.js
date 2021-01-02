@@ -202,7 +202,7 @@ const QuestionKeysComponent = () => {
 						<span>
 							<label className={classes.showMarked}>
 								<span style={{ position: "absolute", paddingTop: "5px" }}>
-									<CheckCircleIcon fontSize="small" color="#86d37c" />
+									<CheckCircleIcon fontSize="small" />
 								</span>
 							</label>
 							<span className={classes.text}>‏‏‎Attempted and Marked</span>

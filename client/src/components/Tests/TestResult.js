@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import TestContext from "../Context/TestContext";
 import { makeStyles, FormControl, Select, MenuItem } from "@material-ui/core";
 // import Loading from "./Loading"
@@ -89,6 +89,11 @@ const TestResult = () => {
 		SubjectwiseWrong = 0,
 		SubjectwiseTime = 0;
 
+	useEffect(() => {
+		calculateMarks();
+		calculateScore();
+	}, []);
+
 	const calculateMarks = () => {
 		for (let index = 0; index < questions.length; index++) {
 			if (selectedAnswers[index]) {
@@ -120,12 +125,12 @@ const TestResult = () => {
 				}
 			}
 		}
-		calculateScore();
+
 		return;
 	};
 
 	const calculateScore = () => {
-		console.log(correct, test.forCorrect, test.forInCorrect);
+		// console.log(correct, test.forCorrect, test.forInCorrect);
 		score = correct * test.forCorrect + wrong * test.forInCorrect;
 		return;
 	};
@@ -137,7 +142,6 @@ const TestResult = () => {
 			{showResult === true && (
 				<div>
 					{/* <Confetti numberOfPieces={50} width="800px" /> */}
-					{calculateMarks()}
 
 					<div className={classes.paper}>
 						<span className={classes.span}>

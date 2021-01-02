@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { Dialog, DialogActions, DialogTitle } from "@material-ui/core";
+// import AddQuestions from "../Tests/CreateTest/AddQuestionsComponent";
 
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -20,7 +21,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 
-import EditIcon from "@material-ui/icons/Edit";
+// import EditIcon from "@material-ui/icons/Edit";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 
 const StyledTableCell = withStyles((theme) => ({
@@ -34,6 +35,19 @@ const StyledTableCell = withStyles((theme) => ({
 		fontSize: 16,
 		fontWeight: "bold",
 		textDecoration: "none",
+	},
+	"@media only screen and (max-width: 1125px)": {
+		head: {
+			backgroundColor: "#0C659D",
+			fontSize: 16,
+			color: theme.palette.common.white,
+			fontWeight: "bold",
+		},
+		body: {
+			fontSize: 14,
+			fontWeight: "bold",
+			textDecoration: "none",
+		},
 	},
 }))(TableCell);
 
@@ -68,7 +82,11 @@ export default function AdminProfile() {
 	const [activeTest, setActiveTest] = useState([]);
 
 	const [openDeleteDialogue, setOpenDeleteDialogue] = useState(false);
-	const [currentTestId, setCurrentTestId] = useState("");
+	// const [openEditTest, setOpenEditTest] = useState(false);
+
+	const [currentTest_id, setCurrentTest_id] = useState("");
+	// const [currentTestId, setCurrentTestId] = useState("");
+	// const [currentNoOfQuestions, setCurrentNoOfQuestions] = useState("");
 
 	useEffect(() => {
 		if (localStorage.getItem("admin_jwt")) {
@@ -105,14 +123,11 @@ export default function AdminProfile() {
 			});
 			history.push("/");
 		}
-	}, [currentTestId]);
-	// console.log(currentTestId);
-	//
-	// 	const { name, email, batch, contact, fname, parentContact, address } = userState.payload;
+	}, [currentTest_id]);
 
 	const deleteTest = () => {
 		if (localStorage.getItem("admin_jwt")) {
-			fetch(`/delete-test/${currentTestId}`, {
+			fetch(`/delete-test/${currentTest_id}`, {
 				method: "delete",
 				headers: {
 					Authorization: "Bearer " + localStorage.getItem("admin_jwt"),
@@ -120,7 +135,7 @@ export default function AdminProfile() {
 			})
 				.then((res) => res.json())
 				.then((message) => {
-					setCurrentTestId("");
+					setCurrentTest_id("");
 					setOpenDeleteDialogue(false);
 					toast.info(message.message, {
 						position: "bottom-right",
@@ -146,6 +161,12 @@ export default function AdminProfile() {
 			history.push("/");
 		}
 	};
+	//
+	// 	const handleEditTest = (testId, noOfQuestions) => {
+	// 		setOpenEditTest(true);
+	// 		setCurrentTestId(testId);
+	// 		setCurrentNoOfQuestions(noOfQuestions);
+	// 	};
 
 	return (
 		<div className={classes.root}>
@@ -198,9 +219,13 @@ export default function AdminProfile() {
 											component="th"
 											scope="row"
 											align="right"
-											onClick={() => setCurrentTestId(_id)}>
-											<EditIcon />
-											<span onClick={() => setOpenDeleteDialogue(true)}>
+											onClick={() => setCurrentTest_id(_id)}>
+											{/* <span
+													onClick={() => handleEditTest(testId, noOfQuestions)}
+													style={{ cursor: "pointer" }}>
+													<EditIcon />
+												</span> */}
+											<span onClick={() => setOpenDeleteDialogue(true)} style={{ cursor: "pointer" }}>
 												<DeleteForeverIcon />
 											</span>
 										</StyledTableCell>
@@ -210,6 +235,7 @@ export default function AdminProfile() {
 					</TableBody>
 				</Table>
 			</TableContainer>
+
 			<Dialog
 				open={openDeleteDialogue}
 				onClose={() => setOpenDeleteDialogue(false)}
@@ -217,10 +243,10 @@ export default function AdminProfile() {
 				<DialogTitle id="dialog-title">Confirm Delete, are you sure?</DialogTitle>
 
 				<DialogActions>
-					<Button onClick={() => setOpenDeleteDialogue(false)} color="default">
+					<Button onClick={() => setOpenDeleteDialogue(false)} color="primary">
 						Cancel
 					</Button>
-					<Button onClick={deleteTest} color="default">
+					<Button onClick={deleteTest} color="secondary">
 						Delete
 					</Button>
 				</DialogActions>

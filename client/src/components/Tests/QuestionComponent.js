@@ -15,9 +15,6 @@ const useStyles = makeStyles((theme) => ({
 		paddingLeft: "60px",
 		paddingRight: "60px",
 	},
-	top: {
-		// marginTop: "-5%",
-	},
 	box: {
 		padding: "10px",
 	},

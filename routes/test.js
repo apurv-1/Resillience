@@ -21,7 +21,7 @@ router.get("/alltests", requireAdmin, (req, res) => {
 		});
 });
 router.get("/alltests/:id", requireAdmin, (req, res) => {
-	Test.findById({ _id: req.params.id })
+	Test.findById(req.params.id)
 		.then((test) => {
 			res.json({ test });
 		})
@@ -31,7 +31,7 @@ router.get("/alltests/:id", requireAdmin, (req, res) => {
 });
 
 router.delete("/delete-test/:testid", requireAdmin, (req, res) => {
-	Test.findByIdAndDelete({ _id: req.params.testid })
+	Test.findByIdAndDelete(req.params.testid)
 		.then(() => {
 			res.json({ message: "Test deleted!" });
 		})

@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import TestContext from "../../Context/TestContext";
 import {
 	makeStyles,
+	withStyles,
 	Paper,
 	Table,
 	TableBody,
@@ -13,7 +14,7 @@ import {
 
 const useStyles = makeStyles({
 	root: {
-		// margin: "1rem",
+		margin: "5px",
 	},
 	card: {
 		padding: "5px",
@@ -24,6 +25,40 @@ const useStyles = makeStyles({
 		borderSpacing: "0 12px",
 	},
 });
+const StyledTableCell = withStyles((theme) => ({
+	head: {
+		backgroundColor: "#181818",
+		fontSize: 18,
+		color: theme.palette.common.white,
+		fontWeight: "bold",
+	},
+	body: {
+		fontSize: 16,
+		fontWeight: "bold",
+		textDecoration: "none",
+	},
+	"@media only screen and (max-width: 1125px)": {
+		head: {
+			backgroundColor: "#181818",
+			fontSize: 16,
+			color: theme.palette.common.white,
+			fontWeight: "bold",
+		},
+		body: {
+			fontSize: 14,
+			fontWeight: "bold",
+			textDecoration: "none",
+		},
+	},
+}))(TableCell);
+
+const StyledTableRow = withStyles((theme) => ({
+	root: {
+		"&:nth-of-type(odd)": {
+			backgroundColor: theme.palette.action.hover,
+		},
+	},
+}))(TableRow);
 
 const AllQuestions = (cSubject) => {
 	const classes = useStyles();
@@ -38,46 +73,39 @@ const AllQuestions = (cSubject) => {
 				cSubject.cSubject !== "" ? (
 					subject === cSubject.cSubject && (
 						<div className={classes.card} key={index}>
-							<TableContainer component={Paper} elevation={4} key={index}>
-								<Table className={classes.table} aria-label="simple table">
+							<TableContainer component={Paper} elevation={4}>
+								<Table className={classes.table} aria-label="customized table">
 									<TableHead>
-										<TableRow component="th">
-											<TableCell style={{ fontSize: "20px", fontWeight: "bolder" }}>
-												Question Number: {questionNumber}
-												<b style={{ marginLeft: "20rem" }}>Subject : {subject}</b>
-											</TableCell>
-											<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bolder" }}>
-												Difficuilty level
-											</TableCell>
-											<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bolder" }}>
-												Correct Option
-											</TableCell>
-											<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bolder" }}>
-												Selected Option
-											</TableCell>
-											<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bolder" }}>
-												Time Taken
-											</TableCell>
+										<TableRow>
+											<StyledTableCell>Question Number: {questionNumber}</StyledTableCell>
+											<StyledTableCell>Subject </StyledTableCell>
+											<StyledTableCell align="right">Difficuilty level</StyledTableCell>
+											<StyledTableCell align="right">Correct Option</StyledTableCell>
+											<StyledTableCell align="right">Selected Option</StyledTableCell>
+											<StyledTableCell align="right">Time Taken</StyledTableCell>
 										</TableRow>
 									</TableHead>
 									<TableBody>
-										<TableRow>
-											<TableCell>
+										<StyledTableRow>
+											<StyledTableCell component="th" scope="row">
 												<img src={questionImage} alt="question" width="100%" />
-											</TableCell>
-											<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bold" }}>
+											</StyledTableCell>
+											<StyledTableCell component="th" scope="row">
+												{subject}
+											</StyledTableCell>
+											<StyledTableCell component="th" scope="row" align="right">
 												{difficuilty}
-											</TableCell>
-											<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bold" }}>
+											</StyledTableCell>
+											<StyledTableCell component="th" scope="row" align="right">
 												{correctOption}
-											</TableCell>
-											<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bold" }}>
+											</StyledTableCell>
+											<StyledTableCell component="th" scope="row" align="right">
 												{selectedAnswers[index]}
-											</TableCell>
-											<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bold" }}>
+											</StyledTableCell>
+											<StyledTableCell component="th" scope="row" align="right">
 												{timeElapsed[index] ? timeElapsed[index] : 0}s / {timePerQuestion}s&nbsp;
-											</TableCell>
-										</TableRow>
+											</StyledTableCell>
+										</StyledTableRow>
 									</TableBody>
 								</Table>
 							</TableContainer>
@@ -86,45 +114,38 @@ const AllQuestions = (cSubject) => {
 				) : (
 					<div className={classes.card} key={index}>
 						<TableContainer component={Paper} elevation={4}>
-							<Table className={classes.table} aria-label="simple table">
+							<Table className={classes.table} aria-label="customized table">
 								<TableHead>
-									<TableRow component="th">
-										<TableCell style={{ fontSize: "20px", fontWeight: "bolder" }}>
-											Question Number: {questionNumber}
-											<b style={{ marginLeft: "20rem" }}>Subject : {subject}</b>
-										</TableCell>
-										<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bolder" }}>
-											Difficuilty level
-										</TableCell>
-										<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bolder" }}>
-											Correct Option
-										</TableCell>
-										<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bolder" }}>
-											Selected Option
-										</TableCell>
-										<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bolder" }}>
-											Time Taken
-										</TableCell>
+									<TableRow>
+										<StyledTableCell>Question Number: {questionNumber}</StyledTableCell>
+										<StyledTableCell>Subject </StyledTableCell>
+										<StyledTableCell align="right">Difficuilty level</StyledTableCell>
+										<StyledTableCell align="right">Correct Option</StyledTableCell>
+										<StyledTableCell align="right">Selected Option</StyledTableCell>
+										<StyledTableCell align="right">Time Taken</StyledTableCell>
 									</TableRow>
 								</TableHead>
 								<TableBody>
-									<TableRow>
-										<TableCell>
+									<StyledTableRow>
+										<StyledTableCell component="th" scope="row">
 											<img src={questionImage} alt="question" width="100%" />
-										</TableCell>
-										<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bold" }}>
+										</StyledTableCell>
+										<StyledTableCell component="th" scope="row">
+											{subject}
+										</StyledTableCell>
+										<StyledTableCell component="th" scope="row">
 											{difficuilty}
-										</TableCell>
-										<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bold" }}>
+										</StyledTableCell>
+										<StyledTableCell component="th" scope="row" align="right">
 											{correctOption}
-										</TableCell>
-										<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bold" }}>
+										</StyledTableCell>
+										<StyledTableCell component="th" scope="row" align="right">
 											{selectedAnswers[index]}
-										</TableCell>
-										<TableCell align="right" style={{ fontSize: "20px", fontWeight: "bold" }}>
+										</StyledTableCell>
+										<StyledTableCell component="th" scope="row" align="right">
 											{timeElapsed[index] ? timeElapsed[index] : 0}s / {timePerQuestion}s&nbsp;
-										</TableCell>
-									</TableRow>
+										</StyledTableCell>
+									</StyledTableRow>
 								</TableBody>
 							</Table>
 						</TableContainer>

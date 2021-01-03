@@ -7,7 +7,7 @@ const User = mongoose.model("User");
 const requireAdmin = require("../middleware/requireAdmin");
 
 router.get("/admin-profile", requireAdmin, (req, res) => {
-	Admin.find(req.admin._id)
+	Admin.findById(req.admin._id)
 		.select("-password")
 		.then((details) => {
 			res.json({ details });

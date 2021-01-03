@@ -56,7 +56,7 @@ const CreateTest = () => {
 	const [forCorrect, setForCorrect] = useState(0);
 	const [forInCorrect, setForInCorrect] = useState(0);
 
-	const [open, setOpen] = useState("");
+	const [open, setOpen] = useState(false);
 	const [check, setCheck] = useState(false);
 
 	const SaveTest = () => {

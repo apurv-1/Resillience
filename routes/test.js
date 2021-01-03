@@ -1,11 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
-const Api = require("twilio/lib/rest/Api");
 const Test = mongoose.model("Test");
-const SingleCorrect = mongoose.model("SingleCorrect");
-const MultipleCorrect = mongoose.model("MultipleCorrect");
-const requireUser = require("../middleware/requireUser");
 const requireStudent = require("../middleware/requireStudent");
 const requireAdmin = require("../middleware/requireAdmin");
 
@@ -98,17 +94,13 @@ router.put("/add-question", requireAdmin, (req, res) => {
 	});
 });
 
-router.get("/showtest", requireStudent, (req, res) => {
+router.get("/fetchtest", requireStudent, (req, res) => {
 	const testId = req.query.testid;
-	// console.log(req.query)
 	Test.findOne({ testId: testId })
-		// .populate({
-		// 	path: "singleCorrectQuestions",
-		// })
 		.then((test) => {
 			// console.log(test);
 			if (test === null) {
-				return res.status(422).json({ error: "Please enter valid Test ID" });
+				return res.status(422).json({ error: "The Test ID is Invalid " });
 			} else {
 				res.json({ test });
 			}

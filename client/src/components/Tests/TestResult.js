@@ -1,6 +1,8 @@
 import React, { useContext, useState, useEffect } from "react";
 import TestContext from "../Context/TestContext";
 import { makeStyles, FormControl, Select, MenuItem } from "@material-ui/core";
+
+import UserContext from "../Context/UserContext";
 // import Loading from "./Loading"
 // import Confetti from "react-confetti";
 import CorrectQuestionsComponent from "./TestAnalysis/CorrectQuestions";
@@ -61,6 +63,8 @@ const TestResult = () => {
 	const classes = useStyles();
 
 	const { state } = useContext(TestContext);
+	const { userState } = useContext(UserContext);
+
 	const { test, showResult, selectedAnswers, timeElapsed, isVisited } = state;
 	const questions = test.questions;
 
@@ -71,7 +75,7 @@ const TestResult = () => {
 	const [cSubject, setcSubject] = useState("");
 
 	const timePerQuestion = test.testDuration / (questions.length * 1000);
-	// console.log(timePerQuestion);
+	console.log(userState);
 	let score = 0,
 		total = questions.length,
 		notAttempted = 0,
@@ -93,6 +97,10 @@ const TestResult = () => {
 		calculateMarks();
 		calculateScore();
 	}, []);
+
+	// useEffect(() => {
+	//
+	// },[])
 
 	const calculateMarks = () => {
 		for (let index = 0; index < questions.length; index++) {

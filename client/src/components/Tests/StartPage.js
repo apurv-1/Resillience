@@ -21,14 +21,31 @@ const StartPage = () => {
 	const classes = useStyles();
 	const { state, dispatch } = useContext(TestContext);
 	const { test } = state;
-
+	// const id = test._id;
 	const [checked, setChecked] = useState(false);
+
 	const handleChange = (event) => {
 		setChecked(event.target.checked);
 	};
-	// const questions = test.questions;
+
+	const AttemptedTest = () => {
+		// console.log(test);
+		fetch("/attempted-test", {
+			method: "put",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: "Bearer " + localStorage.getItem("student_jwt"),
+			},
+			body: JSON.stringify({
+				id: test._id,
+			}),
+		}).catch((err) => {
+			console.log(err);
+		});
+	};
+	// console.log(test._id);
 	const handleStartTest = () => {
-		console.log(state.isStarted);
+		AttemptedTest();
 		dispatch({ type: SET_STARTED, isStarted: true });
 	};
 	let Duration = test.testDuration / 60000;

@@ -28,6 +28,7 @@ const studentSchema = new mongoose.Schema(
 		chem: [{ type: ObjectId, ref: "Admin" }],
 		math: [{ type: ObjectId, ref: "Admin" }],
 		bio: [{ type: ObjectId, ref: "Admin" }],
+		attemptedTests: [{ type: ObjectId, ref: "Test" }],
 		resetToken: String,
 		expireToken: Date,
 	},

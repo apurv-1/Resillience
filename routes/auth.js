@@ -14,7 +14,7 @@ const Counselling = mongoose.model("Counselling");
 
 //jwt
 const jwt = require("jsonwebtoken");
-const { JWT_USER, JWT_ADMIN, JWT_STUDENT } = require("../config/keys");
+const { JWT_ADMIN, JWT_STUDENT } = require("../config/keys");
 
 //middlewares
 const requireUser = require("../middleware/requireUser");
@@ -142,42 +142,6 @@ router.post("/admin/signup", (req, res) => {
 	});
 });
 
-router.post("/user/signup", (req, res) => {
-	const { name, email, password } = req.body;
-
-	if (!name) {
-		return res.status(422).json({ name: "Please add name" });
-	}
-	if (!email) {
-		return res.status(422).json({ email: "Please add email" });
-	}
-	if (!password) {
-		return res.status(422).json({ password: "Please add password" });
-	}
-	User.findOne({ email }).then((savedUser) => {
-		if (savedUser) {
-			return res.status(422).json({ error: "This User already exists" });
-		}
-		bcrypt.hash(password, 12).then((encryptedPassword) => {
-			const user = new User({
-				name,
-				email,
-				password: encryptedPassword,
-			});
-
-			user
-				.save()
-				.then((user) => {
-					res.json({ message: "User added!" });
-				})
-				.catch((err) => {
-					console.log(err);
-					res.status(500).json({ error: err });
-				});
-		});
-	});
-});
-
 router.post("/student-signup", (req, res) => {
 	const {
 		name,
@@ -193,6 +157,7 @@ router.post("/student-signup", (req, res) => {
 		chem,
 		math,
 		bio,
+		attemptedTests,
 	} = req.body;
 	if (!name) {
 		return res.status(422).json({ error: "Please add name" });
@@ -225,6 +190,7 @@ router.post("/student-signup", (req, res) => {
 				chem,
 				math,
 				bio,
+				attemptedTests,
 			});
 
 			student
@@ -274,37 +240,6 @@ router.post("/admin-signin", (req, res) => {
 						admin: { _id, name, email, picture },
 						message: "Admin signed in successfully",
 					});
-				} else {
-					return res.status(422).json({ error: "Invalid email or password" });
-				}
-			})
-			.catch((err) => {
-				console.log(err);
-				res.status(500).json({ error: err });
-			});
-	});
-});
-
-router.post("/user/signin", (req, res) => {
-	const { email, password } = req.body;
-
-	if (email == "") {
-		return res.status(422).json({ email: "Please add email" });
-	}
-	if (password == "") {
-		return res.status(422).json({ password: "Please add password" });
-	}
-	User.findOne({ email }).then((savedUser) => {
-		if (!savedUser) {
-			return res.status(422).json({ error: "Invalid email or password" });
-		}
-		bcrypt
-			.compare(password, savedUser.password)
-			.then((doMatch) => {
-				if (doMatch) {
-					// res.json({message:"Signin Successful!"})
-					const token = jwt.sign({ _id: savedUser._id }, JWT_USER);
-					res.json({ token: token, message: "User signed in successfully" });
 				} else {
 					return res.status(422).json({ error: "Invalid email or password" });
 				}

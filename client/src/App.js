@@ -39,7 +39,7 @@ const ContactUs = lazy(() => import("./components/ContactUs/ContactUs"));
 const Career = lazy(() => import("./components/Career/Career"));
 const PrivacyPolicy = lazy(() => import("./components/Miscellaneous/PrivacyPolicy"));
 const TermsOfService = lazy(() => import("./components/Miscellaneous/TermsOfService"));
-const CreateTest = lazy(() => import("./components/Tests/CreateTest/CreateTest"));
+const CreateTest = lazy(() => import("./components/Admin/CreateTest/CreateTest"));
 const FetchTest = lazy(() => import("./components/Tests/FetchTest"));
 const MainTest = lazy(() => import("./components/Tests/MainTest"));
 const EnrollStudent = lazy(() => import("./components/Admin/EnrollStudent"));
@@ -179,7 +179,7 @@ const Routing = () => {
 				.then((res) => res.json())
 				.then((student) => {
 					// console.log(student.details);
-					userDispatch({ type: SET_STUDENT, payload: student.details[0] });
+					userDispatch({ type: SET_STUDENT, payload: student.details });
 					userDispatch({ type: SET_USER_TYPE, userType: "student" });
 					// history.push("/student-dashboard");
 				})
@@ -196,7 +196,7 @@ const Routing = () => {
 				.then((res) => res.json())
 				.then((admin) => {
 					// console.log(admin.details[0]);
-					userDispatch({ type: SET_ADMIN, payload: admin.details[0] });
+					userDispatch({ type: SET_ADMIN, payload: admin.details });
 					userDispatch({ type: SET_USER_TYPE, userType: "admin" });
 					// history.push("/admin-dashboard");
 				})
@@ -231,7 +231,6 @@ const Routing = () => {
 			{/* student routes */}
 			<Route path="/student-dashboard" component={StudentProfileComponent} />
 			<Route path="/maintest" component={MainTestComponent} />
-			{/* <Route path="/maintest/:id" component={MainTestComponent} /> */}
 			<Route path="/fetchtest" component={FetchTestComponent} />
 
 			{/* admin routes */}

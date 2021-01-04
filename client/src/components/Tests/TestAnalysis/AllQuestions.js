@@ -133,7 +133,7 @@ const AllQuestions = (cSubject) => {
 										<StyledTableCell component="th" scope="row">
 											{subject}
 										</StyledTableCell>
-										<StyledTableCell component="th" scope="row">
+										<StyledTableCell component="th" scope="row" align="right">
 											{difficuilty}
 										</StyledTableCell>
 										<StyledTableCell component="th" scope="row" align="right">

@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import TestContext from "../Context/TestContext";
+import UserContext from "../Context/UserContext";
 import { makeStyles, Paper, Checkbox, Fab } from "@material-ui/core";
 import { SET_STARTED } from "../Reducers/types";
 
@@ -20,21 +21,21 @@ const useStyles = makeStyles({
 const StartPage = () => {
 	const classes = useStyles();
 	const { state, dispatch } = useContext(TestContext);
+	const { userState } = useContext(UserContext);
 	const { test } = state;
-	const attemptedTests = test.attemptedTests;
+	const attemptedTests = userState.payload.attemptedTests;
 	const [checked, setChecked] = useState(false);
+	var flag = true;
 
 	const handleChange = (event) => {
 		setChecked(event.target.checked);
 	};
-	let flag = false;
 
 	const AttemptedTest = () => {
 		for (let index = 0; index < attemptedTests.length; index++) {
-			if (attemptedTests[index] === test._id.toString()) {
-				break;
-			} else {
-				flag = true;
+			console.log(attemptedTests[index]);
+			if (attemptedTests[index] === test._id) {
+				flag = false;
 				break;
 			}
 		}
@@ -42,6 +43,7 @@ const StartPage = () => {
 			fetch("/attempted-test", {
 				method: "put",
 				headers: {
+					"Content-Type": "application/json",
 					Authorization: "Bearer " + localStorage.getItem("student_jwt"),
 				},
 				body: JSON.stringify({
@@ -50,6 +52,9 @@ const StartPage = () => {
 			}).catch((err) => {
 				console.log(err);
 			});
+		} else {
+			// console.log("hello");
+			console.log(flag);
 		}
 	};
 	// console.log(test._id);

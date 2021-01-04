@@ -1,6 +1,6 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import TestContext from "../Context/TestContext";
-import { makeStyles, FormControl, Select, MenuItem } from "@material-ui/core";
+import { makeStyles, FormControl, Select, MenuItem, Typography } from "@material-ui/core";
 
 import UserContext from "../Context/UserContext";
 // import Loading from "./Loading"
@@ -19,9 +19,9 @@ const useStyles = makeStyles((theme) => ({
 	// },
 	subjectScore: {
 		display: "flex",
-		float: "right",
+		// float: "right",
 		textAlign: "center",
-		width: "37rem",
+		width: "49rem",
 	},
 	paper: {
 		textAlign: "center",
@@ -33,13 +33,17 @@ const useStyles = makeStyles((theme) => ({
 	analysisBlock: {
 		marginTop: "2rem",
 		padding: "1rem",
-		fontWeight: "bolder",
-		fontSize: "20px",
+		flex: "0.5",
 	},
 	analysisDropdown: {
 		width: "12rem",
 		marginTop: "-1rem",
 		marginLeft: "10px",
+	},
+	analysisText: {
+		marginBottom: "1.5rem",
+		fontWeight: "bolder",
+		fontSize: "20px",
 	},
 	span: {
 		margin: "6px",
@@ -91,11 +95,10 @@ const TestResult = () => {
 		SubjectwiseAnswered = 0,
 		SubjectwiseCorrect = 0,
 		SubjectwiseWrong = 0,
-		SubjectwiseTime = 0;
+		SubjectwiseTime = 0,
+		SubjectwiseScore = 0;
 
-	// useEffect(() => {
-	//
-	// },[])
+	// const postTestDetails = () => {};
 
 	const calculateMarks = () => {
 		for (let index = 0; index < questions.length; index++) {
@@ -134,16 +137,15 @@ const TestResult = () => {
 
 	const calculateScore = () => {
 		// console.log(correct, test.forCorrect, test.forInCorrect);
+		SubjectwiseScore = SubjectwiseCorrect * test.forCorrect + SubjectwiseWrong * test.forInCorrect;
 		score = correct * test.forCorrect + wrong * test.forInCorrect;
 		return;
 	};
 
-	useEffect(() => calculateMarks(), []);
-
 	return (
 		<div className={classes.root}>
-			<h1>Result Section</h1>
-
+			<Typography variant="h3">Result Section</Typography>
+			{calculateMarks()}
 			{showResult === true && (
 				<div>
 					{/* <Confetti numberOfPieces={50} width="800px" /> */}
@@ -216,7 +218,7 @@ const TestResult = () => {
 
 					<div className={classes.container}>
 						<div className={classes.analysisBlock}>
-							Choose Test Analysis :
+							<div className={classes.analysisText}>Choose Test Analysis :</div>
 							<FormControl className={classes.analysisDropdown}>
 								<Select
 									labelId="controlled-open-select-label"
@@ -236,7 +238,7 @@ const TestResult = () => {
 							</FormControl>
 						</div>
 						<div className={classes.analysisBlock}>
-							Choose Subject :
+							<div className={classes.analysisText}>Choose Subject :</div>
 							<FormControl className={classes.analysisDropdown}>
 								<Select
 									labelId="controlled-open-select-label"
@@ -283,6 +285,10 @@ const TestResult = () => {
 									s
 								</h3>
 								<h4>Total Time spent on {cSubject} </h4>
+							</span>
+							<span className={classes.span}>
+								<h1>{SubjectwiseScore}</h1>
+								<h3>{cSubject} Score </h3>
 							</span>
 						</div>
 					</div>

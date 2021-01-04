@@ -93,11 +93,6 @@ const TestResult = () => {
 		SubjectwiseWrong = 0,
 		SubjectwiseTime = 0;
 
-	useEffect(() => {
-		calculateMarks();
-		calculateScore();
-	}, []);
-
 	// useEffect(() => {
 	//
 	// },[])
@@ -133,7 +128,7 @@ const TestResult = () => {
 				}
 			}
 		}
-
+		calculateScore();
 		return;
 	};
 
@@ -143,10 +138,14 @@ const TestResult = () => {
 		return;
 	};
 
+	// useEffect(() => {
+	// 	calculateMarks();
+	// }, []);
+
 	return (
 		<div className={classes.root}>
 			<h1>Result Section</h1>
-
+			{calculateMarks()}
 			{showResult === true && (
 				<div>
 					{/* <Confetti numberOfPieces={50} width="800px" /> */}

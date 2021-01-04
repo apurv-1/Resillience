@@ -76,7 +76,6 @@ const MainTest = () => {
 			fetch(`/fetchtest?testid=${testId}`, {
 				method: "get",
 				headers: {
-					"Content-Type": "application/json",
 					Authorization: "Bearer " + localStorage.getItem("student_jwt"),
 				},
 			})

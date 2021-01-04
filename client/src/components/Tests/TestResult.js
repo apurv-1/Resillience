@@ -138,14 +138,12 @@ const TestResult = () => {
 		return;
 	};
 
-	// useEffect(() => {
-	// 	calculateMarks();
-	// }, []);
+	useEffect(() => calculateMarks(), []);
 
 	return (
 		<div className={classes.root}>
 			<h1>Result Section</h1>
-			{calculateMarks()}
+
 			{showResult === true && (
 				<div>
 					{/* <Confetti numberOfPieces={50} width="800px" /> */}

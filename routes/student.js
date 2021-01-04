@@ -17,31 +17,41 @@ router.get("/student-profile", requireStudent, (req, res) => {
 
 router.put("/attempted-test", requireStudent, (req, res) => {
 	const { id } = req.body;
-	Student.findById(req.student._id)
-		.then((attempted) => {
-			const ids = attempted.attemptedTests;
-
-			for (let index = 0; index < ids.length; index++) {
-				if (id === ids[index].toString()) {
-					return res.status(422).json({ message: "Already Attempted!" });
-				} else {
-					Student.findByIdAndUpdate(
-						req.student._id,
-						{ $push: { attemptedTests: id } },
-						{ new: true }
-					).exec((err, result) => {
-						if (err) {
-							return res.status(422).json({ error: err });
-						} else {
-							res.json({ message: "Attempted!" });
-						}
-					});
-				}
-			}
+	Student.findByIdAndUpdate(req.student._id, { $push: { attemptedTests: id } }, { new: true })
+		.then(() => {
+			return res.json({ message: "Attempted" });
 		})
 		.catch((err) => {
-			console.log(err);
+			return console.log(err);
 		});
+	// Student.findById(req.student._id)
+	// 	.then((attempted) => {
+	// 		const ids = attempted.attemptedTests;
+	// 		// console.log(attempted);
+	// 		// console.log(ids);
+	// 		ids.find(id).then((testid) => {
+	// 			if (testid === id) {
+	// 				return res.json({ message: "Already Attempted!" });
+	// 			} else {
+	// 				Student.findByIdAndUpdate(req.student._id, { $push: { attemptedTests: id } }, { new: true })
+	// 					.then(() => {
+	// 						return res.json({ message: "Attempted" });
+	// 					})
+	// 					.catch((err) => {
+	// 						return console.log(err);
+	// 					});
+	// 			}
+	// 		});
+	// 		// for (let index = 0; index < ids.length; index++) {
+	// 		// 	if (id === ids[index].toString()) {
+	// 		// 		return res.json({ message: "Already Attempted!" });
+	// 		// 	} else {
+	// 		// 	}
+	// 		// }
+	// 	})
+	// 	.catch((err) => {
+	// 		console.log(err);
+	// 	});
 });
 
 {

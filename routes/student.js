@@ -59,4 +59,28 @@ router.post("/submit-Test", requireStudent, (req, res) => {
 		});
 });
 
+router.get("/attempted-tests", requireStudent, (req, res) => {
+	// console.log(req.student);
+	SubmitTest.find({ studentDetails: req.student._id })
+		.populate("testDetails", "testId testName")
+		.sort("-createdAt")
+		.then((test) => {
+			res.json({ test });
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+});
+
 module.exports = router;
+
+// Post.find({ postedBy: { $in: req.user.following } })
+// .populate("postedBy", "_id name pic")
+// .populate("comments.postedBy", "_id name")
+// .sort("-createdAt")
+// .then((posts) => {
+// 	res.json({ posts });
+// })
+// .catch((err) => {
+// 	console.log(err);
+// });

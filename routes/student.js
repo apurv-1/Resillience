@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const Student = mongoose.model("Student");
+const SubmitTest = mongoose.model("SubmitTest");
 const requireStudent = require("../middleware/requireStudent");
 
 router.get("/student-profile", requireStudent, (req, res) => {
@@ -34,8 +35,28 @@ router.put("/editprofile", requireStudent, (req, res) => {
 });
 
 router.post("/submit-Test", requireStudent, (req, res) => {
-	const { email, testId } = req.body;
-	Student.findOne({ email }).then();
+	const { email, testId, testDetails, selectedOptions, timePerQuestion, visitedQuestion } = req.body;
+	if (!email || !testId || !testDetails || !selectedOptions || !timePerQuestion) {
+		return res.status(422).json({ error: "Can't submit!" });
+	}
+	const submitTest = new SubmitTest({
+		email,
+		testId,
+		studentDetails: req.student._id,
+		testDetails,
+		selectedOptions,
+		timePerQuestion,
+		visitedQuestion,
+	});
+	submitTest
+		.save()
+		.then(() => {
+			res.json({ message: "Submitted Result!" });
+		})
+		.catch((err) => {
+			console.log(err);
+			res.status(500).json({ error: err });
+		});
 });
 
 module.exports = router;

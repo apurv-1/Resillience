@@ -10,7 +10,7 @@ import {
 	SET_INCREMENT_TIME,
 	SET_SUBJECT,
 } from "../Reducers/types";
-import { Dialog, DialogActions, DialogTitle, DialogContent } from "@material-ui/core";
+import { Dialog, DialogActions, DialogTitle } from "@material-ui/core";
 import UserContext from "../Context/UserContext";
 
 // import TimeLeft from "./TimerComponent";
@@ -86,36 +86,19 @@ const KeysComponent = () => {
 	const classes = useStyles();
 	const [openSubmitDialog, setOpenSubmitDialog] = useState(false);
 	const { state, dispatch } = useContext(TestContext);
-	const { test, currentIndex, selectedAnswers, showResult, isMarked } = state;
+	const { userState } = useContext(UserContext);
+	const {
+		test,
+		currentIndex,
+		selectedAnswers,
+		showResult,
+		isMarked,
+		timeElapsed,
+		isVisited,
+	} = state;
 	const questionLength = test.questions.length;
 	const questions = test.questions;
-	// const { userState } = useContext(UserContext);
-	// console.log(userState);
-
-	// 	let mark = 0,
-	// 		notAnswered = 0,
-	// 		answered = 0,
-	// 		notVisited = 0;
-	// 	// const [time, setTime] = useState(timeElapsed);
-	//
-	// 	const currentStats = () => {
-	// 		for (let index = 0; index < test.questions.length; index++) {
-	// 			if (selectedAnswers[index]) {
-	// 				answered = answered + 1;
-	// 				console.log("ans");
-	// 			}
-	// 			if (isMarked[index]) {
-	// 				mark = mark + 1;
-	// 			}
-	// 			if (isVisited[index] === false) {
-	// 				notVisited = notVisited + 1;
-	// 			}
-	// 		}
-	// 		notAnswered = test.questions.length - answered;
-	// 		return;
-	// 	};
-
-	// console.log("time", state.timeElapsed);
+	const { email } = userState.payload;
 
 	useEffect(() => {
 		const timer = setTimeout(() => {
@@ -161,6 +144,34 @@ const KeysComponent = () => {
 			type: SET_SHOW_RESULTS,
 			showResult: true,
 		});
+		if (localStorage.getItem("student_jwt")) {
+			fetch("/submit-Test", {
+				method: "post",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: "Bearer " + localStorage.getItem("student_jwt"),
+				},
+				body: JSON.stringify({
+					email: email,
+					testId: test.testId,
+					testDetails: test._id,
+					selectedOptions: selectedAnswers,
+					timePerQuestion: timeElapsed,
+					visitedQuestion: isVisited,
+				}),
+			})
+				.then((res) => res.json())
+				.then((test) => {
+					if (test.error) {
+						console.log(test.error);
+					} else {
+						console.log(test.message);
+					}
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		}
 	};
 
 	const marked = () => {
@@ -210,38 +221,8 @@ const KeysComponent = () => {
 					</DialogTitle> */}
 					<div style={{ padding: "10px" }}>
 						<DialogTitle id="alert-dialog-title">Confirm Submit Test, are you sure?</DialogTitle>
-
-						<DialogContent>
-							{/* <div>
-								<div className={classes.container}>
-									<span>
-										<label className={classes.showAttempted}>{answered}</label>
-										<span className={classes.text}>‏‏‎Answered</span>
-									</span>
-									<span>
-										<label className={classes.showVisited}>{notAnswered}</label>
-										<span className={classes.text}>‏‏‎Not Answered</span>
-									</span>
-								</div>
-								<div className={classes.container} style={{ marginTop: "30px" }}>
-									<span>
-										<label className={classes.showLabel}>{notVisited}</label>
-										<span className={classes.text}>‏‏‎Not Visited</span>
-									</span>
-									<span style={{ marginRight: "12px" }}>
-										<label className={classes.showMarked}>{mark}</label>
-										‏‏‎<span className={classes.text}>‏‏‎Review Later</span>
-									</span>
-								</div>
-							</div> */}
-						</DialogContent>
-
 						<DialogActions style={{ display: "flex", justifyContent: "space-between" }}>
-							<Button
-								autoFocus
-								// variant="outlined"
-								onClick={() => setOpenSubmitDialog(false)}
-								color="secondary">
+							<Button autoFocus onClick={() => setOpenSubmitDialog(false)} color="secondary">
 								Resume Test
 							</Button>
 							<Button onClick={() => handleSubmitTest()} color="primary">

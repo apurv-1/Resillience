@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import TestContext from "../Context/TestContext";
 import { makeStyles, FormControl, Select, MenuItem, Typography } from "@material-ui/core";
 
-import UserContext from "../Context/UserContext";
+// import UserContext from "../Context/UserContext";
 // import Loading from "./Loading"
 // import Confetti from "react-confetti";
 import CorrectQuestionsComponent from "./TestAnalysis/CorrectQuestions";
@@ -22,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
 		// float: "right",
 		textAlign: "center",
 		width: "49rem",
+		"@media only screen and (max-width: 1125px)": {
+			// width: "25rem",
+		},
 	},
 	paper: {
 		textAlign: "center",
@@ -34,6 +37,10 @@ const useStyles = makeStyles((theme) => ({
 		marginTop: "2rem",
 		padding: "1rem",
 		flex: "0.5",
+		"@media only screen and (max-width: 1125px)": {
+			padding: "0.5rem",
+			width: "8rem",
+		},
 	},
 	analysisDropdown: {
 		width: "12rem",
@@ -44,6 +51,9 @@ const useStyles = makeStyles((theme) => ({
 		marginBottom: "1.5rem",
 		fontWeight: "bolder",
 		fontSize: "20px",
+		"@media only screen and (max-width: 1125px)": {
+			fontSize: "18px",
+		},
 	},
 	span: {
 		margin: "6px",
@@ -67,7 +77,6 @@ const TestResult = () => {
 	const classes = useStyles();
 
 	const { state } = useContext(TestContext);
-	const { userState } = useContext(UserContext);
 
 	const { test, showResult, selectedAnswers, timeElapsed, isVisited } = state;
 	const questions = test.questions;
@@ -77,9 +86,8 @@ const TestResult = () => {
 
 	const [type, setType] = useState("");
 	const [cSubject, setcSubject] = useState("");
-
 	const timePerQuestion = test.testDuration / (questions.length * 1000);
-	console.log(userState);
+
 	let score = 0,
 		total = questions.length,
 		notAttempted = 0,
@@ -97,8 +105,6 @@ const TestResult = () => {
 		SubjectwiseWrong = 0,
 		SubjectwiseTime = 0,
 		SubjectwiseScore = 0;
-
-	// const postTestDetails = () => {};
 
 	const calculateMarks = () => {
 		for (let index = 0; index < questions.length; index++) {

@@ -15,6 +15,7 @@ require("./models/student");
 require("./models/test");
 require("./models/questions");
 require("./models/message");
+require("./models/submitTest");
 require("./models/couselling");
 require("./models/blogs");
 

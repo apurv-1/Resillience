@@ -14,30 +14,35 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 // import Maintest from "../Tests/MainTest";
 import Loading from "../Tests/Loading";
 import UserContext from "../Context/UserContext";
+import AttemptedTest from "./AttemptedTest";
 
 const useStyles = makeStyles((theme) => ({
-	card: {
+	root: {
 		display: "flex",
-		margin: "2rem",
+		margin: "3rem",
 		marginTop: "5rem",
-		flexDirection: "column",
+		flexDirection: "row",
+	},
+	card: {
+		width: "20rem",
+		// "@media only screen and (max-width: 1125px)": {
+		// 	width: "15rem",
+		// },
 	},
 	pic: {
-		height: "10rem",
-		width: "10rem",
+		height: "8rem",
+		width: "8rem",
 	},
 	paper: {
 		display: "flex",
 		margin: "1rem",
 		padding: "1rem",
-		width: "15rem",
 		fontWeight: "bolder",
-		// color: theme.palette.text.primary,
 	},
 	uploadImage: {
 		position: "absolute",
-		marginTop: "7.5rem",
-		marginLeft: "6.5rem",
+		marginTop: "5.8rem",
+		marginLeft: "4.5rem",
 	},
 	textbox: {
 		marginLeft: "26%",
@@ -48,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
 		justifyContent: "center",
 	},
 	editButton: {
-		marginLeft: "4.3rem",
+		marginLeft: "5rem",
 	},
 }));
 
@@ -67,10 +72,10 @@ export default function StudentProfile() {
 	// 	const { name, email, batch, contact, fname, parentContact, address } = userState.payload;
 
 	return (
-		<div>
+		<Paper elevation={5} className={classes.root}>
 			<div>
-				{userState ? (
-					<Paper elevation={5} className={classes.card}>
+				{userState.payload ? (
+					<div className={classes.card}>
 						<div className={classes.paper} style={{ justifyContent: "center" }}>
 							<Avatar
 								className={classes.pic}
@@ -198,16 +203,16 @@ export default function StudentProfile() {
 								Address : {userState.payload ? userState.payload.address : ""}
 							</Paper>
 						</span>
-					</Paper>
+					</div>
 				) : (
 					<div className={classes.loading}>
 						<Loading />
 					</div>
 				)}
 			</div>
-			{/* <div>
-				<Maintest />
-			</div> */}
-		</div>
+			<div>
+				<AttemptedTest />
+			</div>
+		</Paper>
 	);
 }

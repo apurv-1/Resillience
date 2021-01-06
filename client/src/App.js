@@ -35,6 +35,7 @@ const PostBlog = lazy(() => import("./components/Blogs/Admin/PostBlogs"));
 const ShowBlogs = lazy(() => import("./components/Blogs/ShowBlogs"));
 const ParticularBlog = lazy(() => import("./components/Blogs/ParticularBlog/ParticularBlog"));
 const StudentProfile = lazy(() => import("./components/Student/StudentProfile"));
+const ViewResult = lazy(() => import("./components/Student/ViewResult"));
 const ContactUs = lazy(() => import("./components/ContactUs/ContactUs"));
 const Career = lazy(() => import("./components/Career/Career"));
 const PrivacyPolicy = lazy(() => import("./components/Miscellaneous/PrivacyPolicy"));
@@ -121,6 +122,10 @@ const ParticularBlogComponent = withTitle({
 const StudentProfileComponent = withTitle({
 	component: StudentProfile,
 	title: "Dashboard | RESILLIENCE",
+});
+const ViewResultComponent = withTitle({
+	component: ViewResult,
+	title: "Test Report | RESILLIENCE",
 });
 const PrivacyPolicyComponent = withTitle({
 	component: PrivacyPolicy,
@@ -229,7 +234,8 @@ const Routing = () => {
 			<Route path="/termsofservice" component={TermsOfServiceComponent} />
 
 			{/* student routes */}
-			<Route path="/student-dashboard" component={StudentProfileComponent} />
+			<Route exact path="/student-dashboard" component={StudentProfileComponent} />
+			<Route exact path="/student-dashboard/:resultid" component={ViewResultComponent} />
 			<Route path="/maintest" component={MainTestComponent} />
 			<Route path="/fetchtest" component={FetchTestComponent} />
 

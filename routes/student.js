@@ -26,6 +26,16 @@ router.put("/attempted-test", requireStudent, (req, res) => {
 			return console.log(err);
 		});
 });
+router.get("/test-result/:resultid", requireStudent, (req, res) => {
+	SubmitTest.findById(req.params.resultid)
+		.populate("testDetails")
+		.then((details) => {
+			return res.json({ details });
+		})
+		.catch((err) => {
+			return console.log(err);
+		});
+});
 
 {
 	/* not completed yet */

@@ -1,46 +1,43 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import { Paper, Avatar, Grid } from "@material-ui/core";
+import { Paper, Avatar, Button, Fab } from "@material-ui/core";
+import PhotoCamera from "@material-ui/icons/PhotoCamera";
+import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 
-// import TextField from "@material-ui/core/TextField";
-// import Autocomplete from "@material-ui/lab/Autocomplete";
+import TextField from "@material-ui/core/TextField";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
+
+// import Maintest from "../Tests/MainTest";
 import Loading from "../Tests/Loading";
 import UserContext from "../Context/UserContext";
 
 const useStyles = makeStyles((theme) => ({
-	head: {
-		marginTop: "-10%",
-		position: "fixed",
-		background:
-			"https://res.cloudinary.com/rweb1/image/upload/v1603446021/Assets/Scattered-Forcefields_cuwkvq.svg",
-	},
 	card: {
 		display: "flex",
-		flexWrap: "wrap",
-		margin: "5%",
-		marginTop: "5%",
-		marginBottom: "-10%",
-		"& > *": {
-			margin: theme.spacing(2),
-			width: theme.spacing(104),
-			height: theme.spacing(73),
-		},
+		margin: "2rem",
+		marginTop: "5rem",
+		flexDirection: "column",
 	},
 	pic: {
-		display: "flex",
-		marginLeft: "18%",
-		"& > *": {
-			margin: theme.spacing(1),
-			width: theme.spacing(14),
-			height: theme.spacing(15),
-		},
+		height: "10rem",
+		width: "10rem",
 	},
 	paper: {
-		marginLeft: "2%",
-		padding: theme.spacing(2),
-		textAlign: "center",
-		color: theme.palette.text.secondary,
+		display: "flex",
+		margin: "1rem",
+		padding: "1rem",
+		width: "15rem",
+		fontWeight: "bolder",
+		// color: theme.palette.text.primary,
+	},
+	uploadImage: {
+		position: "absolute",
+		marginTop: "7.5rem",
+		marginLeft: "6.5rem",
 	},
 	textbox: {
 		marginLeft: "26%",
@@ -50,12 +47,16 @@ const useStyles = makeStyles((theme) => ({
 		display: "flex",
 		justifyContent: "center",
 	},
+	editButton: {
+		marginLeft: "4.3rem",
+	},
 }));
 
 export default function StudentProfile() {
 	const classes = useStyles();
 	const { userState } = useContext(UserContext);
 	const history = useHistory();
+	const [open, setOpen] = useState(false);
 
 	useEffect(() => {
 		if (!userState.payload) {
@@ -67,82 +68,146 @@ export default function StudentProfile() {
 
 	return (
 		<div>
-			<Paper elevation={5} className={classes.card}>
+			<div>
 				{userState ? (
-					<div>
-						<div className={classes.pic}>
-							<Avatar alt="Student" src={userState.payload ? userState.payload.picture : ""} />
+					<Paper elevation={5} className={classes.card}>
+						<div className={classes.paper} style={{ justifyContent: "center" }}>
+							<Avatar
+								className={classes.pic}
+								alt="Student"
+								src={userState.payload ? userState.payload.picture : ""}
+							/>
+							<span className={classes.uploadImage}>
+								<input accept="image/*" style={{ display: "none" }} id="icon-button-file" type="file" />
+								<label htmlFor="icon-button-file">
+									<Fab size="small" color="secondary" aria-label="upload picture" component="span">
+										<PhotoCamera />
+									</Fab>
+								</label>
+							</span>
 						</div>
-						<div>
-							<Grid container spacing={3}>
-								<Grid item xs={10} sm={6}>
-									<Paper className={classes.paper}>
-										Name : {userState.payload ? userState.payload.name : ""}
-									</Paper>
-								</Grid>
-							</Grid>
-						</div>
-						<div>
-							<Grid container spacing={3}>
-								<Grid item xs={10} sm={6}>
-									<Paper className={classes.paper}>
-										Email : {userState.payload ? userState.payload.email : ""}
-									</Paper>
-								</Grid>
-							</Grid>
-						</div>
-						<div>
-							<Grid container spacing={3}>
-								<Grid item xs={10} sm={6}>
-									<Paper className={classes.paper}>
-										Batch : {userState.payload ? userState.payload.batch : ""}
-									</Paper>
-								</Grid>
-							</Grid>
-						</div>
-						<div>
-							<Grid container spacing={3}>
-								<Grid item xs={10} sm={6}>
-									<Paper className={classes.paper}>
-										Contact : {userState.payload ? userState.payload.contact : ""}
-									</Paper>
-								</Grid>
-							</Grid>
-						</div>
-						<div>
-							<Grid container spacing={3}>
-								<Grid item xs={10} sm={6}>
-									<Paper className={classes.paper}>
-										Fathers Name : {userState.payload ? userState.payload.fname : ""}
-									</Paper>
-								</Grid>
-							</Grid>
-						</div>
-						<div>
-							<Grid container spacing={3}>
-								<Grid item xs={10} sm={6}>
-									<Paper className={classes.paper}>
-										Parents Contact : {userState.payload ? userState.payload.parentContact : ""}
-									</Paper>
-								</Grid>
-							</Grid>
-						</div>
-						<div>
-							<Grid container spacing={3}>
-								<Grid item xs={10} sm={6}>
-									<Paper className={classes.paper}>
-										Address : {userState.payload ? userState.payload.address : ""}
-									</Paper>
-								</Grid>
-							</Grid>
-						</div>
-					</div>
+						<span>
+							<Button
+								variant="outlined"
+								color="secondary"
+								className={classes.editButton}
+								startIcon={<EditOutlinedIcon />}
+								onClick={() => setOpen(true)}>
+								Edit Details
+							</Button>
+							<Dialog open={open} onClose={() => setOpen(false)} aria-labelledby="form-dialog-title">
+								<DialogTitle id="form-dialog-title">Edit Student Info</DialogTitle>
+								<DialogContent>
+									<TextField
+										margin="dense"
+										id="name"
+										label="Full Name"
+										type="name"
+										defaultValue={userState.payload.name}
+										fullWidth
+									/>
+									<TextField
+										margin="dense"
+										id="email"
+										label="Email Address"
+										type="email"
+										defaultValue={userState.payload.email}
+										fullWidth
+									/>
+									<TextField
+										margin="dense"
+										id="text"
+										label="Batch"
+										type="text"
+										defaultValue={userState.payload.batch}
+										fullWidth
+									/>
+									<TextField
+										margin="dense"
+										id="text"
+										label="Phone Number"
+										type="text"
+										defaultValue={userState.payload.contact}
+										fullWidth
+									/>
+									<TextField
+										margin="dense"
+										id="text"
+										label="Fathers Name"
+										type="text"
+										defaultValue={userState.payload.fname}
+										fullWidth
+									/>
+									<TextField
+										margin="dense"
+										id="text"
+										label="Batch"
+										type="text"
+										defaultValue={userState.payload.batch}
+										fullWidth
+									/>
+									<TextField
+										margin="dense"
+										id="text"
+										label="Parents Contact"
+										type="text"
+										defaultValue={userState.payload.parentContact}
+										fullWidth
+									/>
+									<TextField
+										margin="dense"
+										id="text"
+										label="Address"
+										type="text"
+										defaultValue={userState.payload.address}
+										fullWidth
+									/>
+								</DialogContent>
+								<DialogActions>
+									<Button onClick={() => setOpen(false)} color="primary">
+										Cancel
+									</Button>
+									<Button color="primary">Save Changes</Button>
+								</DialogActions>
+							</Dialog>
+						</span>
+						<span className={classes.infoContainer}>
+							<Paper elevation={3} className={classes.paper}>
+								Name: {userState.payload ? userState.payload.name : ""}
+							</Paper>
+							<Paper elevation={3} className={classes.paper}>
+								Email : {userState.payload ? userState.payload.email : ""}
+							</Paper>
+
+							<Paper elevation={3} className={classes.paper}>
+								Batch : {userState.payload ? userState.payload.batch : ""}
+							</Paper>
+							<Paper elevation={3} className={classes.paper}>
+								Phone Number : {userState.payload ? userState.payload.contact : ""}
+							</Paper>
+
+							<Paper elevation={3} className={classes.paper}>
+								Fathers Name : {userState.payload ? userState.payload.fname : ""}
+							</Paper>
+
+							<Paper elevation={3} className={classes.paper}>
+								Parents Contact : {userState.payload ? userState.payload.parentContact : ""}
+							</Paper>
+
+							<Paper elevation={3} className={classes.paper}>
+								Address : {userState.payload ? userState.payload.address : ""}
+							</Paper>
+						</span>
+					</Paper>
 				) : (
 					<div className={classes.loading}>
 						<Loading />
 					</div>
 				)}
-			</Paper>
+			</div>
+			{/* <div>
+				<Maintest />
+			</div> */}
 		</div>
 	);
 }

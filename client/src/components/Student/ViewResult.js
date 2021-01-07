@@ -5,18 +5,16 @@ import { makeStyles, FormControl, Select, MenuItem, Typography } from "@material
 // import UserContext from "../Context/UserContext";
 // import Loading from "./Loading"
 // import Confetti from "react-confetti";
-// import CorrectQuestionsComponent from "./TestAnalysis/CorrectQuestions";
-// import IncorrectQuestionsComponent from "./TestAnalysis/IncorrectQuestion";
-// import NotAnsweredQuestionsComponent from "./TestAnalysis/NotAnsweredQuestions";
-// import AllQuestionsComponent from "./TestAnalysis/AllQuestions";
+import CorrectQuestionsComponent from "./TestAnalysis/CorrectQuestions";
+import IncorrectQuestionsComponent from "./TestAnalysis/IncorrectQuestion";
+import NotAnsweredQuestionsComponent from "./TestAnalysis/NotAnsweredQuestions";
+import AllQuestionsComponent from "./TestAnalysis/AllQuestions";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
-		marginTop: "100px",
+		marginTop: "5rem",
+		margin: "2rem",
 	},
-	// card: {
-	// 	width: "50%",
-	// },
 	subjectScore: {
 		display: "flex",
 		// float: "right",
@@ -182,7 +180,7 @@ const ViewResult = () => {
 
 	return (
 		<div className={classes.root}>
-			<Typography variant="h3">Result Section</Typography>
+			<Typography variant="h4">Result for {test.testName}</Typography>
 			{calculateMarks()}
 			<div>
 				<div className={classes.paper}>
@@ -327,23 +325,41 @@ const ViewResult = () => {
 						</span>
 					</div>
 				</div>
-				{/* {type === "correct" ? (
-					<CorrectQuestionsComponent cSubject={cSubject} />
+				{type === "correct" ? (
+					<CorrectQuestionsComponent
+						cSubject={cSubject}
+						selectedAnswers={selectedAnswers}
+						timeElapsed={timeElapsed}
+						test={test}
+						questions={questions}
+					/>
 				) : type === "incorrect" ? (
-					<IncorrectQuestionsComponent cSubject={cSubject} />
+					<IncorrectQuestionsComponent
+						cSubject={cSubject}
+						selectedAnswers={selectedAnswers}
+						timeElapsed={timeElapsed}
+						test={test}
+						questions={questions}
+					/>
 				) : type === "notAnswered" ? (
-					<NotAnsweredQuestionsComponent cSubject={cSubject} />
+					<NotAnsweredQuestionsComponent
+						cSubject={cSubject}
+						selectedAnswers={selectedAnswers}
+						timeElapsed={timeElapsed}
+						test={test}
+						questions={questions}
+					/>
 				) : (
 					type === "all" && (
 						<AllQuestionsComponent
+							cSubject={cSubject}
 							selectedAnswers={selectedAnswers}
 							timeElapsed={timeElapsed}
 							test={test}
-							cSubject={cSubject}
 							questions={questions}
 						/>
 					)
-				)} */}
+				)}
 			</div>
 		</div>
 	);

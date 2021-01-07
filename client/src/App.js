@@ -44,8 +44,9 @@ const CreateTest = lazy(() => import("./components/Admin/CreateTest/CreateTest")
 const FetchTest = lazy(() => import("./components/Tests/FetchTest"));
 const MainTest = lazy(() => import("./components/Tests/MainTest"));
 const EnrollStudent = lazy(() => import("./components/Admin/EnrollStudent"));
+const EnrolledStudents = lazy(() => import("./components/Admin/EnrolledStudents"));
 const AdminSignIn = lazy(() => import("./components/Admin/AdminSignIn"));
-const AdminDashboard = lazy(() => import("./components/Admin/AdminDashboard"));
+const ActiveTests = lazy(() => import("./components/Admin/ActiveTests"));
 const ViewQuestions = lazy(() => import("./components/Admin/ViewQuestions"));
 // const Sitemap = lazy(() => import("./components/Miscellaneous/Sitemap"));
 
@@ -151,8 +152,12 @@ const EnrollStudentComponent = withTitle({
 	component: EnrollStudent,
 	title: "Enroll Student | RESILLIENCE",
 });
-const AdminDashboardComponent = withTitle({
-	component: AdminDashboard,
+const EnrolledStudentsComponent = withTitle({
+	component: EnrolledStudents,
+	title: "Students | RESILLIENCE",
+});
+const ActiveTestsComponent = withTitle({
+	component: ActiveTests,
 	title: "Admin | RESILLIENCE",
 });
 const ViewQuestionsComponent = withTitle({
@@ -242,10 +247,11 @@ const Routing = () => {
 			{/* admin routes */}
 			<Route path="/createtest" component={CreateTestComponent} />
 			<Route path="/admin0p-signin" component={AdminSignIn} />
-			<Route exact path="/admin-dashboard" component={AdminDashboardComponent} />
+			<Route exact path="/admin-dashboard" component={ActiveTestsComponent} />
 			<Route exact path="/admin-dashboard/:testid" component={ViewQuestionsComponent} />
 			<Route path="/admin/createblogs" component={PostBlogComponent} />
 			<Route path="/enroll-student" component={EnrollStudentComponent} />
+			<Route path="/students" component={EnrolledStudentsComponent} />
 			{/* <Route path="/sitemap" component={SitemapComponent} /> */}
 			<Route component={ErrorComponent} />
 			{/* <Route path="/room" component={RoomComponent} /> */}

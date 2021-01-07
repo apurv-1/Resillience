@@ -148,7 +148,7 @@ const AddQuestions = ({ testID, totalQuestions }) => {
 	// console.log("total ", totalQuestions);
 	/* eslint-disable */
 	useEffect(() => {
-		if (questionType === "singleCorrect" && questionUrl) {
+		if (!subject || !correct || questionUrl) {
 			fetch("/add-question", {
 				method: "put",
 				headers: {

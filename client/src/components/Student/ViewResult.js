@@ -178,6 +178,24 @@ const ViewResult = () => {
 		return;
 	};
 
+	const handleCurrentSubject = (e) => {
+		e.preventDefault();
+		setcSubject(e.target.value);
+	};
+	const handleTestType = (e) => {
+		e.preventDefault();
+		setType(e.target.value);
+	};
+
+	const handleOpenSubject = (e) => {
+		e.preventDefault();
+		setOpenSubject(true);
+	};
+	const handleCloseSubject = (e) => {
+		e.preventDefault();
+		setOpenSubject(false);
+	};
+
 	return (
 		<div className={classes.root}>
 			<Typography variant="h4">Result for {test.testName}</Typography>
@@ -260,7 +278,7 @@ const ViewResult = () => {
 								onClose={() => setOpen(false)}
 								onOpen={() => setOpen(true)}
 								value={type}
-								onChange={(e) => setType(e.target.value)}
+								onChange={handleTestType}
 								fullWidth>
 								<MenuItem value={""}>None</MenuItem>
 								<MenuItem value={"correct"}>Correct</MenuItem>
@@ -277,10 +295,10 @@ const ViewResult = () => {
 								labelId="controlled-open-select-label"
 								variant="outlined"
 								open={openSubject}
-								onClose={() => setOpenSubject(false)}
-								onOpen={() => setOpenSubject(true)}
+								onClose={handleCloseSubject}
+								onOpen={handleOpenSubject}
 								value={cSubject}
-								onChange={(e) => setcSubject(e.target.value)}
+								onChange={handleCurrentSubject}
 								fullWidth>
 								<MenuItem value={""}>None</MenuItem>
 								<MenuItem value={"Physics"}>Physics</MenuItem>

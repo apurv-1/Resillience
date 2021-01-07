@@ -23,7 +23,7 @@ const StartPage = () => {
 	const { state, dispatch } = useContext(TestContext);
 	const { userState } = useContext(UserContext);
 	const { test } = state;
-	const attemptedTests = userState.payload.attemptedTests;
+	const [attemptedTests] = userState.payload.attemptedTests;
 	const [checked, setChecked] = useState(false);
 	var flag = true;
 
@@ -33,7 +33,7 @@ const StartPage = () => {
 
 	const AttemptedTest = () => {
 		for (let index = 0; index < attemptedTests.length; index++) {
-			console.log(attemptedTests[index]);
+			// console.log(attemptedTests[index]);
 			if (attemptedTests[index] === test._id) {
 				flag = false;
 				break;

@@ -73,7 +73,7 @@ const useStyles = makeStyles({
 		color: "#000",
 	},
 	button: {
-		paddingTop: "20%",
+		paddingTop: "10%",
 		paddingRight: "35%",
 		// margin: "5%",
 		// position: "absolute",
@@ -160,7 +160,16 @@ export default function SideNav() {
 										<DashboardRoundedIcon />
 									</ListItemIcon>
 
-									<ListItemText>Admin Dashboard</ListItemText>
+									<ListItemText>Active Tests</ListItemText>
+								</ListItem>
+							</Link>
+							<Link to="/students" className={classes.link} onClick={() => setOpen(false)}>
+								<ListItem button key="Profile" className={classes.listitem}>
+									<ListItemIcon>
+										<DashboardRoundedIcon />
+									</ListItemIcon>
+
+									<ListItemText>EnrolledStudents</ListItemText>
 								</ListItem>
 							</Link>
 

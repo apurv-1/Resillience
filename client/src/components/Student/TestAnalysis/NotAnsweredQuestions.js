@@ -99,7 +99,7 @@ const NotAnsweredQuestion = ({ cSubject, selectedAnswers, timeElapsed, test, que
 														{correctOption}
 													</StyledTableCell>
 													<StyledTableCell component="th" scope="row" align="right">
-														{selectedAnswers[index]}
+														{selectedAnswers[index] ? selectedAnswers[index] : "Not Selected"}
 													</StyledTableCell>
 													<StyledTableCell component="th" scope="row" align="right">
 														{timeElapsed[index] ? timeElapsed[index] : 0}s / {timePerQuestion}s&nbsp;
@@ -139,7 +139,7 @@ const NotAnsweredQuestion = ({ cSubject, selectedAnswers, timeElapsed, test, que
 														{correctOption}
 													</StyledTableCell>
 													<StyledTableCell component="th" scope="row" align="right">
-														{selectedAnswers[index]}
+														{selectedAnswers[index] ? selectedAnswers[index] : "Not Selected"}
 													</StyledTableCell>
 													<StyledTableCell component="th" scope="row" align="right">
 														{timeElapsed[index] ? timeElapsed[index] : 0}s / {timePerQuestion}s&nbsp;

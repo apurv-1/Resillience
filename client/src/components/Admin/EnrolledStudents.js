@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
-import { Paper, Button } from "@material-ui/core";
+import { Paper, Button, TablePagination } from "@material-ui/core";
 
 // import TextField from "@material-ui/core/TextField";
 // import Autocomplete from "@material-ui/lab/Autocomplete";
@@ -10,8 +10,9 @@ import { Paper, Button } from "@material-ui/core";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import dayjs from "dayjs";
 
-import { Dialog, DialogActions, DialogTitle } from "@material-ui/core";
+// import { Dialog, DialogActions, DialogTitle } from "@material-ui/core";
 // import AddQuestions from "../Tests/CreateTest/AddQuestionsComponent";
 
 import Table from "@material-ui/core/Table";
@@ -22,7 +23,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 
 // import EditIcon from "@material-ui/icons/Edit";
-import DeleteForeverIcon from "@material-ui/icons/Delete";
+// import DeleteForeverIcon from "@material-ui/icons/Delete";
 
 const StyledTableCell = withStyles((theme) => ({
 	head: {
@@ -74,32 +75,44 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default function AdminProfile() {
+export default function EnrolledStudents() {
 	const classes = useStyles();
 	toast.configure();
 
 	const history = useHistory();
-	const [activeTest, setActiveTest] = useState([]);
-
-	const [openDeleteDialogue, setOpenDeleteDialogue] = useState(false);
-	// const [openEditTest, setOpenEditTest] = useState(false);
-
-	const [currentTest_id, setCurrentTest_id] = useState("");
+	const [students, setStudents] = useState([]);
+	//
+	// 	const [openDeleteDialogue, setOpenDeleteDialogue] = useState(false);
+	// 	// const [openEditTest, setOpenEditTest] = useState(false);
+	//
+	// 	const [currentTest_id, setCurrentTest_id] = useState("");
 	// const [currentTestId, setCurrentTestId] = useState("");
 	// const [currentNoOfQuestions, setCurrentNoOfQuestions] = useState("");
 
+	const [page, setPage] = useState(0);
+	const [rowsPerPage, setRowsPerPage] = useState(10);
+
+	const handleChangePage = (event, newPage) => {
+		setPage(newPage);
+	};
+
+	const handleChangeRowsPerPage = (event) => {
+		setRowsPerPage(+event.target.value);
+		setPage(0);
+	};
+
 	useEffect(() => {
 		if (localStorage.getItem("admin_jwt")) {
-			fetch("/alltests", {
+			fetch("/enrolled-students", {
 				method: "get",
 				headers: {
 					Authorization: "Bearer " + localStorage.getItem("admin_jwt"),
 				},
 			})
 				.then((res) => res.json())
-				.then((activeTests) => {
-					// console.log(activeTests);
-					setActiveTest(activeTests.test);
+				.then((allstudents) => {
+					console.log(allstudents.students);
+					setStudents(allstudents.students);
 				})
 				.catch((err) => {
 					// console.log(err);
@@ -123,44 +136,44 @@ export default function AdminProfile() {
 			});
 			history.push("/");
 		}
-	}, [currentTest_id]);
+	}, []);
 
-	const deleteTest = () => {
-		if (localStorage.getItem("admin_jwt")) {
-			fetch(`/delete-test/${currentTest_id}`, {
-				method: "delete",
-				headers: {
-					Authorization: "Bearer " + localStorage.getItem("admin_jwt"),
-				},
-			})
-				.then((res) => res.json())
-				.then((message) => {
-					setCurrentTest_id("");
-					setOpenDeleteDialogue(false);
-					toast.info(message.message, {
-						position: "bottom-right",
-						autoClose: 4000,
-						hideProgressBar: false,
-						closeOnClick: true,
-						pauseOnHover: true,
-						draggable: false,
-					});
-				})
-				.catch((err) => {
-					// console.log(err);
-					toast.error(err, {
-						position: "bottom-right",
-						autoClose: 4000,
-						hideProgressBar: false,
-						closeOnClick: true,
-						pauseOnHover: true,
-						draggable: false,
-					});
-				});
-		} else {
-			history.push("/");
-		}
-	};
+	// const deleteTest = () => {
+	// 	if (localStorage.getItem("admin_jwt")) {
+	// 		fetch(`/delete-test/${currentTest_id}`, {
+	// 			method: "delete",
+	// 			headers: {
+	// 				Authorization: "Bearer " + localStorage.getItem("admin_jwt"),
+	// 			},
+	// 		})
+	// 			.then((res) => res.json())
+	// 			.then((message) => {
+	// 				setCurrentTest_id("");
+	// 				setOpenDeleteDialogue(false);
+	// 				toast.info(message.message, {
+	// 					position: "bottom-right",
+	// 					autoClose: 4000,
+	// 					hideProgressBar: false,
+	// 					closeOnClick: true,
+	// 					pauseOnHover: true,
+	// 					draggable: false,
+	// 				});
+	// 			})
+	// 			.catch((err) => {
+	// 				// console.log(err);
+	// 				toast.error(err, {
+	// 					position: "bottom-right",
+	// 					autoClose: 4000,
+	// 					hideProgressBar: false,
+	// 					closeOnClick: true,
+	// 					pauseOnHover: true,
+	// 					draggable: false,
+	// 				});
+	// 			});
+	// 	} else {
+	// 		history.push("/");
+	// 	}
+	// };
 	//
 	// 	const handleEditTest = (testId, noOfQuestions) => {
 	// 		setOpenEditTest(true);
@@ -174,69 +187,76 @@ export default function AdminProfile() {
 				<Table className={classes.table} aria-label="customized table">
 					<TableHead>
 						<TableRow>
-							<StyledTableCell>Test ID</StyledTableCell>
-							<StyledTableCell>Test Name</StyledTableCell>
-							<StyledTableCell align="right">Number of Questions</StyledTableCell>
-							<StyledTableCell align="right">Test Duration</StyledTableCell>
-							<StyledTableCell align="right">Correct</StyledTableCell>
-							<StyledTableCell align="right">Incorrect</StyledTableCell>
-							<StyledTableCell align="right">Total Marks</StyledTableCell>
-							<StyledTableCell align="right">&nbsp;</StyledTableCell>
+							<StyledTableCell>S. No.</StyledTableCell>
+							<StyledTableCell>Full Name</StyledTableCell>
+							<StyledTableCell align="right">Email</StyledTableCell>
+							<StyledTableCell align="right">Batch</StyledTableCell>
+							<StyledTableCell align="right">No. of given Tests</StyledTableCell>
+							<StyledTableCell align="right">Contact</StyledTableCell>
+							<StyledTableCell align="right">Enrolled On</StyledTableCell>
+							{/* <StyledTableCell align="right">&nbsp;</StyledTableCell> */}
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{activeTest.length > 0 &&
-							activeTest.map(
-								(
-									{ _id, testId, testName, noOfQuestions, testDuration, forCorrect, forInCorrect },
-									index
-								) => (
+						{students.length > 0 &&
+							students
+								.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+								.map(({ name, email, batch, attemptedTests, contact, createdAt }, index) => (
 									<StyledTableRow key={index}>
 										<StyledTableCell component="th" scope="row">
-											{testId}
+											{index + 1}
 										</StyledTableCell>
 										<StyledTableCell component="th" scope="row">
-											<Link style={{ color: "black", textDecoration: "none" }} to={"/admin-dashboard/" + _id}>
-												{testName}
-											</Link>
+											{name}
+											{/* <Link style={{ color: "black", textDecoration: "none" }} to={"/admin-dashboard/" + _id}>
+													
+												</Link> */}
 										</StyledTableCell>
 										<StyledTableCell component="th" scope="row" align="right">
-											{noOfQuestions}
+											{email}
 										</StyledTableCell>
 										<StyledTableCell component="th" scope="row" align="right">
-											{testDuration / 60000}&nbsp;mins
+											{batch}
 										</StyledTableCell>
 										<StyledTableCell component="th" scope="row" align="right">
-											{forCorrect}
+											{attemptedTests.length}
 										</StyledTableCell>
 										<StyledTableCell component="th" scope="row" align="right">
-											{forInCorrect}
+											{contact}
 										</StyledTableCell>
 										<StyledTableCell component="th" scope="row" align="right">
-											{noOfQuestions * forCorrect}&nbsp;marks
+											{dayjs(createdAt).format("hh:mma MMM YY")}
 										</StyledTableCell>
-										<StyledTableCell
-											component="th"
-											scope="row"
-											align="right"
-											onClick={() => setCurrentTest_id(_id)}>
-											{/* <span
+										{/* <StyledTableCell
+										component="th"
+										scope="row"
+										align="right"
+										onClick={() => setCurrentTest_id(_id)}>
+										<span
 													onClick={() => handleEditTest(testId, noOfQuestions)}
 													style={{ cursor: "pointer" }}>
 													<EditIcon />
-												</span> */}
-											<span onClick={() => setOpenDeleteDialogue(true)} style={{ cursor: "pointer" }}>
-												<DeleteForeverIcon />
-											</span>
-										</StyledTableCell>
+												</span>
+										<span onClick={() => setOpenDeleteDialogue(true)} style={{ cursor: "pointer" }}>
+											<DeleteForeverIcon />
+										</span>
+									</StyledTableCell> */}
 									</StyledTableRow>
-								)
-							)}
+								))}
 					</TableBody>
 				</Table>
+				<TablePagination
+					rowsPerPageOptions={[10, 15]}
+					component="div"
+					count={students.length}
+					rowsPerPage={rowsPerPage}
+					page={page}
+					onChangePage={handleChangePage}
+					onChangeRowsPerPage={handleChangeRowsPerPage}
+				/>
 			</TableContainer>
 
-			<Dialog
+			{/* <Dialog
 				open={openDeleteDialogue}
 				onClose={() => setOpenDeleteDialogue(false)}
 				aria-labelledby="dialog-title">
@@ -250,7 +270,7 @@ export default function AdminProfile() {
 						Delete
 					</Button>
 				</DialogActions>
-			</Dialog>
+			</Dialog> */}
 		</div>
 	);
 }

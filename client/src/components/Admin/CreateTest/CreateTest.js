@@ -57,7 +57,7 @@ const CreateTest = () => {
 	const [forInCorrect, setForInCorrect] = useState(0);
 
 	const [open, setOpen] = useState(false);
-	const [check, setCheck] = useState(false);
+	const [check, setCheck] = useState(true);
 
 	const SaveTest = () => {
 		if (!testId || !testName || !testDuration || !noOfQuestions) {

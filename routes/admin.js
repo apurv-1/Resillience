@@ -17,10 +17,9 @@ router.get("/admin-profile", requireAdmin, (req, res) => {
 		});
 });
 
-router.get("/enrolled-students", (req, res) => {
+router.get("/enrolled-students", requireAdmin, (req, res) => {
 	Student.find()
 		.sort("-createdAt")
-		.select("picture name batch")
 		.then((students) => {
 			res.json({ students });
 		})

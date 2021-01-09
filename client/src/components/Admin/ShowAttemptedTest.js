@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
 	makeStyles,
 	withStyles,
@@ -76,8 +76,9 @@ const StyledTableRow = withStyles((theme) => ({
 	},
 }))(TableRow);
 
-const AttemptedTest = () => {
+const ShowAttemptedTest = ({ attemptedTests }) => {
 	const classes = useStyles();
+	const { studentid } = useParams();
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -89,24 +90,26 @@ const AttemptedTest = () => {
 		setRowsPerPage(+event.target.value);
 		setPage(0);
 	};
-	const [attemptedTests, setAttemptedTests] = useState([]);
+	// const [attemptedTests, setAttemptedTests] = useState([]);
 
-	useEffect(() => {
-		fetch("/attempted-tests", {
-			method: "get",
-			headers: {
-				Authorization: "Bearer " + localStorage.getItem("student_jwt"),
-			},
-		})
-			.then((res) => res.json())
-			.then((tests) => {
-				// console.log(tests.test);
-				setAttemptedTests(tests.test);
-			})
-			.catch((err) => {
-				console.log(err);
-			});
-	}, []);
+	// useEffect(() => {
+	// 	if (studentid) {
+	// 		fetch(`/students/attempted-tests/${studentid}`, {
+	// 			method: "get",
+	// 			headers: {
+	// 				Authorization: "Bearer " + localStorage.getItem("admin_jwt"),
+	// 			},
+	// 		})
+	// 			.then((res) => res.json())
+	// 			.then((tests) => {
+	// 				console.log(tests.test);
+	// 				setAttemptedTests(tests.test);
+	// 			})
+	// 			.catch((err) => {
+	// 				console.log(err);
+	// 			});
+	// 	}
+	// }, []);
 
 	return (
 		<div className={classes.root}>
@@ -142,7 +145,7 @@ const AttemptedTest = () => {
 										<StyledTableCell component="th" scope="row" align="right">
 											<Link
 												style={{ color: "black", textDecoration: "none" }}
-												to={"/student-dashboard/" + _id}>
+												to={"/students/" + studentid + "/" + _id}>
 												<span className={classes.span}>
 													<AssessmentIcon
 														style={{ marginLeft: "-25px", marginTop: "-2px", position: "absolute" }}
@@ -176,4 +179,4 @@ const AttemptedTest = () => {
 	);
 };
 
-export default AttemptedTest;
+export default ShowAttemptedTest;

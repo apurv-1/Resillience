@@ -46,24 +46,29 @@ router.post("/addtest", requireAdmin, (req, res) => {
 		forCorrect,
 		forInCorrect,
 	} = req.body;
-	const test = new Test({
-		testId,
-		testName,
-		testDuration: 60000 * testDuration,
-		testType,
-		forCorrect,
-		forInCorrect,
-		noOfQuestions,
-	});
-	test
-		.save()
-		.then((result) => {
-			res.json({ message: "Test Created!" });
-		})
-		.catch((err) => {
-			res.json({ error: err.keyValue.testId });
-			console.log(err);
+	Test.findOne({ testId }).then((savedTest) => {
+		if (savedTest) {
+			return res.status(422).json({ error: "The TestId already exists" });
+		}
+		const test = new Test({
+			testId,
+			testName,
+			testDuration: 60000 * testDuration,
+			testType,
+			forCorrect,
+			forInCorrect,
+			noOfQuestions,
 		});
+		test
+			.save()
+			.then((result) => {
+				res.json({ message: "Test Created!" });
+			})
+			.catch((err) => {
+				res.json({ error: err });
+				console.log(err);
+			});
+	});
 });
 
 router.put("/add-question", requireAdmin, (req, res) => {
@@ -94,21 +99,43 @@ router.put("/add-question", requireAdmin, (req, res) => {
 	});
 });
 
-router.get("/fetchtest", requireStudent, (req, res) => {
-	const testId = req.query.testid;
-	Test.findOne({ testId: testId })
-		.then((test) => {
-			// console.log(test);
-			if (test === null) {
-				return res.status(422).json({ error: "The Test ID is Invalid " });
-			} else {
-				res.json({ test });
-			}
-		})
-		.catch((err) => {
-			return res.status(404).json({ error: "Test not found" });
-		});
-});
+// router.put("/update-question/:id", requireAdmin, (req, res) => {
+// 	const { index, questionNumber,questionImage,correctOption,difficuilty,subject } = req.body;
+// 	const question = {
+// 		questionNumber,
+// 		questionImage,
+// 		correctOption,
+// 		difficuilty,
+// 		subject,
+// 	};
+// 	// console.log(question);
+// 	Test.findByIdAndUpdate({_id:req.params.id},{
+// 		$set:{questions[index]:question}
+// 	}
+// 	).exec((err, result) => {
+// 		if (err) {
+// 			return res.status(422).json({ error: err });
+// 		} else {
+// 			res.json(result);
+// 		}
+// 	});
+// });
+//
+// router.get("/fetchtest", requireStudent, (req, res) => {
+// 	const testId = req.query.testid;
+// 	Test.findOne({ testId: testId })
+// 		.then((test) => {
+// 			// console.log(test);
+// 			if (test === null) {
+// 				return res.status(422).json({ error: "The Test ID is Invalid " });
+// 			} else {
+// 				res.json({ test });
+// 			}
+// 		})
+// 		.catch((err) => {
+// 			return res.status(404).json({ error: "Test not found" });
+// 		});
+// });
 
 module.exports = router;
 

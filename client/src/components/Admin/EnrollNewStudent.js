@@ -37,7 +37,7 @@ const useStyles = makeStyles(() => ({
 	},
 }));
 
-const EnrollStudent = () => {
+const EnrollNewStudent = () => {
 	const classes = useStyles();
 	toast.configure();
 
@@ -248,4 +248,4 @@ const EnrollStudent = () => {
 	);
 };
 
-export default EnrollStudent;
+export default EnrollNewStudent;

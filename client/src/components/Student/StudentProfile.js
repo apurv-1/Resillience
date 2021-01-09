@@ -1,15 +1,18 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import { Paper, Avatar, Button, Fab } from "@material-ui/core";
+import { Paper, Avatar, Fab } from "@material-ui/core";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
-import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
+// import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
+//
+// import TextField from "@material-ui/core/TextField";
+// import Dialog from "@material-ui/core/Dialog";
+// import DialogActions from "@material-ui/core/DialogActions";
+// import DialogContent from "@material-ui/core/DialogContent";
+// import DialogTitle from "@material-ui/core/DialogTitle";
 
-import TextField from "@material-ui/core/TextField";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // import Maintest from "../Tests/MainTest";
 import Loading from "../Tests/Loading";
@@ -32,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
 	pic: {
 		height: "8rem",
 		width: "8rem",
+		boxShadow: "0 1px 3px 1px rgba(35, 34, 39)",
 	},
 	paper: {
 		display: "flex",
@@ -41,8 +45,8 @@ const useStyles = makeStyles((theme) => ({
 	},
 	uploadImage: {
 		position: "absolute",
-		marginTop: "5.8rem",
-		marginLeft: "4.5rem",
+		marginTop: "6rem",
+		marginLeft: "5rem",
 	},
 	textbox: {
 		marginLeft: "26%",
@@ -59,17 +63,73 @@ const useStyles = makeStyles((theme) => ({
 
 export default function StudentProfile() {
 	const classes = useStyles();
+	toast.configure();
 	const { userState } = useContext(UserContext);
 	const history = useHistory();
-	const [open, setOpen] = useState(false);
+	const [image, setImage] = useState("");
 
 	useEffect(() => {
 		if (!userState.payload) {
 			history.push("/");
 		}
 	}, []);
-	//
-	// 	const { name, email, batch, contact, fname, parentContact, address } = userState.payload;
+
+	useEffect(() => {
+		if (image) {
+			const data = new FormData();
+			console.log(data);
+			data.append("file", image);
+			data.append("upload_preset", "profile_pic");
+			data.append("cloud_name", "rweb1");
+			fetch("https://api.cloudinary.com/v1_1/rweb1/image/upload", {
+				method: "post",
+				body: data,
+			})
+				.then((res) => res.json())
+				.then((data) => {
+					fetch("/api/updateprofile-picture", {
+						method: "put",
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: "Bearer " + localStorage.getItem("student_jwt"),
+						},
+						body: JSON.stringify({
+							picture: data.secure_url,
+						}),
+					})
+						.then((res) => res.json())
+						.then(() => {
+							toast.success("Image updated!", {
+								position: "bottom-right",
+								autoClose: 3000,
+								hideProgressBar: false,
+								closeOnClick: true,
+								pauseOnHover: true,
+								draggable: false,
+							});
+							setImage("");
+							window.location.reload();
+						});
+				})
+				.catch((err) => {
+					console.log(err);
+					toast.error(err, {
+						position: "bottom-right",
+						autoClose: 3000,
+						hideProgressBar: false,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: false,
+					});
+				});
+		}
+	}, [image]);
+
+	const handleUpdateProfilePicture = (e) => {
+		e.preventDefault();
+		const file = e.target.files[0];
+		setImage(file);
+	};
 
 	return (
 		<Paper elevation={5} className={classes.root}>
@@ -82,7 +142,7 @@ export default function StudentProfile() {
 								alt="Student"
 								src={userState.payload ? userState.payload.picture : ""}
 							/>
-							<span className={classes.uploadImage}>
+							<span className={classes.uploadImage} onChange={handleUpdateProfilePicture}>
 								<input accept="image/*" style={{ display: "none" }} id="icon-button-file" type="file" />
 								<label htmlFor="icon-button-file">
 									<Fab size="small" color="secondary" aria-label="upload picture" component="span">
@@ -91,91 +151,7 @@ export default function StudentProfile() {
 								</label>
 							</span>
 						</div>
-						<span>
-							<Button
-								variant="outlined"
-								color="secondary"
-								className={classes.editButton}
-								startIcon={<EditOutlinedIcon />}
-								onClick={() => setOpen(true)}>
-								Edit Details
-							</Button>
-							<Dialog open={open} onClose={() => setOpen(false)} aria-labelledby="form-dialog-title">
-								<DialogTitle id="form-dialog-title">Edit Student Info</DialogTitle>
-								<DialogContent>
-									<TextField
-										margin="dense"
-										id="name"
-										label="Full Name"
-										type="name"
-										defaultValue={userState.payload.name}
-										fullWidth
-									/>
-									<TextField
-										margin="dense"
-										id="email"
-										label="Email Address"
-										type="email"
-										defaultValue={userState.payload.email}
-										fullWidth
-									/>
-									<TextField
-										margin="dense"
-										id="text"
-										label="Batch"
-										type="text"
-										defaultValue={userState.payload.batch}
-										fullWidth
-									/>
-									<TextField
-										margin="dense"
-										id="text"
-										label="Phone Number"
-										type="text"
-										defaultValue={userState.payload.contact}
-										fullWidth
-									/>
-									<TextField
-										margin="dense"
-										id="text"
-										label="Fathers Name"
-										type="text"
-										defaultValue={userState.payload.fname}
-										fullWidth
-									/>
-									<TextField
-										margin="dense"
-										id="text"
-										label="Batch"
-										type="text"
-										defaultValue={userState.payload.batch}
-										fullWidth
-									/>
-									<TextField
-										margin="dense"
-										id="text"
-										label="Parents Contact"
-										type="text"
-										defaultValue={userState.payload.parentContact}
-										fullWidth
-									/>
-									<TextField
-										margin="dense"
-										id="text"
-										label="Address"
-										type="text"
-										defaultValue={userState.payload.address}
-										fullWidth
-									/>
-								</DialogContent>
-								<DialogActions>
-									<Button onClick={() => setOpen(false)} color="primary">
-										Cancel
-									</Button>
-									<Button color="primary">Save Changes</Button>
-								</DialogActions>
-							</Dialog>
-						</span>
+
 						<span className={classes.infoContainer}>
 							<Paper elevation={3} className={classes.paper}>
 								Name: {userState.payload ? userState.payload.name : ""}

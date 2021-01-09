@@ -1,5 +1,5 @@
 import React, { Suspense, lazy, useEffect, useReducer, useContext } from "react";
-import { Prompt } from "react-router";
+// import { Prompt } from "react-router";
 import { Switch, Route, withRouter, useHistory } from "react-router-dom";
 import ScrollToTop from "./ScrollToTop";
 import "./App.css";
@@ -18,6 +18,7 @@ import { TitleComponent } from "./components/Title/TitleComponent";
 //Context & Reducers
 import { userReducer, initialState } from "./components/Reducers/UserReducer";
 import UserContext from "./components/Context/UserContext";
+// import TestContext from "./components/Context/TestContext";
 import { SET_STUDENT, SET_ADMIN, SET_USER_TYPE } from "./components/Reducers/types";
 import "./ReactTransitions.css";
 //Components
@@ -41,13 +42,13 @@ const Career = lazy(() => import("./components/Career/Career"));
 const PrivacyPolicy = lazy(() => import("./components/Miscellaneous/PrivacyPolicy"));
 const TermsOfService = lazy(() => import("./components/Miscellaneous/TermsOfService"));
 const CreateTest = lazy(() => import("./components/Admin/CreateTest/CreateTest"));
-const FetchTest = lazy(() => import("./components/Tests/FetchTest"));
 const MainTest = lazy(() => import("./components/Tests/MainTest"));
-const EnrollStudent = lazy(() => import("./components/Admin/EnrollStudent"));
+const EnrollNewStudent = lazy(() => import("./components/Admin/EnrollNewStudent"));
 const EnrolledStudents = lazy(() => import("./components/Admin/EnrolledStudents"));
 const AdminSignIn = lazy(() => import("./components/Admin/AdminSignIn"));
 const ActiveTests = lazy(() => import("./components/Admin/ActiveTests"));
 const ViewQuestions = lazy(() => import("./components/Admin/ViewQuestions"));
+const Student = lazy(() => import("./components/Admin/StudentProfileDashboard"));
 // const Sitemap = lazy(() => import("./components/Miscellaneous/Sitemap"));
 
 // const Room = lazy(() => import("./components/Room"));
@@ -140,16 +141,12 @@ const CreateTestComponent = withTitle({
 	component: CreateTest,
 	title: "Create Test | RESILLIENCE",
 });
-const FetchTestComponent = withTitle({
-	component: FetchTest,
-	title: "Test Section | RESILLIENCE",
-});
 const MainTestComponent = withTitle({
 	component: MainTest,
 	title: "Test Section | RESILLIENCE",
 });
-const EnrollStudentComponent = withTitle({
-	component: EnrollStudent,
+const EnrollNewStudentComponent = withTitle({
+	component: EnrollNewStudent,
 	title: "Enroll Student | RESILLIENCE",
 });
 const EnrolledStudentsComponent = withTitle({
@@ -242,16 +239,17 @@ const Routing = () => {
 			<Route exact path="/student-dashboard" component={StudentProfileComponent} />
 			<Route exact path="/student-dashboard/:resultid" component={ViewResultComponent} />
 			<Route path="/maintest" component={MainTestComponent} />
-			<Route path="/fetchtest" component={FetchTestComponent} />
 
 			{/* admin routes */}
-			<Route path="/createtest" component={CreateTestComponent} />
+			<Route exact path="/createtest" component={CreateTestComponent} />
 			<Route path="/admin0p-signin" component={AdminSignIn} />
 			<Route exact path="/admin-dashboard" component={ActiveTestsComponent} />
 			<Route exact path="/admin-dashboard/:testid" component={ViewQuestionsComponent} />
 			<Route path="/admin/createblogs" component={PostBlogComponent} />
-			<Route path="/enroll-student" component={EnrollStudentComponent} />
-			<Route path="/students" component={EnrolledStudentsComponent} />
+			<Route path="/enroll-student" component={EnrollNewStudentComponent} />
+			<Route exact path="/students" component={EnrolledStudentsComponent} />
+			<Route exact path="/students/:studentid" component={Student} />
+			<Route exact path="/students/:studentid/:resultid" component={ViewResultComponent} />
 			{/* <Route path="/sitemap" component={SitemapComponent} /> */}
 			<Route component={ErrorComponent} />
 			{/* <Route path="/room" component={RoomComponent} /> */}
@@ -272,14 +270,14 @@ const App = () => {
 						<Navbar />
 						<ScrollToTop />
 						<Routing />
-						<Prompt
-							when={false}
+						{/* <Prompt
+							when={state.isStarted === true}
 							message={(location) => {
 								return location.pathname.startsWith("/maintest")
 									? "Test will not be submitted! Are you sure?"
-									: true;
+									: false;
 							}}
-						/>
+						/> */}
 						<Footer />
 					</div>
 					{/* </TransitionGroup> */}

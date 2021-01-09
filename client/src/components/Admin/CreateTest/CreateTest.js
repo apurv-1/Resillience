@@ -41,6 +41,13 @@ const useStyles = makeStyles(() => ({
 		marginTop: "200px",
 		paddingTop: "20px",
 	},
+	forgot: {
+		margin: "0.4rem",
+		fontWeight: "bolder",
+		"@media only screen and (max-width: 430px)": {
+			margin: "-10px",
+		},
+	},
 }));
 
 const CreateTest = () => {
@@ -57,7 +64,7 @@ const CreateTest = () => {
 	const [forInCorrect, setForInCorrect] = useState(0);
 
 	const [open, setOpen] = useState(false);
-	const [check, setCheck] = useState(true);
+	const [check, setCheck] = useState(false);
 
 	const SaveTest = () => {
 		if (!testId || !testName || !testDuration || !noOfQuestions) {
@@ -128,7 +135,7 @@ const CreateTest = () => {
 		<div className={classes.root}>
 			{check ? (
 				<div className={classes.questionsDiv}>
-					<AddQuestions testID={testId} totalQuestions={noOfQuestions} />
+					<AddQuestions endTest={setCheck} testID={testId} totalQuestions={noOfQuestions} />
 				</div>
 			) : (
 				<div className={classes.testDiv}>
@@ -214,6 +221,9 @@ const CreateTest = () => {
 							onClick={() => SaveTest()}>
 							Save Test
 						</Button>
+						<Typography variant="inherit" color="primary" className={classes.forgot}>
+							Add more <span style={{ color: "#0F7DC2", cursor: "pointer" }}>Questions?</span>
+						</Typography>
 					</Paper>
 				</div>
 			)}

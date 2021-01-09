@@ -26,6 +26,7 @@ router.put("/attempted-test", requireStudent, (req, res) => {
 			return console.log(err);
 		});
 });
+
 router.get("/test-result/:resultid", requireStudent, (req, res) => {
 	SubmitTest.findById(req.params.resultid)
 		.populate("testDetails")
@@ -37,11 +38,17 @@ router.get("/test-result/:resultid", requireStudent, (req, res) => {
 		});
 });
 
-{
-	/* not completed yet */
-}
-router.put("/editprofile", requireStudent, (req, res) => {
-	Student.findByIdAndUpdate(req.student._id, {});
+router.put("/api/updateprofile-picture", requireStudent, (req, res) => {
+	Student.findByIdAndUpdate(
+		req.student._id,
+		{ $set: { picture: req.body.picture } },
+		{ new: true }
+	).exec((err, result) => {
+		if (err) {
+			return res.status(422).json({ error: "Cant upload photo" });
+		}
+		res.json({ message: "Successfully updated!" });
+	});
 });
 
 router.post("/submit-Test", requireStudent, (req, res) => {

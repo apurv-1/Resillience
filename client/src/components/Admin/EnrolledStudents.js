@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import { Paper, Button, TablePagination } from "@material-ui/core";
-
+import AccountBoxIcon from "@material-ui/icons/AccountBox";
 // import TextField from "@material-ui/core/TextField";
 // import Autocomplete from "@material-ui/lab/Autocomplete";
 // import Loading from "../Tests/Loading";
@@ -73,6 +73,16 @@ const useStyles = makeStyles((theme) => ({
 		display: "flex",
 		justifyContent: "center",
 	},
+	span: {
+		cursor: "pointer",
+		padding: "10px 40px",
+		borderRadius: "5px",
+		fontWeight: "bold",
+		alignContent: "center",
+		backgroundColor: "#0F7DC2",
+		border: "2px solid #ececec",
+		color: "#F8F8F8",
+	},
 }));
 
 export default function EnrolledStudents() {
@@ -111,7 +121,7 @@ export default function EnrolledStudents() {
 			})
 				.then((res) => res.json())
 				.then((allstudents) => {
-					console.log(allstudents.students);
+					// console.log(allstudents.students);
 					setStudents(allstudents.students);
 				})
 				.catch((err) => {
@@ -194,6 +204,7 @@ export default function EnrolledStudents() {
 							<StyledTableCell align="right">No. of given Tests</StyledTableCell>
 							<StyledTableCell align="right">Contact</StyledTableCell>
 							<StyledTableCell align="right">Enrolled On</StyledTableCell>
+							<StyledTableCell align="right"> &nbsp; </StyledTableCell>
 							{/* <StyledTableCell align="right">&nbsp;</StyledTableCell> */}
 						</TableRow>
 					</TableHead>
@@ -201,16 +212,13 @@ export default function EnrolledStudents() {
 						{students.length > 0 &&
 							students
 								.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-								.map(({ name, email, batch, attemptedTests, contact, createdAt }, index) => (
+								.map(({ _id, name, email, batch, attemptedTests, contact, createdAt }, index) => (
 									<StyledTableRow key={index}>
 										<StyledTableCell component="th" scope="row">
 											{index + 1}
 										</StyledTableCell>
 										<StyledTableCell component="th" scope="row">
 											{name}
-											{/* <Link style={{ color: "black", textDecoration: "none" }} to={"/admin-dashboard/" + _id}>
-													
-												</Link> */}
 										</StyledTableCell>
 										<StyledTableCell component="th" scope="row" align="right">
 											{email}
@@ -226,6 +234,16 @@ export default function EnrolledStudents() {
 										</StyledTableCell>
 										<StyledTableCell component="th" scope="row" align="right">
 											{dayjs(createdAt).format("hh:mma MMM YY")}
+										</StyledTableCell>
+										<StyledTableCell component="th" scope="row" align="right">
+											<Link style={{ color: "black", textDecoration: "none" }} to={"/students/" + _id}>
+												<span className={classes.span}>
+													{/* <AccountBoxIcon
+														style={{ marginLeft: "-25px", marginTop: "-2px", position: "absolute" }}
+													/> */}
+													Profile
+												</span>
+											</Link>
 										</StyledTableCell>
 										{/* <StyledTableCell
 										component="th"

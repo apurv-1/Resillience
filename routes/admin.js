@@ -3,7 +3,7 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const Admin = mongoose.model("Admin");
 const Student = mongoose.model("Student");
-const User = mongoose.model("User");
+const SubmitTest = mongoose.model("SubmitTest");
 const requireAdmin = require("../middleware/requireAdmin");
 
 router.get("/admin-profile", requireAdmin, (req, res) => {
@@ -28,20 +28,8 @@ router.get("/enrolled-students", requireAdmin, (req, res) => {
 		});
 });
 
-router.get("/users", (req, res) => {
-	User.find()
-		.sort("-createdAt")
-		.select("picture name")
-		.then((users) => {
-			res.json({ users });
-		})
-		.catch((err) => {
-			console.log(err);
-		});
-});
-
-router.get("/admin/:studentId", (req, res) => {
-	Student.findById(req.params.studentId)
+router.get("/student/:studentid", requireAdmin, (req, res) => {
+	Student.findById(req.params.studentid)
 		.select("-password")
 		.then((student) => {
 			res.json({ student });
@@ -51,14 +39,25 @@ router.get("/admin/:studentId", (req, res) => {
 		});
 });
 
-router.get("/admin/user/:userId", (req, res) => {
-	User.findById(req.params.userId)
-		.select("-password")
-		.then((user) => {
-			res.json({ user });
+router.get("/attempted-tests/:studentid", requireAdmin, (req, res) => {
+	SubmitTest.find({ studentDetails: req.params.studentid })
+		.populate("testDetails", "testId testName")
+		.sort("-createdAt")
+		.then((test) => {
+			res.json({ test });
 		})
 		.catch((err) => {
 			console.log(err);
+		});
+});
+router.get("/attemptedtest-result/:resultid", requireAdmin, (req, res) => {
+	SubmitTest.findById(req.params.resultid)
+		.populate("testDetails")
+		.then((details) => {
+			return res.json({ details });
+		})
+		.catch((err) => {
+			return console.log(err);
 		});
 });
 

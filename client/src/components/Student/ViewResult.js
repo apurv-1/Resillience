@@ -111,6 +111,25 @@ const ViewResult = () => {
 				.catch((err) => {
 					console.log(err);
 				});
+		} else if (localStorage.getItem("admin_jwt")) {
+			fetch(`/attemptedtest-result/${resultid}`, {
+				method: "get",
+				headers: {
+					Authorization: "Bearer " + localStorage.getItem("admin_jwt"),
+				},
+			})
+				.then((res) => res.json())
+				.then((testDetails) => {
+					// console.log(testDetails);
+					setTest(testDetails.details.testDetails);
+					setSelectedAnswers(testDetails.details.selectedOptions);
+					setTimeElapsed(testDetails.details.timePerQuestion);
+					setIsVisited(testDetails.details.visitedQuestion);
+					setQuestions(testDetails.details.testDetails.questions);
+				})
+				.catch((err) => {
+					console.log(err);
+				});
 		} else {
 			history.push("/");
 		}

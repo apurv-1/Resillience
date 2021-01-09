@@ -121,7 +121,7 @@ const StyledTableRow = withStyles((theme) => ({
 	},
 }))(TableRow);
 
-const AddQuestions = ({ testID, totalQuestions }) => {
+const AddQuestions = ({ testID, totalQuestions, endTest }) => {
 	const classes = useStyles();
 	toast.configure();
 	const history = useHistory();
@@ -143,12 +143,24 @@ const AddQuestions = ({ testID, totalQuestions }) => {
 
 	const [questionUrl, setQuestionUrl] = useState("");
 
-	// const [error, setError] = useState("");
-
-	// console.log("total ", totalQuestions);
+	// let physics = [0];
+	// let chemistry = [0];
+	// let maths = [0];
+	// // let [error, setError] = useState("");
+	// // console.log(physics, chemistry, maths);
+	// if (subject === "Physics") {
+	// 	physics.push(1);
+	// }
+	// if (subject === "Chemistry") {
+	// 	chemistry.push(questionNumber);
+	// }
+	// if (subject === "Maths") {
+	// 	maths.push(questionNumber);
+	// }
+	// console.log(endTest);
 	/* eslint-disable */
 	useEffect(() => {
-		if (!subject || !correct || questionUrl) {
+		if (questionUrl) {
 			fetch("/add-question", {
 				method: "put",
 				headers: {
@@ -185,6 +197,7 @@ const AddQuestions = ({ testID, totalQuestions }) => {
 							pauseOnHover: true,
 							draggable: false,
 						});
+
 						setQuestionNumber(1 + questionNumber);
 						setCorrect("");
 						setQuestionImg("");
@@ -216,8 +229,9 @@ const AddQuestions = ({ testID, totalQuestions }) => {
 				pauseOnHover: true,
 				draggable: false,
 			});
+			// endTest(false);
 			// location.reload();
-			history.push("/createtest");
+			// history.push("/createtest");
 		} else if (!questionNumber || !questionType || !questionImg || !subject || !correct) {
 			window.onbeforeunload = function () {
 				return "Test won't be saved, Are you sure?";
@@ -416,7 +430,7 @@ const AddQuestions = ({ testID, totalQuestions }) => {
 						<TableBody>
 							<StyledTableRow>
 								<StyledTableCell component="th" scope="row">
-									{questionNumber}
+									{questionNumber}/{totalQuestions}
 								</StyledTableCell>
 								<StyledTableCell component="th" scope="row" align="center">
 									{questionPreview ? (

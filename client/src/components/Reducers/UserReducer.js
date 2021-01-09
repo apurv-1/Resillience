@@ -16,25 +16,15 @@ export const userReducer = (state, action) => {
 				...state,
 				userType: action.userType,
 			};
-		case CLEAR:
-			return "";
 		case SET_ADMIN:
 			return {
 				...state,
 				payload: action.payload,
 			};
+		case CLEAR:
+			return "";
+
 		default:
 			return state;
 	}
-	// if (action.type === "STUDENT") {
-	// 	console.log(action);
-	// 	return action.payload;
-	// }
-	// if (action.type === "CLEAR") {
-	// 	return null;
-	// }
-	// if (action.type === "ADMIN") {
-	// 	return action.payload;
-	// }
-	// return state;
 };

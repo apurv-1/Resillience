@@ -52,21 +52,22 @@ const useStyles = makeStyles({
 		width: "auto",
 	},
 	avatar: {
-		paddingTop: "10%",
-		margin: "0 auto",
-		padding: "5%",
-		height: "35%",
-		width: "35%",
+		height: "8rem",
+		width: "8rem",
+		boxShadow: "0 1px 3px 1px rgba(35, 34, 39)",
 	},
 	listitem: {
 		padding: "5%",
 	},
+
 	name: {
-		marginBottom: "8%",
-		fontWeight: "700",
-		fontSize: "20px",
+		margin: "5px",
+		marginBottom: "2rem",
+		display: "flex",
+		fontWeight: "bolder",
+		fontSize: "20",
 		color: "#000",
-		textAlign: "center",
+		justifyContent: "center",
 	},
 	button: {
 		paddingTop: "20%",
@@ -133,14 +134,18 @@ export default function SideNav() {
 							<h1 color="secondary" className={classes.resillience}>
 								RESILLIENCE
 							</h1>
-							<Avatar
-								alt="profile-pic"
-								src={userState.payload ? userState.payload.picture : <Loading />}
-								className={classes.avatar}
-							/>
-							<div className={classes.name}>
-								{userState.payload ? userState.payload.name : "loading..."}
+
+							<div className={classes.pic} style={{ display: "flex", justifyContent: "center" }}>
+								<Avatar
+									alt="profile-pic"
+									src={userState.payload ? userState.payload.picture : <Loading />}
+									className={classes.avatar}
+								/>
 							</div>
+
+							<Typography className={classes.name} variant="h5">
+								{userState.payload ? userState.payload.name : "loading..."}
+							</Typography>
 
 							<Link to="/student-dashboard" className={classes.link} onClick={() => setOpen(false)}>
 								<ListItem button key="Profile" className={classes.listitem}>

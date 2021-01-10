@@ -15,15 +15,16 @@ require("./models/test");
 require("./models/message");
 require("./models/submitTest");
 require("./models/couselling");
+require("./models/notice");
 require("./models/blogs");
 
 app.use(express.json({ limit: "50mb" }));
 app.use("/api", require("./routes/auth"));
 app.use("/api", require("./routes/student"));
-// app.use(require("./routes/questions"));
 app.use("/api", require("./routes/test"));
 app.use("/api", require("./routes/admin"));
 app.use("/api", require("./routes/blogs"));
+app.use("/api", require("./routes/notice"));
 
 mongoose.connect(MONGOURL, {
 	useNewUrlParser: true,

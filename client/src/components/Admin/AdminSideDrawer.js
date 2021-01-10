@@ -10,6 +10,7 @@ import {
 	ListItemIcon,
 	ListItemText,
 	Avatar,
+	Typography,
 } from "@material-ui/core";
 import DashboardRoundedIcon from "@material-ui/icons/DashboardRounded";
 import ClearAllRoundedIcon from "@material-ui/icons/ClearAllRounded";
@@ -17,7 +18,7 @@ import MenuBookRoundedIcon from "@material-ui/icons/MenuBookRounded";
 import WebRoundedIcon from "@material-ui/icons/WebRounded";
 import AddBoxRoundedIcon from "@material-ui/icons/AddBoxRounded";
 import BookmarksIcon from "@material-ui/icons/Bookmarks";
-import DataUsageIcon from "@material-ui/icons/DataUsage";
+//import DataUsageIcon from "@material-ui/icons/DataUsage";
 import { blue, red } from "@material-ui/core/colors";
 import UserContext from "../Context/UserContext";
 //dialog box
@@ -45,40 +46,36 @@ const useStyles = makeStyles({
 	},
 	list: {
 		width: 300,
-		// paddingTop: "20%",
 	},
 	fullList: {
 		width: "auto",
 	},
 	avatar: {
-		paddingTop: "15px",
-		margin: "0 auto",
-		padding: "5%",
-		height: "35%",
-		width: "35%",
+		margin: "10px",
+		height: "6rem",
+		width: "6rem",
+		boxShadow: "0 1px 3px 1px rgba(35, 34, 39)",
 	},
 	listitem: {
-		padding: "18px",
+		padding: "15px",
 	},
 	detailsDiv: {
 		textAlign: "center",
 		marginBottom: "1rem",
 	},
 	name: {
-		fontWeight: "700",
-		fontSize: "20px",
+		fontWeight: "200",
+		fontSize: "15",
 		color: "#000",
 	},
 	email: {
-		fontWeight: "700",
-		fontSize: "15",
+		fontWeight: "100",
+		fontSize: "18",
 		color: "#000",
 	},
 	button: {
 		paddingTop: "10%",
 		paddingRight: "35%",
-		// margin: "5%",
-		// position: "absolute",
 		textAlign: "center",
 	},
 	margin: {
@@ -135,81 +132,88 @@ export default function SideNav() {
 
 			<Drawer anchor={"right"} open={open} onClose={() => setOpen(false)}>
 				<div className={classes.list}>
-					<ThemeProvider theme={theme}>
-						<List>
-							<h1 color="secondary" className={classes.resillience}>
-								RESILLIENCE
-								<br /> ADMIN
-							</h1>
+					<List>
+						<Typography variant="h4" color="primary" className={classes.resillience}>
+							RESILLIENCE
+							<br />
+							ADMIN
+						</Typography>
+						<div className={classes.pic} style={{ display: "flex", justifyContent: "center" }}>
 							<Avatar
 								alt="profile-pic"
 								src="https://res.cloudinary.com/rweb1/image/upload/v1599639734/resilience_default_lqmb3p.png"
 								className={classes.avatar}
 							/>
-							<div className={classes.detailsDiv}>
-								<span className={classes.name}>
-									{userState.payload ? userState.payload.name : "loading..."}
-								</span>
-								<br />
-								<span className={classes.email}>
-									{userState.payload ? userState.payload.email : "loading..."}
-								</span>
-							</div>
+						</div>
+						<div className={classes.detailsDiv}>
+							<Typography variant="h5" className={classes.name}>
+								{userState.payload ? userState.payload.name : "loading..."}
+							</Typography>
+							<span className={classes.email}>
+								{userState.payload ? userState.payload.email : "loading..."}
+							</span>
+						</div>
+						<Link to="/admin-dashboard" className={classes.link} onClick={() => setOpen(false)}>
+							<ListItem button key="Profile" className={classes.listitem}>
+								<ListItemIcon>
+									<BookmarksIcon />
+								</ListItemIcon>
 
-							<Link to="/admin-dashboard" className={classes.link} onClick={() => setOpen(false)}>
-								<ListItem button key="Profile" className={classes.listitem}>
-									<ListItemIcon>
-										<BookmarksIcon />
-									</ListItemIcon>
+								<ListItemText>All Tests</ListItemText>
+							</ListItem>
+						</Link>
+						<Divider />
+						<Link to="/students" className={classes.link} onClick={() => setOpen(false)}>
+							<ListItem button key="Profile" className={classes.listitem}>
+								<ListItemIcon>
+									<DashboardRoundedIcon />
+								</ListItemIcon>
 
-									<ListItemText>All Tests</ListItemText>
-								</ListItem>
-							</Link>
-							<Link to="/students" className={classes.link} onClick={() => setOpen(false)}>
-								<ListItem button key="Profile" className={classes.listitem}>
-									<ListItemIcon>
-										<DashboardRoundedIcon />
-									</ListItemIcon>
+								<ListItemText>Enrolled Students</ListItemText>
+							</ListItem>
+						</Link>
 
-									<ListItemText>Enrolled Students</ListItemText>
-								</ListItem>
-							</Link>
+						<Divider />
+						<Link to="/createtest" className={classes.link} onClick={() => setOpen(false)}>
+							<ListItem button key="Test" className={classes.listitem}>
+								<ListItemIcon>
+									<MenuBookRoundedIcon />
+								</ListItemIcon>
 
-							<Divider />
-							<Link to="/createtest" className={classes.link} onClick={() => setOpen(false)}>
-								<ListItem button key="Test" className={classes.listitem}>
-									<ListItemIcon>
-										<MenuBookRoundedIcon />
-									</ListItemIcon>
+								<ListItemText>Create Test</ListItemText>
+							</ListItem>
+						</Link>
+						<Divider />
 
-									<ListItemText>Create Test</ListItemText>
-								</ListItem>
-							</Link>
-							<Divider />
+						<Link to="/admin/createblogs" className={classes.link} onClick={() => setOpen(false)}>
+							<ListItem button key="Blogs" className={classes.listitem}>
+								<ListItemIcon>
+									<WebRoundedIcon />
+								</ListItemIcon>
 
-							<Link to="/admin/createblogs" className={classes.link} onClick={() => setOpen(false)}>
-								<ListItem button key="Blogs" className={classes.listitem}>
-									<ListItemIcon>
-										<WebRoundedIcon />
-									</ListItemIcon>
-
-									<ListItemText>Create Blogs</ListItemText>
-								</ListItem>
-							</Link>
-							<Divider />
-							<Link to="/enroll-student" className={classes.link} onClick={() => setOpen(false)}>
-								<ListItem
-									button
-									key="Downloads"
-									className={classes.listitem}
-									onClick={() => setOpen(false)}>
-									<ListItemIcon>
-										<AddBoxRoundedIcon />
-									</ListItemIcon>
-									<ListItemText>Enroll Student</ListItemText>
-								</ListItem>
-							</Link>
-							<Divider />
+								<ListItemText>Create Blogs</ListItemText>
+							</ListItem>
+						</Link>
+						<Divider />
+						<Link to="/enroll-student" className={classes.link} onClick={() => setOpen(false)}>
+							<ListItem button key="Enroll" className={classes.listitem} onClick={() => setOpen(false)}>
+								<ListItemIcon>
+									<AddBoxRoundedIcon />
+								</ListItemIcon>
+								<ListItemText>Enroll Student</ListItemText>
+							</ListItem>
+						</Link>
+						<Divider />
+						<Link to="/admin/postnotice" className={classes.link} onClick={() => setOpen(false)}>
+							<ListItem button key="Notice" className={classes.listitem} onClick={() => setOpen(false)}>
+								<ListItemIcon>
+									<AddBoxRoundedIcon />
+								</ListItemIcon>
+								<ListItemText>Post Notice</ListItemText>
+							</ListItem>
+						</Link>
+						<Divider />
+						<ThemeProvider theme={theme}>
 							<div className={classes.button}>
 								<Button
 									variant="contained"
@@ -218,6 +222,7 @@ export default function SideNav() {
 									onClick={() => setSignOut(true)}>
 									Sign Out
 								</Button>
+
 								<Dialog open={signOut} onClose={() => setSignOut(false)} aria-labelledby="dialog-title">
 									<DialogTitle id="dialog-title">Confirm sign out, are you sure?</DialogTitle>
 
@@ -231,8 +236,8 @@ export default function SideNav() {
 									</DialogActions>
 								</Dialog>
 							</div>
-						</List>
-					</ThemeProvider>
+						</ThemeProvider>
+					</List>
 				</div>
 			</Drawer>
 		</div>

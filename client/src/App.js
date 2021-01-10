@@ -46,6 +46,7 @@ const MainTest = lazy(() => import("./components/Tests/MainTest"));
 const EnrollNewStudent = lazy(() => import("./components/Admin/EnrollNewStudent"));
 const EnrolledStudents = lazy(() => import("./components/Admin/EnrolledStudents"));
 const AdminSignIn = lazy(() => import("./components/Admin/AdminSignIn"));
+const PostNotice = lazy(() => import("./components/Admin/PostNotice"));
 const ActiveTests = lazy(() => import("./components/Admin/ActiveTests"));
 const ViewQuestions = lazy(() => import("./components/Admin/ViewQuestions"));
 const Student = lazy(() => import("./components/Admin/StudentProfileDashboard"));
@@ -112,6 +113,10 @@ const CareerComponent = withTitle({
 const PostBlogComponent = withTitle({
 	component: PostBlog,
 	title: "Post Blog | RESILLIENCE",
+});
+const PostNoticeComponent = withTitle({
+	component: PostNotice,
+	title: "Post Notice | RESILLIENCE",
 });
 const ShowBlogsComponent = withTitle({
 	component: ShowBlogs,
@@ -243,7 +248,8 @@ const Routing = () => {
 			<Route path="/admin0p-signin" component={AdminSignIn} />
 			<Route exact path="/admin-dashboard" component={ActiveTestsComponent} />
 			<Route exact path="/admin-dashboard/:testid" component={ViewQuestionsComponent} />
-			<Route path="/admin/createblogs" component={PostBlogComponent} />
+			<Route exact path="/admin/createblogs" component={PostBlogComponent} />
+			<Route exact path="/admin/postnotice" component={PostNoticeComponent} />
 			<Route path="/enroll-student" component={EnrollNewStudentComponent} />
 			<Route exact path="/students" component={EnrolledStudentsComponent} />
 			<Route exact path="/students/:studentid" component={Student} />

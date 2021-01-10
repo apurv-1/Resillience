@@ -91,9 +91,10 @@ const ViewResult = () => {
 	const [type, setType] = useState("");
 	const [cSubject, setcSubject] = useState("");
 
+	/* eslint-disable */
 	useEffect(() => {
 		if (localStorage.getItem("student_jwt")) {
-			fetch(`/test-result/${resultid}`, {
+			fetch(`/api/test-result/${resultid}`, {
 				method: "get",
 				headers: {
 					Authorization: "Bearer " + localStorage.getItem("student_jwt"),
@@ -112,7 +113,7 @@ const ViewResult = () => {
 					console.log(err);
 				});
 		} else if (localStorage.getItem("admin_jwt")) {
-			fetch(`/attemptedtest-result/${resultid}`, {
+			fetch(`/api/attemptedtest-result/${resultid}`, {
 				method: "get",
 				headers: {
 					Authorization: "Bearer " + localStorage.getItem("admin_jwt"),

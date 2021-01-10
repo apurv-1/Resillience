@@ -10,25 +10,20 @@ const { MONGOURL } = require("./config/keys");
 
 //models
 require("./models/admin");
-require("./models/user");
 require("./models/student");
 require("./models/test");
-require("./models/questions");
 require("./models/message");
 require("./models/submitTest");
 require("./models/couselling");
 require("./models/blogs");
 
 app.use(express.json({ limit: "50mb" }));
-app.use(require("./routes/auth"));
-app.use(require("./routes/student"));
+app.use("/api", require("./routes/auth"));
+app.use("/api", require("./routes/student"));
 // app.use(require("./routes/questions"));
-app.use(require("./routes/test"));
-app.use(require("./routes/admin"));
-app.use(require("./routes/blogs"));
-
-//twilio
-app.use(require("./routes/verification"));
+app.use("/api", require("./routes/test"));
+app.use("/api", require("./routes/admin"));
+app.use("/api", require("./routes/blogs"));
 
 mongoose.connect(MONGOURL, {
 	useNewUrlParser: true,

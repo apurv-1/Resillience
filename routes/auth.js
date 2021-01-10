@@ -6,7 +6,6 @@ const mongoose = require("mongoose");
 
 //models
 const Admin = mongoose.model("Admin");
-const User = mongoose.model("User");
 const Student = mongoose.model("Student");
 const Message = mongoose.model("Message");
 const Test = mongoose.model("Test");
@@ -17,7 +16,6 @@ const jwt = require("jsonwebtoken");
 const { JWT_ADMIN, JWT_STUDENT } = require("../config/keys");
 
 //middlewares
-const requireUser = require("../middleware/requireUser");
 const requireStudent = require("../middleware/requireStudent");
 const requireAdmin = require("../middleware/requireAdmin");
 
@@ -153,10 +151,6 @@ router.post("/student-signup", (req, res) => {
 		fname,
 		address,
 		picture,
-		phy,
-		chem,
-		math,
-		bio,
 		attemptedTests,
 	} = req.body;
 	if (!name) {
@@ -186,10 +180,6 @@ router.post("/student-signup", (req, res) => {
 				fname,
 				address,
 				picture,
-				phy,
-				chem,
-				math,
-				bio,
 				attemptedTests,
 			});
 
@@ -280,10 +270,6 @@ router.post("/student-signin", (req, res) => {
 						fname,
 						address,
 						picture,
-						phy,
-						chem,
-						math,
-						bio,
 					} = savedStudent;
 					res.json({
 						token,
@@ -297,10 +283,6 @@ router.post("/student-signin", (req, res) => {
 							fname,
 							address,
 							picture,
-							phy,
-							chem,
-							math,
-							bio,
 						},
 						message: "Signin Successful!",
 					});

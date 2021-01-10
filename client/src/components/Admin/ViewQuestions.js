@@ -3,11 +3,6 @@ import { useHistory, useParams } from "react-router-dom";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import { Paper } from "@material-ui/core";
 
-// import TextField from "@material-ui/core/TextField";
-// import Autocomplete from "@material-ui/lab/Autocomplete";
-// import Loading from "../Tests/Loading";
-// import UserContext from "../Context/UserContext";
-
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -57,9 +52,10 @@ export default function ViewQuestions() {
 	const { testid } = useParams();
 	const [questions, setQuestions] = useState([]);
 
+	/* eslint-disable */
 	useEffect(() => {
 		if (localStorage.getItem("admin_jwt")) {
-			fetch(`/alltests/${testid}`, {
+			fetch(`/api/alltests/${testid}`, {
 				method: "get",
 				headers: {
 					Authorization: "Bearer " + localStorage.getItem("admin_jwt"),
@@ -77,9 +73,6 @@ export default function ViewQuestions() {
 			history.push("/");
 		}
 	}, []);
-	// console.log(testid);
-	//
-	// 	const { name, email, batch, contact, fname, parentContact, address } = userState.payload;
 
 	return (
 		<div className={classes.root}>

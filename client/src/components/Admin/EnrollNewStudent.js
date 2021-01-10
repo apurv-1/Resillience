@@ -11,11 +11,9 @@ import {
 import SaveIcon from "@material-ui/icons/Save";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// +import ShowTest from "./ShowTestComponent";
 
 const useStyles = makeStyles(() => ({
-	root: {},
-	testDiv: {
+	root: {
 		marginTop: "5rem",
 		display: "flex",
 		justifyContent: "center",
@@ -30,6 +28,9 @@ const useStyles = makeStyles(() => ({
 	},
 	textField: {
 		margin: "5px",
+	},
+	addressField: {
+		margin: "13px",
 	},
 	button: {
 		margin: "1rem",
@@ -72,10 +73,12 @@ const EnrollNewStudent = () => {
 				draggable: false,
 			});
 		} else {
-			fetch("/student-signup", {
+			//api call for student signup
+			fetch("/api/student-signup", {
 				method: "post",
 				headers: {
 					"Content-Type": "application/json",
+					Authorization: "Bearer " + localStorage.getItem("admin_jwt"),
 				},
 				body: JSON.stringify({
 					name,
@@ -135,115 +138,106 @@ const EnrollNewStudent = () => {
 
 	return (
 		<div className={classes.root}>
-			<div className={classes.testDiv}>
-				<Paper elevation={5} className={classes.paper}>
-					<Typography variant="h4">Enroll New Student</Typography>
-					<br />
-					<div>
-						<TextField
-							id="name"
-							label="Name"
-							variant="outlined"
-							className={classes.textField}
-							value={name}
-							type="text"
-							onChange={(e) => setName(e.target.value)}
-						/>
-						<TextField
-							id="email"
-							label="Email"
-							variant="outlined"
-							className={classes.textField}
-							value={email}
-							onChange={(e) => setEmail(e.target.value)}
-						/>
-					</div>
-					<div>
-						<TextField
-							id="password"
-							label="Password"
-							variant="outlined"
-							className={classes.textField}
-							value={password}
-							type="password"
-							onChange={(e) => setPassword(e.target.value)}
-						/>
-						<TextField
-							id="confirm-password"
-							label="Confirm Password"
-							variant="outlined"
-							className={classes.textField}
-							value={confirmPassword}
-							type="password"
-							onChange={(e) => setConfirmPassword(e.target.value)}
-						/>
-					</div>
-					<div>
-						<TextField
-							id="batch"
-							label="Batch"
-							variant="outlined"
-							className={classes.textField}
-							value={batch}
-							onChange={(e) => setBatch(e.target.value)}
-						/>
-						<TextField
-							id="contact"
-							label="Phone Number"
-							variant="outlined"
-							className={classes.textField}
-							value={contact}
-							type="text"
-							onChange={(e) => setContact(e.target.value)}
-						/>
-					</div>
-					<div>
-						<TextField
-							id="fname"
-							label="Fathers Name"
-							variant="outlined"
-							className={classes.textField}
-							value={fname}
-							type="text"
-							onChange={(e) => setFname(e.target.value)}
-						/>
-						<TextField
-							id="parents-contact"
-							label="Parent Contact Number"
-							variant="outlined"
-							className={classes.textField}
-							value={parentContact}
-							type="text"
-							onChange={(e) => setParentContact(e.target.value)}
-						/>
-					</div>
-					<TextareaAutosize
-						aria-label="empty textarea"
-						placeholder="Address"
-						className={classes.textField}
-						value={address}
-						type="text"
-						onChange={(e) => setAddress(e.target.value)}
-					/>
-					{/* <TextField
-						id="address"
-						label="Address"
+			<Paper elevation={5} className={classes.paper}>
+				<Typography variant="h4">Enroll New Student 🤵</Typography>
+				<br />
+				<div>
+					<TextField
+						id="name"
+						label="Name"
 						variant="outlined"
 						className={classes.textField}
-						value={address}
+						value={name}
 						type="text"
-						onChange={(e) => setAddress(e.target.value)}
-					/> */}
-					<Button
-						variant="contained"
-						color="primary"
-						className={classes.button}
-						startIcon={<SaveIcon />}
-						onClick={() => EnrollStudent()}>
-						Enroll
-					</Button>
-				</Paper>
-			</div>
+						onChange={(e) => setName(e.target.value)}
+					/>
+					<TextField
+						id="email"
+						label="Email"
+						variant="outlined"
+						className={classes.textField}
+						value={email}
+						onChange={(e) => setEmail(e.target.value)}
+					/>
+				</div>
+				<div>
+					<TextField
+						id="password"
+						label="Password"
+						variant="outlined"
+						className={classes.textField}
+						value={password}
+						type="password"
+						onChange={(e) => setPassword(e.target.value)}
+					/>
+					<TextField
+						id="confirm-password"
+						label="Confirm Password"
+						variant="outlined"
+						className={classes.textField}
+						value={confirmPassword}
+						type="password"
+						onChange={(e) => setConfirmPassword(e.target.value)}
+					/>
+				</div>
+				<div>
+					<TextField
+						id="batch"
+						label="Batch"
+						variant="outlined"
+						className={classes.textField}
+						value={batch}
+						onChange={(e) => setBatch(e.target.value)}
+					/>
+					<TextField
+						id="contact"
+						label="Phone Number"
+						variant="outlined"
+						className={classes.textField}
+						value={contact}
+						type="text"
+						onChange={(e) => setContact(e.target.value)}
+					/>
+				</div>
+				<div>
+					<TextField
+						id="fname"
+						label="Fathers Name"
+						variant="outlined"
+						className={classes.textField}
+						value={fname}
+						type="text"
+						onChange={(e) => setFname(e.target.value)}
+					/>
+					<TextField
+						id="parents-contact"
+						label="Parent Contact Number"
+						variant="outlined"
+						className={classes.textField}
+						value={parentContact}
+						type="text"
+						onChange={(e) => setParentContact(e.target.value)}
+					/>
+				</div>
+
+				<TextareaAutosize
+					aria-label="empty textarea"
+					placeholder="Address"
+					className={classes.addressField}
+					rowsMin={3}
+					value={address}
+					type="text"
+					onChange={(e) => setAddress(e.target.value)}
+				/>
+				<Button
+					variant="contained"
+					color="primary"
+					className={classes.button}
+					startIcon={<SaveIcon />}
+					onClick={() => EnrollStudent()}>
+					Enroll
+				</Button>
+			</Paper>
 		</div>
 	);
 };

@@ -24,10 +24,6 @@ const studentSchema = new mongoose.Schema(
 			default:
 				"https://res.cloudinary.com/rweb1/image/upload/v1599639734/resilience_default_lqmb3p.png",
 		},
-		phy: [{ type: ObjectId, ref: "Admin" }],
-		chem: [{ type: ObjectId, ref: "Admin" }],
-		math: [{ type: ObjectId, ref: "Admin" }],
-		bio: [{ type: ObjectId, ref: "Admin" }],
 		attemptedTests: [{ type: ObjectId, ref: "Test" }],
 		resetToken: String,
 		expireToken: Date,

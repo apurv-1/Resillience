@@ -36,7 +36,7 @@ router.delete("/delete-test/:testid", requireAdmin, (req, res) => {
 		});
 });
 
-router.post("/addtest", requireAdmin, (req, res) => {
+router.post("/createtest", requireAdmin, (req, res) => {
 	const {
 		testId,
 		testName,

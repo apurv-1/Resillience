@@ -34,6 +34,9 @@ const useStyles = makeStyles(() => ({
 	testField: {
 		margin: "5px",
 	},
+	marksField: {
+		margin: "12px",
+	},
 	button: {
 		margin: "5px",
 	},
@@ -77,7 +80,7 @@ const CreateTest = () => {
 				draggable: false,
 			});
 		} else {
-			fetch("/addtest", {
+			fetch("/api/createtest", {
 				method: "post",
 				headers: {
 					"Content-Type": "application/json",
@@ -140,7 +143,7 @@ const CreateTest = () => {
 			) : (
 				<div className={classes.testDiv}>
 					<Paper elevation={5} className={classes.paper}>
-						<Typography variant="h4">Create Test</Typography>
+						<Typography variant="h4">Create a New Test 📋🖍</Typography>
 
 						<TextField
 							id="test-id"
@@ -177,26 +180,26 @@ const CreateTest = () => {
 							type="number"
 							onChange={(e) => setTestDuration(e.target.value)}
 						/>
-
-						<TextField
-							id="test-duration"
-							label="For Correct"
-							variant="outlined"
-							className={classes.testField}
-							value={forCorrect}
-							type="number"
-							onChange={(e) => setForCorrect(e.target.value)}
-						/>
-						<TextField
-							id="test-duration"
-							label="For InCorrect"
-							variant="outlined"
-							className={classes.testField}
-							value={forInCorrect}
-							type="number"
-							onChange={(e) => setForInCorrect(e.target.value)}
-						/>
-
+						<div>
+							<TextField
+								id="number"
+								label="For Correct"
+								variant="outlined"
+								className={classes.marksField}
+								value={forCorrect}
+								type="number"
+								onChange={(e) => setForCorrect(e.target.value)}
+							/>
+							<TextField
+								id="number"
+								label="For InCorrect"
+								variant="outlined"
+								className={classes.marksField}
+								value={forInCorrect}
+								type="number"
+								onChange={(e) => setForInCorrect(e.target.value)}
+							/>
+						</div>
 						<div className={classes.testField}>
 							<FormControl className={classes.testField}>
 								<Select

@@ -92,7 +92,7 @@ const AttemptedTest = () => {
 	const [attemptedTests, setAttemptedTests] = useState([]);
 
 	useEffect(() => {
-		fetch("/attempted-tests", {
+		fetch("/api/attempted-tests", {
 			method: "get",
 			headers: {
 				Authorization: "Bearer " + localStorage.getItem("student_jwt"),

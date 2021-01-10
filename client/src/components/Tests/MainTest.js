@@ -73,7 +73,7 @@ const MainTest = () => {
 
 	const fetchTest = () => {
 		if (testId !== "") {
-			fetch(`/fetchtest?testid=${testId}`, {
+			fetch(`/api/fetchtest?testid=${testId}`, {
 				method: "get",
 				headers: {
 					Authorization: "Bearer " + localStorage.getItem("student_jwt"),

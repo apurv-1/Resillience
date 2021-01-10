@@ -40,7 +40,7 @@ const StartPage = () => {
 			}
 		}
 		if (flag === true) {
-			fetch("/attempted-test", {
+			fetch("/api/attempted-test", {
 				method: "put",
 				headers: {
 					"Content-Type": "application/json",

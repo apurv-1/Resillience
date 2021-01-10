@@ -21,7 +21,7 @@ const TimerComponent = () => {
 	// const history = useHistory();
 
 	const { state, dispatch } = useContext(TestContext);
-	const { test, showResult, isStarted } = state;
+	const { test, showResult } = state;
 	let interval = useRef();
 	let timeRemaining = test.testDuration;
 	const [testDuration, setTestDuration] = useState(timeRemaining);

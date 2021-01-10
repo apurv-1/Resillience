@@ -13,9 +13,6 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-// import Maintest from "../Tests/MainTest";
-// import Loading from "../Tests/Loading";
-// import UserContext from "../Context/UserContext";
 import ShowAttemptedTest from "./ShowAttemptedTest";
 
 const useStyles = makeStyles((theme) => ({
@@ -69,11 +66,12 @@ export default function StudentProfileDashboard() {
 	const [student, setStudent] = useState([]);
 	const [attemptedTests, setAttemptedTests] = useState([]);
 
+	/* eslint-disable */
 	useEffect(() => {
 		if (!student) {
 			history.push("/");
 		}
-		fetch(`/student/${studentid}`, {
+		fetch(`/api/student/${studentid}`, {
 			method: "get",
 			headers: {
 				Authorization: "Bearer " + localStorage.getItem("admin_jwt"),
@@ -87,7 +85,7 @@ export default function StudentProfileDashboard() {
 				console.log(err);
 			});
 
-		fetch(`/attempted-tests/${studentid}`, {
+		fetch(`/api/attempted-tests/${studentid}`, {
 			method: "get",
 			headers: {
 				Authorization: "Bearer " + localStorage.getItem("admin_jwt"),

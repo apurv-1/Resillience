@@ -145,7 +145,7 @@ const KeysComponent = () => {
 			showResult: true,
 		});
 		if (localStorage.getItem("student_jwt")) {
-			fetch("/submit-Test", {
+			fetch("/api/submit-Test", {
 				method: "post",
 				headers: {
 					"Content-Type": "application/json",

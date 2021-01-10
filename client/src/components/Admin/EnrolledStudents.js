@@ -2,18 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import { Paper, Button, TablePagination } from "@material-ui/core";
-import AccountBoxIcon from "@material-ui/icons/AccountBox";
-// import TextField from "@material-ui/core/TextField";
-// import Autocomplete from "@material-ui/lab/Autocomplete";
-// import Loading from "../Tests/Loading";
-// import UserContext from "../Context/UserContext";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import dayjs from "dayjs";
 
 // import { Dialog, DialogActions, DialogTitle } from "@material-ui/core";
-// import AddQuestions from "../Tests/CreateTest/AddQuestionsComponent";
 
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -21,9 +15,6 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-
-// import EditIcon from "@material-ui/icons/Edit";
-// import DeleteForeverIcon from "@material-ui/icons/Delete";
 
 const StyledTableCell = withStyles((theme) => ({
 	head: {
@@ -111,9 +102,10 @@ export default function EnrolledStudents() {
 		setPage(0);
 	};
 
+	/* eslint-disable */
 	useEffect(() => {
 		if (localStorage.getItem("admin_jwt")) {
-			fetch("/enrolled-students", {
+			fetch("/api/enrolled-students", {
 				method: "get",
 				headers: {
 					Authorization: "Bearer " + localStorage.getItem("admin_jwt"),

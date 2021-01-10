@@ -16,6 +16,8 @@ import ClearAllRoundedIcon from "@material-ui/icons/ClearAllRounded";
 import MenuBookRoundedIcon from "@material-ui/icons/MenuBookRounded";
 import WebRoundedIcon from "@material-ui/icons/WebRounded";
 import AddBoxRoundedIcon from "@material-ui/icons/AddBoxRounded";
+import BookmarksIcon from "@material-ui/icons/Bookmarks";
+import DataUsageIcon from "@material-ui/icons/DataUsage";
 import { blue, red } from "@material-ui/core/colors";
 import UserContext from "../Context/UserContext";
 //dialog box
@@ -69,7 +71,7 @@ const useStyles = makeStyles({
 	},
 	email: {
 		fontWeight: "700",
-		fontSize: "15px",
+		fontSize: "15",
 		color: "#000",
 	},
 	button: {
@@ -157,10 +159,10 @@ export default function SideNav() {
 							<Link to="/admin-dashboard" className={classes.link} onClick={() => setOpen(false)}>
 								<ListItem button key="Profile" className={classes.listitem}>
 									<ListItemIcon>
-										<DashboardRoundedIcon />
+										<BookmarksIcon />
 									</ListItemIcon>
 
-									<ListItemText>Active Tests</ListItemText>
+									<ListItemText>All Tests</ListItemText>
 								</ListItem>
 							</Link>
 							<Link to="/students" className={classes.link} onClick={() => setOpen(false)}>
@@ -169,7 +171,7 @@ export default function SideNav() {
 										<DashboardRoundedIcon />
 									</ListItemIcon>
 
-									<ListItemText>EnrolledStudents</ListItemText>
+									<ListItemText>Enrolled Students</ListItemText>
 								</ListItem>
 							</Link>
 

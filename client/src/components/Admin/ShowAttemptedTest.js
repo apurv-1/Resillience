@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
 	makeStyles,
@@ -90,26 +90,6 @@ const ShowAttemptedTest = ({ attemptedTests }) => {
 		setRowsPerPage(+event.target.value);
 		setPage(0);
 	};
-	// const [attemptedTests, setAttemptedTests] = useState([]);
-
-	// useEffect(() => {
-	// 	if (studentid) {
-	// 		fetch(`/students/attempted-tests/${studentid}`, {
-	// 			method: "get",
-	// 			headers: {
-	// 				Authorization: "Bearer " + localStorage.getItem("admin_jwt"),
-	// 			},
-	// 		})
-	// 			.then((res) => res.json())
-	// 			.then((tests) => {
-	// 				console.log(tests.test);
-	// 				setAttemptedTests(tests.test);
-	// 			})
-	// 			.catch((err) => {
-	// 				console.log(err);
-	// 			});
-	// 	}
-	// }, []);
 
 	return (
 		<div className={classes.root}>
@@ -159,7 +139,7 @@ const ShowAttemptedTest = ({ attemptedTests }) => {
 						) : (
 							<StyledTableRow style={{ marginLeft: "2rem" }}>
 								<StyledTableCell component="th" scope="row">
-									Please Attempt Any Test!
+									Student has not attempted any test!
 								</StyledTableCell>
 							</StyledTableRow>
 						)}

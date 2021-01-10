@@ -52,7 +52,7 @@ const AdminSignIn = () => {
 				draggable: false,
 			});
 		} else {
-			fetch("/admin-signin", {
+			fetch("/api/admin-signin", {
 				method: "post",
 				headers: {
 					"Content-Type": "application/json",

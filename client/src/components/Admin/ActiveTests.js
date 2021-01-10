@@ -100,9 +100,10 @@ export default function AdminProfile() {
 		setPage(0);
 	};
 
+	/* eslint-disable */
 	useEffect(() => {
 		if (localStorage.getItem("admin_jwt")) {
-			fetch("/alltests", {
+			fetch("/api/alltests", {
 				method: "get",
 				headers: {
 					Authorization: "Bearer " + localStorage.getItem("admin_jwt"),
@@ -114,7 +115,6 @@ export default function AdminProfile() {
 					setActiveTest(activeTests.test);
 				})
 				.catch((err) => {
-					// console.log(err);
 					toast.error(err, {
 						position: "bottom-right",
 						autoClose: 4000,
@@ -139,7 +139,7 @@ export default function AdminProfile() {
 
 	const deleteTest = () => {
 		if (localStorage.getItem("admin_jwt")) {
-			fetch(`/delete-test/${currentTest_id}`, {
+			fetch(`/api/delete-test/${currentTest_id}`, {
 				method: "delete",
 				headers: {
 					Authorization: "Bearer " + localStorage.getItem("admin_jwt"),
@@ -198,48 +198,54 @@ export default function AdminProfile() {
 					</TableHead>
 					<TableBody>
 						{activeTest.length > 0 &&
-							activeTest.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(({ _id, testId,
-								testName, noOfQuestions, testDuration, forCorrect, forInCorrect }, index) => (
-								<StyledTableRow key={index}>
-									<StyledTableCell component="th" scope="row">
-										{testId}
-									</StyledTableCell>
-									<StyledTableCell component="th" scope="row">
-										<Link style={{ color: "black", textDecoration: "none" }} to={"/admin-dashboard/" + _id}>
-											{testName}
-										</Link>
-									</StyledTableCell>
-									<StyledTableCell component="th" scope="row" align="right">
-										{noOfQuestions}
-									</StyledTableCell>
-									<StyledTableCell component="th" scope="row" align="right">
-										{testDuration / 60000}&nbsp;mins
-									</StyledTableCell>
-									<StyledTableCell component="th" scope="row" align="right">
-										{forCorrect}
-									</StyledTableCell>
-									<StyledTableCell component="th" scope="row" align="right">
-										{forInCorrect}
-									</StyledTableCell>
-									<StyledTableCell component="th" scope="row" align="right">
-										{noOfQuestions * forCorrect}&nbsp;marks
-									</StyledTableCell>
-									<StyledTableCell
-										component="th"
-										scope="row"
-										align="right"
-										onClick={() => setCurrentTest_id(_id)}>
-										{/* <span
+							activeTest
+								.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+								.map(
+									(
+										{ _id, testId, testName, noOfQuestions, testDuration, forCorrect, forInCorrect },
+										index
+									) => (
+										<StyledTableRow key={index}>
+											<StyledTableCell component="th" scope="row">
+												{testId}
+											</StyledTableCell>
+											<StyledTableCell component="th" scope="row">
+												<Link style={{ color: "black", textDecoration: "none" }} to={"/admin-dashboard/" + _id}>
+													{testName}
+												</Link>
+											</StyledTableCell>
+											<StyledTableCell component="th" scope="row" align="right">
+												{noOfQuestions}
+											</StyledTableCell>
+											<StyledTableCell component="th" scope="row" align="right">
+												{testDuration / 60000}&nbsp;mins
+											</StyledTableCell>
+											<StyledTableCell component="th" scope="row" align="right">
+												{forCorrect}
+											</StyledTableCell>
+											<StyledTableCell component="th" scope="row" align="right">
+												{forInCorrect}
+											</StyledTableCell>
+											<StyledTableCell component="th" scope="row" align="right">
+												{noOfQuestions * forCorrect}&nbsp;marks
+											</StyledTableCell>
+											<StyledTableCell
+												component="th"
+												scope="row"
+												align="right"
+												onClick={() => setCurrentTest_id(_id)}>
+												{/* <span
 													onClick={() => handleEditTest(testId, noOfQuestions)}
 													style={{ cursor: "pointer" }}>
 													<EditIcon />
 												</span> */}
-										<span onClick={() => setOpenDeleteDialogue(true)} style={{ cursor: "pointer" }}>
-											<DeleteForeverIcon />
-										</span>
-									</StyledTableCell>
-								</StyledTableRow>
-							))}
+												<span onClick={() => setOpenDeleteDialogue(true)} style={{ cursor: "pointer" }}>
+													<DeleteForeverIcon />
+												</span>
+											</StyledTableCell>
+										</StyledTableRow>
+									)
+								)}
 					</TableBody>
 				</Table>
 				<TablePagination

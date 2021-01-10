@@ -102,7 +102,7 @@ function SignIn(props) {
 		if (password === "") {
 			return setErrors({ password: "Invalid Password" });
 		} else {
-			fetch("/student-signin", {
+			fetch("/api/student-signin", {
 				method: "post",
 				headers: {
 					"Content-Type": "application/json",
@@ -114,14 +114,11 @@ function SignIn(props) {
 			})
 				.then((res) => res.json())
 				.then((data) => {
-					// console.log(data);
 					if (data.error) {
 						const err = data.error;
 						setErrors({ err });
 					} else {
 						localStorage.setItem("student_jwt", data.token);
-						// localStorage.setItem("student", JSON.stringify(data.student));
-						// console.log(data);
 						userDispatch({ type: SET_STUDENT, payload: data.student });
 						userDispatch({ type: SET_USER_TYPE, userType: "student" });
 						setOpen(false);
@@ -131,7 +128,6 @@ function SignIn(props) {
 					}
 				})
 				.catch((err) => {
-					// console.log(err);
 					setErrors({ err });
 				});
 		}

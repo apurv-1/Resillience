@@ -177,7 +177,7 @@ const Routing = () => {
 	//async api call to fetch the user
 	const fetchStudent = () => {
 		if (localStorage.getItem("student_jwt")) {
-			fetch("/student-profile", {
+			fetch("/api/student-profile", {
 				method: "get",
 				headers: {
 					Authorization: "Bearer " + localStorage.getItem("student_jwt"),
@@ -185,7 +185,6 @@ const Routing = () => {
 			})
 				.then((res) => res.json())
 				.then((student) => {
-					// console.log(student.details);
 					userDispatch({ type: SET_STUDENT, payload: student.details });
 					userDispatch({ type: SET_USER_TYPE, userType: "student" });
 					// history.push("/student-dashboard");
@@ -194,7 +193,7 @@ const Routing = () => {
 					console.log(err);
 				});
 		} else if (localStorage.getItem("admin_jwt")) {
-			fetch("/admin-profile", {
+			fetch("/api/admin-profile", {
 				method: "get",
 				headers: {
 					Authorization: "Bearer " + localStorage.getItem("admin_jwt"),
@@ -202,7 +201,6 @@ const Routing = () => {
 			})
 				.then((res) => res.json())
 				.then((admin) => {
-					// console.log(admin.details[0]);
 					userDispatch({ type: SET_ADMIN, payload: admin.details });
 					userDispatch({ type: SET_USER_TYPE, userType: "admin" });
 					// history.push("/admin-dashboard");

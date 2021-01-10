@@ -143,25 +143,10 @@ const AddQuestions = ({ testID, totalQuestions, endTest }) => {
 
 	const [questionUrl, setQuestionUrl] = useState("");
 
-	// let physics = [0];
-	// let chemistry = [0];
-	// let maths = [0];
-	// // let [error, setError] = useState("");
-	// // console.log(physics, chemistry, maths);
-	// if (subject === "Physics") {
-	// 	physics.push(1);
-	// }
-	// if (subject === "Chemistry") {
-	// 	chemistry.push(questionNumber);
-	// }
-	// if (subject === "Maths") {
-	// 	maths.push(questionNumber);
-	// }
-	// console.log(endTest);
 	/* eslint-disable */
 	useEffect(() => {
 		if (questionUrl) {
-			fetch("/add-question", {
+			fetch("/api/add-question", {
 				method: "put",
 				headers: {
 					"Content-Type": "application/json",
@@ -214,9 +199,6 @@ const AddQuestions = ({ testID, totalQuestions, endTest }) => {
 		}
 	}, [questionUrl]);
 
-	// useEffect(() => pushQuestion(), [questionUrl]);
-	// console.log("question no. ", questionNumber);
-
 	const uploadQuestion = () => {
 		if (questionNumber > totalQuestions) {
 			console.log("question no. hello ", questionNumber);
@@ -229,9 +211,8 @@ const AddQuestions = ({ testID, totalQuestions, endTest }) => {
 				pauseOnHover: true,
 				draggable: false,
 			});
-			// endTest(false);
 			// location.reload();
-			// history.push("/createtest");
+			history.push("/admin-dashboard");
 		} else if (!questionNumber || !questionType || !questionImg || !subject || !correct) {
 			window.onbeforeunload = function () {
 				return "Test won't be saved, Are you sure?";

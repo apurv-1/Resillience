@@ -8,6 +8,7 @@ import {
 	SET_IS_MARKED,
 	SET_INCREMENT_TIME,
 	SET_SUBJECT,
+	CLEAR,
 } from "./types";
 
 export const initialState = {
@@ -74,6 +75,9 @@ export function testReducer(state, action) {
 					[state.currentIndex]: state.timeElapsed[state.currentIndex] + 1,
 				}),
 			};
+		case CLEAR:
+			return "";
+
 		default:
 			return state;
 	}

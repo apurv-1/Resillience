@@ -95,10 +95,17 @@ const KeysComponent = () => {
 		isMarked,
 		timeElapsed,
 		isVisited,
+		isStarted,
 	} = state;
 	const questionLength = test.questions.length;
 	const questions = test.questions;
 	const { email } = userState.payload;
+
+	if (isStarted === true && showResult === false) {
+		window.onbeforeunload = function () {
+			return "are you sure? Test will not be submitted";
+		};
+	}
 
 	useEffect(() => {
 		const timer = setTimeout(() => {

@@ -121,21 +121,21 @@ router.put("/add-question", requireAdmin, (req, res) => {
 // 	});
 // });
 //
-// router.get("/fetchtest", requireStudent, (req, res) => {
-// 	const testId = req.query.testid;
-// 	Test.findOne({ testId: testId })
-// 		.then((test) => {
-// 			// console.log(test);
-// 			if (test === null) {
-// 				return res.status(422).json({ error: "The Test ID is Invalid " });
-// 			} else {
-// 				res.json({ test });
-// 			}
-// 		})
-// 		.catch((err) => {
-// 			return res.status(404).json({ error: "Test not found" });
-// 		});
-// });
+router.get("/fetchtest", requireStudent, (req, res) => {
+	const testId = req.query.testid;
+	Test.findOne({ testId: testId })
+		.then((test) => {
+			// console.log(test);
+			if (test === null) {
+				return res.status(422).json({ error: "The Test ID is Invalid " });
+			} else {
+				res.json({ test });
+			}
+		})
+		.catch((err) => {
+			return res.status(404).json({ error: "Test not found" });
+		});
+});
 
 module.exports = router;
 

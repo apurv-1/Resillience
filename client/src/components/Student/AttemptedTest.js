@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import {
 	makeStyles,
 	withStyles,
 	Paper,
+	Button,
 	Table,
 	TableBody,
 	TableContainer,
@@ -17,8 +18,12 @@ import AssessmentIcon from "@material-ui/icons/Assessment";
 
 const useStyles = makeStyles({
 	root: {
-		margin: "2.5rem",
+		margin: "2.9rem",
 		marginTop: "3rem",
+		"@media only screen and (max-width: 1125px)": {
+			margin: "1rem",
+			marginTop: "3rem",
+		},
 	},
 	table: {
 		padding: "10px",
@@ -26,19 +31,13 @@ const useStyles = makeStyles({
 		borderSpacing: "0 12px",
 		width: "62rem",
 		"@media only screen and (max-width: 1125px)": {
-			width: "35rem",
+			width: "40rem",
 			padding: "5px",
 		},
-	},
-	span: {
-		cursor: "pointer",
-		padding: "10px 40px",
-		borderRadius: "5px",
-		fontWeight: "bold",
-		alignContent: "center",
-		backgroundColor: "#0F7DC2",
-		border: "2px solid #ececec",
-		color: "#F8F8F8",
+		"@media only screen and (max-width: 770px)": {
+			width: "44rem",
+			padding: "4px",
+		},
 	},
 });
 const StyledTableCell = withStyles((theme) => ({
@@ -78,8 +77,9 @@ const StyledTableRow = withStyles((theme) => ({
 
 const AttemptedTest = () => {
 	const classes = useStyles();
+	const history = useHistory();
 	const [page, setPage] = useState(0);
-	const [rowsPerPage, setRowsPerPage] = useState(10);
+	const [rowsPerPage, setRowsPerPage] = useState(8);
 
 	const handleChangePage = (event, newPage) => {
 		setPage(newPage);
@@ -118,7 +118,7 @@ const AttemptedTest = () => {
 							<StyledTableCell>Test Name </StyledTableCell>
 							<StyledTableCell align="right">Attempted At</StyledTableCell>
 							<StyledTableCell align="right">Date</StyledTableCell>
-							<StyledTableCell align="center">Report</StyledTableCell>
+							<StyledTableCell align="right">Report</StyledTableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
@@ -140,16 +140,14 @@ const AttemptedTest = () => {
 											{dayjs(createdAt).format("DD MMM YY")}
 										</StyledTableCell>
 										<StyledTableCell component="th" scope="row" align="right">
-											<Link
-												style={{ color: "black", textDecoration: "none" }}
-												to={"/student-dashboard/" + _id}>
-												<span className={classes.span}>
-													<AssessmentIcon
-														style={{ marginLeft: "-25px", marginTop: "-2px", position: "absolute" }}
-													/>
-													Analysis
-												</span>
-											</Link>
+											<Button
+												variant="outlined"
+												color="secondary"
+												size="small"
+												startIcon={<AssessmentIcon />}
+												onClick={() => history.push("/student-dashboard/" + _id)}>
+												Analysis
+											</Button>
 										</StyledTableCell>
 									</StyledTableRow>
 								))
@@ -163,7 +161,7 @@ const AttemptedTest = () => {
 					</TableBody>
 				</Table>
 				<TablePagination
-					rowsPerPageOptions={[10, 15]}
+					rowsPerPageOptions={[8]}
 					component="div"
 					count={attemptedTests.length}
 					rowsPerPage={rowsPerPage}

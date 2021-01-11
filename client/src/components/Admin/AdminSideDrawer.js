@@ -18,7 +18,7 @@ import MenuBookRoundedIcon from "@material-ui/icons/MenuBookRounded";
 import WebRoundedIcon from "@material-ui/icons/WebRounded";
 import AddBoxRoundedIcon from "@material-ui/icons/AddBoxRounded";
 import BookmarksIcon from "@material-ui/icons/Bookmarks";
-//import DataUsageIcon from "@material-ui/icons/DataUsage";
+import AddAlertIcon from "@material-ui/icons/AddAlert";
 import { blue, red } from "@material-ui/core/colors";
 import UserContext from "../Context/UserContext";
 //dialog box
@@ -207,7 +207,7 @@ export default function SideNav() {
 						<Link to="/admin/postnotice" className={classes.link} onClick={() => setOpen(false)}>
 							<ListItem button key="Notice" className={classes.listitem} onClick={() => setOpen(false)}>
 								<ListItemIcon>
-									<AddBoxRoundedIcon />
+									<AddAlertIcon />
 								</ListItemIcon>
 								<ListItemText>Post Notice</ListItemText>
 							</ListItem>

@@ -192,7 +192,7 @@ const Routing = () => {
 				.then((student) => {
 					userDispatch({ type: SET_STUDENT, payload: student.details });
 					userDispatch({ type: SET_USER_TYPE, userType: "student" });
-					// history.push("/student-dashboard");
+					history.push("/student-dashboard");
 				})
 				.catch((err) => {
 					console.log(err);

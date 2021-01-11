@@ -1,15 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import { Paper, Avatar, Fab } from "@material-ui/core";
+import { Paper, Avatar, Fab, Button } from "@material-ui/core";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 // import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
-//
-// import TextField from "@material-ui/core/TextField";
-// import Dialog from "@material-ui/core/Dialog";
-// import DialogActions from "@material-ui/core/DialogActions";
-// import DialogContent from "@material-ui/core/DialogContent";
-// import DialogTitle from "@material-ui/core/DialogTitle";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -25,12 +19,37 @@ const useStyles = makeStyles((theme) => ({
 		margin: "3rem",
 		marginTop: "5rem",
 		flexDirection: "row",
+		"@media only screen and (max-width: 770px)": {
+			flexDirection: "column",
+			margin: "1rem",
+			marginTop: "3.5rem",
+		},
 	},
 	card: {
 		width: "20rem",
-		// "@media only screen and (max-width: 1125px)": {
-		// 	width: "15rem",
-		// },
+		"@media only screen and (max-width: 1125px)": {
+			width: "16rem",
+		},
+		"@media only screen and (max-width: 770px)": {
+			width: "100%",
+			margin: "0%",
+		},
+	},
+	infoContainer: {
+		"@media only screen and (max-width: 770px)": {
+			display: "none",
+		},
+	},
+	profileContainer: {
+		"@media only screen and (max-width: 770px)": {
+			flexDirection: "column",
+		},
+	},
+	profile: {
+		"@media only screen and (max-width: 770px)": {
+			justifyContent: "center",
+			paddingTop: "1rem",
+		},
 	},
 	pic: {
 		height: "8rem",
@@ -42,6 +61,19 @@ const useStyles = makeStyles((theme) => ({
 		margin: "1rem",
 		padding: "1rem",
 		fontWeight: "bolder",
+		"@media only screen and (max-width: 770px)": {
+			width: "18rem",
+		},
+	},
+	imageContainer: {
+		display: "flex",
+		margin: "2rem",
+		justifyContent: "center",
+		"@media only screen and (max-width: 770px)": {
+			margin: "1rem",
+			width: "18rem",
+			float: "right",
+		},
 	},
 	uploadImage: {
 		position: "absolute",
@@ -56,8 +88,9 @@ const useStyles = makeStyles((theme) => ({
 		display: "flex",
 		justifyContent: "center",
 	},
-	editButton: {
-		marginLeft: "5rem",
+	button: {
+		float: "right",
+		margin: "1rem",
 	},
 }));
 
@@ -68,11 +101,11 @@ export default function StudentProfile() {
 	const history = useHistory();
 	const [image, setImage] = useState("");
 
-	useEffect(() => {
-		if (!userState.payload) {
-			history.push("/");
-		}
-	}, []);
+	// useEffect(() => {
+	// 	if (!userState.payload) {
+	// 		history.push("/");
+	// 	}
+	// }, []);
 
 	useEffect(() => {
 		if (image) {
@@ -136,30 +169,33 @@ export default function StudentProfile() {
 			<div>
 				{userState.payload ? (
 					<div className={classes.card}>
-						<div className={classes.paper} style={{ justifyContent: "center" }}>
-							<Avatar
-								className={classes.pic}
-								alt="Student"
-								src={userState.payload ? userState.payload.picture : ""}
-							/>
-							<span className={classes.uploadImage} onChange={handleUpdateProfilePicture}>
-								<input accept="image/*" style={{ display: "none" }} id="icon-button-file" type="file" />
-								<label htmlFor="icon-button-file">
-									<Fab size="small" color="secondary" aria-label="upload picture" component="span">
-										<PhotoCamera />
-									</Fab>
-								</label>
-							</span>
+						<div className={classes.profileContainer}>
+							<div className={classes.imageContainer} style={{ justifyContent: "center" }}>
+								<Avatar
+									className={classes.pic}
+									alt="Student"
+									src={userState.payload ? userState.payload.picture : ""}
+								/>
+								<span className={classes.uploadImage} onChange={handleUpdateProfilePicture}>
+									<input accept="image/*" style={{ display: "none" }} id="icon-button-file" type="file" />
+									<label htmlFor="icon-button-file">
+										<Fab size="small" color="secondary" aria-label="upload picture" component="span">
+											<PhotoCamera />
+										</Fab>
+									</label>
+								</span>
+							</div>
+							<div className={classes.profile}>
+								<Paper elevation={3} className={classes.paper}>
+									Name: {userState.payload ? userState.payload.name : ""}
+								</Paper>
+								<Paper elevation={3} className={classes.paper}>
+									Email : {userState.payload ? userState.payload.email : ""}
+								</Paper>
+							</div>
 						</div>
 
 						<span className={classes.infoContainer}>
-							<Paper elevation={3} className={classes.paper}>
-								Name: {userState.payload ? userState.payload.name : ""}
-							</Paper>
-							<Paper elevation={3} className={classes.paper}>
-								Email : {userState.payload ? userState.payload.email : ""}
-							</Paper>
-
 							<Paper elevation={3} className={classes.paper}>
 								Batch : {userState.payload ? userState.payload.batch : ""}
 							</Paper>
@@ -187,6 +223,13 @@ export default function StudentProfile() {
 				)}
 			</div>
 			<div>
+				<Button
+					variant="outlined"
+					color="secondary"
+					className={classes.button}
+					onClick={() => history.push("/maintest")}>
+					Give Test
+				</Button>
 				<AttemptedTest />
 			</div>
 		</Paper>

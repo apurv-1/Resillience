@@ -38,7 +38,7 @@ router.get("/test-result/:resultid", requireStudent, (req, res) => {
 		});
 });
 
-router.put("/api/updateprofile-picture", requireStudent, (req, res) => {
+router.put("/updateprofile-picture", requireStudent, (req, res) => {
 	Student.findByIdAndUpdate(
 		req.student._id,
 		{ $set: { picture: req.body.picture } },

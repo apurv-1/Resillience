@@ -80,17 +80,12 @@ const useStyles = makeStyles((theme) => ({
 		marginTop: "6rem",
 		marginLeft: "5rem",
 	},
-	textbox: {
-		marginLeft: "26%",
-		marginTop: "5%",
-	},
-	loading: {
-		display: "flex",
-		justifyContent: "center",
-	},
 	button: {
 		float: "right",
 		margin: "1rem",
+		"@media only screen and (min-width: 1440px)": {
+			marginRight: "3rem",
+		},
 	},
 }));
 
@@ -100,12 +95,6 @@ export default function StudentProfile() {
 	const { userState } = useContext(UserContext);
 	const history = useHistory();
 	const [image, setImage] = useState("");
-
-	// useEffect(() => {
-	// 	if (!userState.payload) {
-	// 		history.push("/");
-	// 	}
-	// }, []);
 
 	useEffect(() => {
 		if (image) {
@@ -170,7 +159,7 @@ export default function StudentProfile() {
 				{userState.payload ? (
 					<div className={classes.card}>
 						<div className={classes.profileContainer}>
-							<div className={classes.imageContainer} style={{ justifyContent: "center" }}>
+							<div className={classes.imageContainer}>
 								<Avatar
 									className={classes.pic}
 									alt="Student"

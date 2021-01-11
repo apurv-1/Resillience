@@ -5,7 +5,7 @@ const Notice = mongoose.model("Notice");
 const requireStudent = require("../middleware/requireStudent");
 const requireAdmin = require("../middleware/requireAdmin");
 
-router.get("/all-notices", requireAdmin, (req, res) => {
+router.get("/all-notices", requireStudent, (req, res) => {
 	Notice.find()
 		.sort("-createdAt")
 		.then((notice) => {

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import {
 	makeStyles,
 	withStyles,
 	Paper,
+	Button,
 	Table,
 	TableBody,
 	TableContainer,
@@ -79,8 +80,9 @@ const StyledTableRow = withStyles((theme) => ({
 const ShowAttemptedTest = ({ attemptedTests }) => {
 	const classes = useStyles();
 	const { studentid } = useParams();
+	const history = useHistory();
 	const [page, setPage] = useState(0);
-	const [rowsPerPage, setRowsPerPage] = useState(10);
+	const [rowsPerPage, setRowsPerPage] = useState(8);
 
 	const handleChangePage = (event, newPage) => {
 		setPage(newPage);
@@ -123,16 +125,14 @@ const ShowAttemptedTest = ({ attemptedTests }) => {
 											{dayjs(createdAt).format("DD MMM YY")}
 										</StyledTableCell>
 										<StyledTableCell component="th" scope="row" align="right">
-											<Link
-												style={{ color: "black", textDecoration: "none" }}
-												to={"/students/" + studentid + "/" + _id}>
-												<span className={classes.span}>
-													<AssessmentIcon
-														style={{ marginLeft: "-25px", marginTop: "-2px", position: "absolute" }}
-													/>
-													Analysis
-												</span>
-											</Link>
+											<Button
+												variant="contained"
+												color="secondary"
+												size="small"
+												startIcon={<AssessmentIcon />}
+												onClick={() => history.push("/students/" + studentid + "/" + _id)}>
+												Analysis
+											</Button>
 										</StyledTableCell>
 									</StyledTableRow>
 								))
@@ -146,7 +146,7 @@ const ShowAttemptedTest = ({ attemptedTests }) => {
 					</TableBody>
 				</Table>
 				<TablePagination
-					rowsPerPageOptions={[10, 15]}
+					rowsPerPageOptions={[8]}
 					component="div"
 					count={attemptedTests.length}
 					rowsPerPage={rowsPerPage}

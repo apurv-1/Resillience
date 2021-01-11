@@ -7,8 +7,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import dayjs from "dayjs";
 
-import PersonIcon from "@material-ui/icons/Person";
-// import { Dialog, DialogActions, DialogTitle } from "@material-ui/core";
+import LaunchIcon from "@material-ui/icons/Launch";
 
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -77,19 +76,12 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default function EnrolledStudents() {
+export default function Notices() {
 	const classes = useStyles();
 	toast.configure();
 
 	const history = useHistory();
-	const [students, setStudents] = useState([]);
-	//
-	// 	const [openDeleteDialogue, setOpenDeleteDialogue] = useState(false);
-	// 	// const [openEditTest, setOpenEditTest] = useState(false);
-	//
-	// 	const [currentTest_id, setCurrentTest_id] = useState("");
-	// const [currentTestId, setCurrentTestId] = useState("");
-	// const [currentNoOfQuestions, setCurrentNoOfQuestions] = useState("");
+	const [notices, setNotices] = useState([]);
 
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -105,17 +97,16 @@ export default function EnrolledStudents() {
 
 	/* eslint-disable */
 	useEffect(() => {
-		if (localStorage.getItem("admin_jwt")) {
-			fetch("/api/enrolled-students", {
+		if (localStorage.getItem("student_jwt")) {
+			fetch("/api/all-notices", {
 				method: "get",
 				headers: {
-					Authorization: "Bearer " + localStorage.getItem("admin_jwt"),
+					Authorization: "Bearer " + localStorage.getItem("student_jwt"),
 				},
 			})
 				.then((res) => res.json())
-				.then((allstudents) => {
-					// console.log(allstudents.students);
-					setStudents(allstudents.students);
+				.then((allnotices) => {
+					setNotices(allnotices.notice);
 				})
 				.catch((err) => {
 					// console.log(err);
@@ -141,49 +132,6 @@ export default function EnrolledStudents() {
 		}
 	}, []);
 
-	// const deleteTest = () => {
-	// 	if (localStorage.getItem("admin_jwt")) {
-	// 		fetch(`/delete-test/${currentTest_id}`, {
-	// 			method: "delete",
-	// 			headers: {
-	// 				Authorization: "Bearer " + localStorage.getItem("admin_jwt"),
-	// 			},
-	// 		})
-	// 			.then((res) => res.json())
-	// 			.then((message) => {
-	// 				setCurrentTest_id("");
-	// 				setOpenDeleteDialogue(false);
-	// 				toast.info(message.message, {
-	// 					position: "bottom-right",
-	// 					autoClose: 4000,
-	// 					hideProgressBar: false,
-	// 					closeOnClick: true,
-	// 					pauseOnHover: true,
-	// 					draggable: false,
-	// 				});
-	// 			})
-	// 			.catch((err) => {
-	// 				// console.log(err);
-	// 				toast.error(err, {
-	// 					position: "bottom-right",
-	// 					autoClose: 4000,
-	// 					hideProgressBar: false,
-	// 					closeOnClick: true,
-	// 					pauseOnHover: true,
-	// 					draggable: false,
-	// 				});
-	// 			});
-	// 	} else {
-	// 		history.push("/");
-	// 	}
-	// };
-	//
-	// 	const handleEditTest = (testId, noOfQuestions) => {
-	// 		setOpenEditTest(true);
-	// 		setCurrentTestId(testId);
-	// 		setCurrentNoOfQuestions(noOfQuestions);
-	// 	};
-
 	return (
 		<div className={classes.root}>
 			<TableContainer component={Paper} elevation={4}>
@@ -191,39 +139,26 @@ export default function EnrolledStudents() {
 					<TableHead>
 						<TableRow>
 							<StyledTableCell>S. No.</StyledTableCell>
-							<StyledTableCell>Full Name</StyledTableCell>
-							<StyledTableCell align="right">Email</StyledTableCell>
-							<StyledTableCell align="right">Batch</StyledTableCell>
-							<StyledTableCell align="right">No. of given Tests</StyledTableCell>
-							<StyledTableCell align="right">Contact</StyledTableCell>
-							<StyledTableCell align="right">Enrolled On</StyledTableCell>
+							<StyledTableCell>Title</StyledTableCell>
+							<StyledTableCell align="right">Description</StyledTableCell>
+							<StyledTableCell align="right">Date</StyledTableCell>
 							<StyledTableCell align="right"> &nbsp; </StyledTableCell>
-							{/* <StyledTableCell align="right">&nbsp;</StyledTableCell> */}
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{students.length > 0 &&
-							students
+						{notices.length > 0 &&
+							notices
 								.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-								.map(({ _id, name, email, batch, attemptedTests, contact, createdAt }, index) => (
+								.map(({ _id, title, description, createdAt, link }, index) => (
 									<StyledTableRow key={index}>
 										<StyledTableCell component="th" scope="row">
 											{index + 1}
 										</StyledTableCell>
 										<StyledTableCell component="th" scope="row">
-											{name}
+											{title}
 										</StyledTableCell>
 										<StyledTableCell component="th" scope="row" align="right">
-											{email}
-										</StyledTableCell>
-										<StyledTableCell component="th" scope="row" align="right">
-											{batch}
-										</StyledTableCell>
-										<StyledTableCell component="th" scope="row" align="right">
-											{attemptedTests.length}
-										</StyledTableCell>
-										<StyledTableCell component="th" scope="row" align="right">
-											{contact}
+											{description}
 										</StyledTableCell>
 										<StyledTableCell component="th" scope="row" align="right">
 											{dayjs(createdAt).format("hh:mma MMM YY")}
@@ -232,26 +167,15 @@ export default function EnrolledStudents() {
 											<Button
 												variant="contained"
 												color="secondary"
-												size="small"
-												startIcon={<PersonIcon />}
-												onClick={() => history.push("/students/" + _id)}>
-												Profile
+												size="medium"
+												endIcon={<LaunchIcon />}
+												href={link}
+												target="_blank"
+												// onClick={() => history.push("/notices/" + _id)}
+											>
+												Open
 											</Button>
 										</StyledTableCell>
-										{/* <StyledTableCell
-										component="th"
-										scope="row"
-										align="right"
-										onClick={() => setCurrentTest_id(_id)}>
-										<span
-													onClick={() => handleEditTest(testId, noOfQuestions)}
-													style={{ cursor: "pointer" }}>
-													<EditIcon />
-												</span>
-										<span onClick={() => setOpenDeleteDialogue(true)} style={{ cursor: "pointer" }}>
-											<DeleteForeverIcon />
-										</span>
-									</StyledTableCell> */}
 									</StyledTableRow>
 								))}
 					</TableBody>
@@ -259,29 +183,13 @@ export default function EnrolledStudents() {
 				<TablePagination
 					rowsPerPageOptions={[10]}
 					component="div"
-					count={students.length}
+					count={notices.length}
 					rowsPerPage={rowsPerPage}
 					page={page}
 					onChangePage={handleChangePage}
 					onChangeRowsPerPage={handleChangeRowsPerPage}
 				/>
 			</TableContainer>
-
-			{/* <Dialog
-				open={openDeleteDialogue}
-				onClose={() => setOpenDeleteDialogue(false)}
-				aria-labelledby="dialog-title">
-				<DialogTitle id="dialog-title">Confirm Delete, are you sure?</DialogTitle>
-
-				<DialogActions>
-					<Button onClick={() => setOpenDeleteDialogue(false)} color="primary">
-						Cancel
-					</Button>
-					<Button onClick={deleteTest} color="secondary">
-						Delete
-					</Button>
-				</DialogActions>
-			</Dialog> */}
 		</div>
 	);
 }

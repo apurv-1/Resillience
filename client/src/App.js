@@ -36,6 +36,7 @@ const PostBlog = lazy(() => import("./components/Blogs/Admin/PostBlogs"));
 const ShowBlogs = lazy(() => import("./components/Blogs/ShowBlogs"));
 const ParticularBlog = lazy(() => import("./components/Blogs/ParticularBlog/ParticularBlog"));
 const StudentProfile = lazy(() => import("./components/Student/StudentProfile"));
+const Notice = lazy(() => import("./components/Student/ViewNotices"));
 const ViewResult = lazy(() => import("./components/Student/ViewResult"));
 const ContactUs = lazy(() => import("./components/ContactUs/ContactUs"));
 const Career = lazy(() => import("./components/Career/Career"));
@@ -158,6 +159,10 @@ const EnrolledStudentsComponent = withTitle({
 	component: EnrolledStudents,
 	title: "Students | RESILLIENCE",
 });
+const NoticeComponent = withTitle({
+	component: Notice,
+	title: "Notices | RESILLIENCE",
+});
 const ActiveTestsComponent = withTitle({
 	component: ActiveTests,
 	title: "Admin | RESILLIENCE",
@@ -241,6 +246,7 @@ const Routing = () => {
 			{/* student routes */}
 			<Route exact path="/student-dashboard" component={StudentProfileComponent} />
 			<Route exact path="/student-dashboard/:resultid" component={ViewResultComponent} />
+			<Route path="/notices" component={NoticeComponent} />
 			<Route path="/maintest" component={MainTestComponent} />
 
 			{/* admin routes */}

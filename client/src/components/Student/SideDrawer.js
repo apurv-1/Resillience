@@ -179,13 +179,18 @@ export default function SideNav() {
 								</ListItem>
 							</Link>
 							<Divider />
-
-							<ListItem button key="Downloads" className={classes.listitem} onClick={() => setOpen(false)}>
-								<ListItemIcon>
-									<GetAppRoundedIcon />
-								</ListItemIcon>
-								<ListItemText>Download Section</ListItemText>
-							</ListItem>
+							<Link to="/notices" className={classes.link} onClick={() => setOpen(false)}>
+								<ListItem
+									button
+									key="Downloads"
+									className={classes.listitem}
+									onClick={() => setOpen(false)}>
+									<ListItemIcon>
+										<GetAppRoundedIcon />
+									</ListItemIcon>
+									<ListItemText>Notice Section</ListItemText>
+								</ListItem>
+							</Link>
 							<Divider />
 							<div className={classes.button}>
 								<Button

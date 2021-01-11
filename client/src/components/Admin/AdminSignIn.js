@@ -10,8 +10,7 @@ import { SET_ADMIN, SET_USER_TYPE, CLEAR } from "../Reducers/types";
 // +import ShowTest from "./ShowTestComponent";
 
 const useStyles = makeStyles(() => ({
-	root: {},
-	testDiv: {
+	root: {
 		marginTop: "5rem",
 		display: "flex",
 		justifyContent: "center",
@@ -41,7 +40,7 @@ const AdminSignIn = () => {
 	const [password, setPassword] = useState("");
 	const { userDispatch } = useContext(UserContext);
 
-	const HandleAdminSignIn = () => {
+	const handleAdminSignIn = () => {
 		if (!email || !password) {
 			toast.error("Please Fill all the fields..", {
 				position: "bottom-right",
@@ -64,7 +63,7 @@ const AdminSignIn = () => {
 			})
 				.then((res) => res.json())
 				.then((data) => {
-					console.log(data);
+					// console.log(data);
 					if (data.error) {
 						toast.error(data.error, {
 							position: "bottom-right",
@@ -83,16 +82,15 @@ const AdminSignIn = () => {
 							pauseOnHover: true,
 							draggable: false,
 						});
-						console.log(data);
 						userDispatch({ type: CLEAR });
 						localStorage.clear();
 
 						localStorage.setItem("admin_jwt", data.token);
 						userDispatch({ type: SET_ADMIN, payload: data.admin });
 						userDispatch({ type: SET_USER_TYPE, userType: "admin" });
-						history.push("/admin-dashboard");
 						setEmail("");
 						setPassword("");
+						history.push("/admin-dashboard");
 					}
 				})
 				.catch((err) => {
@@ -111,40 +109,38 @@ const AdminSignIn = () => {
 
 	return (
 		<div className={classes.root}>
-			<div className={classes.testDiv}>
-				<Paper elevation={5} className={classes.paper}>
-					<Typography variant="h4">Admin SignIn</Typography>
-					<br />
+			<Paper elevation={5} className={classes.paper}>
+				<Typography variant="h4">Admin SignIn 👨🏼‍✈️</Typography>
+				<br />
 
-					<TextField
-						id="email"
-						label="Email"
-						variant="outlined"
-						className={classes.textField}
-						value={email}
-						onChange={(e) => setEmail(e.target.value)}
-					/>
+				<TextField
+					id="email"
+					label="Email"
+					variant="outlined"
+					className={classes.textField}
+					value={email}
+					onChange={(e) => setEmail(e.target.value)}
+				/>
 
-					<TextField
-						id="password"
-						label="Password"
-						variant="outlined"
-						className={classes.textField}
-						value={password}
-						type="password"
-						onChange={(e) => setPassword(e.target.value)}
-					/>
+				<TextField
+					id="password"
+					label="Password"
+					variant="outlined"
+					className={classes.textField}
+					value={password}
+					type="password"
+					onChange={(e) => setPassword(e.target.value)}
+				/>
 
-					<Button
-						variant="contained"
-						color="primary"
-						className={classes.button}
-						startIcon={<SaveIcon />}
-						onClick={() => HandleAdminSignIn()}>
-						Sign In
-					</Button>
-				</Paper>
-			</div>
+				<Button
+					variant="contained"
+					color="primary"
+					className={classes.button}
+					startIcon={<SaveIcon />}
+					onClick={() => handleAdminSignIn()}>
+					Sign In
+				</Button>
+			</Paper>
 		</div>
 	);
 };

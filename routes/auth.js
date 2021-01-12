@@ -26,7 +26,6 @@ const crypto = require("crypto");
 //node mailer
 const nodemailer = require("nodemailer");
 const { EMAIL, PASS } = require("../config/keys");
-const { ConnectionPolicyInstance } = require("twilio/lib/rest/voice/v1/connectionPolicy");
 
 const transporter = nodemailer.createTransport({
 	service: "gmail",

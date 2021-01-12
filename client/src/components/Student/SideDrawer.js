@@ -15,7 +15,7 @@ import {
 import DashboardRoundedIcon from "@material-ui/icons/DashboardRounded";
 import ClearAllRoundedIcon from "@material-ui/icons/ClearAllRounded";
 import MenuBookRoundedIcon from "@material-ui/icons/MenuBookRounded";
-import GetAppRoundedIcon from "@material-ui/icons/GetAppRounded";
+import NotificationsActiveIcon from "@material-ui/icons/NotificationsActive";
 import WebRoundedIcon from "@material-ui/icons/WebRounded";
 import { blue, red } from "@material-ui/core/colors";
 import UserContext from "../Context/UserContext";
@@ -186,7 +186,7 @@ export default function SideNav() {
 									className={classes.listitem}
 									onClick={() => setOpen(false)}>
 									<ListItemIcon>
-										<GetAppRoundedIcon />
+										<NotificationsActiveIcon />
 									</ListItemIcon>
 									<ListItemText>Notice Section</ListItemText>
 								</ListItem>

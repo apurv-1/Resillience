@@ -305,23 +305,45 @@ router.post("/reset-student-password", (req, res) => {
 		const { email } = req.body;
 		Student.findOne({ email: email }).then((student) => {
 			if (!student) {
-				return res.status(404).json({ error: " " });
+				return res.status(404).json({ error: "Student with this email does not exists!" });
 			}
 			student.resetToken = token;
-			student.expireToken = Date.now() + 900000;
+			student.expireToken = Date.now() + 900000; // token will expire after 15mins
 			student.save().then((mail) => {
 				transporter.sendMail({
 					to: email,
 					from: EMAIL,
 					subject: "Resillience - reset password!",
-					html: `<h3>Hey! ${email},</h3>
-					<h5>Your request for password has been processed!<br />
-					Click <a href="http://localhost:3000/reset/${token}" >here</a> 
-					to reset your password!</h5> <h6>NOTE: This link is only valid for 15 minutes.</h6>`,
+					html: `<h2>Hey! ${email},</h2>
+					<h3>Your request for password has been processed!<br />
+					Click <a href="http://localhost:3000/reset-password/${token}" >here</a> 
+					to reset your password!</h3> <h4>NOTE: This link is only valid for 15 minutes.</h4>`,
 				});
 			});
 		});
 	});
+});
+
+router.post("/new-password", (req, res) => {
+	const newPassword = req.body.password;
+	const sentToken = req.body.token;
+	Student.findOne({ resetToken: sentToken, expireToken: { $gt: Date.now() } })
+		.then((student) => {
+			if (!student) {
+				return res.status(422).json({ error: "Password expired.. Try again!" });
+			}
+			bcrypt.hash(newPassword, 12).then((hashedpassword) => {
+				student.password = hashedpassword;
+				student.resetToken = undefined;
+				student.expireToken = undefined;
+				student.save().then(() => {
+					res.json({ message: "Updated password Successfully!" });
+				});
+			});
+		})
+		.catch((err) => {
+			console.log(err);
+		});
 });
 
 module.exports = router;

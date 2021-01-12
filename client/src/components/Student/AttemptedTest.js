@@ -141,7 +141,7 @@ const AttemptedTest = () => {
 										</StyledTableCell>
 										<StyledTableCell component="th" scope="row" align="right">
 											<Button
-												variant="outlined"
+												variant="contained"
 												color="secondary"
 												size="small"
 												startIcon={<AssessmentIcon />}

@@ -137,7 +137,7 @@ function SignIn(props) {
 		if (email === "") {
 			return setErrors({ email: "Invalid Email!" });
 		} else {
-			fetch("/reset-student-password", {
+			fetch("/api/reset-student-password", {
 				method: "post",
 				headers: {
 					"Content-Type": "application/json",
@@ -154,6 +154,7 @@ function SignIn(props) {
 						setErrors({ err });
 					} else {
 						setEmail("");
+						setOpen(false);
 					}
 				})
 				.catch((err) => {

@@ -37,6 +37,7 @@ const ShowBlogs = lazy(() => import("./components/Blogs/ShowBlogs"));
 const ParticularBlog = lazy(() => import("./components/Blogs/ParticularBlog/ParticularBlog"));
 const StudentProfile = lazy(() => import("./components/Student/StudentProfile"));
 const Notice = lazy(() => import("./components/Student/ViewNotices"));
+const NewPassword = lazy(() => import("./components/Student/NewPassword"));
 const ViewResult = lazy(() => import("./components/Student/ViewResult"));
 const ContactUs = lazy(() => import("./components/ContactUs/ContactUs"));
 const Career = lazy(() => import("./components/Career/Career"));
@@ -171,6 +172,10 @@ const ViewQuestionsComponent = withTitle({
 	component: ViewQuestions,
 	title: "Questions | ADMIN",
 });
+const NewPasswordComponent = withTitle({
+	component: NewPassword,
+	title: "Change Password >> RESILLIENCE",
+});
 // const SitemapComponent = withTitle({ component: Sitemap, title: "Sitemap | RESILLIENCE" });
 
 const ErrorComponent = withTitle({
@@ -218,7 +223,7 @@ const Routing = () => {
 				.catch((err) => {
 					console.log(err);
 				});
-		} else {
+		} else if (!history.location.pathname.startsWith("/reset-password")) {
 			history.push("/");
 		}
 	};
@@ -248,6 +253,7 @@ const Routing = () => {
 			<Route exact path="/student-dashboard/:resultid" component={ViewResultComponent} />
 			<Route path="/notices" component={NoticeComponent} />
 			<Route path="/maintest" component={MainTestComponent} />
+			<Route path="/reset-password/:token" component={NewPasswordComponent} />
 
 			{/* admin routes */}
 			<Route exact path="/createtest" component={CreateTestComponent} />

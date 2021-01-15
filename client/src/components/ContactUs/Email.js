@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Fade from "react-reveal/Fade";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
@@ -58,7 +59,7 @@ function Email(props) {
       alert("Please add Message");
     }
 
-    fetch("/send-message", {
+    fetch("/api/send-message", {
       method: "post",
       headers: {
         "Content-Type": "application/json"
@@ -85,9 +86,11 @@ function Email(props) {
   };
   return (
     <div className={classes.text}>
-      <Typography variant="h4" style={{ marginBottom: "1%" }} color="secondary">
-        Send Us Message
-      </Typography>
+      <Fade top>
+        <Typography variant="h4" style={{ marginBottom: "1%" }} color="secondary">
+          Send Us Message
+        </Typography>
+      </Fade>
       <Typography variant="inherit" className={classes.text} color="primary" style={{ marginTop: "10px" }}>
         We are here to help and answer any question you might have. We look forward hearing from you.
       </Typography>

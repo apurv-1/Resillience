@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import {
 	makeStyles,
 	withStyles,
@@ -121,10 +121,10 @@ const StyledTableRow = withStyles((theme) => ({
 	},
 }))(TableRow);
 
-const AddQuestions = ({ testID, totalQuestions, endTest }) => {
+const AddQuestions = ({ testID, totalQuestions }) => {
 	const classes = useStyles();
 	toast.configure();
-	const history = useHistory();
+	// const history = useHistory();
 	const [openSubject, setOpenSubject] = useState(false);
 	const [openCorrect, setOpenCorrect] = useState(false);
 	const [openQuesType, setOpenQuesType] = useState(false);
@@ -142,7 +142,7 @@ const AddQuestions = ({ testID, totalQuestions, endTest }) => {
 	const [questionPreview, setQuestionPreview] = useState("");
 
 	const [questionUrl, setQuestionUrl] = useState("");
-
+	console.log(questionNumber);
 	/* eslint-disable */
 	useEffect(() => {
 		if (questionUrl) {
@@ -182,8 +182,8 @@ const AddQuestions = ({ testID, totalQuestions, endTest }) => {
 							pauseOnHover: true,
 							draggable: false,
 						});
+						setQuestionNumber(++questionNumber);
 
-						setQuestionNumber(1 + questionNumber);
 						setCorrect("");
 						setQuestionImg("");
 						setQuestionUrl("");
@@ -212,12 +212,12 @@ const AddQuestions = ({ testID, totalQuestions, endTest }) => {
 				draggable: false,
 			});
 			// location.reload();
-			history.push("/admin-dashboard");
+			// history.push("/admin-dashboard");
 		} else if (!questionNumber || !questionType || !questionImg || !subject || !correct) {
 			window.onbeforeunload = function () {
 				return "Test won't be saved, Are you sure?";
 			};
-			toast.error(`Please Fill all the details`, {
+			toast.error(`Please fill all the details`, {
 				position: "bottom-right",
 				autoClose: 3000,
 				hideProgressBar: false,

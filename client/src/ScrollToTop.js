@@ -6,6 +6,7 @@ function ScrollToTop({ history }) {
     const unlisten = history.listen(() => {
       window.scrollTo(0, 0);
     });
+    // Without this it shows memory leakage,have to cancel all the asyc subscriptions in a clean up function
     return () => {
       unlisten();
     };

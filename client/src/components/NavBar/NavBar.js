@@ -3,7 +3,6 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import MenuIcon from "@material-ui/icons/Menu";
 import CloseIcon from "@material-ui/icons/Close";
-// import Typography from "@material-ui/core/Typography";
 import TuitionDropdown from "./TuitionDropdown";
 
 import { NavLink } from "react-router-dom";
@@ -30,7 +29,7 @@ const styles = () => ({
 	resillience: {
 		textTransform: "capitalize",
 		cursor: "pointer",
-		fontFamily: "rubik",
+		fontFamily: "Rubik,sans-serif",
 		fontSize: "26px",
 		"@media only screen and (max-width: 950px)": {
 			paddingLeft: "5%",
@@ -101,7 +100,6 @@ const styles = () => ({
 		"@media only screen and (max-width: 950px)": {
 			color: "#232127",
 			fontFamily: "muli",
-			fontWeight: "normal",
 			padding: "11px 0px",
 		},
 	},
@@ -124,7 +122,9 @@ class Navbar extends React.Component {
 			<ClickAwayListener onClickAway={this.handleClickAway}>
 				<AppBar className={classes.navbar}>
 					<div className={classes.smallNavbar}>
-						<h1 className={classes.resillience}>RESILLIENCE</h1>
+						<h1 className={classes.resillience} onClick={() => (window.location.href = "/")}>
+							RESILLIENCE
+						</h1>
 						{this.state.open === true ? (
 							<CloseIcon onClick={this.handleChange} className={classes.hamburgerMenu} />
 						) : (
@@ -147,11 +147,7 @@ class Navbar extends React.Component {
 								{eachNav.name}
 							</NavLink>
 						))}
-						{/* <Typography variant="inherit" className={classes.navIcons}>
-            Tuitions
-          </Typography> */}
-						<TuitionDropdown />
-						{/* TODO: Have to change here */}
+						<TuitionDropdown handleChange />
 						<NavLink
 							exact
 							className={classes.navIcons}

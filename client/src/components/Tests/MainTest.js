@@ -20,17 +20,42 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const useStyles = makeStyles((theme) => ({
-	main: {
-		margin: "40px",
+	root: {
+		margin: "20px",
+		marginBottom: "0%",
 		"@media only screen and (max-width: 1024px)": {
-			margin: "15px",
+			margin: "12px",
+		},
+		"@media only screen and (max-width: 770px)": {
+			margin: "5px",
 		},
 	},
-	paper1: {
-		marginTop: "6%",
-		paddingTop: "40px",
-		maxWidth: "70%",
+	main: {
+		margin: "1.5rem",
+		marginTop: "4rem",
+		display: "flex",
+		flexDirection: "row",
+		"@media only screen and (max-width: 1024px)": {
+			margin: "0.6rem",
+			marginTop: "4rem",
+		},
+		// "@media only screen and (max-width: 770px)": {
+		// 	flexDirection: "column",
+		// },
+	},
+	questionComponent: {
+		margin: "10px",
+		flex: "0.7",
 		textAlign: "center",
+	},
+
+	timerComponent: {
+		margin: "10px",
+		flex: "0.3",
+		height: "33rem",
+		"@media only screen and (max-width: 1024px)": {
+			height: "28rem",
+		},
 	},
 	paper2: {
 		marginTop: "2%",
@@ -38,11 +63,6 @@ const useStyles = makeStyles((theme) => ({
 		maxWidth: "70%",
 		textAlign: "center",
 		marginBottom: "-8%",
-	},
-	paper3: {
-		float: "right",
-		paddingTop: "20px",
-		width: "27%",
 	},
 	startbox: {
 		padding: "1%",
@@ -111,22 +131,19 @@ const MainTest = () => {
 		}
 	};
 
-	// console.log("hello: ", timeElapsed);
-
 	return (
-		<div className={classes.main}>
+		<div className={classes.root}>
 			{questionLength > 0 ? (
 				<TestContext.Provider value={{ state, dispatch }}>
 					{showResult === false && isStarted === true ? (
-						<div>
-							<Paper elevation={5} className={classes.paper3}>
-								<TimerComponent />
-								<QuestionKeysComponent />
-							</Paper>
-
-							<Paper elevation={5} className={classes.paper1}>
+						<div className={classes.main}>
+							<Paper elevation={5} className={classes.questionComponent}>
 								<QuestionComponent />
 								<KeysComponent />
+							</Paper>
+							<Paper elevation={5} className={classes.timerComponent}>
+								<TimerComponent />
+								<QuestionKeysComponent />
 							</Paper>
 						</div>
 					) : isStarted === false ? (
@@ -151,7 +168,6 @@ const MainTest = () => {
 						<Button
 							variant="contained"
 							color="primary"
-							// className={classes.button}
 							style={{ width: "100%", marginTop: "3%" }}
 							onClick={() => fetchTest()}>
 							Begin Test

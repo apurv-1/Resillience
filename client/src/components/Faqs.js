@@ -1,4 +1,5 @@
 import React from "react";
+import Fade from "react-reveal/Fade";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
@@ -69,7 +70,6 @@ const styles = () => ({
     }
   },
   heading: {
-    // fontSize: "1.2rem",
     "@media only screen and (max-width:768px)": {
       fontSize: "1rem"
     }
@@ -87,11 +87,15 @@ function Faqs(props) {
   return (
     <div className={`page ${classes.faqSection}`}>
       <div className={classes.topHeading}>
-        <Typography variant="h3" color="primary" className={classes.big}>
-          F.A.Q
-        </Typography>
-        <h1 className={classes.qs}>Questions?</h1>
-        <img alt="FAQ'S" src="https://res.cloudinary.com/rweb1/image/upload/v1600243280/Assets/images/faqs_usvet7.svg" className={classes.faqImage}></img>
+        <Fade top>
+          <Typography variant="h3" color="primary" className={classes.big}>
+            F.A.Q
+          </Typography>
+        </Fade>
+        <Fade top>
+          <h1 className={classes.qs}>Questions?</h1>
+        </Fade>
+        <img loading="lazy" alt="FAQ'S" src="https://res.cloudinary.com/rweb1/image/upload/v1600243280/Assets/images/faqs_usvet7.svg" className={classes.faqImage}></img>
       </div>
       <div className={classes.root}>
         <Accordion expanded={expanded === "panel1"} onChange={handleChange("panel1")} className={classes.accordion}>
@@ -280,8 +284,8 @@ function Faqs(props) {
                 Answer:
               </Typography>
               <br />
-              Yes, our Foundation program is very unique, It can prepare students with all the basics before starting the full fledged IIT/NEET Preparation. We also prepare students for KVPY and
-              Olympiads during the program.
+              Yes, our Foundation program is very unique, It can prepare students with all the basics before starting the full fledged IIT/NEET/MHT-CET Preparation. We also prepare students for KVPY
+              and Olympiads during the program.
             </Typography>
           </AccordionDetails>
         </Accordion>
@@ -290,7 +294,7 @@ function Faqs(props) {
           <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel4bh-content" id="panel4bh-header">
             <Typography variant="h6" color="primary" className={classes.heading}>
               <span className={classes.q}>Q: </span>
-              Does you also prepare students for MHT-CET?
+              Do you also prepare students for MHT-CET?
             </Typography>
           </AccordionSummary>
           <AccordionDetails>

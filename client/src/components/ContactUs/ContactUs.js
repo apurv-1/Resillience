@@ -1,4 +1,5 @@
 import React from "react";
+import Fade from "react-reveal/Fade";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Typography from "@material-ui/core/Typography";
 
@@ -98,6 +99,9 @@ const styles = () => ({
   areaMap: {
     width: "90vw",
     height: "400px",
+    "@media only screen and (min-width: 1600px)": {
+      width: "50vw"
+    },
     "@media only screen and (max-width: 770px)": {
       marginTop: "40px"
     }
@@ -109,14 +113,16 @@ function ContactUs(props) {
   return (
     <div className={classes.contactSection}>
       <div className={classes.subSections}>
-        {/* <img src={ContactUsLandingImage} className={classes.landingImage}></img> */}
+        {/* <img loading="lazy" src={ContactUsLandingImage} className={classes.landingImage}></img> */}
         <div className={classes.landingImage}>
-          <img alt="ContactUs" src="https://res.cloudinary.com/rweb1/image/upload/v1600243270/Assets/images/phoneContactUs_h56bal.svg" className={classes.innerImage}></img>
+          <img loading="lazy" alt="ContactUs" src="https://res.cloudinary.com/rweb1/image/upload/v1600243270/Assets/images/phoneContactUs_h56bal.svg" className={classes.innerImage}></img>
         </div>
         <div className={classes.subSectionContent}>
-          <Typography variant="h3" style={{ textAlign: "center", marginBottom: "5%" }} color="primary">
-            Contact Us
-          </Typography>
+          <Fade top>
+            <Typography variant="h3" style={{ textAlign: "center", marginBottom: "5%" }} color="primary">
+              Contact Us
+            </Typography>
+          </Fade>
 
           <div className={classes.withIconSection}>
             <LocationOnIcon className={classes.clickableIcon} onClick={() => window.open("https://www.google.com/maps/dir//19.1078249,73.0000123/@19.107825,73.000012,16z?hl=en", "_blank")} />

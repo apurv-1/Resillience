@@ -20,15 +20,22 @@ const useStyles = makeStyles({
 	root: {
 		margin: "2.5rem",
 		marginTop: "3rem",
+		"@media only screen and (max-width: 770px)": {
+			margin: "1rem",
+		},
 	},
 	table: {
 		padding: "10px",
 		borderCollapse: "collapse",
 		borderSpacing: "0 12px",
-		width: "62rem",
+		width: "60rem",
 		"@media only screen and (max-width: 1125px)": {
 			width: "35rem",
 			padding: "5px",
+		},
+		"@media only screen and (max-width: 770px)": {
+			// width: "15rem",
+			padding: "2px",
 		},
 	},
 	span: {
@@ -101,7 +108,7 @@ const ShowAttemptedTest = ({ attemptedTests }) => {
 						<TableRow>
 							<StyledTableCell>Test Id </StyledTableCell>
 							<StyledTableCell>Test Name </StyledTableCell>
-							<StyledTableCell align="right">Attempted At</StyledTableCell>
+							<StyledTableCell align="right">Attempted at</StyledTableCell>
 							<StyledTableCell align="right">Date</StyledTableCell>
 							<StyledTableCell align="center">Report</StyledTableCell>
 						</TableRow>

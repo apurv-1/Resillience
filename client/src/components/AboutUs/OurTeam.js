@@ -1,5 +1,7 @@
 import React from "react";
+import Fade from "react-reveal/Fade";
 import withStyles from "@material-ui/styles/withStyles";
+import Typography from "@material-ui/core/Typography";
 // import TeacherImage from "../../compressed/teachersNew.svg";
 
 const styles = () => ({
@@ -16,8 +18,13 @@ function OurTeam(props) {
   const { classes } = props;
   return (
     <div style={{ margin: "auto", textAlign: "center" }}>
-      <img alt="Teacher" src="https://res.cloudinary.com/rweb1/image/upload/v1600566177/Assets/images/teachersCompress_l1e5lt.svg" className={classes.teacherImage} />
-      {/* <img alt="Teacher" src={TeacherImage} className={classes.teacherImage}></img> */}
+      <Fade top>
+        <Typography variant="h4" color="primary" style={{ textAlign: "center", color: "#0F7DC2" }}>
+          Founders
+        </Typography>
+      </Fade>
+      <img loading="eager" alt="Teacher" src="https://res.cloudinary.com/rweb1/image/upload/v1600566177/Assets/images/teachersCompress_l1e5lt.svg" className={classes.teacherImage} />
+      {/* <img loading="lazy" alt="Teacher" src={TeacherImage} className={classes.teacherImage}></img> */}
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import Fade from "react-reveal/Fade";
 import Slider from "react-slick";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -121,70 +122,79 @@ function Testimonials(props) {
 
   return (
     <div className={classes.sectionBg}>
-      <Typography variant="h3" color="primary" style={{ margin: "5%", letterSpacing: "-1px" }}>
-        Our Biggest Motivation
-      </Typography>
+      <Fade top>
+        <Typography variant="h3" color="primary" style={{ margin: "5%", letterSpacing: "-1px" }}>
+          Our Biggest Motivation
+        </Typography>
+      </Fade>
       <div className={classes.tSaksham}>
-        <div className={classes.tImage}>
-          {/* <img
+        <Fade>
+          <div className={classes.tImage}>
+            {/* <img loading="lazy"
             src="https://res.cloudinary.com/rweb1/image/upload/v1600243275/Assets/images/sakshamPhoto_fatfdp.png"
             style={{ display: "initial", width: "75%" }}
             alt="Saksham Student"
           /> */}
-          <img
-            src={sakshamPhoto}
-            useMap="#image-map"
-            alt="Saksham Student"
-            onClick={() => window.open("https://www.youtube.com/watch?v=EN8mugXYzyY&t=62s&ab_channel=RESILLIENCE")}
-            className={classes.sakshamPhoto770}
-          />
-          <img src={sakshamPhoto} useMap="#image-map" alt="Saksham Student" className={classes.sakshamPhoto} />
-          <map name="image-map">
-            <area
-              onClick={() => window.open("https://www.youtube.com/watch?v=EN8mugXYzyY&t=62s&ab_channel=RESILLIENCE")}
+            <img
+              loading="lazy"
+              src={sakshamPhoto}
+              useMap="#image-map"
               alt="Saksham Student"
-              title="Saksham Video"
-              coords="157,226,157,298,213,263"
-              shape="poly"
-              style={{ cursor: "pointer" }}
+              onClick={() => window.open("https://www.youtube.com/watch?v=EN8mugXYzyY&t=62s&ab_channel=RESILLIENCE")}
+              className={classes.sakshamPhoto770}
             />
-          </map>
-        </div>
-        <div className={classes.tDesc}>
-          <Typography variant="inherit" className={classes.sakshamMessage}>
-            My experience with Resillience was very good. The teachers were the sole reason for whatever I have achieved. Their efforts were really commendable. They know exactly how to prepare a
-            child for IIT JEE. Studying smart and hard both is their soul mantra. Aiming at improving concepts and practicing of questions was the major advice. I became very comfortable with all the
-            three professors and we developed a very strong bond in short time.
-          </Typography>
-          <Typography variant="h6" color="primary" style={{ marginTop: "2%" }}>
-            Saksham Kamath
-          </Typography>
-          <Typography variant="inherit" color="primary" style={{ fontSize: "20px" }}>
-            Got selected in JEE Adv'19
-          </Typography>
-        </div>
+            <img loading="lazy" src={sakshamPhoto} useMap="#image-map" alt="Saksham Student" className={classes.sakshamPhoto} />
+            <map name="image-map">
+              <area
+                onClick={() => window.open("https://www.youtube.com/watch?v=EN8mugXYzyY&t=62s&ab_channel=RESILLIENCE")}
+                alt="Saksham Student"
+                title="Saksham Video"
+                coords="157,226,157,298,213,263"
+                shape="poly"
+                style={{ cursor: "pointer" }}
+              />
+            </map>
+          </div>
+          <div className={classes.tDesc}>
+            <Fade>
+              <Typography variant="inherit" className={classes.sakshamMessage}>
+                My experience with Resillience was very good. The teachers were the sole reason for whatever I have achieved. Their efforts were really commendable. They know exactly how to prepare a
+                child for IIT JEE. Studying smart and hard both is their soul mantra. Aiming at improving concepts and practicing of questions was the major advice. I became very comfortable with all
+                the three professors and we developed a very strong bond in short time.
+              </Typography>
+              <Typography variant="h6" color="primary" style={{ marginTop: "2%" }}>
+                Saksham Kamath
+              </Typography>
+              <Typography variant="inherit" color="primary" style={{ fontSize: "20px" }}>
+                Got selected in JEE Adv'19
+              </Typography>
+            </Fade>
+          </div>
+        </Fade>
       </div>
 
-      <Slider {...settings}>
-        {list.map((eachTestimonial, index) => (
-          <div className={classes.tEach} key={index}>
-            <div className={classes.tDesc} style={{ textAlign: "center" }}>
-              <Typography variant="inherit" color="primary" style={{ fontStyle: "italic" }}>
-                {eachTestimonial.message}
-              </Typography>
-              <br />
-              <Typography variant="inherit" color="primary">
-                <span alt="Star Emojis" role="img" aria-label="Star Merit Rating">
-                  ⭐⭐⭐⭐⭐
-                </span>
-              </Typography>
-              <Typography variant="h6" color="primary">
-                {eachTestimonial.name}
-              </Typography>
+      <Fade>
+        <Slider {...settings}>
+          {list.map((eachTestimonial, index) => (
+            <div className={classes.tEach} key={index}>
+              <div className={classes.tDesc} style={{ textAlign: "center" }}>
+                <Typography variant="inherit" color="primary" style={{ fontStyle: "italic" }}>
+                  {eachTestimonial.message}
+                </Typography>
+                <br />
+                <Typography variant="inherit" color="primary">
+                  <span alt="Star Emojis" role="img" aria-label="Star Merit Rating">
+                    ⭐⭐⭐⭐⭐
+                  </span>
+                </Typography>
+                <Typography variant="h6" color="primary">
+                  {eachTestimonial.name}
+                </Typography>
+              </div>
             </div>
-          </div>
-        ))}
-      </Slider>
+          ))}
+        </Slider>
+      </Fade>
     </div>
   );
 }

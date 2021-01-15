@@ -11,7 +11,7 @@ function Error() {
       <Typography variant="h4" color="primary" style={{ position: "absolute", marginTop: "8%", marginLeft: "16%" }}>
         Page not found
       </Typography>
-      <img src="https://res.cloudinary.com/rweb1/image/upload/v1600243274/Assets/images/404Page_umaxug.svg" alt="Error 404" style={{ height: "100vh", width: "98vw" }} />
+      <img loading="lazy" src="https://res.cloudinary.com/rweb1/image/upload/v1600243274/Assets/images/404Page_umaxug.svg" alt="Error 404" style={{ height: "100vh", width: "98vw" }} />
     </div>
   );
 }

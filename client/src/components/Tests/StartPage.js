@@ -8,7 +8,7 @@ const useStyles = makeStyles({
 	root: {
 		marginTop: "3rem",
 		padding: "2rem",
-		marginBottom: "-10rem",
+		marginBottom: "0%",
 	},
 	main: {
 		padding: "40px",
@@ -23,7 +23,7 @@ const StartPage = () => {
 	const { state, dispatch } = useContext(TestContext);
 	const { userState } = useContext(UserContext);
 	const { test } = state;
-	const [attemptedTests] = userState.payload.attemptedTests;
+	const attemptedTests = new Array(userState.payload.attemptedTests);
 	const [checked, setChecked] = useState(false);
 	var flag = true;
 

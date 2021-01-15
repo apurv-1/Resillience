@@ -16,98 +16,98 @@ import Button from "@material-ui/core/Button";
 import axios from "axios";
 
 const styles = () => ({
-  root: {
-    margin: "0 25% 5% 25%",
-    backgroundColor: "#EEEEEE",
-    "@media only screen and (max-width: 770px)": {
-      margin: "5% 10% 5% 10%",
-      overflowX: "hidden"
-    }
-  },
-  section: {
-    marginTop: "4.2%",
-    "@media only screen and (max-width: 770px)": {
-      marginTop: "50px"
-    }
-  },
-  image: {
-    paddingBottom: "10%",
-    width: "100%",
-    "@media only screen and (max-width: 970px)": {
-      width: "100%"
-    }
-  },
-  blogHeading: {
-    textAlign: "center"
-  },
-  description: {
-    fontSize: "20px"
-  }
+	root: {
+		margin: "0 25% 5% 25%",
+		backgroundColor: "#EEEEEE",
+		"@media only screen and (max-width: 770px)": {
+			margin: "5% 10% 5% 10%",
+			overflowX: "hidden",
+		},
+	},
+	section: {
+		marginTop: "4.2%",
+		"@media only screen and (max-width: 770px)": {
+			marginTop: "50px",
+		},
+	},
+	image: {
+		paddingBottom: "10%",
+		width: "100%",
+		"@media only screen and (max-width: 970px)": {
+			width: "100%",
+		},
+	},
+	blogHeading: {
+		textAlign: "center",
+	},
+	description: {
+		fontSize: "20px",
+	},
 });
 
 class Blog extends Component {
-  state = {
-    heading: "",
-    description: "",
-    date: "",
-    blogArray: []
-  };
+	state = {
+		heading: "",
+		description: "",
+		date: "",
+		blogArray: [],
+	};
 
-  componentDidMount = () => {
-    axios.get("/blogs").then((res) => {
-      // console.log(res.data.blogs);
-      this.setState({
-        blogArray: res.data.blogs
-      });
-    });
-  };
+	componentDidMount = () => {
+		axios.get("/api/blogs").then((res) => {
+			// console.log(res.data.blogs);
+			this.setState({
+				blogArray: res.data.blogs,
+			});
+		});
+	};
 
-  render() {
-    const { classes } = this.props;
-    return (
-      <div className={classes.section}>
-        <img alt="BlogsBold" src={Image} className={classes.image}></img>
-        <div className={classes.grid}>
-          {this.state.blogArray.map((eachBlog, index) => (
-            <Card className={classes.root} key={index}>
-              <CardActionArea>
-                <CardMedia
-                  component="img"
-                  alt="Scenery"
-                  height="250"
-                  className={classes.media}
-                  image="https://res.cloudinary.com/rweb1/image/upload/v1600321493/Assets/images/abhinav-blog-cover_dabuit.png"
-                  title="Resillience Home Tuition Image"
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h4" component="h2">
-                    {eachBlog.heading}
-                  </Typography>
-                  <Typography gutterBottom variant="body1" component="h2">
-                    {eachBlog.date}
-                  </Typography>
-                  <Typography className={classes.description} color="textSecondary" component="h2">
-                    {eachBlog.description}
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-              <CardActions>
-                <Button
-                  size="large"
-                  color="secondary"
-                  onClick={() => {
-                    window.location.href = `/blogs/${eachBlog._id}`;
-                  }}
-                >
-                  Read More...
-                </Button>
-              </CardActions>
-            </Card>
-          ))}
-        </div>
-      </div>
-    );
-  }
+	render() {
+		const { classes } = this.props;
+		return (
+			<div className={classes.section}>
+				<img loading="lazy" alt="BlogsBold" src={Image} className={classes.image}></img>
+				<div className={classes.grid}>
+					{this.state.blogArray.map((eachBlog, index) => (
+						<Card className={classes.root} key={index}>
+							<CardActionArea>
+								<CardMedia
+									component="img"
+									alt="Scenery"
+									height="250"
+									className={classes.media}
+									image="https://res.cloudinary.com/rweb1/image/upload/v1600321493/Assets/images/abhinav-blog-cover_dabuit.png"
+									title="Resillience Home Tuition Image"
+								/>
+								<CardContent>
+									<Typography gutterBottom variant="h4" component="h2">
+										{eachBlog.heading}
+									</Typography>
+									<Typography gutterBottom variant="body1" component="h2">
+										{eachBlog.date}
+									</Typography>
+									<Typography className={classes.description} color="textSecondary" component="h2">
+										{eachBlog.description}
+									</Typography>
+								</CardContent>
+							</CardActionArea>
+							<CardActions>
+								<Button
+									size="large"
+									color="secondary"
+									onClick={() => {
+										window.location.href = `/blogs/${eachBlog._id}`;
+										// window.location.href = `/blogs/${eachBlog.heading}`;
+									}}>
+									Read More...
+								</Button>
+							</CardActions>
+						</Card>
+					))}
+				</div>
+			</div>
+		);
+	}
 }
 
 export default withStyles(styles)(Blog);

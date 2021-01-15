@@ -16,8 +16,8 @@ const list = [
     name: "Kanchan S"
   },
   {
-    message: "Their coaching is very effective. It takes very less time wrt a classroom study pattern of grasping subject knowledge.",
-    name: "Amit Kumar"
+    message: "The best place to study for IIT JEE and Mains, Advance exam preparation.",
+    name: "Akhilesh Srivastava"
   },
   {
     message: "Resillience has really helped people to achieve their dreams to get into the premium institutes of India.",

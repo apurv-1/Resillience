@@ -24,11 +24,11 @@ const styles = () => ({
   },
   eachSocialLink: {
     display: "flex",
-    margin: "1%"
+    margin: "1%",
+    cursor: "pointer"
   },
   clickableIcon: {
-    marginRight: "5%",
-    cursor: "pointer"
+    marginRight: "5%"
   }
 });
 
@@ -42,32 +42,32 @@ class SidebarSocial extends Component {
           Social
         </Typography>
         <div className={classes.socialLinks}>
-          <span className={classes.eachSocialLink}>
-            <FacebookIcon className={classes.clickableIcon} color="secondary" onClick={() => window.open("https://www.facebook.com/resillience.in", "_blank")} />
+          <span className={classes.eachSocialLink} onClick={() => window.open("https://www.facebook.com/resillience.in", "_blank")}>
+            <FacebookIcon className={classes.clickableIcon} color="secondary" />
             <Typography gutterBottom color="secondary" className={classes.body}>
               Facebook
             </Typography>
           </span>
-          <span className={classes.eachSocialLink}>
-            <TwitterIcon className={classes.clickableIcon} color="secondary" onClick={() => window.open("https://twitter.com/resillience_in", "_blank")} />
+          <span className={classes.eachSocialLink} onClick={() => window.open("https://twitter.com/resillience_in", "_blank")}>
+            <TwitterIcon className={classes.clickableIcon} color="secondary" />
             <Typography gutterBottom color="secondary" className={classes.body}>
               Twitter
             </Typography>
           </span>
-          <span className={classes.eachSocialLink}>
-            <InstagramIcon className={classes.clickableIcon} color="secondary" onClick={() => window.open("https://www.instagram.com/resillience.in/", "_blank")} />
+          <span className={classes.eachSocialLink} onClick={() => window.open("https://www.instagram.com/resillience.in/", "_blank")}>
+            <InstagramIcon className={classes.clickableIcon} color="secondary" />
             <Typography gutterBottom color="secondary" className={classes.body}>
               Instagram
             </Typography>
           </span>
-          <span className={classes.eachSocialLink}>
-            <YouTubeIcon className={classes.clickableIcon} color="secondary" onClick={() => window.open("https://www.youtube.com/channel/UCLAs5bDSPA6e3EyWZ8bZsyg", "_blank")} />
+          <span className={classes.eachSocialLink} onClick={() => window.open("https://www.youtube.com/channel/UCLAs5bDSPA6e3EyWZ8bZsyg", "_blank")}>
+            <YouTubeIcon className={classes.clickableIcon} color="secondary" />
             <Typography gutterBottom color="secondary" className={classes.body}>
               Youtube
             </Typography>
           </span>
-          <span className={classes.eachSocialLink}>
-            <LinkedInIcon className={classes.clickableIcon} color="secondary" onClick={() => window.open("https://www.linkedin.com/company/resillience/", "_blank")} />
+          <span className={classes.eachSocialLink} onClick={() => window.open("https://www.linkedin.com/company/resillience/", "_blank")}>
+            <LinkedInIcon className={classes.clickableIcon} color="secondary" />
             <Typography gutterBottom color="secondary" className={classes.body}>
               LinkedIn
             </Typography>

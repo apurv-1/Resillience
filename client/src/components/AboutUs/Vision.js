@@ -1,4 +1,5 @@
 import React from "react";
+import Fade from "react-reveal/Fade";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Typography from "@material-ui/core/Typography";
 
@@ -31,15 +32,19 @@ function Vision(props) {
 
   return (
     <div className={classes.vision}>
-      <Typography variant="h4" color="secondary" className={classes.textHeading}>
-        Our Vision:{" "}
-        <span role="img" aria-label="rocket">
-          🚀
-        </span>
-      </Typography>
-      <Typography variant="inherit" className={classes.visionText} color="primary" style={{ textAlign: "left" }}>
-        Our vision is to Empower each and every corner of India by providing "Affordable and Quality" personalized education at your door step
-      </Typography>
+      <Fade top>
+        <Typography variant="h4" color="secondary" className={classes.textHeading}>
+          Our Vision:{" "}
+          <span role="img" aria-label="rocket">
+            🚀
+          </span>
+        </Typography>
+      </Fade>
+      <Fade>
+        <Typography variant="inherit" className={classes.visionText} color="primary" style={{ textAlign: "left" }}>
+          Our vision is to Empower each and every corner of India by providing "Affordable and Quality" personalized education at your door step
+        </Typography>
+      </Fade>
     </div>
   );
 }

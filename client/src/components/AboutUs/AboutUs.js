@@ -1,11 +1,12 @@
 import React from "react";
+import Fade from "react-reveal/Fade";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/styles/withStyles";
 
 //Components
 import LandingPage from "./AboutLandingPage";
 import Vision from "./Vision";
-import Story from "./Story";
+// import Story from "./Story";
 import OurTeam from "./OurTeam";
 
 const styles = () => ({
@@ -26,7 +27,10 @@ const styles = () => ({
     }
   },
   hoverName: {
-    cursor: "pointer"
+    cursor: "pointer",
+    "&:hover": {
+      color: "#0F7DC2"
+    }
   }
 });
 
@@ -44,18 +48,24 @@ function AboutUs(props) {
     >
       <LandingPage />
       <Vision />
-      <OurTeam />
-      <Story />
-      <Typography variant="h5" color="primary" className={classes.developers}>
-        Website developed by:&nbsp;&nbsp; <br className={classes.break} />
-        <span className={classes.hoverName} onClick={() => window.open("https://www.linkedin.com/in/arijit-kundu/", "_blank")}>
-          Arijit Kundu
-        </span>{" "}
-        &nbsp;&&nbsp;&nbsp;{" "}
-        <span className={classes.hoverName} onClick={() => window.open("https://www.linkedin.com/in/apurv-gupta/", "_blank")}>
-          Apurv Gupta
-        </span>
-      </Typography>
+      <Fade>
+        <OurTeam />
+      </Fade>
+      {/* <Fade>
+        <Story />
+      </Fade> */}
+      <Fade top>
+        <Typography variant="h5" color="primary" className={classes.developers}>
+          Website developed by:&nbsp;&nbsp; <br className={classes.break} />
+          <span className={classes.hoverName} onClick={() => window.open("https://www.linkedin.com/in/arijit-kundu/", "_blank")}>
+            Arijit Kundu
+          </span>{" "}
+          &nbsp;&&nbsp;&nbsp;{" "}
+          <span className={classes.hoverName} onClick={() => window.open("https://www.linkedin.com/in/apurv-gupta/", "_blank")}>
+            Apurv Gupta
+          </span>
+        </Typography>
+      </Fade>
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import Fade from "react-reveal/Fade";
 import CountUp from "react-countup";
 import VisibilitySensor from "react-visibility-sensor";
 // import milestoneImageDesign from "../../compressed/milestoneImageDesign.svg";
@@ -51,88 +52,92 @@ function Milestones(props) {
   const { classes } = props;
   return (
     <div className={classes.milestoneSection}>
-      <img src="https://res.cloudinary.com/rweb1/image/upload/v1600243284/Assets/images/milestoneImageDesign_m8mcru.svg" className={classes.milestoneImage} alt="Milestone Design" />
-      <Typography variant="h3" color="primary" style={{ marginBottom: "5%", textAlign: "center", letterSpacing: "-1.5px" }}>
-        Milestones
-      </Typography>
-      <div className={classes.milestones}>
-        <div className={classes.eachMilestone}>
-          <h1>
-            <CountUp start={focus ? 0 : null} end={150} duration={4} redraw={true}>
-              {({ countUpRef }) => (
-                <VisibilitySensor
-                  onChange={(isVisible) => {
-                    if (isVisible) {
-                      setFocus(true);
-                    }
-                  }}
-                >
-                  <span ref={countUpRef} />
-                </VisibilitySensor>
-              )}
-            </CountUp>
-            +
-          </h1>
-          <h1>Total registered students</h1>
+      <Fade top>
+        <img loading="lazy" src="https://res.cloudinary.com/rweb1/image/upload/v1600243284/Assets/images/milestoneImageDesign_m8mcru.svg" className={classes.milestoneImage} alt="Milestone Design" />
+        <Typography variant="h3" color="primary" style={{ marginBottom: "5%", textAlign: "center", letterSpacing: "-1.5px" }}>
+          Milestones
+        </Typography>
+      </Fade>
+      <Fade>
+        <div className={classes.milestones}>
+          <div className={classes.eachMilestone}>
+            <h1>
+              <CountUp start={focus ? 0 : null} end={150} duration={4} redraw={true}>
+                {({ countUpRef }) => (
+                  <VisibilitySensor
+                    onChange={(isVisible) => {
+                      if (isVisible) {
+                        setFocus(true);
+                      }
+                    }}
+                  >
+                    <span ref={countUpRef} />
+                  </VisibilitySensor>
+                )}
+              </CountUp>
+              +
+            </h1>
+            <h1>Total registered students</h1>
+          </div>
+          <div className={classes.eachMilestone}>
+            <h1>
+              <CountUp start={focus ? 0 : null} end={3700} duration={4} redraw={true}>
+                {({ countUpRef }) => (
+                  <VisibilitySensor
+                    onChange={(isVisible) => {
+                      if (isVisible) {
+                        setFocus(true);
+                      }
+                    }}
+                  >
+                    <span ref={countUpRef} />
+                  </VisibilitySensor>
+                )}
+              </CountUp>
+              +
+            </h1>
+            <h1>Hours taught online</h1>
+          </div>
+          <div className={classes.eachMilestone}>
+            <h1>
+              <CountUp start={focus ? 0 : null} end={3500} duration={4} redraw={true}>
+                {({ countUpRef }) => (
+                  <VisibilitySensor
+                    onChange={(isVisible) => {
+                      if (isVisible) {
+                        setFocus(true);
+                      }
+                    }}
+                  >
+                    <span ref={countUpRef} />
+                  </VisibilitySensor>
+                )}
+              </CountUp>
+              +
+            </h1>
+            <h1>Hours at home</h1>
+          </div>
+          <div className={classes.eachMilestone}>
+            <h1>
+              <CountUp start={focus ? 0 : null} end={300} duration={4} redraw={true}>
+                {({ countUpRef }) => (
+                  <VisibilitySensor
+                    onChange={(isVisible) => {
+                      if (isVisible) {
+                        setFocus(true);
+                      }
+                    }}
+                  >
+                    <span ref={countUpRef} />
+                  </VisibilitySensor>
+                )}
+              </CountUp>
+              +
+            </h1>
+            <h1>Mentoring Sessions</h1>
+          </div>
         </div>
-        <div className={classes.eachMilestone}>
-          <h1>
-            <CountUp start={focus ? 0 : null} end={3700} duration={4} redraw={true}>
-              {({ countUpRef }) => (
-                <VisibilitySensor
-                  onChange={(isVisible) => {
-                    if (isVisible) {
-                      setFocus(true);
-                    }
-                  }}
-                >
-                  <span ref={countUpRef} />
-                </VisibilitySensor>
-              )}
-            </CountUp>
-            +
-          </h1>
-          <h1>Hours taught online</h1>
-        </div>
-        <div className={classes.eachMilestone}>
-          <h1>
-            <CountUp start={focus ? 0 : null} end={3500} duration={4} redraw={true}>
-              {({ countUpRef }) => (
-                <VisibilitySensor
-                  onChange={(isVisible) => {
-                    if (isVisible) {
-                      setFocus(true);
-                    }
-                  }}
-                >
-                  <span ref={countUpRef} />
-                </VisibilitySensor>
-              )}
-            </CountUp>
-            +
-          </h1>
-          <h1>Hours at home</h1>
-        </div>
-        <div className={classes.eachMilestone}>
-          <h1>
-            <CountUp start={focus ? 0 : null} end={150} duration={4} redraw={true}>
-              {({ countUpRef }) => (
-                <VisibilitySensor
-                  onChange={(isVisible) => {
-                    if (isVisible) {
-                      setFocus(true);
-                    }
-                  }}
-                >
-                  <span ref={countUpRef} />
-                </VisibilitySensor>
-              )}
-            </CountUp>
-            +
-          </h1>
-          <h1>Mentoring Sessions</h1>
-        </div>
-      </div>
+      </Fade>
     </div>
   );
 }

@@ -14,10 +14,8 @@ import SaveIcon from "@material-ui/icons/Save";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AddQuestions from "./AddQuestionsComponent";
-// +import ShowTest from "./ShowTestComponent";
 
 const useStyles = makeStyles(() => ({
-	root: {},
 	testDiv: {
 		marginTop: "6%",
 		marginLeft: "20%",
@@ -71,7 +69,7 @@ const CreateTest = () => {
 
 	const SaveTest = () => {
 		if (!testId || !testName || !testDuration || !noOfQuestions) {
-			toast.error("Please Fill all the fields..", {
+			toast.error("Please fill all the fields..", {
 				position: "bottom-right",
 				autoClose: 4000,
 				hideProgressBar: false,
@@ -134,16 +132,44 @@ const CreateTest = () => {
 		}
 	};
 
+	const handleAddMoreQuestions = () => {
+		if (!testId || !noOfQuestions) {
+			toast.error("Please fill TestId & Number of Questions", {
+				position: "bottom-right",
+				autoClose: 4000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: false,
+			});
+		} else {
+			setCheck(true);
+			toast.info(`You can add more Questions to testId: ${testId}`, {
+				position: "bottom-right",
+				autoClose: 6000,
+				hideProgressBar: true,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: false,
+			});
+		}
+	};
+
 	return (
 		<div className={classes.root}>
 			{check ? (
 				<div className={classes.questionsDiv}>
-					<AddQuestions endTest={setCheck} testID={testId} totalQuestions={noOfQuestions} />
+					<AddQuestions testID={testId} totalQuestions={noOfQuestions} />
 				</div>
 			) : (
 				<div className={classes.testDiv}>
 					<Paper elevation={5} className={classes.paper}>
-						<Typography variant="h4">Create a New Test 📋🖍</Typography>
+						<Typography variant="h4">
+							Create a New Test{" "}
+							<span role="img" aria-label="test">
+								📋🖍
+							</span>
+						</Typography>
 
 						<TextField
 							id="test-id"
@@ -225,7 +251,12 @@ const CreateTest = () => {
 							Save Test
 						</Button>
 						<Typography variant="inherit" color="primary" className={classes.forgot}>
-							Add more <span style={{ color: "#0F7DC2", cursor: "pointer" }}>Questions?</span>
+							Add more{" "}
+							<span
+								onClick={() => handleAddMoreQuestions()}
+								style={{ color: "#0F7DC2", cursor: "pointer" }}>
+								Questions?
+							</span>
 						</Typography>
 					</Paper>
 				</div>

@@ -32,6 +32,9 @@ const useStyles = makeStyles({
       width: "380px",
       position: "initial",
       marginTop: "-10px"
+    },
+    "@media only screen and (max-width: 350px)": {
+      width: "285px"
     }
   },
   paper: {
@@ -245,8 +248,8 @@ function Counselling() {
   // };
 
   const SendDetails = () => {
-    if (parentname !== "" && phone.length === 10 && /^\d+$/.test(phone) === true){
-      fetch("/send-mail", {
+    if (parentname !== "" && phone.length === 10 && /^\d+$/.test(phone) === true) {
+      fetch("/api/send-mail", {
         method: "post",
         headers: {
           "Content-Type": "application/json"
@@ -281,7 +284,7 @@ function Counselling() {
   return (
     <div className={classes.counselling}>
       <span onClick={handleClickOpen}>
-        <img src="https://res.cloudinary.com/rweb1/image/upload/v1600243284/Assets/images/mentoringStroke_doj1ve.svg" alt="Stroke" className={classes.blueImage} />
+        <img loading="lazy" src="https://res.cloudinary.com/rweb1/image/upload/v1600243284/Assets/images/mentoringStroke_doj1ve.svg" alt="Stroke" className={classes.blueImage} />
         <h1 className={classes.heading}>Book a Free Mentoring Session</h1>
       </span>
 
@@ -296,15 +299,15 @@ function Counselling() {
           paper: classes.paper
         }}
       >
-        {/* <img alt="Counselling" src="https://res.cloudinary.com/rweb1/image/upload/v1600243280/Assets/images/counsellingNew_vrn64m.svg" className={classes.image} /> */}
-        <img alt="Counselling" src={CounsellingImageNew} className={classes.imageWeb} />
-        <img alt="Counselling" src={CounsellingImageNewPhone} className={classes.image} />
+        {/* <img loading="lazy" alt="Counselling" src="https://res.cloudinary.com/rweb1/image/upload/v1600243280/Assets/images/counsellingNew_vrn64m.svg" className={classes.image} /> */}
+        <img loading="lazy" alt="Counselling" src={CounsellingImageNew} className={classes.imageWeb} />
+        <img loading="lazy" alt="Counselling" src={CounsellingImageNewPhone} className={classes.image} />
         <div className={classes.section}>
           <h2 className={classes.getFree}>Get a Free Demo</h2>
           <h2 className={classes.mentroingSession}>Cum Mentoring Session</h2>
           {/* {loading === true && <CircularProgress color="secondary" className={classes.circularProgress} thickness={2.4} />} */}
-          {status === "" && /*loading === false &&*/ (
-            <div>
+          {status === "" && (
+            /*loading === false &&*/ <div>
               <div className={classes.subSection}>
                 <PersonOutlineIcon color="secondary" className={classes.icons} />
                 <input
@@ -338,12 +341,12 @@ function Counselling() {
               <div className={classes.messages}>
                 {["Identify strengths & weaknesses", "Recommends a study plan", "One to One home/online tuition", "Mastering a weak topic"].map((message, index) => (
                   <div className={classes.message} key={index}>
-                    <img src="https://res.cloudinary.com/rweb1/image/upload/v1600243272/Assets/images/tick_nz85rm.svg" alt="tick" className={classes.tickImage} />
+                    <img loading="lazy" src="https://res.cloudinary.com/rweb1/image/upload/v1600243272/Assets/images/tick_nz85rm.svg" alt="tick" className={classes.tickImage} />
                     <h4 style={{ margin: "auto", marginLeft: "10px" }}>{message}</h4>
                   </div>
                 ))}
               </div>
-              <Button variant="contained" color="secondary" disableElevation className={classes.button} size="small" onClick={() => SendDetails()} >
+              <Button variant="contained" color="secondary" disableElevation className={classes.button} size="small" onClick={() => SendDetails()}>
                 Proceed
               </Button>
             </div>
@@ -374,7 +377,7 @@ function Counselling() {
                   onChange={(e) => setOtp(e.target.value)}
                 />
               </div>
-              {/*valid === false && */<h4 style={{ margin: "auto", marginLeft: "10px", color: "red", marginBottom: "10px" }}>The OTP entered is incorrect, Try again</h4>}
+              {/*valid === false && */ <h4 style={{ margin: "auto", marginLeft: "10px", color: "red", marginBottom: "10px" }}>The OTP entered is incorrect, Try again</h4>}
               <div style={{ display: "flex", margin: "auto", justifyContent: "center" }}>
                 <Button
                   type="submit"

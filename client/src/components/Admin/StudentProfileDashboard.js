@@ -15,7 +15,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import ShowAttemptedTest from "./ShowAttemptedTest";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
 	root: {
 		display: "flex",
 		margin: "3rem",
@@ -24,9 +24,6 @@ const useStyles = makeStyles((theme) => ({
 	},
 	card: {
 		width: "20rem",
-		// "@media only screen and (max-width: 1125px)": {
-		// 	width: "15rem",
-		// },
 	},
 	pic: {
 		height: "8rem",
@@ -53,7 +50,8 @@ const useStyles = makeStyles((theme) => ({
 		justifyContent: "center",
 	},
 	editButton: {
-		marginLeft: "5rem",
+		display: "flex",
+		justifyContent: "center",
 	},
 }));
 
@@ -65,6 +63,14 @@ export default function StudentProfileDashboard() {
 	const [open, setOpen] = useState(false);
 	const [student, setStudent] = useState([]);
 	const [attemptedTests, setAttemptedTests] = useState([]);
+
+	const [name, setName] = useState("");
+	const [email, setEmail] = useState("");
+	const [batch, setBatch] = useState("");
+	const [contact, setContact] = useState("");
+	const [parentContact, setParentContact] = useState("");
+	const [fname, setFname] = useState("");
+	const [address, setAddress] = useState("");
 
 	/* eslint-disable */
 	useEffect(() => {
@@ -100,6 +106,73 @@ export default function StudentProfileDashboard() {
 			});
 	}, []);
 
+	const handleUpdateStudentDetails = () => {
+		if (!name || !email || !contact || !parentContact || !address) {
+			toast.error("Please fill all the fields..", {
+				position: "bottom-right",
+				autoClose: 4000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: false,
+			});
+		} else {
+			//API call to update student details
+			fetch(`/api/update-student-details/${studentid}`, {
+				method: "PATCH",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: "Bearer " + localStorage.getItem("admin_jwt"),
+				},
+				body: JSON.stringify({
+					name,
+					email,
+					batch,
+					contact,
+					parentContact,
+					fname,
+					address,
+				}),
+			})
+				.then((res) => res.json())
+				.then((details) => {
+					if (details.error) {
+						toast.error(details.error, {
+							position: "bottom-right",
+							autoClose: 4000,
+							hideProgressBar: false,
+							closeOnClick: true,
+							pauseOnHover: true,
+							draggable: false,
+						});
+						console.log(test.error);
+					} else {
+						toast.success(details.message, {
+							position: "bottom-right",
+							autoClose: 20000,
+							hideProgressBar: true,
+							closeOnClick: true,
+							pauseOnHover: true,
+							draggable: false,
+						});
+						setOpen(false);
+						window.location.reload();
+					}
+				})
+				.catch((err) => {
+					console.log(err);
+					toast.error(err, {
+						position: "bottom-right",
+						autoClose: 4000,
+						hideProgressBar: false,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: false,
+					});
+				});
+		}
+	};
+
 	return (
 		<Paper elevation={5} className={classes.root}>
 			<div className={classes.card}>
@@ -107,14 +180,15 @@ export default function StudentProfileDashboard() {
 					<Avatar className={classes.pic} alt="Student" src={student ? student.picture : ""} />
 				</div>
 				<span>
-					<Button
-						variant="outlined"
-						color="secondary"
-						className={classes.editButton}
-						startIcon={<EditOutlinedIcon />}
-						onClick={() => setOpen(true)}>
-						Edit Details
-					</Button>
+					<div className={classes.editButton}>
+						<Button
+							variant="outlined"
+							color="secondary"
+							startIcon={<EditOutlinedIcon />}
+							onClick={() => setOpen(true)}>
+							Edit Details
+						</Button>
+					</div>
 					<Dialog open={open} onClose={() => setOpen(false)} aria-labelledby="form-dialog-title">
 						<DialogTitle id="form-dialog-title">Edit Student Info</DialogTitle>
 						<DialogContent>
@@ -124,6 +198,7 @@ export default function StudentProfileDashboard() {
 								label="Full Name"
 								type="name"
 								defaultValue={student.name}
+								onChange={(e) => setName(e.target.value)}
 								fullWidth
 							/>
 							<TextField
@@ -132,54 +207,52 @@ export default function StudentProfileDashboard() {
 								label="Email Address"
 								type="email"
 								defaultValue={student.email}
+								onChange={(e) => setEmail(e.target.value)}
 								fullWidth
 							/>
 							<TextField
 								margin="dense"
-								id="text"
+								id="batch"
 								label="Batch"
 								type="text"
 								defaultValue={student.batch}
+								onChange={(e) => setBatch(e.target.value)}
 								fullWidth
 							/>
 							<TextField
 								margin="dense"
-								id="text"
+								id="contact"
 								label="Phone Number"
 								type="text"
 								defaultValue={student.contact}
+								onChange={(e) => setContact(e.target.value)}
 								fullWidth
 							/>
 							<TextField
 								margin="dense"
-								id="text"
+								id="fname"
 								label="Fathers Name"
 								type="text"
 								defaultValue={student.fname}
+								onChange={(e) => setFname(e.target.value)}
 								fullWidth
 							/>
 							<TextField
 								margin="dense"
-								id="text"
-								label="Batch"
-								type="text"
-								defaultValue={student.batch}
-								fullWidth
-							/>
-							<TextField
-								margin="dense"
-								id="text"
+								id="pcontact"
 								label="Parents Contact"
 								type="text"
 								defaultValue={student.parentContact}
+								onChange={(e) => setParentContact(e.target.value)}
 								fullWidth
 							/>
 							<TextField
 								margin="dense"
-								id="text"
+								id="address"
 								label="Address"
 								type="text"
 								defaultValue={student.address}
+								onChange={(e) => setAddress(e.target.value)}
 								fullWidth
 							/>
 						</DialogContent>
@@ -187,7 +260,9 @@ export default function StudentProfileDashboard() {
 							<Button onClick={() => setOpen(false)} color="primary">
 								Cancel
 							</Button>
-							<Button color="primary">Save Changes</Button>
+							<Button color="primary" onClick={() => handleUpdateStudentDetails()}>
+								Save Changes
+							</Button>
 						</DialogActions>
 					</Dialog>
 				</span>

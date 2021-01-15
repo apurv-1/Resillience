@@ -29,7 +29,7 @@ const useStyles = makeStyles({
 		padding: "10px",
 		borderCollapse: "collapse",
 		borderSpacing: "0 12px",
-		width: "62rem",
+		width: "58rem",
 		"@media only screen and (max-width: 1125px)": {
 			width: "40rem",
 			padding: "5px",
@@ -79,7 +79,7 @@ const AttemptedTest = () => {
 	const classes = useStyles();
 	const history = useHistory();
 	const [page, setPage] = useState(0);
-	const [rowsPerPage, setRowsPerPage] = useState(8);
+	const [rowsPerPage, setRowsPerPage] = useState(7);
 
 	const handleChangePage = (event, newPage) => {
 		setPage(newPage);
@@ -161,7 +161,7 @@ const AttemptedTest = () => {
 					</TableBody>
 				</Table>
 				<TablePagination
-					rowsPerPageOptions={[8]}
+					rowsPerPageOptions={[7]}
 					component="div"
 					count={attemptedTests.length}
 					rowsPerPage={rowsPerPage}

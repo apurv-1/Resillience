@@ -69,7 +69,10 @@ const styles = () => ({
   },
   articles: {
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
+    "&:hover": {
+      color: "white"
+    }
   },
   copyright: {
     color: "#cccccc",
@@ -90,6 +93,12 @@ const styles = () => ({
     "@media only screen and (max-width: 770px)": {
       margin: "auto",
       lineHeight: 0
+    },
+    "@media only screen and (max-width: 390px)": {
+      fontSize: "90%"
+    },
+    "@media only screen and (max-width: 320px)": {
+      fontSize: "80%"
     }
   }
 });
@@ -97,7 +106,7 @@ function Footer(props) {
   const { classes } = props;
   return (
     <div className={classes.footerSection}>
-      <img src="https://res.cloudinary.com/rweb1/image/upload/v1600243280/Assets/images/design-footerrr1_wlvv2d.svg" className={classes.designImage} alt="Design Footer" />
+      <img loading="lazy" src="https://res.cloudinary.com/rweb1/image/upload/v1600243280/Assets/images/design-footerrr1_wlvv2d.svg" className={classes.designImage} alt="Design Footer" />
       <div>
         <div className={classes.buttonPhone}>
           <WhatsAppIcon
@@ -132,12 +141,8 @@ function Footer(props) {
                 text: "Career"
               },
               {
-                to: "/aboutus/",
-                text: "Our Story"
-              },
-              {
-                to: "/downloadsection",
-                text: "Download Section"
+                to: "/referralscheme",
+                text: "Referral Scheme"
               }
             ].map((eachElement, index) => (
               <Link style={{ marginTop: "16px", color: "#cccccc", textDecoration: "none" }} key={index} to={eachElement.to} className={classes.clickableIcon}>
@@ -147,9 +152,9 @@ function Footer(props) {
           </Grid>
           <Grid item md={3} sm={6} xs={12} className={classes.address}>
             <Typography variant="h5">Correspondence Address</Typography>
-            <p style={{ color: "#cccccc" }}>Twins Hallmark, Sector 19A, Kopar Khairane, Navi Mumbai, Maharashtra 400709</p>
+            <p style={{ color: "#cccccc", lineHeight: 1.4 }}>Twins Hallmark, Sector 19A, Kopar Khairane, Navi Mumbai, Maharashtra 400709</p>
             <Typography variant="h5">Registered Address</Typography>
-            <p style={{ color: "#cccccc" }}>Plot no B81, Anand Nagar MIDC, Additional Ambernath. , Ambernath, Dist : Thane – 421506</p>
+            <p style={{ color: "#cccccc", lineHeight: 1.4 }}>Plot no B81, Anand Nagar MIDC, Additional Ambernath. , Ambernath, Dist : Thane – 421506</p>
           </Grid>
           <Grid item md={3} sm={6} xs={12}>
             <Typography variant="h5">#Being RESILLIENT</Typography>
@@ -176,7 +181,7 @@ function Footer(props) {
         <Divider variant="middle" />
         <div className={classes.copyright}>
           <span className={classes.footerInfo}>
-            <p className={classes.clickableIcon} onClick={() => (window.location.href = "/sitemap")}>
+            <p className={classes.clickableIcon} onClick={() => window.open("/sitemap.xml", "_blank")}>
               Sitemap |
             </p>
             <p className={classes.clickableIcon} onClick={() => (window.location.href = "/privacypolicy")}>

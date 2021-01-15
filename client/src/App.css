@@ -1,8 +1,12 @@
 html {
   font-size: 100%;
-  /* scroll-behavior: smooth; */
   /* background-color: #f8fafc !important; */
 }
+
+/* @font-face {
+  font-family: "Rubik";
+  src: url(Rubik-Bold.ttf);
+} */
 
 body {
   font-family: muli, sans-serif;
@@ -22,8 +26,6 @@ body {
   padding: 24px;
 }
 
-/* .subjectGrid:hover {} */
-
 .slick-slide iframe {
   margin: auto;
 }
@@ -34,19 +36,21 @@ body {
   pointer-events: none;
 }
 
-.freebirdFormviewerViewCenteredContent {
-  width: 90% !important;
+@media only screen and (min-width: 1600px) {
+  body {
+    width: 1440px;
+    margin: 0 auto;
+  }
 }
 
 @media only screen and (max-width: 950px) {
   .active {
     font-weight: bold !important;
     color: #0F7DC2 !important;
+    font-size: 100% !important;
     border-bottom: 0px;
   }
-}
 
-@media only screen and (max-width: 950px) {
   .activeDropdown {
     font-weight: bold !important;
     color: #0F7DC2 !important;

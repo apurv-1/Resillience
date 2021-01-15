@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import CounsellingImageNew from "../../compressed/counsellingNew.svg";
@@ -50,6 +50,9 @@ const useStyles = makeStyles({
       width: "350px",
       position: "initial",
       marginTop: "-10px"
+    },
+    "@media only screen and (max-width: 320px)": {
+      width: "320px"
     }
   },
   paper: {
@@ -279,8 +282,8 @@ function Counselling() {
   // };
 
   const SendDetails = () => {
-    if (parentname !== "" && phone.length === 10 && /^\d+$/.test(phone) === true){
-      fetch("/send-mail", {
+    if (parentname !== "" && phone.length === 10 && /^\d+$/.test(phone) === true) {
+      fetch("/api/send-mail", {
         method: "post",
         headers: {
           "Content-Type": "application/json"
@@ -312,12 +315,12 @@ function Counselling() {
     setOpen(false);
   };
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setOpen(true);
-    }, 30000);
-    return () => clearTimeout(timer);
-  }, []); 
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setOpen(true);
+  //   }, 30000);
+  //   return () => clearTimeout(timer);
+  // }, []);
 
   //Its important to clean the function
   //Empty brackets so that it is called once only when it mounts
@@ -325,7 +328,7 @@ function Counselling() {
   return (
     <div className={classes.counselling}>
       <span onClick={handleClickOpen} className={classes.designedText}>
-        <img src="https://res.cloudinary.com/rweb1/image/upload/v1600243284/Assets/images/mentoringStroke_doj1ve.svg" alt="Stroke" className={classes.blueImage} />
+        <img loading="lazy" src="https://res.cloudinary.com/rweb1/image/upload/v1600243284/Assets/images/mentoringStroke_doj1ve.svg" alt="Stroke" className={classes.blueImage} />
         <h1 className={classes.heading}>
           <span className={classes.bookAFree}>Book a FREE </span>Mentoring Session
         </h1>
@@ -341,9 +344,9 @@ function Counselling() {
           paper: classes.paper
         }}
       >
-        {/* <img alt="Counselling" src="https://res.cloudinary.com/rweb1/image/upload/v1600243280/Assets/images/counsellingNew_vrn64m.svg" className={classes.image} /> */}
-        <img alt="Counselling" src={CounsellingImageNew} className={classes.imageWeb} />
-        <img alt="Counselling" src={CounsellingImageNewPhone} className={classes.image} />
+        {/* <img loading="lazy" alt="Counselling" src="https://res.cloudinary.com/rweb1/image/upload/v1600243280/Assets/images/counsellingNew_vrn64m.svg" className={classes.image} /> */}
+        <img loading="lazy" alt="Counselling" src={CounsellingImageNew} className={classes.imageWeb} />
+        <img loading="lazy" alt="Counselling" src={CounsellingImageNewPhone} className={classes.image} />
         <div className={classes.section}>
           <h2 className={classes.getFree}>Get a Free Demo</h2>
           <h2 className={classes.mentroingSession}>Cum Mentoring Session</h2>
@@ -383,12 +386,12 @@ function Counselling() {
               <div className={classes.messages}>
                 {["Identify strengths & weaknesses", "Recommends a study plan", "One to One home/online tuition", "Mastering a weak topic"].map((message, index) => (
                   <div className={classes.message} key={index}>
-                    <img src="https://res.cloudinary.com/rweb1/image/upload/v1600243272/Assets/images/tick_nz85rm.svg" alt="tick" className={classes.tickImage} />
+                    <img loading="lazy" src="https://res.cloudinary.com/rweb1/image/upload/v1600243272/Assets/images/tick_nz85rm.svg" alt="tick" className={classes.tickImage} />
                     <h4 style={{ margin: "auto", marginLeft: "10px" }}>{message}</h4>
                   </div>
                 ))}
               </div>
-              <Button variant="contained" color="secondary" disableElevation className={classes.button} size="small" onClick={() => SendDetails()} >
+              <Button variant="contained" color="secondary" disableElevation className={classes.button} size="small" onClick={() => SendDetails()}>
                 Proceed
               </Button>
             </div>

@@ -24,7 +24,7 @@ class SidebarAbout extends Component {
           About
         </Typography>
         <Typography gutterBottom color="textSecondary" className={classes.body}>
-          Resillience is a team of IIT graduate mentors, and dedicated professionals with a single goal to provide perfect and result oriented solution for IIT/NEET preparation.
+          Resillience is a team of IIT graduate mentors, and dedicated professionals with a single goal to provide perfect and result oriented solution for IIT/NEET/MHT-CET preparation.
         </Typography>
       </Paper>
     );

@@ -3,12 +3,10 @@ import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Paper, Avatar, Fab, Button } from "@material-ui/core";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
-// import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-// import Maintest from "../Tests/MainTest";
 import Loading from "../Tests/Loading";
 import UserContext from "../Context/UserContext";
 import AttemptedTest from "./AttemptedTest";

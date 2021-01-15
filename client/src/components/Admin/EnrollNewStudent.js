@@ -15,16 +15,17 @@ import "react-toastify/dist/ReactToastify.css";
 const useStyles = makeStyles(() => ({
 	root: {
 		marginTop: "5rem",
+
 		display: "flex",
 		justifyContent: "center",
 	},
 	paper: {
-		padding: "2.1rem",
+		padding: "2rem",
 		display: "flex",
 		width: "30rem",
 		flexDirection: "column",
 		textAlign: "center",
-		marginBottom: "-6rem",
+		marginBottom: "0%",
 	},
 	textField: {
 		margin: "5px",
@@ -55,7 +56,7 @@ const EnrollNewStudent = () => {
 
 	const EnrollStudent = () => {
 		if (!name || !email || !password || !contact || !parentContact || !address) {
-			toast.error("Please Fill all the fields..", {
+			toast.error("Please fill all the fields..", {
 				position: "bottom-right",
 				autoClose: 4000,
 				hideProgressBar: false,
@@ -139,7 +140,12 @@ const EnrollNewStudent = () => {
 	return (
 		<div className={classes.root}>
 			<Paper elevation={5} className={classes.paper}>
-				<Typography variant="h4">Enroll New Student 🤵</Typography>
+				<Typography variant="h4">
+					Enroll New Student{" "}
+					<span role="img" aria-label="student">
+						🤵
+					</span>
+				</Typography>
 				<br />
 				<div>
 					<TextField

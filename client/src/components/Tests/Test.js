@@ -122,19 +122,13 @@ function Tests(props) {
 						</Grid>
 					</CardContent>
 				</Card>
-				<Typography
-					variant="h5"
-					color="secondary"
-					style={{ textAlign: "center", marginTop: "40px" }}>
+				<Typography variant="h5" color="secondary" style={{ textAlign: "center", marginTop: "40px" }}>
 					This page is under development{" "}
 					<span role="img" aria-label="Tool">
 						🔨
 					</span>
 				</Typography>
-				<Typography
-					variant="h5"
-					color="secondary"
-					style={{ textAlign: "center", marginTop: "10px" }}>
+				<Typography variant="h5" color="secondary" style={{ textAlign: "center", marginTop: "10px" }}>
 					Check it back soon
 				</Typography>
 			</Paper>

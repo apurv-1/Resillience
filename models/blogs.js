@@ -18,9 +18,9 @@ const blogSchema = new mongoose.Schema(
       type: String,
       required: true
     },
-    picture:{
+    picture: {
       type: String,
-      default:"no photo"
+      default: "no photo"
     }
   },
   { timestamps: true }

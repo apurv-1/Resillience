@@ -3,7 +3,6 @@ const router = express.Router();
 const mongoose = require("mongoose");
 
 const Blog = mongoose.model("Blog");
-const requireStudent = require("../middleware/requireStudent");
 const requireAdmin = require("../middleware/requireAdmin");
 
 router.get("/blogs", (req, res) => {
@@ -27,10 +26,8 @@ router.get("/blogs/:id", (req, res) => {
 		});
 });
 
-//TODO: Added admin middleware
-
 router.post("/createblogs", requireAdmin, (req, res) => {
-	const { heading, date, description, content } = req.body;
+	const { heading, date, description, content, picture } = req.body;
 
 	if (heading == "") {
 		return res.status(422).json({ heading: "Please add heading" });
@@ -47,6 +44,7 @@ router.post("/createblogs", requireAdmin, (req, res) => {
 		date,
 		description,
 		content,
+		picture,
 	});
 
 	blog

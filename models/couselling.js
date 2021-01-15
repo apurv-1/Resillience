@@ -1,18 +1,18 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const counsellingSchema = new mongoose.Schema({
-    parentname:{
-        type: String,
-        required: true
-    },
-    phone:{
-        type: String,
-        required: true
-    },
-    tuition: {
-        type: String,
-        required: true
-    }
-})
+  parentname: {
+    type: String,
+    required: true
+  },
+  phone: {
+    type: String,
+    required: true
+  },
+  tuition: {
+    type: String,
+    required: true
+  }
+});
 
-mongoose.model("Counselling",counsellingSchema);
+mongoose.model("Counselling", counsellingSchema);

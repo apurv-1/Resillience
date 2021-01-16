@@ -26,6 +26,10 @@ const useStyles = makeStyles((theme) => ({
 			paddingTop: "0%",
 			padding: "1%",
 		},
+		"@media only screen and (max-width: 440px)": {
+			paddingTop: "0%",
+			padding: "5px",
+		},
 	},
 	button: {
 		"@media only screen and (max-width: 1024px)": {
@@ -33,6 +37,9 @@ const useStyles = makeStyles((theme) => ({
 		},
 		"@media only screen and (max-width: 770px)": {
 			fontSize: "9px",
+		},
+		"@media only screen and (max-width: 440px)": {
+			fontSize: "7px",
 		},
 	},
 }));

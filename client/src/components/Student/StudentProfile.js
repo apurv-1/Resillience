@@ -42,6 +42,9 @@ const useStyles = makeStyles((theme) => ({
 		"@media only screen and (max-width: 770px)": {
 			flexDirection: "column",
 		},
+		"@media only screen and (max-width: 440px)": {
+			width: "100%",
+		},
 	},
 	profile: {
 		"@media only screen and (max-width: 770px)": {

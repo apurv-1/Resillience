@@ -38,6 +38,9 @@ const useStyles = makeStyles((theme) => ({
 			marginRight: "2%",
 			padding: "1%",
 		},
+		"@media only screen and (max-width: 440px)": {
+			flexWrap: "wrap",
+		},
 	},
 	label: {
 		cursor: "pointer",
@@ -57,6 +60,9 @@ const useStyles = makeStyles((theme) => ({
 			padding: "8px 24px",
 			fontSize: "12px",
 		},
+		"@media only screen and (max-width: 440px)": {
+			margin: "10px",
+		},
 	},
 	selectedLabel: {
 		cursor: "pointer",
@@ -73,11 +79,20 @@ const useStyles = makeStyles((theme) => ({
 			padding: "8px 24px",
 			fontSize: "12px",
 		},
+		"@media only screen and (max-width: 440px)": {
+			margin: "10px",
+		},
 	},
 	subjectContainer: {
 		margin: "2.2rem",
 		"@media only screen and (max-width: 1024px)": {
 			margin: "1.6rem",
+		},
+		"@media only screen and (max-width: 770px)": {
+			margin: "1.2rem",
+		},
+		"@media only screen and (max-width: 440px)": {
+			margin: "1rem",
 		},
 	},
 	span: {

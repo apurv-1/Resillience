@@ -51,6 +51,9 @@ const styles = () => ({
 	},
 	blogHeading: {
 		textAlign: "center",
+		"@media only screen and (max-width: 770px)": {
+			marginTop: "2rem",
+		},
 	},
 	form: {},
 	textField: {

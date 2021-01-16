@@ -23,16 +23,25 @@ const useStyles = makeStyles((theme) => ({
 		"@media only screen and (max-width: 1125px)": {
 			width: "33rem",
 		},
+		"@media only screen and (max-width: 440px)": {
+			width: "25rem",
+		},
 	},
 	scoreContainer: {
 		textAlign: "center",
 		display: "flex",
 		flexDirection: "row",
+		"@media only screen and (max-width: 770px)": {
+			flexWrap: "wrap",
+		},
 	},
 	container: {
 		display: "flex",
 		flexDirection: "row",
 		marginTop: "1rem",
+		"@media only screen and (max-width: 770px)": {
+			flexDirection: "column",
+		},
 	},
 	analysisBlock: {
 		marginTop: "2rem",
@@ -44,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
 		},
 		"@media only screen and (max-width: 770px)": {
 			flex: "0.1",
-			width: "5rem",
+			// width: "5rem",
 			marginTop: "0.5rem",
 		},
 	},
@@ -54,6 +63,10 @@ const useStyles = makeStyles((theme) => ({
 		marginLeft: "11px",
 		"@media only screen and (max-width: 1125px)": {
 			width: "10rem",
+			marginLeft: "10px",
+		},
+		"@media only screen and (max-width: 440px)": {
+			width: "12rem",
 			marginLeft: "10px",
 		},
 	},
@@ -83,6 +96,13 @@ const useStyles = makeStyles((theme) => ({
 			height: "6rem",
 			fontSize: "11px",
 		},
+		"@media only screen and (max-width: 770px)": {
+			margin: "2px",
+			padding: "4px",
+			width: "4rem",
+			height: "5rem",
+			fontSize: "10px",
+		},
 	},
 	spanCorrect: {
 		margin: "6px",
@@ -100,6 +120,13 @@ const useStyles = makeStyles((theme) => ({
 			width: "16rem",
 			height: "6rem",
 			fontSize: "11px",
+		},
+		"@media only screen and (max-width: 770px)": {
+			margin: "2px",
+			padding: "4px",
+			width: "4rem",
+			height: "5rem",
+			fontSize: "10px",
 		},
 	},
 	spanWrong: {
@@ -119,6 +146,13 @@ const useStyles = makeStyles((theme) => ({
 			height: "6rem",
 			fontSize: "11px",
 		},
+		"@media only screen and (max-width: 770px)": {
+			margin: "2px",
+			padding: "4px",
+			width: "4rem",
+			height: "5rem",
+			fontSize: "10px",
+		},
 	},
 	spanScore: {
 		margin: "6px",
@@ -137,6 +171,13 @@ const useStyles = makeStyles((theme) => ({
 			width: "16rem",
 			height: "6rem",
 			fontSize: "11px",
+		},
+		"@media only screen and (max-width: 770px)": {
+			margin: "2px",
+			padding: "4px",
+			width: "4rem",
+			height: "5rem",
+			fontSize: "10px",
 		},
 	},
 }));

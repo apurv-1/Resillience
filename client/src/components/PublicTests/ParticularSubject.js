@@ -38,6 +38,9 @@ const styles = () => ({
 			margin: "0.6rem",
 			marginTop: "4rem",
 		},
+		"@media only screen and (max-width: 440px)": {
+			flexDirection: "column",
+		},
 	},
 	questionComponent: {
 		margin: "10px",
@@ -55,6 +58,9 @@ const styles = () => ({
 		"@media only screen and (max-width: 770px)": {
 			height: "25rem",
 		},
+		"@media only screen and (max-width: 440px)": {
+			justifyContent: "flex-start",
+		},
 	},
 	headingCard: {
 		height: "68px",
@@ -70,10 +76,17 @@ const styles = () => ({
 		padding: "15px",
 		width: "20rem",
 		margin: "20px",
+		"@media only screen and (max-width: 1024px)": {
+			width: "16rem",
+		},
+		"@media only screen and (max-width: 770px)": {
+			width: "17rem",
+			padding: "20px",
+		},
 	},
-	subjectName: {
-		width: "25rem",
-	},
+	// subjectName: {
+	// 	fontSize: "20px",
+	// },
 	button: {
 		marginTop: "15px",
 		marginBottom: "0%",
@@ -86,10 +99,6 @@ function ParticularSubject(props) {
 	const [questionLength, setQuestionLength] = useState(0);
 	const [state, dispatch] = useReducer(testReducer, initialState);
 	const { showResult, isStarted } = state;
-
-	// if (isStarted === true && showResult === false) {
-	// 	window.onbeforeunload = () => true;
-	// } else window.onbeforeunload = () => false;
 
 	const fetchPublicTest = (testId) => {
 		if (testId !== "") {
@@ -150,7 +159,7 @@ function ParticularSubject(props) {
 
 						<CardContent>
 							{subject === "Mathematics" ? (
-								<Grid container className={classes.root} spacing={2}>
+								<Grid container spacing={2}>
 									<Paper className={classes.subjects} elevation={2}>
 										<Typography variant="h6" className={classes.subjectName}>
 											Mathematics Sample Paper 1
@@ -207,7 +216,7 @@ function ParticularSubject(props) {
 									</Paper>
 								</Grid>
 							) : subject === "Physics" ? (
-								<Grid container className={classes.root} spacing={2}>
+								<Grid container spacing={2}>
 									<Paper className={classes.subjects} elevation={2}>
 										<Typography variant="h6" className={classes.subjectName}>
 											Physics Sample Paper 1
@@ -263,7 +272,7 @@ function ParticularSubject(props) {
 									</Paper>
 								</Grid>
 							) : subject === "Chemistry" ? (
-								<Grid container className={classes.root} spacing={2}>
+								<Grid container spacing={2}>
 									<Paper className={classes.subjects} elevation={2}>
 										<Typography variant="h6" className={classes.subjectName}>
 											Chemistry Sample Paper 1
@@ -319,7 +328,7 @@ function ParticularSubject(props) {
 									</Paper>
 								</Grid>
 							) : (
-								<Grid container className={classes.root} spacing={2}>
+								<Grid container spacing={2}>
 									<Paper className={classes.subjects} elevation={2}>
 										<Typography variant="h6" className={classes.subjectName}>
 											Mathematics

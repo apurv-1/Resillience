@@ -18,12 +18,18 @@ import ShowAttemptedTest from "./ShowAttemptedTest";
 const useStyles = makeStyles(() => ({
 	root: {
 		display: "flex",
-		margin: "3rem",
+		margin: "1rem",
 		marginTop: "5rem",
 		flexDirection: "row",
+		"@media only screen and (max-width: 770px)": {
+			flexDirection: "column",
+		},
 	},
 	card: {
 		width: "20rem",
+		"@media only screen and (max-width: 770px)": {
+			width: "100%",
+		},
 	},
 	pic: {
 		height: "8rem",

@@ -39,9 +39,9 @@ const useStyles = makeStyles((theme) => ({
 			margin: "0.6rem",
 			marginTop: "4rem",
 		},
-		// "@media only screen and (max-width: 770px)": {
-		// 	flexDirection: "column",
-		// },
+		"@media only screen and (max-width: 440px)": {
+			flexDirection: "column",
+		},
 	},
 	questionComponent: {
 		margin: "10px",
@@ -56,6 +56,12 @@ const useStyles = makeStyles((theme) => ({
 		"@media only screen and (max-width: 1024px)": {
 			height: "28rem",
 		},
+		"@media only screen and (max-width: 770px)": {
+			height: "25rem",
+		},
+		"@media only screen and (max-width: 440px)": {
+			justifyContent: "flex-start",
+		},
 	},
 	paper2: {
 		marginTop: "2%",
@@ -65,8 +71,8 @@ const useStyles = makeStyles((theme) => ({
 		marginBottom: "-8%",
 	},
 	startbox: {
-		padding: "1%",
-		marginTop: "5%",
+		padding: "1rem",
+		marginTop: "5rem",
 		display: "flex",
 		alignItems: "center",
 		justifyContent: "space-around",

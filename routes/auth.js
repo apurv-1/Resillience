@@ -190,9 +190,9 @@ router.post("/student-signup", (req, res) => {
 						from: EMAIL,
 						subject: "Enrollment Successful!",
 						html: `<h2>Hello ${student.name},</h2>
-            <h5>You're successfully enrolled for batch ${student.batch}. <br />Regards!,
-            <br />Your Email is : ${email}
-            <br />Your password is: ${password}.</h5>
+           			<h5>You're successfully enrolled for batch ${student.batch}. <br />Regards!,
+            		<br />Your Email is : ${email}
+            		<br />Your password is: ${password}.</h5>
 						<br />Team Resillience.`,
 					});
 					res.json({ message: "Student added!" });

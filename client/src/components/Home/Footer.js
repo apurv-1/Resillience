@@ -23,7 +23,7 @@ const styles = () => ({
 		boxSizing: "border-box",
 		position: "relative",
 		color: "white",
-		bottom: "0%",
+		bottom: "0",
 	},
 	designImage: {
 		width: "100%",

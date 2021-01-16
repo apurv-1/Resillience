@@ -87,6 +87,10 @@ function ParticularSubject(props) {
 	const [state, dispatch] = useReducer(testReducer, initialState);
 	const { showResult, isStarted } = state;
 
+	// if (isStarted === true && showResult === false) {
+	// 	window.onbeforeunload = () => true;
+	// } else window.onbeforeunload = () => false;
+
 	const fetchPublicTest = (testId) => {
 		if (testId !== "") {
 			fetch(`/api/fetch-public-test?testid=${testId}`, {

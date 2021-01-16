@@ -143,10 +143,10 @@ const AddQuestions = ({ testID, totalQuestions }) => {
 
 	const [questionUrl, setQuestionUrl] = useState("");
 
-	// const handleQuestionNumber = (Qno) => {
-	// 	const qNo = Qno + 1;
-	// 	setQuestionNumber(qNo);
-	// };
+	const handleQuestionNumber = (Qno) => {
+		const qNo = Number(Qno) + 1;
+		setQuestionNumber(qNo);
+	};
 
 	/* eslint-disable */
 	useEffect(() => {
@@ -181,7 +181,7 @@ const AddQuestions = ({ testID, totalQuestions }) => {
 					} else {
 						toast.success(`Q.No: ${questionNumber} added to testId: ${testID}`, {
 							position: "bottom-right",
-							autoClose: 12000,
+							autoClose: 10000,
 							hideProgressBar: true,
 							closeOnClick: true,
 							pauseOnHover: true,
@@ -193,7 +193,7 @@ const AddQuestions = ({ testID, totalQuestions }) => {
 						setQuestionUrl("");
 						setDifficuilty("");
 						setQuestionPreview("");
-						// handleQuestionNumber(questionNumber);
+						handleQuestionNumber(questionNumber);
 					}
 				})
 				.catch((err) => {
@@ -206,8 +206,6 @@ const AddQuestions = ({ testID, totalQuestions }) => {
 
 	const uploadQuestion = () => {
 		if (questionNumber > Number(totalQuestions)) {
-			console.log("question no.", questionNumber);
-
 			toast.dark(`${totalQuestions} questions added!`, {
 				position: "bottom-right",
 				autoClose: 4000,

@@ -16,18 +16,20 @@ import "react-toastify/dist/ReactToastify.css";
 import AddQuestions from "./AddQuestionsComponent";
 
 const useStyles = makeStyles(() => ({
-	testDiv: {
-		marginTop: "6%",
-		marginLeft: "20%",
-		marginRight: "20%",
-		paddingLeft: "10%",
-		paddingRight: "10%",
+	root: {
+		display: "flex",
+		justifyContent: "center",
+		margin: "10px",
 	},
-	paper: {
-		padding: "5%",
+	testDiv: {
+		marginTop: "4rem",
+		width: "40rem",
+		padding: "2rem",
 		display: "flex",
 		flexDirection: "column",
 		textAlign: "center",
+
+		"@media only screen and (max-width: 430px)": {},
 	},
 	testField: {
 		margin: "5px",
@@ -38,16 +40,9 @@ const useStyles = makeStyles(() => ({
 	button: {
 		margin: "5px",
 	},
-	dropText: {
-		marginTop: "200px",
-		paddingTop: "20px",
-	},
-	forgot: {
-		margin: "0.4rem",
+	question: {
+		margin: "0.5rem",
 		fontWeight: "bolder",
-		"@media only screen and (max-width: 430px)": {
-			margin: "-10px",
-		},
 	},
 }));
 
@@ -59,6 +54,8 @@ const CreateTest = () => {
 	const [testName, setTestName] = useState("");
 	const [testDuration, setTestDuration] = useState("");
 	const [noOfQuestions, setNoOfQuestions] = useState("");
+	const [syllabus, setSyllabus] = useState("");
+	const [testLevel, setTestLevel] = useState("");
 	const [testType, setTestType] = useState("pcm");
 
 	const [forCorrect, setForCorrect] = useState(0);
@@ -89,6 +86,8 @@ const CreateTest = () => {
 					testName,
 					testDuration,
 					noOfQuestions,
+					syllabus,
+					testLevel,
 					testType,
 					forCorrect,
 					forInCorrect,
@@ -156,14 +155,14 @@ const CreateTest = () => {
 	};
 
 	return (
-		<div className={classes.root}>
+		<div>
 			{check ? (
 				<div className={classes.questionsDiv}>
 					<AddQuestions testID={testId} totalQuestions={noOfQuestions} />
 				</div>
 			) : (
-				<div className={classes.testDiv}>
-					<Paper elevation={5} className={classes.paper}>
+				<div className={classes.root}>
+					<Paper className={classes.testDiv} elevation={5}>
 						<Typography variant="h4">
 							Create a New Test{" "}
 							<span role="img" aria-label="test">
@@ -188,24 +187,45 @@ const CreateTest = () => {
 							value={testName}
 							onChange={(e) => setTestName(e.target.value)}
 						/>
+						<div>
+							<TextField
+								id="questions"
+								label="How many questions?"
+								variant="outlined"
+								className={classes.testField}
+								value={noOfQuestions}
+								type="number"
+								onChange={(e) => setNoOfQuestions(e.target.value)}
+							/>
+							<TextField
+								id="test-duration"
+								label="Test Duration (mins)"
+								variant="outlined"
+								className={classes.testField}
+								value={testDuration}
+								type="number"
+								onChange={(e) => setTestDuration(e.target.value)}
+							/>
+						</div>
 						<TextField
-							id="questions"
-							label="How many Questions"
+							id="test-syllabus"
+							label="Test Syllabus"
 							variant="outlined"
-							className={classes.testField}
-							value={noOfQuestions}
-							type="number"
-							onChange={(e) => setNoOfQuestions(e.target.value)}
+							className={classes.marksField}
+							value={syllabus}
+							type="text"
+							onChange={(e) => setSyllabus(e.target.value)}
 						/>
 						<TextField
-							id="test-duration"
-							label="Test Duration (mins)"
+							id="test-level"
+							label="Test Level"
 							variant="outlined"
-							className={classes.testField}
-							value={testDuration}
-							type="number"
-							onChange={(e) => setTestDuration(e.target.value)}
+							className={classes.marksField}
+							value={testLevel}
+							type="text"
+							onChange={(e) => setTestLevel(e.target.value)}
 						/>
+
 						<div>
 							<TextField
 								id="number"
@@ -250,7 +270,7 @@ const CreateTest = () => {
 							onClick={() => SaveTest()}>
 							Save Test
 						</Button>
-						<Typography variant="inherit" color="primary" className={classes.forgot}>
+						<Typography variant="inherit" color="primary" className={classes.question}>
 							Add more{" "}
 							<span
 								onClick={() => handleAddMoreQuestions()}

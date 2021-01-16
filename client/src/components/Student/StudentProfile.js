@@ -215,7 +215,7 @@ export default function StudentProfile() {
 					color="secondary"
 					className={classes.button}
 					onClick={() => history.push("/maintest")}>
-					Give Test
+					Take Test
 				</Button>
 				<AttemptedTest />
 			</div>

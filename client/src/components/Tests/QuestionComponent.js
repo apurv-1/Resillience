@@ -23,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
 	question: {
 		marginTop: "2%",
 		alignItems: "center",
+		"@media only screen and (max-width: 1024px)": {
+			maxWidth: "80%",
+		},
 	},
 	optionContainer: {
 		marginLeft: "5%",
@@ -113,7 +116,7 @@ const useStyles = makeStyles((theme) => ({
 function QuestionComponent() {
 	const classes = useStyles();
 	const { state, dispatch } = useContext(TestContext);
-	const { test, currentIndex, selectedAnswers, isVisited, currentSubject } = state;
+	const { test, currentIndex, selectedAnswers, isVisited, currentSubject, isStarted } = state;
 	const questions = state.test.questions;
 	var phy = 0,
 		chem = 0,
@@ -165,9 +168,7 @@ function QuestionComponent() {
 			<Prompt
 				when={isStarted === true}
 				message={(location) => {
-					return location.pathname.startsWith("/maintest")
-						? "Test will not be submitted! Are you sure?"
-						: false;
+					return location.pathname.startsWith("/") ? "Test will not be submitted! Are you sure?" : false;
 				}}
 			/>
 			{subjectwiseQuestions()}

@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
 	timerComponent: {
 		margin: "10px",
 		flex: "0.3",
-		height: "33rem",
+		height: "36rem",
 		"@media only screen and (max-width: 1024px)": {
 			height: "28rem",
 		},

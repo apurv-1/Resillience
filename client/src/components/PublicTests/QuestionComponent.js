@@ -23,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
 	question: {
 		marginTop: "2%",
 		alignItems: "center",
+		"@media only screen and (max-width: 1024px)": {
+			maxWidth: "80%",
+		},
 	},
 	optionContainer: {
 		marginLeft: "5%",
@@ -165,9 +168,7 @@ function QuestionComponent() {
 			<Prompt
 				when={isStarted === true}
 				message={(location) => {
-					return location.pathname.startsWith("/maintest")
-						? "Test will not be submitted! Are you sure?"
-						: false;
+					return location.pathname.startsWith("/") ? "Test will not be submitted! Are you sure?" : false;
 				}}
 			/>
 			{subjectwiseQuestions()}

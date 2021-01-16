@@ -137,12 +137,12 @@ const AddQuestions = ({ testID, totalQuestions }) => {
 
 	const [difficuilty, setDifficuilty] = useState("");
 
-	const [questionNumber, setQuestionNumber] = useState(1);
+	const [questionNumber, setQuestionNumber] = useState("");
 	const [questionImg, setQuestionImg] = useState("");
 	const [questionPreview, setQuestionPreview] = useState("");
 
 	const [questionUrl, setQuestionUrl] = useState("");
-	console.log(questionNumber);
+
 	/* eslint-disable */
 	useEffect(() => {
 		if (questionUrl) {
@@ -176,13 +176,12 @@ const AddQuestions = ({ testID, totalQuestions }) => {
 					} else {
 						toast.success(`Q.No: ${questionNumber} added to testId: ${testID}`, {
 							position: "bottom-right",
-							autoClose: 10000,
+							autoClose: 12000,
 							hideProgressBar: true,
 							closeOnClick: true,
 							pauseOnHover: true,
 							draggable: false,
 						});
-						setQuestionNumber(++questionNumber);
 
 						setCorrect("");
 						setQuestionImg("");
@@ -198,7 +197,7 @@ const AddQuestions = ({ testID, totalQuestions }) => {
 			console.log("Please select valid Question Type!");
 		}
 	}, [questionUrl]);
-
+	console.log(questionNumber);
 	const uploadQuestion = () => {
 		if (questionNumber > totalQuestions) {
 			console.log("question no. hello ", questionNumber);

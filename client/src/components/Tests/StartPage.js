@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { useMediaQuery } from "beautiful-react-hooks";
 import TestContext from "../Context/TestContext";
 import UserContext from "../Context/UserContext";
 import { makeStyles, Paper, Checkbox, Fab } from "@material-ui/core";
@@ -26,6 +27,7 @@ const StartPage = () => {
 	const attemptedTests = new Array(userState.payload.attemptedTests);
 	const [checked, setChecked] = useState(false);
 	var flag = true;
+	let Duration = test.testDuration / 60000;
 
 	const handleChange = (event) => {
 		setChecked(event.target.checked);
@@ -62,10 +64,16 @@ const StartPage = () => {
 		AttemptedTest();
 		dispatch({ type: SET_STARTED, isStarted: true });
 	};
-	let Duration = test.testDuration / 60000;
+
+	const MediaQueryReporter = () => {
+		const isSmall = useMediaQuery("(max-width: 700px)");
+
+		return <div>{isSmall ? window.alert("Please use Desktop mode for better view!") : ""}</div>;
+	};
 
 	return (
 		<div className={classes.root}>
+			<MediaQueryReporter />
 			<Paper elevation={4}>
 				<div className={classes.main}>
 					<h1>Instructions </h1>

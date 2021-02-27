@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 			width: "33rem",
 		},
 		"@media only screen and (max-width: 440px)": {
-			width: "25rem",
+			width: "22rem",
 		},
 	},
 	scoreContainer: {
@@ -35,6 +35,10 @@ const useStyles = makeStyles((theme) => ({
 		flexDirection: "row",
 		"@media only screen and (max-width: 770px)": {
 			flexWrap: "wrap",
+			marginTop: "20px",
+		},
+		"@media only screen and (max-width: 440px)": {
+			marginTop: "20px",
 		},
 	},
 	container: {
@@ -185,6 +189,9 @@ const useStyles = makeStyles((theme) => ({
 	button: {
 		float: "right",
 		margin: "8px",
+		"@media only screen and (max-width: 440px)": {
+			margin: "2px",
+		},
 	},
 }));
 
@@ -311,7 +318,7 @@ const TestResult = () => {
 
 				<span className={classes.span}>
 					<h1>{correctButOverTime}</h1>
-					<h3>Correct but Overtime</h3>
+					<h4>Correct but Overtime</h4>
 				</span>
 
 				<span className={classes.spanWrong}>
@@ -330,38 +337,38 @@ const TestResult = () => {
 				</span>
 
 				<span className={classes.span}>
-					<h2>
+					<h3>
 						{timeSpentOnCorrect > 60
 							? `${parseInt(timeSpentOnCorrect / 60)}𝗺 ${timeSpentOnCorrect % 60}`
 							: timeSpentOnCorrect}
 						𝘀
-					</h2>
+					</h3>
 					<h5>Total Time spent on Correct Questions </h5>
 				</span>
 				<span className={classes.span}>
-					<h2>
+					<h3>
 						{timeSpentOnInCorrect > 60
 							? `${parseInt(timeSpentOnInCorrect / 60)}𝗺 ${timeSpentOnInCorrect % 60}`
 							: timeSpentOnInCorrect}
 						𝘀
-					</h2>
+					</h3>
 					<h5>Total Time spent on Incorrect Questions </h5>
 				</span>
 
 				<span className={classes.span}>
-					<h2>
+					<h3>
 						{timeSpentOnNotAttempted > 60
 							? `${parseInt(timeSpentOnNotAttempted / 60)}𝗺 ${timeSpentOnNotAttempted % 60}`
 							: timeSpentOnNotAttempted}
 						𝘀
-					</h2>
+					</h3>
 					<h5>Time spent on Not Attempted Questions</h5>
 				</span>
 
 				<span className={classes.spanScore}>
-					<h1>
+					<h3>
 						{score}/{4 * total}
-					</h1>
+					</h3>
 					<h3>
 						Score{" "}
 						<span role="img" aria-label="score">
@@ -417,7 +424,7 @@ const TestResult = () => {
 				</div>
 				<div className={classes.subjectScore}>
 					<span className={classes.span}>
-						<h1>{SubjectwiseTotal}</h1>
+						<h2>{SubjectwiseTotal}</h2>
 						<h3>Total Questions</h3>
 					</span>
 					<span className={classes.span}>
@@ -443,16 +450,16 @@ const TestResult = () => {
 						</h3>
 					</span>
 					<span className={classes.span}>
-						<h3>
+						<h4>
 							{SubjectwiseTime > 60
 								? `${parseInt(SubjectwiseTime / 60)}𝗺 ${SubjectwiseTime % 60}`
 								: SubjectwiseTime}
 							𝘀
-						</h3>
+						</h4>
 						<h4>Total Time spent on {cSubject} </h4>
 					</span>
 					<span className={classes.spanScore}>
-						<h1>{SubjectwiseScore ? SubjectwiseScore : "0"}</h1>
+						<h3>{SubjectwiseScore ? SubjectwiseScore : "0"}</h3>
 						<h3>
 							{cSubject} Score{" "}
 							<span role="img" aria-label="score">

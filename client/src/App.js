@@ -64,242 +64,242 @@ axios.defaults.baseURL = window.location.protocol + "//resillience.in";
 
 // withTitle function
 const withTitle = ({ component: Component, title, description }) => {
-	return class Title extends React.Component {
-		render() {
-			return (
-				<React.Fragment>
-					<TitleComponent title={title} description={description} />
-					<Component {...this.props} />
-				</React.Fragment>
-			);
-		}
-	};
+ return class Title extends React.Component {
+  render() {
+   return (
+    <React.Fragment>
+     <TitleComponent title={title} description={description} />
+     <Component {...this.props} />
+    </React.Fragment>
+   );
+  }
+ };
 };
 
 // Adding title
 
 //Public routes
 const HomeComponent = withTitle({
-	component: Home,
-	title: "RESILLIENCE: Personalized Learning with IITians",
-	description:
-		"IIT/NEET/MHT-CET/Foundation - 8th 9th & 10th (Personalized Home/Online Tuitions) Preparation under Personal attention of IITians",
+ component: Home,
+ title: "RESILLIENCE: Personalized Learning with IITians",
+ description:
+  "IIT/NEET/MHT-CET/Foundation - 8th 9th & 10th (Personalized Home/Online Tuitions) Preparation under Personal attention of IITians",
 });
 const AboutUsComponent = withTitle({
-	component: AboutUs,
-	title: "About Us | RESILLIENCE",
-	description:
-		"We are a team of IIT graduate mentors, and dedicated professionals with a single goal to provide perfect and result oriented solution for IIT/NEET preparation",
+ component: AboutUs,
+ title: "About Us | RESILLIENCE",
+ description:
+  "We are a team of IIT graduate mentors, and dedicated professionals with a single goal to provide perfect and result oriented solution for IIT/NEET preparation",
 });
 const OneOnOneHomeComponent = withTitle({
-	component: OneOnOneHome,
-	title: "One On One Home Tuition | RESILLIENCE",
-	description:
-		"1-on-1 Home Tuition in Mumbai. IIT JEE (Main + Advanced), NEET, Foundation (8th - 10th)",
+ component: OneOnOneHome,
+ title: "One On One Home Tuition | RESILLIENCE",
+ description:
+  "1-on-1 Home Tuition in Mumbai. IIT JEE (Main + Advanced), NEET, Foundation (8th - 10th)",
 });
 const OneOnOneLiveComponent = withTitle({
-	component: OneOnOneLive,
-	title: "One On One Live Tuition | RESILLIENCE",
-	description:
-		"1-on-1 Live Online Tuition. IIT JEE (Main + Advanced), NEET, Foundation (8th - 10th)",
+ component: OneOnOneLive,
+ title: "One On One Live Tuition | RESILLIENCE",
+ description:
+  "1-on-1 Live Online Tuition. IIT JEE (Main + Advanced), NEET, Foundation (8th - 10th)",
 });
 const MasteringAChapterComponent = withTitle({
-	component: MasteringAChapter,
-	title: "Mastering a week topic | RESILLIENCE",
-	description: "Mastering a weak topic. Both Home & Online Mode. IIT JEE (Main + Advanced), NEET",
+ component: MasteringAChapter,
+ title: "Mastering a week topic | RESILLIENCE",
+ description: "Mastering a weak topic. Both Home & Online Mode. IIT JEE (Main + Advanced), NEET",
 });
 
 const TestComponent = withTitle({
-	component: Tests,
-	title: "Test | RESILLIENCE",
-	description: "Online chapter wise test of all the subjects",
+ component: Tests,
+ title: "Test | RESILLIENCE",
+ description: "Online chapter wise test of all the subjects",
 });
 const ParticularSubjectComponent = withTitle({
-	component: ParticularSubject,
-	title: "Test | RESILLIENCE",
-	description: "Online chapter wise test of all the subjects",
+ component: ParticularSubject,
+ title: "Test | RESILLIENCE",
+ description: "Online chapter wise test of all the subjects",
 });
 
 const FaqsComponent = withTitle({ component: Faqs, title: "FAQ's | RESILLIENCE" });
 const ContactUsComponent = withTitle({ component: ContactUs, title: "Contact Us | RESILLIENCE" });
 const CareerComponent = withTitle({
-	component: Career,
-	title: "Career | RESILLIENCE",
-	description:
-		"Come and work together for in the vision of empowering every corner of India by providing Affordable and Quality personalized attention in education at home",
+ component: Career,
+ title: "Career | RESILLIENCE",
+ description:
+  "Come and work together for in the vision of empowering every corner of India by providing Affordable and Quality personalized attention in education at home",
 });
 
 //Blogs
 const ShowBlogsComponent = withTitle({ title: "Blogs | RESILLIENCE", component: ShowBlogs });
 const ParticularBlogComponent = withTitle({
-	component: ParticularBlog,
-	title: "Blogs | RESILLIENCE",
+ component: ParticularBlog,
+ title: "Blogs | RESILLIENCE",
 });
 const PostBlogComponent = withTitle({ component: PostBlog, title: "Post Blog | RESILLIENCE" });
 
 //Notice
 const NoticeComponent = withTitle({ component: Notice, title: "Notices | RESILLIENCE" });
 const PostNoticeComponent = withTitle({
-	component: PostNotice,
-	title: "Post Notice | RESILLIENCE",
+ component: PostNotice,
+ title: "Post Notice | RESILLIENCE",
 });
 
 //Student
 const StudentProfileComponent = withTitle({
-	component: StudentProfile,
-	title: "Dashboard | RESILLIENCE",
+ component: StudentProfile,
+ title: "Dashboard | RESILLIENCE",
 });
 const ViewResultComponent = withTitle({
-	component: ViewResult,
-	title: "Test Report | RESILLIENCE",
+ component: ViewResult,
+ title: "Test Report | RESILLIENCE",
 });
 
 //Test
 const CreateTestComponent = withTitle({
-	component: CreateTest,
-	title: "Create Test | RESILLIENCE",
+ component: CreateTest,
+ title: "Create Test | RESILLIENCE",
 });
 const MainTestComponent = withTitle({ component: MainTest, title: "Test Section | RESILLIENCE" });
 
 //Admin
 const EnrollNewStudentComponent = withTitle({
-	component: EnrollNewStudent,
-	title: "Enroll Student | RESILLIENCE",
+ component: EnrollNewStudent,
+ title: "Enroll Student | RESILLIENCE",
 });
 const EnrolledStudentsComponent = withTitle({
-	component: EnrolledStudents,
-	title: "Students | RESILLIENCE",
+ component: EnrolledStudents,
+ title: "Students | RESILLIENCE",
 });
 const ActiveTestsComponent = withTitle({ component: ActiveTests, title: "Admin | RESILLIENCE" });
 const ViewQuestionsComponent = withTitle({ component: ViewQuestions, title: "Questions | ADMIN" });
 const NewPasswordComponent = withTitle({
-	component: NewPassword,
-	title: "Change Password >> RESILLIENCE",
+ component: NewPassword,
+ title: "Change Password >> RESILLIENCE",
 });
 
 //Miscellaneous
 const ReferralSchemeComponent = withTitle({
-	component: ReferralScheme,
-	title: "Referral Scheme | RESILLIENCE",
-	description: "Help others being RESILLIENT!",
+ component: ReferralScheme,
+ title: "Referral Scheme | RESILLIENCE",
+ description: "Help others being RESILLIENT!",
 });
 const ErrorComponent = withTitle({ component: Error, title: "Not Found | RESILLIENCE" });
 const PrivacyPolicyComponent = withTitle({
-	component: PrivacyPolicy,
-	title: "Privacy Policy | RESILLIENCE",
+ component: PrivacyPolicy,
+ title: "Privacy Policy | RESILLIENCE",
 });
 const TermsOfServiceComponent = withTitle({
-	component: TermsOfService,
-	title: "Terms of service | RESILLIENCE",
+ component: TermsOfService,
+ title: "Terms of service | RESILLIENCE",
 });
 
 const Routing = () => {
-	const history = useHistory();
-	const { userDispatch } = useContext(UserContext);
+ const history = useHistory();
+ const { userDispatch } = useContext(UserContext);
 
-	//async api call to fetch the user
-	const fetchStudent = () => {
-		if (localStorage.getItem("student_jwt")) {
-			fetch("/api/student-profile", {
-				method: "get",
-				headers: {
-					Authorization: "Bearer " + localStorage.getItem("student_jwt"),
-				},
-			})
-				.then((res) => res.json())
-				.then((student) => {
-					userDispatch({ type: SET_STUDENT, payload: student.details });
-					userDispatch({ type: SET_USER_TYPE, userType: "student" });
-					history.push("/student-dashboard");
-				})
-				.catch((err) => {
-					console.log(err);
-				});
-		} else if (localStorage.getItem("admin_jwt")) {
-			fetch("/api/admin-profile", {
-				method: "get",
-				headers: {
-					Authorization: "Bearer " + localStorage.getItem("admin_jwt"),
-				},
-			})
-				.then((res) => res.json())
-				.then((admin) => {
-					userDispatch({ type: SET_ADMIN, payload: admin.details });
-					userDispatch({ type: SET_USER_TYPE, userType: "admin" });
-					// history.push("/admin-dashboard");
-				})
-				.catch((err) => {
-					console.log(err);
-				});
-		} else if (
-			!history.location.pathname.startsWith("/reset-password") &&
-			!history.location.pathname.startsWith("/tuitions")
-		) {
-			history.push("/");
-		}
-	};
+ //async api call to fetch the user
+ const fetchStudent = () => {
+  if (localStorage.getItem("student_jwt")) {
+   fetch("/api/student-profile", {
+    method: "get",
+    headers: {
+     Authorization: "Bearer " + localStorage.getItem("student_jwt"),
+    },
+   })
+    .then((res) => res.json())
+    .then((student) => {
+     userDispatch({ type: SET_STUDENT, payload: student.details });
+     userDispatch({ type: SET_USER_TYPE, userType: "student" });
+     history.push("/student-dashboard");
+    })
+    .catch((err) => {
+     console.log(err);
+    });
+  } else if (localStorage.getItem("admin_jwt")) {
+   fetch("/api/admin-profile", {
+    method: "get",
+    headers: {
+     Authorization: "Bearer " + localStorage.getItem("admin_jwt"),
+    },
+   })
+    .then((res) => res.json())
+    .then((admin) => {
+     userDispatch({ type: SET_ADMIN, payload: admin.details });
+     userDispatch({ type: SET_USER_TYPE, userType: "admin" });
+     // history.push("/admin-dashboard");
+    })
+    .catch((err) => {
+     console.log(err);
+    });
+  } else if (
+   !history.location.pathname.startsWith("/reset-password") &&
+   !history.location.pathname.startsWith("/tuitions")
+  ) {
+   history.push("/");
+  }
+ };
 
-	useEffect(fetchStudent, []);
+ useEffect(fetchStudent, []);
 
-	return (
-		<Switch>
-			<Route exact path="/" component={HomeComponent} />
-			<Route path="/aboutus" component={AboutUsComponent} />
-			<Route path="/tuitions/one-on-one-home-tuitions" component={OneOnOneHomeComponent} />
-			<Route path="/tuitions/one-on-one-online-tuitions" component={OneOnOneLiveComponent} />
-			<Route path="/tuitions/mastering-a-week-topic" component={MasteringAChapterComponent} />
+ return (
+  <Switch>
+   <Route exact path="/" component={HomeComponent} />
+   <Route path="/aboutus" component={AboutUsComponent} />
+   <Route path="/tuitions/one-on-one-home-tuitions" component={OneOnOneHomeComponent} />
+   <Route path="/tuitions/one-on-one-online-tuitions" component={OneOnOneLiveComponent} />
+   <Route path="/tuitions/mastering-a-week-topic" component={MasteringAChapterComponent} />
 
-			<Route exact path="/test" component={TestComponent} />
-			<Route exact path="/test/:subject" component={ParticularSubjectComponent} />
+   <Route exact path="/test" component={TestComponent} />
+   <Route exact path="/test/:subject" component={ParticularSubjectComponent} />
 
-			<Route path="/faqs" component={FaqsComponent} />
-			<Route path="/contact-us" component={ContactUsComponent} />
-			<Route path="/career" component={CareerComponent} />
-			<Route path="/referralscheme" component={ReferralSchemeComponent} />
-			<Route exact path="/blogs" component={ShowBlogsComponent} />
-			<Route exact path="/blogs/:id" component={ParticularBlogComponent} />
+   <Route path="/faqs" component={FaqsComponent} />
+   <Route path="/contact-us" component={ContactUsComponent} />
+   <Route path="/career" component={CareerComponent} />
+   <Route path="/referralscheme" component={ReferralSchemeComponent} />
+   <Route exact path="/blogs" component={ShowBlogsComponent} />
+   <Route exact path="/blogs/:id" component={ParticularBlogComponent} />
 
-			<Route path="/privacypolicy" component={PrivacyPolicyComponent} />
-			<Route path="/termsofservice" component={TermsOfServiceComponent} />
+   <Route path="/privacypolicy" component={PrivacyPolicyComponent} />
+   <Route path="/termsofservice" component={TermsOfServiceComponent} />
 
-			{/* student routes */}
-			<Route exact path="/student-dashboard" component={StudentProfileComponent} />
-			<Route exact path="/student-dashboard/:resultid" component={ViewResultComponent} />
-			<Route path="/notices" component={NoticeComponent} />
-			<Route path="/maintest" component={MainTestComponent} />
-			<Route path="/reset-password/:token" component={NewPasswordComponent} />
+   {/* student routes */}
+   <Route exact path="/student-dashboard" component={StudentProfileComponent} />
+   <Route exact path="/student-dashboard/:resultid" component={ViewResultComponent} />
+   <Route path="/notices" component={NoticeComponent} />
+   <Route path="/maintest" component={MainTestComponent} />
+   <Route path="/reset-password/:token" component={NewPasswordComponent} />
 
-			{/* admin routes */}
-			<Route exact path="/createtest" component={CreateTestComponent} />
-			<Route path="/admin0p-signin" component={AdminSignIn} />
-			<Route exact path="/admin-dashboard" component={ActiveTestsComponent} />
-			<Route exact path="/admin-dashboard/:testid" component={ViewQuestionsComponent} />
-			<Route exact path="/admin/createblogs" component={PostBlogComponent} />
-			<Route exact path="/admin/postnotice" component={PostNoticeComponent} />
-			<Route path="/enroll-student" component={EnrollNewStudentComponent} />
-			<Route exact path="/students" component={EnrolledStudentsComponent} />
-			<Route exact path="/students/:studentid" component={Student} />
-			<Route exact path="/students/:studentid/:resultid" component={ViewResultComponent} />
-			<Route component={ErrorComponent} />
-		</Switch>
-	);
+   {/* admin routes */}
+   <Route exact path="/createtest" component={CreateTestComponent} />
+   <Route path="/admin0p-signin" component={AdminSignIn} />
+   <Route exact path="/admin-dashboard" component={ActiveTestsComponent} />
+   <Route exact path="/admin-dashboard/:testid" component={ViewQuestionsComponent} />
+   <Route exact path="/admin/createblogs" component={PostBlogComponent} />
+   <Route exact path="/admin/postnotice" component={PostNoticeComponent} />
+   <Route path="/enroll-student" component={EnrollNewStudentComponent} />
+   <Route exact path="/students" component={EnrolledStudentsComponent} />
+   <Route exact path="/students/:studentid" component={Student} />
+   <Route exact path="/students/:studentid/:resultid" component={ViewResultComponent} />
+   <Route component={ErrorComponent} />
+  </Switch>
+ );
 };
 
 const App = () => {
-	const [userState, userDispatch] = useReducer(userReducer, initialState);
+ const [userState, userDispatch] = useReducer(userReducer, initialState);
 
-	return (
-		<UserContext.Provider value={{ userState, userDispatch }}>
-			<MuiThemeProvider theme={theme}>
-				<Suspense fallback={<LinearProgress color="secondary" style={{ paddingTop: "0.2%" }} />}>
-					<Navbar />
-					<ScrollToTop />
-					<Routing />
-					<Footer />
-				</Suspense>
-			</MuiThemeProvider>
-		</UserContext.Provider>
-	);
+ return (
+  <UserContext.Provider value={{ userState, userDispatch }}>
+   <MuiThemeProvider theme={theme}>
+    <Suspense fallback={<LinearProgress color="secondary" style={{ paddingTop: "0.2%" }} />}>
+     <Navbar />
+     <ScrollToTop />
+     <Routing />
+     <Footer />
+    </Suspense>
+   </MuiThemeProvider>
+  </UserContext.Provider>
+ );
 };
 
 export default withRouter(App);

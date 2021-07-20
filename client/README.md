@@ -1,1 +1,0 @@
-Resillience Website build on MERN Stack by Arijit Kundu & Apurv Gupta
